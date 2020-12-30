@@ -1,0 +1,22 @@
+package database
+ const ots_product_line=`CREATE TABLE  ots_product_line (
+		pl_id number(10)  not null AUTO_INCREMENT comment '产品线编号' ,
+		line_name varchar2(64)  not null  comment '产品线名称' ,
+		can_package_delivery number(1) default 1 not null  comment '支持打包发货' ,
+		payment_queue varchar2(32) default 'oms:order:pay'   comment '支付队列' ,
+		bind_queue varchar2(32) default 'oms:order:bind'   comment '绑定队列' ,
+		refund_queue varchar2(32) default 'oms:refund:pay'   comment '退款队列' ,
+		notify_queue varchar2(32) default 'oms:order:notify'   comment '通知队列' ,
+		spp_payment_queue varchar2(32) default 'oms:order:spp_pay'   comment '供货商支付队列' ,
+		spp_refund_queue varchar2(32) default 'oms:refund:spp_pay'   comment '供货商退款队列' ,
+		refund_notify_queue varchar2(32) default 'oms:refund:notify'   comment '退款通知队列' ,
+		order_refund_queue varchar2(32) default 'oms:timeout:refund'   comment '订单失败退款队列' ,
+		order_timeout_queue varchar2(32) default 'oms:timeout:order_deal'   comment '订单超时处理队列' ,
+		refund_timeout_queue varchar2(32) default 'oms:timeout:refund_deal'   comment '退款超时处理队列' ,
+		delivery_unknown_queue varchar2(32) default 'oms:timeout:delivery_unknown'   comment '发货未知处理队列' ,
+		return_unknown_queue varchar2(32) default 'oms:timeout:return_unknown'   comment '退货未知处理队列' ,
+		delivery_start_queue varchar2(32) default 'oms:order:delivery'   comment '发货开始队列' ,
+		delivery_finish_queue varchar2(32) default 'oms:order:delivery_finish'   comment '发货结束队列' ,
+		return_queue varchar2(32) default 'oms:refund:return'   comment '退货队列' ,
+		return_finish_queue varchar2(32) default 'oms:refund:return_complete'   comment '退货结束队列' ,
+		PRIMARY KEY (pl_id)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='产品线';`
