@@ -1,3 +1,3 @@
  
- rm -rf  ../modules/const/database 
- gitcli create gofile ./db.md  ../modules/const/database 
+ rm -rf  ../modules/const/db/scheme 
+gitcli md gofile db.md  ../modules/const/db/scheme
