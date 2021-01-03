@@ -319,4 +319,6 @@
 | standard_code | number(6)    |        |  否   |   CRUL   | 行政编码 |
 
 
-* 文件生成方式 gitcli create gofile db.md  ../modules/const/db/scheme
+* 生成SQL gitcli md2 db db.md  ../modules/const/db/scheme
+* 生成实体 gitcli md entity db.md -t 
+* 生成Select: gitcli md select db.md -t ots_trade_order

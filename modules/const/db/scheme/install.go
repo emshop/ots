@@ -28,6 +28,5 @@ func init() {
 		ots_canton_info,
 		)
 		return nil
-	})
-
+	}) 
 }
