@@ -320,5 +320,5 @@
 
 
 * 生成SQL gitcli md2 db db.md  ../modules/const/db/scheme
-* 生成实体 gitcli md entity db.md -t 
-* 生成Select: gitcli md select db.md -t ots_trade_order
+* 生成实体 gitcli md2 entity db.md -t 
+* 生成Select: gitcli md2 select db.md -t ots_trade_order
