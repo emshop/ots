@@ -3,15 +3,15 @@
 
 ###  1. 商户信息[ots_merchant_info]
 
-| 字段名      | 类型         | 默认值  | 为空  |     约束     | 描述     |
-| ----------- | ------------ | :-----: | :---: | :----------: | :------- |
-| mer_no      | varchar2(32) |         |  否   | PK,SEQ,RL,DI | 编号     |
-| mer_name    | varchar2(64) |         |  否   |   CRUQL,DN   | 名称     |
-| mer_crop    | varchar2(64) |         |  否   |   CRUQL,DN   | 公司     |
-| mer_type    | number(1)    |         |  否   |   CRUQL,DN   | 类型     |
-| bd_uid      | number(20)   |         |  否   |   CRUQL,DN   | 商务人员 |
-| status      | number(1)    |    0    |  否   |   RUQL,SL    | 状态     |
-| create_time | date         | sysdate |  否   |    RL,DT     | 创建时间 |
+| 字段名      | 类型         | 默认值  | 为空  |   约束   | 描述     |
+| ----------- | ------------ | :-----: | :---: | :------: | :------- |
+| mer_no      | varchar2(32) |         |  否   | PK,RL,DI | 编号     |
+| mer_name    | varchar2(64) |         |  否   | CRUQL,DN | 名称     |
+| mer_crop    | varchar2(64) |         |  否   | CRUQL,DN | 公司     |
+| mer_type    | number(1)    |         |  否   | CRUQL,DN | 类型     |
+| bd_uid      | number(20)   |         |  否   | CRUQL,DN | 商务人员 |
+| status      | number(1)    |    0    |  否   | RUQL,SL  | 状态     |
+| create_time | date         | sysdate |  否   |  RL,DT   | 创建时间 |
 
 
 ###  2. 商户货架[ots_merchant_shelf]
@@ -35,34 +35,34 @@
 
 ###  3.商户商品[ots_merchant_product]
 
-| 字段名         | 类型         | 默认值  | 为空  |             约束             | 描述                 |
-| -------------- | ------------ | :-----: | :---: | :--------------------------: | :------------------- |
-| mer_product_id | number(10)   |  10000  |  否   |          PK,SEQ,LR           | 商品编号             |
-| mer_shelf_id   | number(10)   |         |  否   | CRUQL,SL(ots_merchant_shelf) | 货架编号             |
-| mer_no         | varchar2(32) |         |  否   | CRUQL,SL(ots_merchant_info)  | 商户编号             |
-| pl_id          | number(10)   |         |  否   |  CRULQ,SL(ots_product_line)  | 产品线               |
-| brand_no       | varchar2(8)  |         |  否   |           CRUQL,SL           | 品牌                 |
-| province_no    | varchar2(8)  |   '-'   |  否   |  CRUQL,SL(ots_canton_info)   | 省份                 |
-| city_no        | varchar2(8)  |   '-'   |  否   |  CRUQL,SL(ots_canton_info)   | 城市                 |
-| face           | number(10,5) |         |  否   |             CRUL             | 面值                 |
-| mer_product_no | varchar2(32) |         |  是   |            CRUQL             | 商户商品编号         |
-| discount       | number(10,5) |         |  否   |             CRUL             | 销售折扣（以面值算） |
-| status         | number(1)    |    0    |  否   |           RUQL,SL            | 状态(0.是,1.否)      |
-| create_time    | date         | sysdate |  否   |              RL              | 创建时间             |
+| 字段名         | 类型         | 默认值  | 为空  |           约束            | 描述                 |
+| -------------- | ------------ | :-----: | :---: | :-----------------------: | :------------------- |
+| mer_product_id | number(10)   |  10000  |  否   |         PK,SEQ,LR         | 商品编号             |
+| mer_shelf_id   | number(10)   |         |  否   | CRUQL,UNQ(unq_mer_prod,7) | 货架编号             |
+| mer_no         | varchar2(32) |         |  否   | CRUQL,UNQ(unq_mer_prod,1) | 商户编号             |
+| pl_id          | number(10)   |         |  否   | CRULQ,UNQ(unq_mer_prod,2) | 产品线               |
+| brand_no       | varchar2(8)  |         |  否   | CRUQL,UNQ(unq_mer_prod,3) | 品牌                 |
+| province_no    | varchar2(8)  |   '-'   |  否   | CRUQL,UNQ(unq_mer_prod,4) | 省份                 |
+| city_no        | varchar2(8)  |   '-'   |  否   | CRUQL,UNQ(unq_mer_prod,5) | 城市                 |
+| face           | number(10,5) |         |  否   | CRUL,UNQ(unq_mer_prod,6)  | 面值                 |
+| mer_product_no | varchar2(32) |         |  是   |           CRUQL           | 商户商品编号         |
+| discount       | number(10,5) |         |  否   |           CRUL            | 销售折扣（以面值算） |
+| status         | number(1)    |    0    |  否   |          RUQL,SL          | 状态(0.是,1.否)      |
+| create_time    | date         | sysdate |  否   |            RL             | 创建时间             |
 
 
 ## 二、供货商信息
 
 ###  1. 供货商信息[ots_supplier_info]
 
-| 字段名      | 类型         | 默认值  | 为空  |     约束     | 描述     |
-| :---------- | :----------- | :-----: | :---: | :----------: | :------- |
-| spp_no      | varchar2(32) |         |  否   | PK,SEQ,RL,DI | 编号     |
-| spp_name    | varchar2(64) |         |  否   |   CRUQL,DN   | 名称     |
-| mer_crop    | varchar2(64) |         |  否   |   CRUQL,DN   | 公司     |
-| bd_uid      | number(20)   |    0    |  否   |   CRUQL,DN   | 商务人员 |
-| status      | number(1)    |    0    |  否   |   RUQL,SL    | 状态     |
-| create_time | date         | sysdate |  否   |    RL,DT     | 创建时间 |
+| 字段名      | 类型         | 默认值  | 为空  |   约束   | 描述     |
+| :---------- | :----------- | :-----: | :---: | :------: | :------- |
+| spp_no      | varchar2(32) |         |  否   | PK,RL,DI | 编号     |
+| spp_name    | varchar2(64) |         |  否   | CRUQL,DN | 名称     |
+| mer_crop    | varchar2(64) |         |  否   | CRUQL,DN | 公司     |
+| bd_uid      | number(20)   |    0    |  否   | CRUQL,DN | 商务人员 |
+| status      | number(1)    |    0    |  否   | RUQL,SL  | 状态     |
+| create_time | date         | sysdate |  否   |  RL,DT   | 创建时间 |
 
 
 ###  2. 供货商货架[ots_supplier_shelf]
@@ -125,7 +125,7 @@
 | order_id              | number(20)   | 1100000000 |  否   |            PK,RL             | 订单编号                         |
 | mer_no                | varchar2(32) |            |  否   | CRUQL,SL(ots_merchant_info)  | 商户编号                         |
 | mer_order_no          | varchar2(64) |            |  否   |             QRL              | 商户订单编号                     |
-| mer_product_id        | number(10)   |    300     |  否   |          PK,SEQ,LR           | 商品编号                         |
+| mer_product_id        | number(10)   |    300     |  否   |              LR              | 商品编号                         |
 | mer_shelf_id          | number(10)   |            |  否   | CRUQL,SL(ots_merchant_shelf) | 货架编号                         |
 | mer_product_no        | varchar2(32) |            |  是   |             QRL              | 外部商品编号                     |
 | pl_id                 | number(10)   |            |  否   |   QRL,SL(ots_product_line)   | 产品线                           |
@@ -135,6 +135,7 @@
 | face                  | number(20,5) |            |  否   |              RL              | 商品面值                         |
 | num                   | number(10)   |            |  否   |              RL              | 商品数量                         |
 | total_face            | number(20,5) |            |  否   |              RL              | 商品总面值                       |
+| account_name          | varchar2(64) |            |  否   |                              | 用户账户信息                     |
 | invoice_type          | number(2)    |            |  否   |            QRL,SL            | 开票方式（1.不开发票）           |
 | sell_amount           | number(20,5) |            |  否   |              RL              | 总销售金额                       |
 | mer_fee_amount        | number(20,5) |            |  否   |              RL              | 商户佣金金额                     |
@@ -161,7 +162,7 @@
 | success_cost_amount   | number(20,5) |     0      |  否   |              RL              | 实际发货成功总成本 （5）         |
 | success_spp_fee       | number(20,5) |     0      |  否   |              RL              | 实际发货成功总供货商佣金 （6）   |
 | success_spp_trade_fee | number(20,5) |     0      |  否   |              RL              | 实际发货成功总供货商服务费 （7） |
-| profit                | number(20,5) |     0      |  否   |              RL              | 利润（1-2-3-4-5+6-7）            |
+| profit                | number(20,5) |     0      |  否   |              RL              | 利润（1-2-3-4-5add6-7）          |
 
 
 
@@ -182,6 +183,7 @@
 | province_no        | varchar2(8)    |         |  否   |  QRL,SL(ots_canton_info)  | 省份                                          |
 | city_no            | varchar2(8)    |         |  否   |  QRL,SL(ots_canton_info)  | 城市                                          |
 | invoice_type       | number(3)      |         |  否   |          RQL,SL           | 开票方式（1.不开发票）                        |
+| account_name       | varchar2(64)   |         |  否   |                           | 用户账户信息                                  |
 | delivery_status    | number(3)      |   20    |  否   |          RQL,SL           | 发货状态                                      |
 | payment_status     | number(3)      |   10    |  否   |          RQL,SL           | 支付状态                                      |
 | create_time        | date           | sysdate |  否   |           RL,DT           | 创建时间                                      |
@@ -281,12 +283,14 @@
 | 字段名          | 类型         | 默认值 | 为空  |     约束     | 描述         |
 | --------------- | ------------ | :----: | :---: | :----------: | :----------- |
 | flow_id         | number(10)   |  200   |  否   | PK,SEQ,LR,DI | 流程编号     |
+| flow_Name       | varchar2(64) |        |  否   |              | 流程名称     |
 | pl_id           | number(10)   |        |  否   |    LR,DI     | 产品线编号   |
 | parent_flow_id  | number(10)   |   0    |  否   |    LR,DI     | 父级流程编号 |
 | success_flow_id | varchar2(32) |  '-'   |  否   |    LR,DI     | 成功后续流程 |
 | failed_flow_id  | varchar2(32) |  '-'   |  否   |    LR,DI     | 失败后续流程 |
 | unknown_flow_id | varchar2(32) |  '-'   |  否   |    LR,DI     | 未知后续流程 |
 | queue_name      | varchar2(64) |  '-'   |  否   |     LCRU     | 队列名称     |
+| scan_interval   | number(10)   |        |  否   |    LR,DI     | 超时时长     |
 | delay           | number(10)   |   0    |  否   |    LR,DI     | 延后处理时长 |
 | timeout         | number(10)   |        |  否   |    LR,DI     | 超时时长     |
 | max_count       | number(10)   |        |  否   |    LR,DI     | 最大执行次数 |
@@ -307,18 +311,18 @@
 
 ###  4. 省市信息[ots_canton_info]
 
-| 字段名        | 类型         | 默认值 | 为空  |   约束   | 描述         |
-| ------------- | ------------ | :----: | :---: | :------: | :----------- |
-| canton_code   | varchar2(32) |        |  否   | PK,CRULQ | 区域编号     |
-| chinese_name  | varchar2(32) |        |  否   | CRULQ,DN | 中文名称     |
-| spell         | varchar2(64) |        |  否   |   CRUL   | 英文或全拼   |
-| grade         | number(1)    |        |  否   |   CRUL   | 行政级别     |
-| parent        | varchar2(32) |        |  否   |  CRULQ   | 父级         |
-| simple_spell  | varchar2(8)  |        |  否   | CRULQ,DI | 简拼         |
-| area_code     | varchar2(8)  |        |  否   |   CRUL   | 区号         |
-| standard_code | number(6)    |        |  否   |   CRUL   | 行政编码 |
+| 字段名        | 类型         | 默认值 | 为空  |   约束   | 描述       |
+| ------------- | ------------ | :----: | :---: | :------: | :--------- |
+| canton_code   | varchar2(32) |        |  否   | PK,CRULQ | 区域编号   |
+| chinese_name  | varchar2(32) |        |  否   | CRULQ,DN | 中文名称   |
+| spell         | varchar2(64) |        |  否   |   CRUL   | 英文或全拼 |
+| grade         | number(1)    |        |  否   |   CRUL   | 行政级别   |
+| parent        | varchar2(32) |        |  否   |  CRULQ   | 父级       |
+| simple_spell  | varchar2(8)  |        |  否   | CRULQ,DI | 简拼       |
+| area_code     | varchar2(8)  |        |  否   |   CRUL   | 区号       |
+| standard_code | number(6)    |        |  否   |   CRUL   | 行政编码   |
 
 
-* 生成SQL gitcli md2 db db.md  ../modules/const/db/scheme
-* 生成实体 gitcli md2 entity db.md -t 
-* 生成Select: gitcli md2 select db.md -t ots_trade_order
+* 生成SQL gitcli md db ./docs/db.md  ./modules/const/db/scheme --gofile --drop --cover --seqfile
+* 生成实体 gitcli md code entity ./docs/db.md -t 
+* 生成Select: gitcli md sql select ./docs/db.md -t ots_trade_order

@@ -1,20 +1,23 @@
 package scheme
  
 //ots_trade_order 订单记录
-const ots_trade_order=`CREATE TABLE  ots_trade_order (
+const ots_trade_order=`
+	DROP TABLE IF EXISTS ots_trade_order;
+	CREATE TABLE IF NOT EXISTS ots_trade_order (
 		order_id bigint default 1100000000 not null  comment '订单编号' ,
-		mer_no varchar2(32)  not null  comment '商户编号' ,
-		mer_order_no varchar2(64)  not null  comment '商户订单编号' ,
-		mer_product_id int default 300 not null AUTO_INCREMENT comment '商品编号' ,
+		mer_no varchar(32)  not null  comment '商户编号' ,
+		mer_order_no varchar(64)  not null  comment '商户订单编号' ,
+		mer_product_id int default 300 not null  comment '商品编号' ,
 		mer_shelf_id int  not null  comment '货架编号' ,
-		mer_product_no varchar2(32)    comment '外部商品编号' ,
+		mer_product_no varchar(32)    comment '外部商品编号' ,
 		pl_id int  not null  comment '产品线' ,
-		brand_no varchar2(8)  not null  comment '品牌' ,
-		province_no varchar2(8)  not null  comment '省份' ,
-		city_no varchar2(8)  not null  comment '城市' ,
+		brand_no varchar(8)  not null  comment '品牌' ,
+		province_no varchar(8)  not null  comment '省份' ,
+		city_no varchar(8)  not null  comment '城市' ,
 		face decimal(20,5)  not null  comment '商品面值' ,
 		num int  not null  comment '商品数量' ,
 		total_face decimal(20,5)  not null  comment '商品总面值' ,
+		account_name varchar(64)  not null  comment '用户账户信息' ,
 		invoice_type tinyint  not null  comment '开票方式（1.不开发票）' ,
 		sell_amount decimal(20,5)  not null  comment '总销售金额' ,
 		mer_fee_amount decimal(20,5)  not null  comment '商户佣金金额' ,
@@ -41,5 +44,6 @@ const ots_trade_order=`CREATE TABLE  ots_trade_order (
 		success_cost_amount decimal(20,5) default 0 not null  comment '实际发货成功总成本 （5）' ,
 		success_spp_fee decimal(20,5) default 0 not null  comment '实际发货成功总供货商佣金 （6）' ,
 		success_spp_trade_fee decimal(20,5) default 0 not null  comment '实际发货成功总供货商服务费 （7）' ,
-		profit decimal(20,5) default 0 not null  comment '利润（1-2-3-4-5&#43;6-7）' 
-		,PRIMARY KEY (order_id,mer_product_id)) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='订单记录'`
+		profit decimal(20,5) default 0 not null  comment '利润（1-2-3-4-5add6-7）' 
+		,primary key (order_id)
+	) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='订单记录'`

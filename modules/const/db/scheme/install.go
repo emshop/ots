@@ -3,11 +3,12 @@ package scheme
 
 import (
 	"github.com/micro-plat/hydra"
+	_ "github.com/go-sql-driver/mysql"
 )
 		
 func init() {
 	//注册服务包
-	hydra.DBCli.OnStarting(func(c hydra.ICli) error {
+	hydra.OnReadying(func() error {
 		hydra.Installer.DB.AddSQL(
 		ots_merchant_info,
 		ots_merchant_shelf,
@@ -26,6 +27,7 @@ func init() {
 		ots_product_flow,
 		dds_dictionary_info,
 		ots_canton_info,
+		SEQ_IDS,
 		)
 		return nil
 	}) 
