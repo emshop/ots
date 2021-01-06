@@ -20,4 +20,10 @@ type OrderCode int
 const (
 	//ParamNoSetting 参数未配置
 	ParamNoSetting OrderCode = 901
+
+	//UnknownErr 未知错误
+	UnknownErr OrderCode = 999
+
+	//OrderNotExists 订单不存在
+	OrderNotExists = 902
 )

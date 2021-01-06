@@ -9,3 +9,5 @@ require (
 	github.com/micro-plat/lib4go v1.0.10
 	github.com/micro-plat/qtask v1.10.1
 )
+
+replace github.com/micro-plat/hydra => ../../../github.com/micro-plat/hydra

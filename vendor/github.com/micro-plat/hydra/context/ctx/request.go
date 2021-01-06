@@ -47,6 +47,12 @@ func NewRequest(c context.IInnerContext, s app.IAPPConf, meta conf.IMeta) *reque
 	return req
 }
 
+//GetHTTPRequest 获取http request原生对象
+func (r *request) GetHTTPRequest() *http.Request {
+	req, _ := r.ctx.GetHTTPReqResp()
+	return req
+}
+
 //Path 获取请求路径信息
 func (r *request) Path() context.IPath {
 	return r.path

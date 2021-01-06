@@ -130,11 +130,17 @@ const FieldName = "name"
 
 //SelectTradeOrderByMerchant 通过mer_no,mer_order_no获取订单
 const SelectTradeOrderByMerchant = `
-select t.order_id,t.mer_no,t.mer_order_no,t.mer_product_id,
-t.pl_id,t.brand_no,t.province_no,t.city_no,t.face,t.num,
-t.total_face,t.invoice_type from ots_trade_order t
-where t.mer_no = @mer_no and t.mer_order_no=@mer_order_no limit 1
-`
+select
+t.order_id,
+t.mer_no,
+t.mer_order_no,
+FORMAT(t.face,2) 'face',
+t.num,
+FORMAT(t.sell_amount,2) 'amount',
+FORMAT(t.total_face,2) 'total_face',
+case t.order_status when 0 then "SUCCESS" when 91 then "SUCCESS" when 90 then 'FAILED' else 'UNDERWAY' end 'order_status'
+from ots_trade_order t
+where t.mer_no = @mer_no and t.mer_order_no=@mer_order_no limit 1`
 
 //InsertTradeOrder 插入单条数据订单记录
 const InsertTradeOrder = `

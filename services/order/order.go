@@ -22,6 +22,24 @@ var orderRequestFields = []string{
 type Order struct {
 }
 
+//QueryHandle 订单查询
+func (o *Order) QueryHandle(ctx hydra.IContext) interface{} {
+	ctx.Log().Info("-------------处理订单查询----------------------")
+	if err := ctx.Request().Check(biz.FieldTradeOrderMerNo, biz.FieldTradeOrderMerOrderNo); err != nil {
+		return err
+	}
+
+	ctx.Log().Info("1. 查询订单信息")
+	order, err := orders.Query(ctx.Request().GetString(biz.FieldTradeOrderMerNo),
+		ctx.Request().GetString(biz.FieldTradeOrderMerOrderNo))
+	if err == nil && order.Len() > 0 {
+		return order
+	}
+	ctx.Log().Info("2. 订单不存在")
+	return errs.NewError(int(enums.OrderNotExists), "订单不存在")
+
+}
+
 //RequestHandle 下单处理
 func (o *Order) RequestHandle(ctx hydra.IContext) interface{} {
 
@@ -55,7 +73,7 @@ func (o *Order) RequestHandle(ctx hydra.IContext) interface{} {
 		ctx.Request().GetString(biz.FieldTradeOrderMerOrderNo),
 		shelf, product, ctx.Request().GetInt(biz.FieldTradeOrderNum))
 	if err != nil {
-		return err
+		return errs.NewErrorf(int(enums.UnknownErr), "订单创建失败:%w", err)
 	}
 	if !ok {
 		return order
