@@ -18,12 +18,65 @@ const (
 type OrderCode int
 
 const (
-	//ParamNoSetting 参数未配置
-	ParamNoSetting OrderCode = 901
+	//CodeParamNoSetting 参数未配置
+	CodeParamNoSetting OrderCode = 901
 
-	//UnknownErr 未知错误
-	UnknownErr OrderCode = 999
+	//CodeUnknownErr 未知错误
+	CodeUnknownErr OrderCode = 999
 
-	//OrderNotExists 订单不存在
-	OrderNotExists = 902
+	//CodeOrderNotExists 订单不存在
+	CodeOrderNotExists OrderCode = 902
 )
+
+//OrderStatus 订单状态码
+type OrderStatus int
+
+const (
+
+	//OrderPaying 支付中
+	OrderPaying OrderStatus = 10
+
+	//OrderDelivering 发货中
+	OrderDelivering OrderStatus = 20
+
+	//OrderRefunding 退款中
+	OrderRefunding OrderStatus = 70
+
+	//OrderSuccess 成功
+	OrderSuccess OrderStatus = 0
+
+	//OrderFailed 失败
+	OrderFailed OrderStatus = 90
+)
+
+//ProcessStatus 处理状态
+type ProcessStatus int
+
+const (
+
+	//ProcessNotStart 未开始
+	ProcessNotStart ProcessStatus = 10
+
+	//ProcessWaiting 等待处理
+	ProcessWaiting ProcessStatus = 20
+
+	//ProcessHandling 处理中
+	ProcessHandling ProcessStatus = 30
+
+	//ProcessSuccess 成功
+	ProcessSuccess ProcessStatus = 0
+
+	//ProcessFailed 失败
+	ProcessFailed ProcessStatus = 90
+)
+
+//AccountType 账户类型
+type AccountType string
+
+const (
+	//AccountMerchant 商户账户
+	AccountMerchant AccountType = "merchant"
+)
+
+//TradeType 账户类型
+type TradeType string

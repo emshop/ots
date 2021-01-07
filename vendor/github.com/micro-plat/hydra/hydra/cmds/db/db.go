@@ -1,3 +1,5 @@
+// +build !prod
+
 package db
 
 import (
@@ -6,6 +8,7 @@ import (
 
 	"github.com/lib4dev/cli/cmds"
 	logs "github.com/lib4dev/cli/logger"
+	"github.com/manifoldco/promptui"
 	"github.com/micro-plat/hydra/components"
 	"github.com/micro-plat/hydra/conf/app"
 	"github.com/micro-plat/hydra/global"
@@ -70,6 +73,9 @@ func install(c *cli.Context) (err error) {
 		if err != nil {
 			return err
 		}
+		if !checkContinue() {
+			return nil
+		}
 		for _, sql := range sqls {
 			if _, err := db.Execute(sql, nil); err != nil {
 				err = fmt.Errorf("%32s\t%w", getMessage(sql), err)
@@ -105,7 +111,13 @@ func getMessage(input string) string {
 	return nstr
 }
 
-/*
-raw := input[:types.GetMin(32, len(input))]
-	return strings.TrimSpace(strings.Replace(raw, "\n" "", -1))
-*/
+func checkContinue() bool {
+	y := "Yes,继续执行"
+	n := "No,中止执行"
+	prompt := promptui.Select{
+		Label: "执行数据库操作(可能造成无法恢复的影响),是否继续?",
+		Items: []string{y, n},
+	}
+	_, result, err := prompt.Run()
+	return err == nil && result == y
+}

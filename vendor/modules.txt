@@ -15,8 +15,6 @@ github.com/asaskevich/govalidator
 github.com/chzyer/readline
 # github.com/clbanning/mxj v1.8.4
 github.com/clbanning/mxj
-# github.com/coredns/coredns v1.8.0
-## explicit
 # github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d
 github.com/cpuguy83/go-md2man/v2/md2man
 # github.com/d5/tengo/v2 v2.6.2
@@ -100,6 +98,17 @@ github.com/mattn/go-colorable
 github.com/mattn/go-isatty
 # github.com/mholt/archiver v3.1.1+incompatible
 github.com/mholt/archiver
+# github.com/micro-plat/beanpay v1.0.0 => ../../../github.com/micro-plat/beanpay
+## explicit
+github.com/micro-plat/beanpay/beanpay
+github.com/micro-plat/beanpay/beanpay/account
+github.com/micro-plat/beanpay/beanpay/const/confs
+github.com/micro-plat/beanpay/beanpay/const/ecodes
+github.com/micro-plat/beanpay/beanpay/const/sql
+github.com/micro-plat/beanpay/beanpay/const/sql/mysql
+github.com/micro-plat/beanpay/beanpay/const/sql/oracle
+github.com/micro-plat/beanpay/beanpay/const/ttypes
+github.com/micro-plat/beanpay/beanpay/pkg
 # github.com/micro-plat/gmq v1.0.1
 github.com/micro-plat/gmq/mqtt
 github.com/micro-plat/gmq/mqtt/client
@@ -235,7 +244,7 @@ github.com/micro-plat/lib4go/tgo
 github.com/micro-plat/lib4go/types
 github.com/micro-plat/lib4go/utility
 github.com/micro-plat/lib4go/zk
-# github.com/micro-plat/qtask v1.10.1
+# github.com/micro-plat/qtask v1.10.1 => ../../../github.com/micro-plat/qtask
 ## explicit
 github.com/micro-plat/qtask
 github.com/micro-plat/qtask/internal/modules/const/conf
@@ -289,7 +298,7 @@ github.com/zkfy/jwt-go
 github.com/zkfy/log
 # github.com/zkfy/stompngo v0.0.0-20170803022748-9378e70ca481
 github.com/zkfy/stompngo
-# golang.org/x/net v0.0.0-20201216054612-986b41b23924
+# golang.org/x/net v0.0.0-20201224014010-6772e930b67b
 golang.org/x/net/context
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
@@ -401,3 +410,5 @@ gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
 gopkg.in/yaml.v3
 # github.com/micro-plat/hydra => ../../../github.com/micro-plat/hydra
+# github.com/micro-plat/qtask => ../../../github.com/micro-plat/qtask
+# github.com/micro-plat/beanpay => ../../../github.com/micro-plat/beanpay

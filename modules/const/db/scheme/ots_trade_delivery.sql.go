@@ -6,7 +6,7 @@ const ots_trade_delivery=`
 	CREATE TABLE IF NOT EXISTS ots_trade_delivery (
 		delivery_id bigint default 20000 not null  comment '发货编号' ,
 		order_id bigint  not null  comment '订单编号' ,
-		spp_spp_no varchar(32)  not null  comment '供货商编号' ,
+		spp_no varchar(32)  not null  comment '供货商编号' ,
 		spp_product_id int  not null  comment '供货商商品编号' ,
 		spp_delivery_no varchar(32)    comment '供货商发货编号' ,
 		spp_product_no varchar(32)    comment '供货商商品编号' ,

@@ -16,6 +16,6 @@ const ots_merchant_product=`
 		discount decimal(10,5)  not null  comment '销售折扣（以面值算）' ,
 		status tinyint default 0 not null  comment '状态(0.是,1.否)' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' 
-		,primary key (mer_product_id)
 		,unique index unq_mer_prod(mer_no,pl_id,brand_no,province_no,city_no,face,mer_shelf_id)
+		,primary key (mer_product_id)
 	) ENGINE=InnoDB auto_increment = 10000 DEFAULT CHARSET=utf8 COMMENT='商户商品'`

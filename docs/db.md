@@ -29,7 +29,7 @@
 | invoice_type         | number(2)    |    1    |  否   |          CRUQL,SL           | 开票方式（1.不开发票） |
 | can_refund           | number(1)    |    1    |  否   |          CRUQL,SL           | 允许退款(0.是,1否)     |
 | limit_count          | number(10)   |    1    |  否   |            CRUL             | 单次购买数量           |
-| split_face           | number(10)   |    0    |  否   |            CRUL             | 拆单面值               |
+| can_split_order      | number(1)    |    0    |  否   |            CRUL             | 是否拆单               |
 | status               | number(1)    |    0    |  否   |           RUQL,SL           | 状态                   |
 | create_time          | date         | sysdate |  否   |             RL              | 创建时间               |
 
@@ -137,12 +137,12 @@
 | total_face            | number(20,5) |            |  否   |              RL              | 商品总面值                       |
 | account_name          | varchar2(64) |            |  否   |                              | 用户账户信息                     |
 | invoice_type          | number(2)    |            |  否   |            QRL,SL            | 开票方式（1.不开发票）           |
+| sell_discount         | number(20,5) |            |  否   |              RL              | 销售折扣                         |
 | sell_amount           | number(20,5) |            |  否   |              RL              | 总销售金额                       |
 | mer_fee_amount        | number(20,5) |            |  否   |              RL              | 商户佣金金额                     |
 | trade_fee_amount      | number(20,5) |            |  否   |              RL              | 交易服务费金额                   |
 | payment_fee_amount    | number(20,5) |            |  否   |              RL              | 支付手续费金额                   |
 | can_split_order       | number(1)    |     1      |  否   |            QRL,SL            | 是否拆单（0.是，1否）            |
-| split_order_face      | number(20,5) |     0      |  否   |              RL              | 拆单面值                         |
 | create_time           | date         |  sysdate   |  否   |            RL,DT             | 创建时间                         |
 | order_timeout         | date         |            |  否   |            RL,DT             | 订单超时时间                     |
 | payment_timeout       | date         |            |  否   |            RL,DT             | 支付超时时间                     |
@@ -172,7 +172,7 @@
 | ------------------ | -------------- | :-----: | :---: | :-----------------------: | :-------------------------------------------- |
 | delivery_id        | number(20)     |  20000  |  否   |          PK,QRL           | 发货编号                                      |
 | order_id           | number(20)     |         |  否   |            RL             | 订单编号                                      |
-| spp_spp_no         | varchar2(32)   |         |  否   |  RL,SL(ots_spp_supplier)  | 供货商编号                                    |
+| spp_no             | varchar2(32)   |         |  否   |  RL,SL(ots_spp_supplier)  | 供货商编号                                    |
 | spp_product_id     | number(10)     |         |  否   |            RL             | 供货商商品编号                                |
 | spp_delivery_no    | varchar2(32)   |         |  是   |            RL             | 供货商发货编号                                |
 | spp_product_no     | varchar2(32)   |         |  是   |            RL             | 供货商商品编号                                |
@@ -235,21 +235,19 @@
 
 ###  5.订单通知表[ots_notify_info]
 
-| 字段名         | 类型          | 默认值  | 为空  |           约束            | 描述                                             |
-| -------------- | ------------- | :-----: | :---: | :-----------------------: | :----------------------------------------------- |
-| order_id       | number(20)    |         |  否   |            LQR            | 订单编号                                         |
-| mer_no         | varchar2(32)  |         |  否   | QRL,SL(ots_down_supplier) | 商户编号                                         |
-| mer_order_no   | varchar2(64)  |         |  否   |            QRL            | 商户订单编号                                     |
-| mer_product_id | number(10)    |         |  否   |            QRL            | 商户商品编号                                     |
-| notify_url     | varchar2(128) |         |  否   |            LR             | 通知地址                                         |
-| order_status   | number(3)     |   10    |  否   |          QRL,SL           | 订单状态                                         |
-| notify_status  | number(3)     |   10    |  否   |          LQR,SL           | 通知状态（0成功,10未开始,20等待通知,30正在通知） |
-| max_count      | number(3)     |         |  否   |            LR             | 最大通知次数                                     |
-| notify_count   | number(3)     |    0    |  否   |            LR             | 通知次数                                         |
-| create_time    | date          | sysdate |  否   |          LRQ,DT           | 创建时间                                         |
-| start_time     | date          |         |  是   |            LR             | 开始时间                                         |
-| end_time       | date          |         |  是   |            LR             | 结束时间                                         |
-| notify_msg     | varchar2(256) |         |  是   |            LR             | 通知结果                                         |
+| 字段名        | 类型          | 默认值  | 为空  |           约束            | 描述                                             |
+| ------------- | ------------- | :-----: | :---: | :-----------------------: | :----------------------------------------------- |
+| order_id      | number(20)    |         |  否   |            LQR            | 订单编号                                         |
+| mer_no        | varchar2(32)  |         |  否   | QRL,SL(ots_down_supplier) | 商户编号                                         |
+| mer_order_no  | varchar2(64)  |         |  否   |            QRL            | 商户订单编号                                     |
+| notify_url    | varchar2(128) |         |  否   |            LR             | 通知地址                                         |
+| notify_status | number(3)     |   10    |  否   |          LQR,SL           | 通知状态（0成功,10未开始,20等待通知,30正在通知） |
+| max_count     | number(3)     |   10    |  否   |            LR             | 最大通知次数                                     |
+| notify_count  | number(3)     |    0    |  否   |            LR             | 通知次数                                         |
+| create_time   | date          | sysdate |  否   |          LRQ,DT           | 创建时间                                         |
+| start_time    | date          |         |  是   |            LR             | 开始时间                                         |
+| end_time      | date          |         |  是   |            LR             | 结束时间                                         |
+| notify_msg    | varchar2(256) |         |  是   |            LR             | 通知结果                                         |
 
 
 ###  6. 发货人工审核表[ots_audit_info]
@@ -323,6 +321,6 @@
 | standard_code | number(6)    |        |  否   |   CRUL   | 行政编码   |
 
 
-* 生成SQL gitcli md db ./docs/db.md  ./modules/const/db/scheme --gofile --drop --cover --seqfile
-* 生成实体 gitcli md code entity ./docs/db.md -t 
-* 生成Select: gitcli md sql select ./docs/db.md -t ots_trade_order
+* 生成DB gitcli md db ./docs/db.md  ./modules/const/db/scheme --gofile --drop --cover --seqfile
+* 生成代码 gitcli md code entity ./docs/db.md -t 
+* 生成SQL: gitcli md sql select ./docs/db.md -t ots_trade_order
