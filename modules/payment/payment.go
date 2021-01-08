@@ -6,7 +6,6 @@ import (
 	"github.com/emshop/ots/modules/const/enums"
 	"github.com/emshop/ots/modules/const/sql"
 	"github.com/micro-plat/beanpay/beanpay"
-	"github.com/micro-plat/beanpay/beanpay/const/ttypes"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
 	"github.com/micro-plat/lib4go/errs"
@@ -55,7 +54,7 @@ func Pay(orderID int64) error {
 	_, err = account.DeductAmount(db,
 		order.GetString(sql.FieldMerNo),
 		order.GetString(sql.FieldOrderID),
-		ttypes.Deduct,
+		beanpay.AccountTradeType,
 		order.GetFloat64(sql.FieldSellAmount),
 		"订单扣款")
 	if err != nil {

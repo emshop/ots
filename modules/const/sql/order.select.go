@@ -7,10 +7,10 @@ t.order_id,
 t.mer_no,
 t.mer_order_no,
 t.account_name,
-FORMAT(t.face,2) 'face',
+t.face,
 t.num,
 FORMAT(t.sell_amount,2) 'amount',
-FORMAT(t.total_face,2) 'total_face',
+t.total_face,
 case t.order_status when 0 then "SUCCESS" when 91 then "SUCCESS" when 90 then 'FAILED' else 'UNDERWAY' end 'order_status'
 from ots_trade_order t
 where t.mer_no = @mer_no and t.mer_order_no=@mer_order_no limit 1`

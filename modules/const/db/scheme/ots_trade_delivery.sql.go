@@ -21,9 +21,14 @@ const ots_trade_delivery=`
 		delivery_status int default 20 not null  comment '发货状态' ,
 		payment_status int default 10 not null  comment '支付状态' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' ,
-		face decimal(20,5)  not null  comment '商品面值' ,
+		face int  not null  comment '商品面值' ,
 		num int  not null  comment '发货数量' ,
-		total_face decimal(20,5)  not null  comment '发货总面值' ,
+		total_face int  not null  comment '发货总面值' ,
+		cost_discount decimal(20,5)  not null  comment '成本折扣' ,
+		spp_fee_discount decimal(10,5) default 0 not null  comment '商户佣金' ,
+		trade_fee_discount decimal(10,5) default 0 not null  comment '交易服务费' ,
+		payment_fee_discount decimal(10,5) default 0 not null  comment '支付手续费' ,
+		real_discount decimal(20,5)    comment '供货商实际折扣' ,
 		cost_amount decimal(20,5)  not null  comment '发货成本' ,
 		spp_fee_amount decimal(20,5)  not null  comment '供货商佣金' ,
 		trade_fee_amount decimal(20,5)  not null  comment '发货服务费' ,
@@ -35,7 +40,6 @@ const ots_trade_delivery=`
 		request_params varchar(2000)    comment '发货信息参数json' ,
 		result_source tinyint    comment '发货结果来源（1：通知，2：查询，3：同步返回）' ,
 		result_code varchar(32)    comment '发货结果码' ,
-		spp_product_cost decimal(20,5)    comment '供货商实际折扣' ,
 		last_update_time datetime default current_timestamp not null  comment '最后更新时间' 
 		,primary key (delivery_id)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='订单发货表'`

@@ -12,7 +12,7 @@ const ots_supplier_product=`
 		brand_no varchar(8)  not null  comment '品牌' ,
 		province_no varchar(8) default '-' not null  comment '省份' ,
 		city_no varchar(8) default '-' not null  comment '城市' ,
-		face decimal(20,5)  not null  comment '面值' ,
+		face int  not null  comment '面值' ,
 		cost_discount decimal(10,5)  not null  comment '成本折扣' ,
 		status tinyint default 0 not null  comment '状态' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' 

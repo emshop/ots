@@ -202,8 +202,14 @@ const FieldSppDeliveryNo = "spp_delivery_no"
 //FieldCostAmount 字段发货成本的数据库名称
 const FieldCostAmount = "cost_amount"
 
+//FieldRealDiscount 字段供货商实际折扣的数据库名称
+const FieldRealDiscount = "real_discount"
+
 //FieldSppFeeAmount 字段供货商佣金的数据库名称
 const FieldSppFeeAmount = "spp_fee_amount"
+
+//FieldSuccTotalFace 字段成功面值的数据库名称
+const FieldSuccTotalFace = "succ_total_face"
 
 //FieldSuccFace 字段成功面值的数据库名称
 const FieldSuccFace = "succ_face"
@@ -231,3 +237,17 @@ const FieldSppProductCost = "spp_product_cost"
 
 //FieldLastUpdateTime 字段最后更新时间的数据库名称
 const FieldLastUpdateTime = "last_update_time"
+
+//ots_supplier_error_code 供货商错误码的字段信息------------------------------------
+
+//FieldDealCode 字段处理码的数据库名称
+const FieldDealCode = "deal_code"
+
+//FieldErrorCode 字段错误码的数据库名称
+const FieldErrorCode = "error_code"
+
+//FieldCategory 字段产品线的数据库名称
+const FieldCategory = "category"
+
+//FieldNotifyMsg 字段通知结果的数据库名称
+const FieldNotifyMsg = "notify_msg"

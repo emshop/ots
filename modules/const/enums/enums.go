@@ -1,5 +1,7 @@
 package enums
 
+import "fmt"
+
 //FlowStatus 流程状态
 type FlowStatus int
 
@@ -37,7 +39,13 @@ const (
 	OrderPaying OrderStatus = 10
 
 	//OrderDelivering 发货中
-	OrderDelivering OrderStatus = 20
+	OrderDelivering OrderStatus = 30
+
+	//OrderSPPPaying 上游支付
+	OrderSPPPaying OrderStatus = 40
+
+	//OrderNotify 下游通知中
+	OrderNotify OrderStatus = 50
 
 	//OrderRefunding 退款中
 	OrderRefunding OrderStatus = 70
@@ -76,7 +84,32 @@ type AccountType string
 const (
 	//AccountMerchant 商户账户
 	AccountMerchant AccountType = "merchant"
+
+	//AccountSupplier 供货商
+	AccountSupplier AccountType = "supplier"
 )
 
-//TradeType 账户类型
-type TradeType string
+//ResultSource 结果来源
+type ResultSource string
+
+const (
+	//ResultFromRequest 来源于发货请求
+	ResultFromRequest ResultSource = "request"
+
+	//ResultFromDelivery 来源于发货结果
+	ResultFromDelivery ResultSource = "delivery"
+
+	//ResultFromNotify 来源于通知
+	ResultFromNotify ResultSource = "notify"
+
+	//ResultFromQuery 来源于查询
+	ResultFromQuery ResultSource = "query"
+
+	//ResultAudit 来源于人工处理
+	ResultAudit ResultSource = "audit"
+)
+
+//Format 格式化错误码
+func (r ResultSource) Format(code string) string {
+	return fmt.Sprintf("%s_%s", r, code)
+}

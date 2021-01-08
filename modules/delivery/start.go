@@ -6,15 +6,30 @@ import (
 
 	"github.com/emshop/ots/modules/const/enums"
 	"github.com/emshop/ots/modules/const/sql"
+	"github.com/emshop/ots/modules/spp"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
 )
 
 //SaveStart 保存开始发货的结果消息
-func SaveStart(deliveryID int64, result enums.FlowStatus, resultCode string, returnMsg string) error {
+func SaveStart(deliveryID int64, discount types.Decimal, resultCode string, returnMsg string) error {
+
+	//根据发货信息查询错误码
+	var result enums.FlowStatus
+	delivery, err := Get(deliveryID)
+	if err != nil {
+		result = enums.Unknown
+	} else {
+		result = spp.GetDealCode(
+			delivery.GetString(sql.FieldSppNo),
+			enums.ResultFromRequest,
+			delivery.GetInt(sql.FieldPlID),
+			resultCode)
+	}
+
+	//根据发货结果修改发货记录状态
 	var row int64
-	var err error
 	switch result {
 	case enums.Failed:
 		row, err = hydra.C.DB().GetRegularDB().Execute(sql.UpdateTradeDeliveryForDeliveryingFailed, map[string]interface{}{
@@ -22,14 +37,14 @@ func SaveStart(deliveryID int64, result enums.FlowStatus, resultCode string, ret
 			sql.FieldResultCode: resultCode,
 			sql.FieldReturnMsg:  returnMsg,
 		})
-	default:
+	default: //非失败都纳入成功处理，等待后续通知、查询或人工审核
 		row, err = hydra.C.DB().GetRegularDB().Execute(sql.UpdateTradeDeliveryForDeliveryingSuccess, map[string]interface{}{
-			sql.FieldDeliveryID: deliveryID,
-			sql.FieldResultCode: resultCode,
-			sql.FieldReturnMsg:  returnMsg,
+			sql.FieldDeliveryID:   deliveryID,
+			sql.FieldResultCode:   resultCode,
+			sql.FieldReturnMsg:    returnMsg,
+			sql.FieldCostDiscount: discount.String(),
 		})
 	}
-
 	if err != nil {
 		return err
 	}
@@ -119,13 +134,13 @@ type TradeDelivery struct {
 	CreateTime time.Time `json:"create_time"`
 
 	//Face 商品面值
-	Face types.Decimal `json:"face"`
+	Face int `json:"face"`
 
 	//Num 发货数量
 	Num int `json:"num"`
 
 	//TotalFace 发货总面值
-	TotalFace types.Decimal `json:"total_face"`
+	TotalFace int `json:"total_face"`
 
 	//CostAmount 发货成本
 	CostAmount types.Decimal `json:"cost_amount"`

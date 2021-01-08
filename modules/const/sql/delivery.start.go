@@ -49,6 +49,7 @@ and t.delivery_id = 30
 const UpdateTradeDeliveryForDeliveryingSuccess = `
 Update ots_trade_delivery t
 t.delivery_status = 31,
+case when @cost_discount = 0 then t.cost_amount = t.cost_amount else t.cost_amount = @cost_discount * t.total_face end,
 t.return_msg = @return_msg,
 t.result_source = "delivery",
 t.result_code = @result_code
