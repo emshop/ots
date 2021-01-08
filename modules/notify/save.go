@@ -19,7 +19,6 @@ func Save(orderID int64, status enums.FlowStatus, msg string) error {
 	var row int64
 	switch status {
 	case enums.Success:
-
 		//修改通知记录
 		row, err = db.Execute(sql.UpdateNotifyInfoForSuccess, map[string]interface{}{
 			sql.FieldOrderID:   orderID,
