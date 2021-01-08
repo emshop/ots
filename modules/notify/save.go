@@ -19,13 +19,24 @@ func Save(orderID int64, status enums.FlowStatus, msg string) error {
 	var row int64
 	switch status {
 	case enums.Success:
+
+		//修改通知记录
 		row, err = db.Execute(sql.UpdateNotifyInfoForSuccess, map[string]interface{}{
 			sql.FieldOrderID:   orderID,
 			sql.FieldNotifyMsg: msg,
 		})
+		if err != nil || row == 0 {
+			db.Rollback()
+			return err
+		}
 
 		//修改订单状态
+		row, err = db.Execute(sql.UpdateTradeOrderForFinish, map[string]interface{}{
+			sql.FieldOrderID: orderID,
+		})
+
 	default:
+		//保存通知消息
 		row, err = db.Execute(sql.UpdateNotifyInfoForUnknown, map[string]interface{}{
 			sql.FieldOrderID:   orderID,
 			sql.FieldNotifyMsg: msg,
