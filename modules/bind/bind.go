@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/emshop/ots/modules/const/sql"
-	"github.com/emshop/ots/modules/delivery.go"
+	"github.com/emshop/ots/modules/delivery"
 	"github.com/emshop/ots/modules/spp"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"

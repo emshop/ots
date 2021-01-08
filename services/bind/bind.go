@@ -38,7 +38,9 @@ func (b *Bind) OrderHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("2. 执行绑定后续流程")
 	status := types.DecodeInt(err, nil, enums.Success, enums.Failed)
-	err = flow.Next(ctx.Request().GetInt(sql.FieldFlowID), enums.FlowStatus(status), ctx, sql.FieldOrderID, sql.FieldOrderID)
+	err = flow.Next(ctx.Request().GetInt(sql.FieldFlowID), enums.FlowStatus(status), ctx,
+		sql.FieldOrderID, ctx.Request().GetString(sql.FieldOrderID),
+		sql.FieldDeliveryID, ctx.Request().GetString(sql.FieldDeliveryID))
 	if err != nil {
 		ctx.Log().Error("2.1 执行绑定后续流程失败", err)
 		return err
