@@ -124,9 +124,9 @@
 
 | 字段名                  | 类型         |   默认值   | 为空  |            约束            | 描述                             |
 | ----------------------- | ------------ | :--------: | :---: | :------------------------: | :------------------------------- |
-| order_id                | number(20)   | 1100000000 |  否   |          PK,ls,Q           | 订单编号                         |
+| order_id                | number(20)   | 1100000000 |  否   |          PK,ls,q           | 订单编号                         |
 | mer_no                  | varchar2(32) |            |  否   | ls,Q,SL(ots_merchant_info) | 商户编号                         |
-| mer_order_no            | varchar2(64) |            |  否   |             Q              | 商户订单编号                     |
+| mer_order_no            | varchar2(64) |            |  否   |             q              | 商户订单编号                     |
 | mer_product_id          | number(10)   |    300     |  否   |                            | 商品编号                         |
 | mer_shelf_id            | number(10)   |            |  否   |                            | 货架编号                         |
 | mer_product_no          | varchar2(32) |            |  是   |                            | 外部商品编号                     |
