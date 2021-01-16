@@ -1,8 +1,6 @@
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import menus from '@/pages/system/menus';
-import order from '@/pages/trade/order';
 
 Vue.use(Router);
 export default new Router({
@@ -10,12 +8,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: '/',
-      component: menus,
+      name: 'menus',
+      component: () => import('../pages/system/menus.vue'),
       children:[{
         path: 'trade/order',
-        name: 'order',
-        component: order,
+        name: 'trade/order',
+        component: () => import('../pages/trade/order.list.vue'),
+        titile:"首页"
+      },{
+        path: 'trade/delivery',
+        name: 'trade/delivery',
+        component: () => import('../pages/trade/order.detail.vue'),
         titile:"首页"
       }]
     }

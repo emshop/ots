@@ -8,11 +8,14 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import {
-    post,
-    fetch,
-    put
-} from './utility/http'
+import http from './utility/http'
+Vue.use(http)
+
+//导入enum模块
+import enums from './utility/enums'
+Vue.use(enums)
+
+
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies);
 
@@ -21,8 +24,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
 
-//定义全局变量
-Vue.prototype.$http = {get:fetch,post:post,put:put}
 
 Vue.config.productionTip = false;
 
