@@ -11,7 +11,7 @@
 | mer_type    | number(1)    |         |  否   |  CRUQL   | 类型     |
 | bd_uid      | number(20)   |         |  否   |  CRUQL   | 商务人员 |
 | status      | number(1)    |    0    |  否   | RUQL,SL  | 状态     |
-| create_time | date         | sysdate |  否   |  RL,DT   | 创建时间 |
+| create_time | date         | sysdate |  否   |  RL  | 创建时间 |
 
 
 ###  2. 商户货架[ots_merchant_shelf]
@@ -62,7 +62,7 @@
 | mer_crop    | varchar2(64) |         |  否   |  CRUQL   | 公司     |
 | bd_uid      | number(20)   |    0    |  否   |  CRUQL   | 商务人员 |
 | status      | number(1)    |    0    |  否   | RUQL,SL  | 状态     |
-| create_time | date         | sysdate |  否   |  RL,DT   | 创建时间 |
+| create_time | date         | sysdate |  否   |  RL   | 创建时间 |
 
 
 ###  2. 供货商货架[ots_supplier_shelf]
@@ -189,7 +189,7 @@
 | account_name         | varchar2(64)   |         |  否   |                           | 用户账户信息                                  |
 | delivery_status      | number(3)      |   20    |  否   |          RQL,SL           | 发货状态                                      |
 | payment_status       | number(3)      |   10    |  否   |          RQL,SL           | 支付状态                                      |
-| create_time          | date           | sysdate |  否   |           RL,DT           | 创建时间                                      |
+| create_time          | date           | sysdate |  否   |           RL           | 创建时间                                      |
 | face                 | number(10)     |         |  否   |            RL             | 商品面值                                      |
 | num                  | number(10)     |         |  否   |            RL             | 发货数量                                      |
 | total_face           | number(10)     |         |  否   |            RL             | 发货总面值                                    |
@@ -219,7 +219,7 @@
 | id          | number(20)     | 100000  |  否   | PK,RL | 编号     |
 | order_id    | number(20)     |         |  否   |  RL   | 订单编号 |
 | delivery_id | varchar2(30)   |         |  是   |  RQL  | 发货编号 |
-| create_time | date           | sysdate |  否   | RL,DT | 创建时间 |
+| create_time | date           | sysdate |  否   | RL | 创建时间 |
 | ip          | varchar2(20)   |         |  是   |  RQL  | 服务器ip |
 | content     | varchar2(1000) |         |  否   |  RQL  | 操作内容 |
 
@@ -236,7 +236,7 @@
 | refund_cause  | number(3)    |   10    |  否   |          QRL,SL           | 退款原因   |
 | apply_status  | number(2)    |   10    |  否   |          QRL,SL           | 申请状态   |
 | refund_amount | number(20,5) |         |  否   |            RL             | 退款金额   |
-| create_time   | date         | sysdate |  否   |           RL,DT           | 创建时间   |
+| create_time   | date         | sysdate |  否   |           RL           | 创建时间   |
 
 
 
@@ -251,7 +251,7 @@
 | notify_status | number(3)     |   10    |  否   |          LQR,SL           | 通知状态（0成功,10未开始,20等待通知,30正在通知） |
 | max_count     | number(3)     |   10    |  否   |            LR             | 最大通知次数                                     |
 | notify_count  | number(3)     |    0    |  否   |            LR             | 通知次数                                         |
-| create_time   | date          | sysdate |  否   |          LRQ,DT           | 创建时间                                         |
+| create_time   | date          | sysdate |  否   |          LRQ           | 创建时间                                         |
 | start_time    | date          |         |  是   |            LR             | 开始时间                                         |
 | end_time      | date          |         |  是   |            LR             | 结束时间                                         |
 | notify_msg    | varchar2(256) |         |  是   |            LR             | 通知结果                                         |
@@ -303,14 +303,14 @@
 
 ###  3.字典表[dds_dictionary_info]
 
-| 字段名 | 类型         | 默认值 | 为空  |                   约束                   | 描述   |
-| ------ | ------------ | :----: | :---: | :--------------------------------------: | :----- |
-| id     | number(10)   |  100   |  否   |                PK,SEQ,LR                 | 编号   |
-| name   | varchar2(64) |        |  否   |                 LCRUQ,DN                 | 名称   |
-| value  | varchar2(32) |        |  否   |                   LCRU                   | 值     |
-| type   | varchar2(32) |        |  否   | LCRUQ,IDX(IDX_DICTIONARY_INFO_TYPE,1),DT | 类型   |
-| sort   | number(3)    |   0    |  否   |                   LCRU                   | 排序值 |
-| status | number(1)    |        |  否   |                 LRUQ,SL                  | 状态   |
+| 字段名 | 类型         | 默认值 | 为空  |   约束    | 描述   |
+| ------ | ------------ | :----: | :---: | :-------: | :----- |
+| id     | number(10)   |  100   |  否   | PK,SEQ,LR | 编号   |
+| name   | varchar2(64) |        |  否   | LCRUQ,DN  | 名称   |
+| value  | varchar2(32) |        |  否   |  LCRU,DI  | 值     |
+| type   | varchar2(32) |        |  否   | LCRUQ,DT  | 类型   |
+| sort   | number(3)    |   0    |  否   |   LCRU    | 排序值 |
+| status | number(1)    |        |  否   |  LRUQ,SL  | 状态   |
 
 
 

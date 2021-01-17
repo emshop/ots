@@ -15,6 +15,9 @@ Vue.use(http)
 import enums from './utility/enums'
 Vue.use(enums)
 
+//导入filter模块
+import  './utility/filter'
+
 
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies);

@@ -199,7 +199,7 @@
                     <div class="pull-right" style="margin-right:10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="grid-content">{{info.create_time}}</div>
+                    <div class="grid-content">{{info.create_time|fltrDateTime}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -210,14 +210,14 @@
                     <div class="pull-right" style="margin-right:10px">订单超时时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="grid-content">{{info.order_timeout}}</div>
+                    <div class="grid-content">{{info.order_timeout|fltrDateTime}}</div>
                   </el-col>
                            
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right:10px">支付超时时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="grid-content">{{info.payment_timeout}}</div>
+                    <div class="grid-content">{{info.payment_timeout|fltrDateTime}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -405,7 +405,7 @@
     methods: {
       queryData:async function() {
         console.log("this.$route.query:",this.$route.query)
-        this.info = await this.$http.xget("/trade/order",this.$route.query)
+        this.info = await this.$http.xget("/trade/order/single",this.$route.query)
       },
       handleClick(tab) {}
     },

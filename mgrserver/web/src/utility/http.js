@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = process.env.VUE_APP_API_URL || "http://localhost:8089";
+axios.defaults.baseURL = process.env.VUE_APP_API_URL;
 
 //获取vue实例
 var __vue__ = {}
