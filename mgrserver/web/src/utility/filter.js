@@ -1,3 +1,4 @@
+
 import Vue from "vue"
 
 //字符串去空格
@@ -57,7 +58,7 @@ export function numberFormat (number, decimals = 2) {
     while (re.test(s[0])) {
         s[0] = s[0].replace(re, '$1' + "," + '$2')
     }
-
+  
     if ((s[1] || '').length < prec) {
         s[1] = s[1] || ''
         s[1] += new Array(prec - s[1].length + 1).join('0')
@@ -84,7 +85,7 @@ Vue.filter('fltrNumberFormat', (value, decimals = 2) => {
 Vue.filter('fltrDate', (value, format = "yyyy-MM-dd") => {
     if (value === '') {
         return '-'
-    }
+    } 
     return dateFormat(value, format)
 })
 
@@ -92,10 +93,10 @@ Vue.filter('fltrDate', (value, format = "yyyy-MM-dd") => {
 Vue.filter('fltrDateTime', (value, format = "yyyy-MM-dd hh:mm") => {
     if (value === '') {
         return '-'
-    }
+    } 
     return dateFormat(value, format)
 })
-
+  
 //空值时默认显示'---'
 Vue.filter('fltrEmpty', value => {
     if (value === '') {
@@ -103,7 +104,7 @@ Vue.filter('fltrEmpty', value => {
     }
     return value
 })
-
+  
 // 字符串截取number个字符，超出加'...'
 Vue.filter('fltrSubstr', (value, number = 16) => {
     if (!value){

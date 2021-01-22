@@ -8,17 +8,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import http from './utility/http'
-Vue.use(http)
-
-//导入enum模块
-import enums from './utility/enums'
-Vue.use(enums)
-
-//导入filter模块
-import  './utility/filter'
-
-
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies);
 
@@ -26,10 +15,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
-
+import utility from './utility'
+Vue.use(utility);
 
 Vue.config.productionTip = false;
-
 
 router.beforeEach((to, from, next) => {
     /* 路由发生变化修改页面title */

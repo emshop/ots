@@ -100,6 +100,7 @@ select count(1) from ots_trade_order t where 1 = 1
 &t.brand_no
 &t.province_no`
 
+//sqlSignleTradeOrder 查询单条数据(订单记录)
 const sqlSignleTradeOrder = `
 select
 t.order_id,

@@ -15,3 +15,5 @@ replace github.com/micro-plat/hydra => ../../../github.com/micro-plat/hydra
 replace github.com/micro-plat/qtask => ../../../github.com/micro-plat/qtask
 
 replace github.com/micro-plat/beanpay => ../../../github.com/micro-plat/beanpay
+
+replace github.com/micro-plat/lib4go => ../../../github.com/micro-plat/lib4go

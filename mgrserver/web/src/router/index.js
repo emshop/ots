@@ -11,14 +11,9 @@ export default new Router({
       name: 'menus',
       component: () => import('../pages/system/menus.vue'),
       children:[{
-        path: 'trade/order',
-        name: 'trade/order',
-        component: () => import('../pages/trade/order.list.vue'),
-        titile:"首页"
-      },{
-        path: 'trade/delivery',
-        name: 'trade/delivery',
-        component: () => import('../pages/trade/order.detail.vue'),
+        path: 'index',
+        name: 'index',
+        component: () => import('../pages/system/index.vue'),
         titile:"首页"
       }]
     }

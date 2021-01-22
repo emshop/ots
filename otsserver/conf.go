@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/emshop/ots/services/bind"
-	"github.com/emshop/ots/services/order"
-	"github.com/emshop/ots/services/payment"
+	"github.com/emshop/ots/otsserver/services/bind"
+	"github.com/emshop/ots/otsserver/services/order"
+	"github.com/emshop/ots/otsserver/services/payment"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/conf/vars/queue/lmq"
 	"github.com/micro-plat/qtask"
@@ -14,10 +14,11 @@ func init() {
 		qtask.Config(qtask.WithScanInterval(59))
 	})
 	hydra.OnReady(func() {
+		hydra.Conf.API("8081")
 		hydra.Conf.MQC(lmq.MQ)
 		hydra.Conf.Vars().Queue().LMQ("queue")
-		// hydra.Conf.Vars().DB().MySQLByConnStr("db", "hydra:123456@tcp(192.168.0.36:3306)/hydra?charset=utf8")
-		hydra.Conf.Vars().DB().MySQLByConnStr("db", "hydra:123456@tcp(222.209.84.37:10036)/hydra?charset=utf8")
+		hydra.Conf.Vars().DB().MySQLByConnStr("db", "hydra:123456@tcp(192.168.0.36:3306)/hydra?charset=utf8")
+		// hydra.Conf.Vars().DB().MySQLByConnStr("db", "hydra:123456@tcp(222.209.84.37:10036)/hydra?charset=utf8")
 	})
 
 	app.Micro("/order/*", &order.Order{})
