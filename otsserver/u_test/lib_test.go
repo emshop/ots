@@ -97,7 +97,7 @@ func (t *testCache) makeBindedOrder(count int) error {
 			//构建请求处理-----------------
 			bind := &bind.Bind{}
 
-			ps := bind.BindHandle(ctx)
+			ps := bind.StartHandle(ctx)
 			fmt.Println("bind:", ps)
 			ctx.Response().WriteAny(ps)
 			status, _, _ := ctx.Response().GetFinalResponse()

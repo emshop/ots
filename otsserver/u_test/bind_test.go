@@ -24,7 +24,7 @@ func TestSingleBind(t *testing.T) {
 	//构建请求处理-----------------
 	bind := &bind.Bind{}
 
-	rs := bind.BindHandle(ctx)
+	rs := bind.StartHandle(ctx)
 
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 

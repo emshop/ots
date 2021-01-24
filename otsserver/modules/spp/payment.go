@@ -30,7 +30,7 @@ func Pay(deliveryID int64) error {
 	}
 	if row == 0 {
 		db.Rollback()
-		return errs.NewError(http.StatusNoContent, "订单无须处理")
+		return errs.NewErrorf(http.StatusNoContent, "发货记录(%d)无须付款", deliveryID)
 	}
 
 	//查询发货信息
@@ -43,7 +43,7 @@ func Pay(deliveryID int64) error {
 	}
 	if orders.Len() == 0 {
 		db.Rollback()
-		return errs.NewError(http.StatusNoContent, "订单无须处理")
+		return errs.NewErrorf(http.StatusNoContent, "未查询到发货记录(%d)", deliveryID)
 	}
 
 	//获取账户信息
@@ -51,7 +51,7 @@ func Pay(deliveryID int64) error {
 	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountSupplier))
 
 	//处理交易扣款
-	_, err = account.DeductAmount(db,
+	rs, err := account.DeductAmount(db,
 		order.GetString(sql.FieldSppNo),
 		order.GetString(sql.FieldDeliveryID),
 		beanpay.AccountTradeType,
@@ -60,6 +60,10 @@ func Pay(deliveryID int64) error {
 	if err != nil {
 		db.Rollback()
 		return err
+	}
+	if rs.GetCode() != beanpay.Success {
+		db.Rollback()
+		return errs.NewErrorf(rs.GetCode(), "%d扣款失败%s", deliveryID, rs.GetCode())
 	}
 	db.Commit()
 	return nil

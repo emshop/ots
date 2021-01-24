@@ -15,7 +15,7 @@ var deliveryStartSaveFields = []string{
 	sql.FieldReturnMsg,
 }
 
-//Delivery 订单处理
+//Delivery 发货处理
 type Delivery struct {
 }
 
