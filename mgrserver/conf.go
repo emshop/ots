@@ -8,11 +8,10 @@ import (
 )
 
 func init() {
-	App.Micro("/trade/order", &trade.TradeOrderHandler{})
-	App.Micro("/enums", &system.EnumsHandler{})
-	hydra.Conf.Vars().DB().MySQL("db", "hydra", "123456", "222.209.84.37:10036", "hydra")
-	hydra.Conf.GetWeb().Header(header.WithCrossDomain())
-	hydra.OnReady(func() error {
-		return nil
+	hydra.OnReady(func() {
+		App.Micro("/trade/order", &trade.TradeOrderHandler{})
+		App.Micro("/enums", &system.EnumsHandler{})
+		hydra.Conf.Vars().DB().MySQL("db", "hydra", "123456", "222.209.84.37:10036", "hydra")
+		hydra.Conf.GetWeb().Header(header.WithCrossDomain())
 	})
 }

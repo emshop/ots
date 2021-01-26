@@ -306,20 +306,21 @@ After: After(字段名) //在某个字段后面
 | create_time | date         | sysdate |  否   |      RL      | 创建时间   |
 
 ###  2. 业务流程[ots_product_flow]
-| 字段名          | 类型         | 默认值 | 为空  |     约束     | 描述         |
-| --------------- | ------------ | :----: | :---: | :----------: | :----------- |
-| flow_id         | number(10)   |  200   |  否   | PK,SEQ,LR,DI | 流程编号     |
-| flow_Name       | varchar2(64) |        |  否   |      DN      | 流程名称     |
-| pl_id           | number(10)   |        |  否   |      LR      | 产品线编号   |
-| parent_flow_id  | number(10)   |   0    |  否   |      LR      | 父级流程编号 |
-| success_flow_id | varchar2(32) |  '-'   |  否   |      LR      | 成功后续流程 |
-| failed_flow_id  | varchar2(32) |  '-'   |  否   |      LR      | 失败后续流程 |
-| unknown_flow_id | varchar2(32) |  '-'   |  否   |      LR      | 未知后续流程 |
-| queue_name      | varchar2(64) |  '-'   |  否   |     LCRU     | 队列名称     |
-| scan_interval   | number(10)   |        |  否   |      LR      | 超时时长     |
-| delay           | number(10)   |   0    |  否   |      LR      | 延后处理时长 |
-| timeout         | number(10)   |        |  否   |      LR      | 超时时长     |
-| max_count       | number(10)   |        |  否   |      LR      | 最大执行次数 |
+| 字段名          | 类型         | 默认值 | 为空  |         约束         | 描述         |
+| --------------- | ------------ | :----: | :---: | :------------------: | :----------- |
+| flow_id         | number(10)   |  200   |  否   |     PK,SEQ,LR,DI     | 流程编号     |
+| flow_name       | varchar2(64) |        |  否   |          DN          | 流程名称     |
+| tag_name        | varchar2(64) |        |  否   | DN,UNQ(unq_flow_tag) | tag标签      |
+| pl_id           | number(10)   |        |  否   | LR,UNQ(unq_flow_tag) | 产品线编号   |
+| parent_flow_id  | number(10)   |   0    |  否   |          LR          | 父级流程编号 |
+| success_flow_id | varchar2(32) |  '-'   |  否   |          LR          | 成功后续流程 |
+| failed_flow_id  | varchar2(32) |  '-'   |  否   |          LR          | 失败后续流程 |
+| unknown_flow_id | varchar2(32) |  '-'   |  否   |          LR          | 未知后续流程 |
+| queue_name      | varchar2(64) |  '-'   |  否   |         LCRU         | 队列名称     |
+| scan_interval   | number(10)   |        |  否   |          LR          | 超时时长     |
+| delay           | number(10)   |   0    |  否   |          LR          | 延后处理时长 |
+| timeout         | number(10)   |        |  否   |          LR          | 超时时长     |
+| max_count       | number(10)   |        |  否   |          LR          | 最大执行次数 |
 
 
 ###  3.字典表[dds_dictionary_info]
