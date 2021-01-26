@@ -56,8 +56,8 @@ func (p *ProductFlow) Next(obj interface{}, kv ...interface{}) (types.XMap, erro
 }
 
 //NextByFirst 处理后续任务
-func NextByFirst(plid int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMap, error) {
-	flow, err := GetFirst(plid, s)
+func NextByFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMap, error) {
+	flow, err := GetFirst(tagName, plid, s)
 	if err != nil || flow == nil {
 		return nil, err
 	}
@@ -74,16 +74,11 @@ func Next(flowID int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (t
 }
 
 //GetFirst 获取产品线的首要流程
-func GetFirst(plid int, s enums.FlowStatus) (*ProductFlow, error) {
-	return GetByPl(plid, 0, s)
-}
-
-//GetByPl 根据产品线，父母流程编号、本次处理结果获取后续处理流程配置
-func GetByPl(plid int, parentFlowID int, s enums.FlowStatus) (p *ProductFlow, err error) {
+func GetFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus) (*ProductFlow, error) {
 	//根据产品线父级流程编号获取流程配置
-	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectChildFlowByPlID, map[string]interface{}{
-		sql.FieldPlID:         plid,
-		sql.FieldParentFlowID: parentFlowID,
+	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectFlowByTag, map[string]interface{}{
+		sql.FieldPlID:    plid,
+		sql.FieldTagName: tagName,
 	})
 	if err != nil {
 		return nil, err

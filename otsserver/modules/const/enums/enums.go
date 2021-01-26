@@ -116,3 +116,11 @@ const (
 func (r ResultSource) Format(code string) string {
 	return fmt.Sprintf("%s_%s", r, code)
 }
+
+//FlowTag 流程标签
+type FlowTag string
+
+const (
+	//RecvOrderByPID 来源于发货请求
+	RecvOrderByPID FlowTag = "recv_by_pid"
+)

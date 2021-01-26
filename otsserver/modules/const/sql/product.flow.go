@@ -5,14 +5,26 @@ const SelectChildFlowByPlID = `
 select
 t.flow_id,
 t.pl_id,
-t.parent_flow_id,
 t.success_flow_id,
 t.failed_flow_id,
 t.unknown_flow_id
 from ots_product_flow t
 where
 t.pl_id = @pl_id
-and t.parent_flow_id=@parent_flow_id
+`
+
+//SelectFlowByTag 根据产品线获取业务流程配置
+const SelectFlowByTag = `
+select
+t.flow_id,
+t.pl_id,
+t.success_flow_id,
+t.failed_flow_id,
+t.unknown_flow_id
+from ots_product_flow t
+where
+t.pl_id = @pl_id
+and t.tag_name=@tag_name
 `
 
 //SelectChildFlowByFlowID 根据产品线获取业务流程配置
@@ -20,7 +32,6 @@ const SelectChildFlowByFlowID = `
 select
 t.flow_id,
 t.pl_id,
-t.parent_flow_id,
 t.success_flow_id,
 t.failed_flow_id,
 t.unknown_flow_id

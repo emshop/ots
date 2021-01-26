@@ -11,6 +11,9 @@ const FieldFlowName = "flow_Name"
 //FieldPlID 字段产品线编号的数据库名称
 const FieldPlID = "pl_id"
 
+//FieldTagName 字段tag标签的数据库名称
+const FieldTagName = "tag_name"
+
 //FieldParentFlowID 字段父级流程编号的数据库名称
 const FieldParentFlowID = "parent_flow_id"
 

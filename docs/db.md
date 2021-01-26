@@ -312,7 +312,6 @@ After: After(字段名) //在某个字段后面
 | flow_name       | varchar2(64) |        |  否   |          DN          | 流程名称     |
 | tag_name        | varchar2(64) |        |  否   | DN,UNQ(unq_flow_tag) | tag标签      |
 | pl_id           | number(10)   |        |  否   | LR,UNQ(unq_flow_tag) | 产品线编号   |
-| parent_flow_id  | number(10)   |   0    |  否   |          LR          | 父级流程编号 |
 | success_flow_id | varchar2(32) |  '-'   |  否   |          LR          | 成功后续流程 |
 | failed_flow_id  | varchar2(32) |  '-'   |  否   |          LR          | 失败后续流程 |
 | unknown_flow_id | varchar2(32) |  '-'   |  否   |          LR          | 未知后续流程 |
