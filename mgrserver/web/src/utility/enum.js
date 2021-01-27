@@ -4,7 +4,7 @@ import vue from "vue";
 window._EnumList_ = {};
 //根据type保存的回调函数
 window._EnumCallbackFunc_ = {
-  "*" : function(){return [];}
+  "*" : function(tp){return [];}
 }
 
 /*
@@ -15,7 +15,12 @@ window._EnumCallbackFunc_ = {
 export function Enum() {}
 
 
-//当参数为function时回调
+//当参数为function时回调 回调函数须为同步请求
+/*
+*Vue.prototype.$enum.callback(function(type){
+*  return = Vue.prototype.$http.xpost("/dds/dictionary/get", { dic_type: "product_status" }, "", true) 
+*})
+*/
 Enum.prototype.callback = function (callback, tp) {
   if (typeof callback == "function"){
     var type = tp || "*"
@@ -87,17 +92,17 @@ Enum.prototype.clear = function (type) {
 };
 
 //filter
-export const fltrEnum = vue.filter('fltrEnum', (value, enumType) => {
-  return new Enum().getName(enumType, value)
+vue.filter('fltrEnum', (value, enumType) => {
+  return Enum.prototype.getName(enumType, value)
 })
 
 //数据格式检查
-function checkData(){
-  // for (var i = 0; i < data.length; i++){
-  //   if(!data[i].hasOwnProperty("name") || !data[i].hasOwnProperty("value")){
-  //     return false
-  //   }
-  // }
+function checkData(data){
+  for (var i = 0; i < data.length; i++){
+    if(!Object.prototype.hasOwnProperty.call(data[i], "name") || !Object.prototype.hasOwnProperty.call(data[i], "value")){
+      return false
+    }
+  }
   return true
 }
 

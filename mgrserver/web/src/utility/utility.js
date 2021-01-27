@@ -1,4 +1,3 @@
-
 import Vue from "vue"
 
 /*
@@ -9,7 +8,7 @@ import Vue from "vue"
  export function Utility() {}
 
 //字符串去空格
-Utility.prototype.trim =  function(str) {
+Utility.prototype.trim = function(str) {
     if (!str)
         return "";
     return str.toString().replace(/[ |-]/g, "");
