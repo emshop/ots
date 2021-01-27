@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/emshop/ots/mgrserver/api/services/merchant"
 	"github.com/emshop/ots/mgrserver/api/services/system"
 	"github.com/emshop/ots/mgrserver/api/services/trade"
 	"github.com/micro-plat/hydra"
@@ -29,4 +30,7 @@ func init() {
 	App.Micro("/trade/order", trade.NewTradeOrderHandler())
 	App.Micro("/enums", system.NewEnumsHandler())
 	App.Micro("/trade/delivery", trade.NewTradeDeliveryHandler())
+	App.Micro("/merchant/info", merchant.NewMerchantInfoHandler())
+	App.Micro("/merchant/shelf", merchant.NewMerchantShelfHandler())
+	App.Micro("/merchant/product", merchant.NewMerchantProductHandler())
 }

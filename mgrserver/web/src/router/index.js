@@ -34,6 +34,40 @@ export default new Router({
           component: () => import('../pages/trade/trade.delivery.detail.vue'),
           meta: { title: "发货详情" }
         } ,
+        {
+          path:'merchant/info',
+          name: 'merchant/merchant.info',
+          component: () => import('../pages/merchant/merchant.info.list.vue'),
+          meta: { title: "发货详情" }
+        } ,{
+          path:'merchant/info.detail',
+          name: 'merchant/info.detail',
+          component: () => import('../pages/merchant/merchant.info.detail.vue'),
+          meta: { title: "发货详情" }
+        } ,
+
+        {
+          path:'merchant/shelf',
+          name: 'merchant/merchant.shelf',
+          component: () => import('../pages/merchant/merchant.shelf.list.vue'),
+          meta: { title: "发货详情" }
+        } ,{
+          path:'merchant/shelf.detail',
+          name: 'merchant/shelf.detail',
+          component: () => import('../pages/merchant/merchant.shelf.detail.vue'),
+          meta: { title: "发货详情" }
+        } ,
+        {
+          path:'merchant/product',
+          name: 'merchant/merchant.product',
+          component: () => import('../pages/merchant/merchant.product.list.vue'),
+          meta: { title: "发货详情" }
+        } ,{
+          path:'merchant/product.detail',
+          name: 'merchant/product.detail',
+          component: () => import('../pages/merchant/merchant.product.detail.vue'),
+          meta: { title: "发货详情" }
+        } ,
       ]
     }
   ]

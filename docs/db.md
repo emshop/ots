@@ -24,52 +24,52 @@ After: After(字段名) //在某个字段后面
 
 ###  1. 商户信息[ots_merchant_info]
 
-| 字段名      | 类型         | 默认值  | 为空  |   约束   | 描述     |
-| ----------- | ------------ | :-----: | :---: | :------: | :------- |
-| mer_no      | varchar2(32) |         |  否   | PK,RL,DI | 编号     |
-| mer_name    | varchar2(64) |         |  否   | CRUQL,DN | 名称     |
-| mer_crop    | varchar2(64) |         |  否   |  CRUQL   | 公司     |
-| mer_type    | number(1)    |         |  否   |  CRUQL   | 类型     |
-| bd_uid      | number(20)   |         |  否   |  CRUQL   | 商务人员 |
-| status      | number(1)    |    0    |  否   | RUQL,SL  | 状态     |
-| create_time | date         | sysdate |  否   |    RL    | 创建时间 |
+| 字段名      | 类型         | 默认值  | 为空  |   约束    | 描述     |
+| ----------- | ------------ | :-----: | :---: | :-------: | :------- |
+| mer_no      | varchar2(32) |         |  否   | PK,l,r,DI | 编号     |
+| mer_name    | varchar2(64) |         |  否   | q,l,r,DN  | 名称     |
+| mer_crop    | varchar2(64) |         |  否   |    l,r    | 公司     |
+| mer_type    | number(1)    |         |  否   |    l,r    | 类型     |
+| bd_uid      | number(20)   |         |  否   |    l,r    | 商务人员 |
+| status      | number(1)    |    0    |  否   | q,l,r,sl  | 状态     |
+| create_time | date         | sysdate |  否   |    dp     | 创建时间 |
 
 
 ###  2. 商户货架[ots_merchant_shelf]
 
 | 字段名               | 类型         | 默认值  | 为空  |            约束             | 描述                   |
 | -------------------- | ------------ | :-----: | :---: | :-------------------------: | :--------------------- |
-| mer_shelf_id         | number(10)   |   100   |  否   |        PK,SEQ,RL,DI         | 货架编号               |
-| mer_shelf_name       | varchar2(64) |         |  否   |          CRUQL,DN           | 货架名称               |
-| mer_no               | varchar2(32) |         |  否   | CRUQL,SL(ots_merchant_info) | 商户编号               |
-| mer_fee_discount     | number(10,5) |    0    |  否   |            CRUL             | 商户佣金               |
-| trade_fee_discount   | number(10,5) |    0    |  否   |            CRUL             | 交易服务费             |
-| payment_fee_discount | number(10,5) |    0    |  否   |            CRUL             | 支付手续费             |
-| order_timeout        | number(10)   |         |  否   |            RUCL             | 订单超时时长           |
-| payment_timeout      | number(10)   |         |  否   |            RCUL             | 支付超时时长           |
-| invoice_type         | number(2)    |    1    |  否   |          CRUQL,SL           | 开票方式（1.不开发票） |
-| can_refund           | number(1)    |    1    |  否   |          CRUQL,SL           | 允许退款(0.是,1否)     |
-| limit_count          | number(10)   |    1    |  否   |            CRUL             | 单次购买数量           |
-| can_split_order      | number(1)    |    0    |  否   |            CRUL             | 是否拆单               |
-| status               | number(1)    |    0    |  否   |           RUQL,SL           | 状态                   |
-| create_time          | date         | sysdate |  否   |             RL              | 创建时间               |
+| mer_shelf_id         | number(10)   |   100   |  否   |        PK,SEQ,DI,l,r        | 货架编号               |
+| mer_shelf_name       | varchar2(64) |         |  否   |          DN,q,l,r           | 货架名称               |
+| mer_no               | varchar2(32) |         |  否   | q,l,r,sl(ots_merchant_info) | 商户编号               |
+| mer_fee_discount     | number(10,5) |    0    |  否   |             l,r             | 商户佣金               |
+| trade_fee_discount   | number(10,5) |    0    |  否   |             l,r             | 交易服务费             |
+| payment_fee_discount | number(10,5) |    0    |  否   |             l,r             | 支付手续费             |
+| order_timeout        | number(10)   |         |  否   |             l,r             | 订单超时时长           |
+| payment_timeout      | number(10)   |         |  否   |             l,r             | 支付超时时长           |
+| invoice_type         | number(2)    |    1    |  否   |             l,r             | 开票方式（1.不开发票） |
+| can_refund           | number(1)    |    1    |  否   |        l,r,sl(bool)         | 允许退款(0.是,1否)     |
+| limit_count          | number(10)   |    1    |  否   |             l,r             | 单次购买数量           |
+| can_split_order      | number(1)    |    0    |  否   |        l,r,sl(bool)         | 是否拆单               |
+| status               | number(1)    |    0    |  否   |             l,r             | 状态                   |
+| create_time          | date         | sysdate |  否   |             l,r             | 创建时间               |
 
 ###  3.商户商品[ots_merchant_product]
 
-| 字段名         | 类型         | 默认值  | 为空  |           约束            | 描述                 |
-| -------------- | ------------ | :-----: | :---: | :-----------------------: | :------------------- |
-| mer_product_id | number(10)   |  10000  |  否   |         PK,SEQ,LR         | 商品编号             |
-| mer_shelf_id   | number(10)   |         |  否   | CRUQL,UNQ(unq_mer_prod,7) | 货架编号             |
-| mer_no         | varchar2(32) |         |  否   | CRUQL,UNQ(unq_mer_prod,1) | 商户编号             |
-| pl_id          | number(10)   |         |  否   | CRULQ,UNQ(unq_mer_prod,2) | 产品线               |
-| brand_no       | varchar2(8)  |         |  否   | CRUQL,UNQ(unq_mer_prod,3) | 品牌                 |
-| province_no    | varchar2(8)  |   '-'   |  否   | CRUQL,UNQ(unq_mer_prod,4) | 省份                 |
-| city_no        | varchar2(8)  |   '-'   |  否   | CRUQL,UNQ(unq_mer_prod,5) | 城市                 |
-| face           | number(10)   |         |  否   | CRUL,UNQ(unq_mer_prod,6)  | 面值                 |
-| mer_product_no | varchar2(32) |         |  是   |           CRUQL           | 商户商品编号         |
-| discount       | number(10,5) |         |  否   |           CRUL            | 销售折扣（以面值算） |
-| status         | number(1)    |    0    |  否   |          RUQL,SL          | 状态(0.是,1.否)      |
-| create_time    | date         | sysdate |  否   |            RL             | 创建时间             |
+| 字段名         | 类型         | 默认值  | 为空  |                     约束                      | 描述                 |
+| -------------- | ------------ | :-----: | :---: | :-------------------------------------------: | :------------------- |
+| mer_product_id | number(10)   |  10000  |  否   |                   PK,SEQ,LR                   | 商品编号             |
+| mer_shelf_id   | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,7),sl(ots_merchant_info) | 货架编号             |
+| mer_no         | varchar2(32) |         |  否   | q,l,r,UNQ(unq_mer_prod,1),sl(ots_merchant_info) | 商户编号             |
+| pl_id          | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,2),sl(ots_product_line)  | 产品线               |
+| brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand)       | 品牌                 |
+| province_no    | varchar2(8)  |   '-'   |  否   |      l,r,UNQ(unq_mer_prod,4),sl(provice)      | 省份                 |
+| city_no        | varchar2(8)  |   '-'   |  否   |       l,r,UNQ(unq_mer_prod,5),sl(city)        | 城市                 |
+| face           | number(10)   |         |  否   |            l,r,UNQ(unq_mer_prod,6)            | 面值                 |
+| mer_product_no | varchar2(32) |         |  是   |                      l,r                      | 商户商品编号         |
+| discount       | number(10,5) |         |  否   |                      l,r                      | 销售折扣（以面值算） |
+| status         | number(1)    |    0    |  否   |                    l,r,sl                     | 状态(0.是,1.否)      |
+| create_time    | date         | sysdate |  否   |                    l,r,dp                     | 创建时间             |
 
 
 ## 二、供货商信息
@@ -201,7 +201,7 @@ After: After(字段名) //在某个字段后面
 | mer_no               | varchar2(32)   |         |  否   |  ql,sl(ots_merchant_info)  | 商户编号                                      |
 | mer_product_id       | number(10)     |         |  否   |                            | 商户商品编号                                  |
 | pl_id                | number(10)     |         |  否   | l,Q,sl(ots_product_line),r | 产品线                                        |
-| brand_no             | varchar2(8)    |         |  否   |             l,sl(brand)              | 品牌                                          |
+| brand_no             | varchar2(8)    |         |  否   |        l,sl(brand)         | 品牌                                          |
 | province_no          | varchar2(8)    |         |  否   |             l              | 省份                                          |
 | city_no              | varchar2(8)    |         |  否   |             l              | 城市                                          |
 | invoice_type         | number(3)      |         |  否   |             r              | 开票方式（1.不开发票）                        |
@@ -228,7 +228,7 @@ After: After(字段名) //在某个字段后面
 | real_discount        | number(20,5)   |         |  是   |             r              | 供货商实际折扣                                |
 | return_msg           | varchar2(256)  |         |  是   |             r              | 发货返回信息                                  |
 | request_params       | varchar2(2000) |         |  是   |             r              | 发货信息参数json                              |
-| result_source        | varchar2(32)   |         |  是   |             r,sl              | 发货结果来源（1：通知，2：查询，3：同步返回） |
+| result_source        | varchar2(32)   |         |  是   |            r,sl            | 发货结果来源（1：通知，2：查询，3：同步返回） |
 | result_code          | varchar2(32)   |         |  是   |             r              | 发货结果码                                    |
 | last_update_time     | date           | sysdate |  否   |             r              | 最后更新时间                                  |
 
