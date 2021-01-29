@@ -89,7 +89,7 @@
 				</el-table-column>
 				<el-table-column prop="order_status" label="订单状态" >
 					<template slot-scope="scope">
-						<span >{{scope.row.order_status | fltrEnum("order_status")}}</span>
+						<span :class="scope.row.order_status|fltrTextColor">{{scope.row.order_status | fltrEnum("order_status")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作">

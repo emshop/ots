@@ -159,23 +159,23 @@ After: After(字段名) //在某个字段后面
 | num                     | number(10)   |            |  否   |             l,r             | 数量                             |
 | total_face              | number(10)   |            |  否   |              r              | 商品总面值                       |
 | account_name            | varchar2(64) |            |  否   |             l,r             | 用户账户                         |
-| invoice_type            | number(2)    |            |  否   |              r              | 开票方式（1.不开发票）           |
+| invoice_type            | number(2)    |            |  否   |              r ,cc             | 开票方式（1.不开发票）           |
 | sell_discount           | number(20,5) |            |  否   |             l,r             | 销售折扣                         |
 | sell_amount             | number(20,5) |            |  否   |              r              | 总销售金额                       |
 | mer_fee_discount        | number(20,5) |            |  否   |              r              | 商户佣金折扣                     |
 | trade_fee_discount      | number(20,5) |            |  否   |              r              | 交易服务折扣                     |
 | payment_fee_discount    | number(20,5) |            |  否   |              r              | 支付手续费折扣                   |
-| can_split_order         | number(1)    |     1      |  否   |         r,sl(bool)          | 是否拆单（0.是，1否）            |
+| can_split_order         | number(1)    |     1      |  否   |         r,sl(bool),cc          | 是否拆单（0.是，1否）            |
 | create_time             | date         |  sysdate   |  否   |          q,l,r,dp           | 创建时间                         |
 | order_timeout           | date         |            |  否   |              r              | 订单超时时间                     |
 | payment_timeout         | date         |            |  否   |              r              | 支付超时时间                     |
-| delivery_pause          | number(1)    |     1      |  否   |         r,sl(bool)          | 发货暂停（0.是，1否）            |
-| order_status            | number(3)    |     10     |  否   |           l,r,sl            | 订单状态                         |
-| payment_status          | number(3)    |     20     |  否   |    r,sl(process_status)     | 支付状态                         |
-| delivery_status         | number(3)    |     10     |  否   |    r,sl(process_status)     | 发货状态                         |
-| refund_status           | number(3)    |     10     |  否   |    r,sl(process_status)     | 退款状态                         |
-| notify_status           | number(3)    |     10     |  否   |    r,sl(process_status)     | 通知状态                         |
-| is_refund               | number(1)    |     1      |  否   |         r,sl(bool)          | 用户退款（0.是，1否）            |
+| delivery_pause          | number(1)    |     1      |  否   |         r,sl(bool),cc          | 发货暂停（0.是，1否）            |
+| order_status            | number(3)    |     10     |  否   |           l,r,sl,cc            | 订单状态                         |
+| payment_status          | number(3)    |     20     |  否   |    r,sl(process_status),cc     | 支付状态                         |
+| delivery_status         | number(3)    |     10     |  否   |    r,sl(process_status),cc     | 发货状态                         |
+| refund_status           | number(3)    |     10     |  否   |    r,sl(process_status),cc     | 退款状态                         |
+| notify_status           | number(3)    |     10     |  否   |    r,sl(process_status),cc     | 通知状态                         |
+| is_refund               | number(1)    |     1      |  否   |         r,sl(bool),cc          | 用户退款（0.是，1否）            |
 | bind_face               | number(10)   |     0      |  否   |              r              | 成功绑定总面值                   |
 | success_face            | number(10)   |     0      |  否   |              r              | 实际成功总面值                   |
 | success_sell_amount     | number(20,5) |     0      |  否   |              r              | 实际成功总销售金额 （1）         |

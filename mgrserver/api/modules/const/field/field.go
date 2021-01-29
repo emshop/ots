@@ -1,7 +1,7 @@
 package field
 
 
-//FieldAccountName 字段用户账户信息的数据库名称
+//FieldAccountName 字段用户账户的数据库名称
 const FieldAccountName = "account_name"
 
 //FieldBindFace 字段成功绑定总面值的数据库名称
@@ -37,7 +37,7 @@ const FieldDeliveryStatus = "delivery_status"
 //FieldEndTime 字段结束时间的数据库名称
 const FieldEndTime = "end_time"
 
-//FieldFace 字段商品面值的数据库名称
+//FieldFace 字段面值的数据库名称
 const FieldFace = "face"
 
 //FieldInvoiceType 字段开票方式（1.不开发票）的数据库名称
@@ -58,7 +58,7 @@ const FieldMerNo = "mer_no"
 //FieldMerOrderNo 字段商户订单编号的数据库名称
 const FieldMerOrderNo = "mer_order_no"
 
-//FieldMerProductID 字段商户商品编号的数据库名称
+//FieldMerProductID 字段商品编号的数据库名称
 const FieldMerProductID = "mer_product_id"
 
 //FieldMerProductNo 字段外部商品编号的数据库名称
@@ -70,7 +70,7 @@ const FieldMerShelfID = "mer_shelf_id"
 //FieldNotifyStatus 字段通知状态的数据库名称
 const FieldNotifyStatus = "notify_status"
 
-//FieldNum 字段发货数量的数据库名称
+//FieldNum 字段数量的数据库名称
 const FieldNum = "num"
 
 //FieldOrderID 字段订单编号的数据库名称
@@ -85,7 +85,7 @@ const FieldOrderTimeout = "order_timeout"
 //FieldPaymentFeeAmount 字段支付服务费的数据库名称
 const FieldPaymentFeeAmount = "payment_fee_amount"
 
-//FieldPaymentFeeDiscount 字段支付手续费的数据库名称
+//FieldPaymentFeeDiscount 字段支付手续费折扣的数据库名称
 const FieldPaymentFeeDiscount = "payment_fee_discount"
 
 //FieldPaymentStatus 字段支付状态的数据库名称
@@ -178,11 +178,11 @@ const FieldSuccessSppPaymentFee = "success_spp_payment_fee"
 //FieldSuccessSppTradeFee 字段实际发货成功总供货商服务费 （7）的数据库名称
 const FieldSuccessSppTradeFee = "success_spp_trade_fee"
 
-//FieldTotalFace 字段发货总面值的数据库名称
+//FieldTotalFace 字段商品总面值的数据库名称
 const FieldTotalFace = "total_face"
 
 //FieldTradeFeeAmount 字段发货服务费的数据库名称
 const FieldTradeFeeAmount = "trade_fee_amount"
 
-//FieldTradeFeeDiscount 字段交易服务费的数据库名称
+//FieldTradeFeeDiscount 字段交易服务折扣的数据库名称
 const FieldTradeFeeDiscount = "trade_fee_discount"

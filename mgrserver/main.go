@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/emshop/ots/mgrserver/api"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/hydra/servers/http"
 )

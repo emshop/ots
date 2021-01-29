@@ -21,16 +21,6 @@ export default new Router({
 					name: 'TradeOrderDetail',
 					component: () => import('../pages/trade/trade.order.detail.vue')
 				},
-				{
-					path: 'trade/delivery',
-					name: 'TradeDelivery',
-					component: () => import('../pages/trade/trade.delivery.list.vue')
-				},
-				{
-					path: 'trade/delivery/detail',
-					name: 'TradeDeliveryDetail',
-					component: () => import('../pages/trade/trade.delivery.detail.vue')
-				},
       ]
     }
   ]
