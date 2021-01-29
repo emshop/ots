@@ -98,12 +98,11 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			status:[],      //枚举对象
+			status: this.$enum.get("status"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },
   created(){
-		this.status = this.$enum.get("status")
   },
   mounted(){
     this.init()
@@ -140,7 +139,7 @@ export default {
 			var data = {
         mer_no: val.mer_no,
       }
-      this.$emit("addTab","详情"+val.mer_no,"/merchant/info.detail",data);
+      this.$emit("addTab","详情"+val.mer_no,"/merchant/info/detail",data);
 		},
   }
 }

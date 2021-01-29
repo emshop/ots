@@ -139,18 +139,14 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			merShelfId:[],      //枚举对象
-			merNo:[],      //枚举对象
-			plId:[],      //枚举对象
-			brandNo:[],      //枚举对象
+			merShelfId: this.$enum.get("merchant_info"),
+			merNo: this.$enum.get("merchant_info"),
+			plId: this.$enum.get("product_line"),
+			brandNo: this.$enum.get("brand"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },
   created(){
-		this.merShelfId = this.$enum.get("merchant_info")
-		this.merNo = this.$enum.get("merchant_info")
-		this.plId = this.$enum.get("product_line")
-		this.brandNo = this.$enum.get("brand")
   },
   mounted(){
     this.init()
@@ -187,7 +183,7 @@ export default {
 			var data = {
         mer_product_id: val.mer_product_id,
       }
-      this.$emit("addTab","详情"+val.mer_product_id,"/merchant/product.detail",data);
+      this.$emit("addTab","详情"+val.mer_product_id,"/merchant/product/detail",data);
 		},
   }
 }

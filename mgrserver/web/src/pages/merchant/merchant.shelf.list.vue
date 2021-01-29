@@ -137,12 +137,11 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			merNo:[],      //枚举对象
+			merNo: this.$enum.get("merchant_info"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },
   created(){
-		this.merNo = this.$enum.get("merchant_info")
   },
   mounted(){
     this.init()
@@ -179,7 +178,7 @@ export default {
 			var data = {
         mer_shelf_id: val.mer_shelf_id,
       }
-      this.$emit("addTab","详情"+val.mer_shelf_id,"/merchant/shelf.detail",data);
+      this.$emit("addTab","详情"+val.mer_shelf_id,"/merchant/shelf/detail",data);
 		},
   }
 }

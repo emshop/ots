@@ -11,7 +11,7 @@
                     <div class="pull-right" style="margin-right: 10px">编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_no}}</div>
+                    <div>{{ info.mer_no | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">名称:</div>
@@ -73,7 +73,6 @@
       this.init();
     },
     created(){
-        this.$enum.get("status")
     },
     methods: {
       init(){

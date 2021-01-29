@@ -1,3 +1,4 @@
+
 package system
 
 import (
@@ -47,10 +48,10 @@ func (o *EnumsHandler) QueryHandle(ctx hydra.IContext) interface{} {
 }
 
 var enumsMap = map[string]string{
-	"merchant_info":  `select 'merchant_info' type , t.mer_no value , t.mer_name name  from ots_merchant_info t `,
-	"merchant_shelf": `select 'merchant_shelf' type , t.mer_shelf_id value , t.mer_shelf_name name  from ots_merchant_shelf t `,
-	"supplier_info":  `select 'supplier_info' type , t.spp_no value , t.spp_name name  from ots_supplier_info t `,
-	"supplier_shelf": `select 'supplier_shelf' type , t.spp_shelf_id value , t.spp_shelf_name name  from ots_supplier_shelf t `,
-	"product_line":   `select 'product_line' type , t.pl_id value , t.pl_name name  from ots_product_line t `,
-	"product_flow":   `select 'product_flow' type , t.flow_id value , t.flow_name name , t.tag_name name  from ots_product_flow t `,
+"merchant_info":`select 'merchant_info' type , t.mer_no value , t.mer_name name  from ots_merchant_info t `,
+"merchant_shelf":`select 'merchant_shelf' type , t.mer_shelf_id value , t.mer_shelf_name name  from ots_merchant_shelf t `,
+"supplier_info":`select 'supplier_info' type , t.spp_no value , t.spp_name name  from ots_supplier_info t `,
+"supplier_shelf":`select 'supplier_shelf' type , t.spp_shelf_id value , t.spp_shelf_name name  from ots_supplier_shelf t `,
+"product_line":`select 'product_line' type , t.pl_id value , t.pl_name name  from ots_product_line t `,
+"product_flow":`select 'product_flow' type , t.flow_id value , t.flow_name name , t.tag_name name  from ots_product_flow t `,
 }

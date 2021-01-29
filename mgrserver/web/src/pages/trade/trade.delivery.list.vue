@@ -28,12 +28,12 @@
 				</el-table-column>
 				<el-table-column prop="pl_id" label="产品线" >
 					<template slot-scope="scope">
-						<span>{{scope.row.pl_id | fltrEnum("product_line")}}</span>
+						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="brand_no" label="品牌" >
 					<template slot-scope="scope">
-						<span>{{scope.row.brand_no | fltrEnum("brand")}}</span>
+						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="province_no" label="省份" >
@@ -55,12 +55,12 @@
 				</el-table-column>
 				<el-table-column prop="delivery_status" label="发货状态" >
 					<template slot-scope="scope">
-						<span>{{scope.row.delivery_status | fltrEnum("process_status")}}</span>
+						<span >{{scope.row.delivery_status | fltrEnum("process_status")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="payment_status" label="支付状态" >
 					<template slot-scope="scope">
-						<span>{{scope.row.payment_status | fltrEnum("process_status")}}</span>
+						<span >{{scope.row.payment_status | fltrEnum("process_status")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="create_time" label="创建时间" >
@@ -109,12 +109,11 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			plId:[],      //枚举对象
+			plId: this.$enum.get("product_line"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },
   created(){
-		this.plId = this.$enum.get("product_line")
   },
   mounted(){
     this.init()
@@ -151,7 +150,7 @@ export default {
 			var data = {
         delivery_id: val.delivery_id,
       }
-      this.$emit("addTab","详情"+val.delivery_id,"/trade/delivery.detail",data);
+      this.$emit("addTab","详情"+val.delivery_id,"/trade/delivery/detail",data);
 		},
   }
 }

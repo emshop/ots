@@ -139,13 +139,13 @@
                     <div class="pull-right" style="margin-right: 10px">供货商发货编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.spp_delivery_no}}</div>
+                    <div>{{ info.spp_delivery_no | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">供货商商品编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.spp_product_no}}</div>
+                    <div>{{ info.spp_product_no | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -187,7 +187,7 @@
                     <div class="pull-right" style="margin-right: 10px">发货结果码:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.result_code}}</div>
+                    <div>{{ info.result_code | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">最后更新时间:</div>
@@ -217,8 +217,6 @@
       this.init();
     },
     created(){
-        this.$enum.get("product_line")
-        this.$enum.get("result_source")
     },
     methods: {
       init(){

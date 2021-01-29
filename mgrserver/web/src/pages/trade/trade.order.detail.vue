@@ -17,7 +17,7 @@
                     <div class="pull-right" style="margin-right: 10px">商户编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_no | fltrEnum("merchant_info") }}</div>
+                    <div >{{ info.mer_no | fltrEnum("merchant_info") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -49,7 +49,7 @@
                     <div class="pull-right" style="margin-right: 10px">外部商品编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_product_no}}</div>
+                    <div>{{ info.mer_product_no | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -59,13 +59,13 @@
                     <div class="pull-right" style="margin-right: 10px">产品线:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.pl_id | fltrEnum("product_line") }}</div>
+                    <div >{{ info.pl_id | fltrEnum("product_line") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">品牌:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.brand_no | fltrEnum("brand") }}</div>
+                    <div >{{ info.brand_no | fltrEnum("brand") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -75,13 +75,13 @@
                     <div class="pull-right" style="margin-right: 10px">省份:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.province_no | fltrEnum("province") }}</div>
+                    <div >{{ info.province_no | fltrEnum("province") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">城市:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.city_no}}</div>
+                    <div>{{ info.city_no | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -171,7 +171,7 @@
                     <div class="pull-right" style="margin-right: 10px">是否拆单:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.can_split_order | fltrEnum("bool") }}</div>
+                    <div >{{ info.can_split_order | fltrEnum("bool") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
@@ -203,13 +203,13 @@
                     <div class="pull-right" style="margin-right: 10px">发货暂停:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.delivery_pause | fltrEnum("bool") }}</div>
+                    <div >{{ info.delivery_pause | fltrEnum("bool") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">订单状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.order_status | fltrEnum("order_status") }}</div>
+                    <div >{{ info.order_status | fltrEnum("order_status") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -219,13 +219,13 @@
                     <div class="pull-right" style="margin-right: 10px">支付状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_status | fltrEnum("process_status") }}</div>
+                    <div >{{ info.payment_status | fltrEnum("process_status") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">发货状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.delivery_status | fltrEnum("process_status") }}</div>
+                    <div >{{ info.delivery_status | fltrEnum("process_status") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -235,13 +235,13 @@
                     <div class="pull-right" style="margin-right: 10px">退款状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.refund_status | fltrEnum("process_status") }}</div>
+                    <div >{{ info.refund_status | fltrEnum("process_status") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">通知状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.notify_status | fltrEnum("process_status") }}</div>
+                    <div >{{ info.notify_status | fltrEnum("process_status") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -251,7 +251,7 @@
                     <div class="pull-right" style="margin-right: 10px">用户退款:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.is_refund | fltrEnum("bool") }}</div>
+                    <div >{{ info.is_refund | fltrEnum("bool") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">成功绑定总面值:</div>
@@ -361,18 +361,6 @@
       this.init();
     },
     created(){
-        this.$enum.get("merchant_info")
-        this.$enum.get("product_line")
-        this.$enum.get("brand")
-        this.$enum.get("province")
-        this.$enum.get("bool")
-        this.$enum.get("bool")
-        this.$enum.get("order_status")
-        this.$enum.get("process_status")
-        this.$enum.get("process_status")
-        this.$enum.get("process_status")
-        this.$enum.get("process_status")
-        this.$enum.get("bool")
     },
     methods: {
       init(){

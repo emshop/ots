@@ -20,10 +20,7 @@ Vue.use(utility,true);
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
-    /* 路由发生变化修改页面title */
-    if (to.meta && to.meta.title) {
-      document.title = to.meta.title
-    }
+    /* 路由发生变化修改页面title */   
     next()
 })
 

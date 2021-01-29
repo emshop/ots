@@ -65,7 +65,7 @@
                     <div class="pull-right" style="margin-right: 10px">商户商品编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_product_no}}</div>
+                    <div>{{ info.mer_product_no | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -115,13 +115,6 @@
       this.init();
     },
     created(){
-        this.$enum.get("merchant_info")
-        this.$enum.get("merchant_info")
-        this.$enum.get("product_line")
-        this.$enum.get("brand")
-        this.$enum.get("provice")
-        this.$enum.get("city")
-        this.$enum.get("status")
     },
     methods: {
       init(){

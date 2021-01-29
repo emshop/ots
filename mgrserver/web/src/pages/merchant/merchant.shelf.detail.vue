@@ -137,9 +137,6 @@
       this.init();
     },
     created(){
-        this.$enum.get("merchant_info")
-        this.$enum.get("bool")
-        this.$enum.get("bool")
     },
     methods: {
       init(){

@@ -26,7 +26,7 @@ func (u *TradeDeliveryHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	ctx.Log().Info("--------获取订单发货表单条数据--------")
 
 	ctx.Log().Info("1.参数校验")
-	if err := ctx.Request().CheckMap(getCheckFields); err != nil {
+	if err := ctx.Request().CheckMap(getTradeDeliveryCheckFields); err != nil {
 		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
 	}
 
@@ -49,7 +49,7 @@ func (u *TradeDeliveryHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 	ctx.Log().Info("--------获取订单发货表数据列表--------")
 
 	ctx.Log().Info("1.参数校验")
-	if err := ctx.Request().CheckMap(queryCheckFields); err != nil {
+	if err := ctx.Request().CheckMap(queryTradeDeliveryCheckFields); err != nil {
 		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
 	}
 
@@ -79,11 +79,11 @@ func (u *TradeDeliveryHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
 
 
-var getCheckFields = map[string]interface{}{
+var getTradeDeliveryCheckFields = map[string]interface{}{
 	field.FieldDeliveryID:"required",
 }
 
-var queryCheckFields = map[string]interface{}{
+var queryTradeDeliveryCheckFields = map[string]interface{}{
 	field.FieldPlID:"required",
 	}
 

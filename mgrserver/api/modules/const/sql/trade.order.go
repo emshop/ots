@@ -1,7 +1,4 @@
 package sql
-
-import _ "github.com/go-sql-driver/mysql"
-
 //GetTradeOrderByOrderId 查询单条数据订单记录
 const GetTradeOrderByOrderId = `
 select
@@ -58,10 +55,7 @@ from ots_trade_order t
 where
 	&t.order_id
 	&t.mer_no
-	?t.mer_order_no
 	&t.pl_id
-	&t.brand_no
-	&t.province_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)`
 
@@ -78,15 +72,12 @@ select
 	t.account_name,
 	t.sell_discount,
 	t.create_time,
-	t.order_status
+	t.order_status 
 from ots_trade_order t
 where
 	&t.order_id
 	&t.mer_no
-	?t.mer_order_no
 	&t.pl_id
-	&t.brand_no
-	&t.province_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
 order by t.order_id desc

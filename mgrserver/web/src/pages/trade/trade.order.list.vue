@@ -44,22 +44,22 @@
 				</el-table-column>
 				<el-table-column prop="mer_no" label="商户编号" >
 					<template slot-scope="scope">
-						<span>{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
+						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="pl_id" label="产品线" >
 					<template slot-scope="scope">
-						<span>{{scope.row.pl_id | fltrEnum("product_line")}}</span>
+						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="brand_no" label="品牌" >
 					<template slot-scope="scope">
-						<span>{{scope.row.brand_no | fltrEnum("brand")}}</span>
+						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="province_no" label="省份" >
 					<template slot-scope="scope">
-						<span>{{scope.row.province_no | fltrEnum("province")}}</span>
+						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="face" label="面值" >
@@ -89,7 +89,7 @@
 				</el-table-column>
 				<el-table-column prop="order_status" label="订单状态" >
 					<template slot-scope="scope">
-						<span>{{scope.row.order_status | fltrEnum("order_status")}}</span>
+						<span >{{scope.row.order_status | fltrEnum("order_status")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作">
@@ -133,15 +133,13 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			merNo:[],      //枚举对象
-			plId:[],      //枚举对象
-			createTime:this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
+			merNo: this.$enum.get("merchant_info"),
+			plId: this.$enum.get("product_line"),
+			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },
   created(){
-		this.merNo = this.$enum.get("merchant_info")
-		this.plId = this.$enum.get("product_line")
   },
   mounted(){
     this.init()
@@ -179,7 +177,7 @@ export default {
 			var data = {
         order_id: val.order_id,
       }
-      this.$emit("addTab","详情"+val.order_id,"/trade/order.detail",data);
+      this.$emit("addTab","详情"+val.order_id,"/trade/order/detail",data);
 		},
   }
 }
