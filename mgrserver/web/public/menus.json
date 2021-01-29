@@ -1,0 +1,12 @@
+[
+  {
+    "name": "订单发货表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/trade/delivery"
+  },
+  {
+    "name": "订单记录",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/trade/order"
+  }
+]
