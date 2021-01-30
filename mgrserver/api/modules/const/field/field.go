@@ -4,14 +4,44 @@ package field
 //FieldAccountName 字段用户账户的数据库名称
 const FieldAccountName = "account_name"
 
+//FieldAddToBlacklist 字段是否加入黑名单的数据库名称
+const FieldAddToBlacklist = "add_to_blacklist"
+
+//FieldApplyID 字段申请编号的数据库名称
+const FieldApplyID = "apply_id"
+
+//FieldApplyStatus 字段申请状态的数据库名称
+const FieldApplyStatus = "apply_status"
+
+//FieldAuditBy 字段审核人的数据库名称
+const FieldAuditBy = "audit_by"
+
+//FieldAuditMsg 字段审核信息的数据库名称
+const FieldAuditMsg = "audit_msg"
+
+//FieldAuditStatus 字段审核状态的数据库名称
+const FieldAuditStatus = "audit_status"
+
+//FieldAuditTime 字段审核时间的数据库名称
+const FieldAuditTime = "audit_time"
+
+//FieldBdUid 字段商务人员的数据库名称
+const FieldBdUid = "bd_uid"
+
 //FieldBindFace 字段成功绑定总面值的数据库名称
 const FieldBindFace = "bind_face"
 
 //FieldBrandNo 字段品牌的数据库名称
 const FieldBrandNo = "brand_no"
 
+//FieldCanRefund 字段支持退货 (0.是,1.否)的数据库名称
+const FieldCanRefund = "can_refund"
+
 //FieldCanSplitOrder 字段是否拆单（0.是，1否）的数据库名称
 const FieldCanSplitOrder = "can_split_order"
+
+//FieldCategory 字段分类的数据库名称
+const FieldCategory = "category"
 
 //FieldCityNo 字段城市的数据库名称
 const FieldCityNo = "city_no"
@@ -25,22 +55,52 @@ const FieldCostDiscount = "cost_discount"
 //FieldCreateTime 字段创建时间的数据库名称
 const FieldCreateTime = "create_time"
 
+//FieldDealCode 字段处理码的数据库名称
+const FieldDealCode = "deal_code"
+
+//FieldDelay 字段延后处理时长的数据库名称
+const FieldDelay = "delay"
+
 //FieldDeliveryID 字段发货编号的数据库名称
 const FieldDeliveryID = "delivery_id"
 
 //FieldDeliveryPause 字段发货暂停（0.是，1否）的数据库名称
 const FieldDeliveryPause = "delivery_pause"
 
-//FieldDeliveryStatus 字段发货状态的数据库名称
+//FieldDeliveryStatus 字段发货结果的数据库名称
 const FieldDeliveryStatus = "delivery_status"
+
+//FieldDiscount 字段销售折扣（以面值算）的数据库名称
+const FieldDiscount = "discount"
+
+//FieldEndOrder 字段是否终结订单的数据库名称
+const FieldEndOrder = "end_order"
 
 //FieldEndTime 字段结束时间的数据库名称
 const FieldEndTime = "end_time"
 
+//FieldErrorCode 字段错误码的数据库名称
+const FieldErrorCode = "error_code"
+
+//FieldErrorDesc 字段错误码描述的数据库名称
+const FieldErrorDesc = "error_desc"
+
 //FieldFace 字段面值的数据库名称
 const FieldFace = "face"
 
-//FieldInvoiceType 字段开票方式（1.不开发票）的数据库名称
+//FieldFailedFlowID 字段失败流程的数据库名称
+const FieldFailedFlowID = "failed_flow_id"
+
+//FieldFlowID 字段流程编号的数据库名称
+const FieldFlowID = "flow_id"
+
+//FieldFlowName 字段流程名称的数据库名称
+const FieldFlowName = "flow_name"
+
+//FieldID 字段编号的数据库名称
+const FieldID = "id"
+
+//FieldInvoiceType 字段开发票的数据库名称
 const FieldInvoiceType = "invoice_type"
 
 //FieldIsRefund 字段用户退款（0.是，1否）的数据库名称
@@ -49,26 +109,53 @@ const FieldIsRefund = "is_refund"
 //FieldLastUpdateTime 字段最后更新时间的数据库名称
 const FieldLastUpdateTime = "last_update_time"
 
+//FieldLimitCount 字段单次最大发货数量的数据库名称
+const FieldLimitCount = "limit_count"
+
+//FieldMaxCount 字段最大执行次数的数据库名称
+const FieldMaxCount = "max_count"
+
+//FieldMerCrop 字段公司的数据库名称
+const FieldMerCrop = "mer_crop"
+
 //FieldMerFeeDiscount 字段商户佣金折扣的数据库名称
 const FieldMerFeeDiscount = "mer_fee_discount"
 
-//FieldMerNo 字段商户编号的数据库名称
+//FieldMerName 字段名称的数据库名称
+const FieldMerName = "mer_name"
+
+//FieldMerNo 字段商户名称的数据库名称
 const FieldMerNo = "mer_no"
 
-//FieldMerOrderNo 字段商户订单编号的数据库名称
+//FieldMerOrderNo 字段订单编号的数据库名称
 const FieldMerOrderNo = "mer_order_no"
 
 //FieldMerProductID 字段商品编号的数据库名称
 const FieldMerProductID = "mer_product_id"
 
-//FieldMerProductNo 字段外部商品编号的数据库名称
+//FieldMerProductNo 字段商户商品编号的数据库名称
 const FieldMerProductNo = "mer_product_no"
 
 //FieldMerShelfID 字段货架编号的数据库名称
 const FieldMerShelfID = "mer_shelf_id"
 
-//FieldNotifyStatus 字段通知状态的数据库名称
+//FieldMerShelfName 字段货架名称的数据库名称
+const FieldMerShelfName = "mer_shelf_name"
+
+//FieldMerType 字段类型的数据库名称
+const FieldMerType = "mer_type"
+
+//FieldNotifyCount 字段通知次数的数据库名称
+const FieldNotifyCount = "notify_count"
+
+//FieldNotifyMsg 字段通知结果的数据库名称
+const FieldNotifyMsg = "notify_msg"
+
+//FieldNotifyStatus 字段通知状态（0成功,10未开始,20等待通知,30正在通知）的数据库名称
 const FieldNotifyStatus = "notify_status"
+
+//FieldNotifyURL 字段通知地址的数据库名称
+const FieldNotifyURL = "notify_url"
 
 //FieldNum 字段数量的数据库名称
 const FieldNum = "num"
@@ -85,7 +172,7 @@ const FieldOrderTimeout = "order_timeout"
 //FieldPaymentFeeAmount 字段支付服务费的数据库名称
 const FieldPaymentFeeAmount = "payment_fee_amount"
 
-//FieldPaymentFeeDiscount 字段支付手续费折扣的数据库名称
+//FieldPaymentFeeDiscount 字段支付手续费的数据库名称
 const FieldPaymentFeeDiscount = "payment_fee_discount"
 
 //FieldPaymentStatus 字段支付状态的数据库名称
@@ -94,8 +181,11 @@ const FieldPaymentStatus = "payment_status"
 //FieldPaymentTimeout 字段支付超时时间的数据库名称
 const FieldPaymentTimeout = "payment_timeout"
 
-//FieldPlID 字段产品线的数据库名称
+//FieldPlID 字段产品线编号的数据库名称
 const FieldPlID = "pl_id"
+
+//FieldPlName 字段产品线名称的数据库名称
+const FieldPlName = "pl_name"
 
 //FieldProfit 字段利润的数据库名称
 const FieldProfit = "profit"
@@ -103,11 +193,26 @@ const FieldProfit = "profit"
 //FieldProvinceNo 字段省份的数据库名称
 const FieldProvinceNo = "province_no"
 
+//FieldQueryURL 字段查询地址的数据库名称
+const FieldQueryURL = "query_url"
+
+//FieldQueueName 字段队列名称的数据库名称
+const FieldQueueName = "queue_name"
+
 //FieldRealDiscount 字段供货商实际折扣的数据库名称
 const FieldRealDiscount = "real_discount"
 
+//FieldRefundAmount 字段退款金额的数据库名称
+const FieldRefundAmount = "refund_amount"
+
+//FieldRefundCause 字段退款原因的数据库名称
+const FieldRefundCause = "refund_cause"
+
 //FieldRefundStatus 字段退款状态的数据库名称
 const FieldRefundStatus = "refund_status"
+
+//FieldReqURL 字段请求地址的数据库名称
+const FieldReqURL = "req_url"
 
 //FieldRequestParams 字段发货信息参数json的数据库名称
 const FieldRequestParams = "request_params"
@@ -120,6 +225,9 @@ const FieldResultSource = "result_source"
 
 //FieldReturnMsg 字段发货返回信息的数据库名称
 const FieldReturnMsg = "return_msg"
+
+//FieldScanInterval 字段超时时长的数据库名称
+const FieldScanInterval = "scan_interval"
 
 //FieldSellAmount 字段总销售金额的数据库名称
 const FieldSellAmount = "sell_amount"
@@ -136,17 +244,29 @@ const FieldSppFeeAmount = "spp_fee_amount"
 //FieldSppFeeDiscount 字段商户佣金的数据库名称
 const FieldSppFeeDiscount = "spp_fee_discount"
 
-//FieldSppNo 字段供货商编号的数据库名称
+//FieldSppName 字段名称的数据库名称
+const FieldSppName = "spp_name"
+
+//FieldSppNo 字段商家的数据库名称
 const FieldSppNo = "spp_no"
 
-//FieldSppProductID 字段供货商商品编号的数据库名称
+//FieldSppProductID 字段商品编号的数据库名称
 const FieldSppProductID = "spp_product_id"
 
 //FieldSppProductNo 字段供货商商品编号的数据库名称
 const FieldSppProductNo = "spp_product_no"
 
+//FieldSppShelfID 字段货架的数据库名称
+const FieldSppShelfID = "spp_shelf_id"
+
+//FieldSppShelfName 字段货架名称的数据库名称
+const FieldSppShelfName = "spp_shelf_name"
+
 //FieldStartTime 字段开始时间的数据库名称
 const FieldStartTime = "start_time"
+
+//FieldStatus 字段状态的数据库名称
+const FieldStatus = "status"
 
 //FieldSuccFace 字段成功面值的数据库名称
 const FieldSuccFace = "succ_face"
@@ -156,6 +276,9 @@ const FieldSuccessCostAmount = "success_cost_amount"
 
 //FieldSuccessFace 字段实际成功总面值的数据库名称
 const FieldSuccessFace = "success_face"
+
+//FieldSuccessFlowID 字段成功流程的数据库名称
+const FieldSuccessFlowID = "success_flow_id"
 
 //FieldSuccessMerFee 字段实际成功总佣金金额 （2）的数据库名称
 const FieldSuccessMerFee = "success_mer_fee"
@@ -178,11 +301,20 @@ const FieldSuccessSppPaymentFee = "success_spp_payment_fee"
 //FieldSuccessSppTradeFee 字段实际发货成功总供货商服务费 （7）的数据库名称
 const FieldSuccessSppTradeFee = "success_spp_trade_fee"
 
+//FieldTagName 字段tag标签的数据库名称
+const FieldTagName = "tag_name"
+
+//FieldTimeout 字段超时时长的数据库名称
+const FieldTimeout = "timeout"
+
 //FieldTotalFace 字段商品总面值的数据库名称
 const FieldTotalFace = "total_face"
 
 //FieldTradeFeeAmount 字段发货服务费的数据库名称
 const FieldTradeFeeAmount = "trade_fee_amount"
 
-//FieldTradeFeeDiscount 字段交易服务折扣的数据库名称
+//FieldTradeFeeDiscount 字段交易服务费的数据库名称
 const FieldTradeFeeDiscount = "trade_fee_discount"
+
+//FieldUnknownFlowID 字段未知流程的数据库名称
+const FieldUnknownFlowID = "unknown_flow_id"

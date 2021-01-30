@@ -30,7 +30,7 @@ func (p *Payment) PayHandle(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Infof("1. 处理订单支付(%d)", ctx.Request().GetInt64(sql.FieldOrderID))
-	err := payment.Pay(ctx.Request().GetInt64(sql.FieldOrderID))
+	err := payment.Pay(ctx.Request().GetString(sql.FieldOrderID))
 	if errs.GetCode(err) == http.StatusNoContent {
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err

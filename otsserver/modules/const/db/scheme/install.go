@@ -16,17 +16,14 @@ func init() {
 		ots_supplier_info,
 		ots_supplier_shelf,
 		ots_supplier_product,
-		ots_supplier_error_code,
+		ots_supplier_ecode,
 		ots_trade_order,
 		ots_trade_delivery,
-		ots_trade_lifetime,
 		ots_refund_apply,
 		ots_notify_info,
 		ots_audit_info,
 		ots_product_line,
 		ots_product_flow,
-		dds_dictionary_info,
-		ots_canton_info,
 		SEQ_IDS,
 		)
 		return nil

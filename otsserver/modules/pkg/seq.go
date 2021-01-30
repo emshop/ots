@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/micro-plat/hydra"
@@ -9,12 +10,20 @@ import (
 
 //GetOrderID 获取订单号
 func GetOrderID() (string, error) {
-	return getSEQID("", "order_id")
+	id, err := getSEQID("", "order_id")
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("RO%s%s", time.Now().Format("20060102"), id), nil
 }
 
 //GetDeliveryID 获取发货编号
 func GetDeliveryID() (string, error) {
-	return getSEQID("", "delivery_id")
+	id, err := getSEQID("", "delivery_id")
+	if err != nil {
+		return "", err
+	}
+	return fmt.Sprintf("%s%s", time.Now().Format("060102"), id), nil
 }
 
 //getSEQID 获取流水号

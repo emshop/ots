@@ -13,7 +13,7 @@ import (
 )
 
 //SaveStart 保存开始发货的结果消息
-func SaveStart(deliveryID int64, discount types.Decimal, resultCode string, returnMsg string) error {
+func SaveStart(deliveryID string, discount types.Decimal, resultCode string, returnMsg string) error {
 
 	//根据发货信息查询错误码
 	var result enums.FlowStatus
@@ -58,7 +58,7 @@ func SaveStart(deliveryID int64, discount types.Decimal, resultCode string, retu
 }
 
 //StartNow 开始发货
-func StartNow(deliveryID int64) (*TradeDelivery, error) {
+func StartNow(deliveryID string) (*TradeDelivery, error) {
 
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {
@@ -96,10 +96,10 @@ func StartNow(deliveryID int64) (*TradeDelivery, error) {
 type TradeDelivery struct {
 
 	//DeliveryID 发货编号
-	DeliveryID int64 `json:"delivery_id"`
+	deliveryID string `json:"delivery_id"`
 
 	//OrderID 订单编号
-	OrderID int64 `json:"order_id"`
+	orderID string `json:"order_id"`
 
 	//SppNo 供货商编号
 	SppNo string `json:"spp_no"`

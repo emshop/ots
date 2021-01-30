@@ -6,7 +6,7 @@ const ots_supplier_shelf=`
 	CREATE TABLE IF NOT EXISTS ots_supplier_shelf (
 		spp_shelf_id int  not null auto_increment comment '货架编号' ,
 		spp_shelf_name varchar(64)  not null  comment '货架名称' ,
-		spp_no varchar(32)  not null  comment '供货商编号' ,
+		spp_no varchar(32)  not null  comment '供货商' ,
 		req_url varchar(128)  not null  comment '请求地址' ,
 		query_url varchar(128)    comment '查询地址' ,
 		notify_url varchar(128)    comment '回调地址' ,

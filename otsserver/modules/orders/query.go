@@ -19,7 +19,7 @@ func Query(merNo string, merOrderNo string) (t types.XMap, err error) {
 }
 
 //QueryByOrderID 查询订单
-func QueryByOrderID(orderID int64) (t types.XMap, err error) {
+func QueryByOrderID(orderID string) (t types.XMap, err error) {
 	data, err := hydra.C.DB().GetRegularDB().Query(sql.SelectTradeOrderByOrderID, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})

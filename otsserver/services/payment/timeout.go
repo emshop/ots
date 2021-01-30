@@ -18,7 +18,7 @@ func (p *Payment) TimeoutHandle(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Info("1. 订单超时则关闭支付")
-	err := payment.Timeout(ctx.Request().GetInt64(sql.FieldOrderID))
+	err := payment.Timeout(ctx.Request().GetString(sql.FieldOrderID))
 	if errs.GetCode(err) == http.StatusNoContent {
 		qtask.FinishByInput(ctx, ctx.Request())
 	}

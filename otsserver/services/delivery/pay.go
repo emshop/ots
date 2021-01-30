@@ -13,6 +13,6 @@ func (o *Delivery) PayHandle(ctx hydra.IContext) interface{} {
 	if err := ctx.Request().Check(deliveryStartNowFields...); err != nil {
 		return err
 	}
-	err := spp.Pay(ctx.Request().GetInt64(sql.FieldDeliveryID))
+	err := spp.Pay(ctx.Request().GetString(sql.FieldDeliveryID))
 	return err
 }

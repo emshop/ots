@@ -64,6 +64,7 @@ const GetTradeOrderList = `
 select
 	t.order_id,
 	t.mer_no,
+	t.mer_product_id,
 	t.pl_id,
 	t.brand_no,
 	t.province_no,

@@ -1,7 +1,77 @@
 [
   {
+    "name": "商户商品",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/product"
+  },
+  {
+    "name": "订单通知表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/notify/info"
+  },
+  {
+    "name": "产品线",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/product/line"
+  },
+  {
+    "name": "供货商错误码",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/supplier/error/code"
+  },
+  {
     "name": "订单记录",
     "icon": "fa fa-user-circle text-primary",
     "path": "/trade/order"
+  },
+  {
+    "name": "商户货架",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/shelf"
+  },
+  {
+    "name": "退款申请",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/refund/apply"
+  },
+  {
+    "name": "供货商错误码",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/supplier/ecode"
+  },
+  {
+    "name": "供货商商品",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/supplier/product"
+  },
+  {
+    "name": "供货商货架",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/supplier/shelf"
+  },
+  {
+    "name": "发货人工审核表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/audit/info"
+  },
+  {
+    "name": "商户信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/info"
+  },
+  {
+    "name": "业务流程",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/product/flow"
+  },
+  {
+    "name": "供货商信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/supplier/info"
+  },
+  {
+    "name": "订单发货表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/trade/delivery"
   }
 ]

@@ -4,7 +4,7 @@ package scheme
 const ots_notify_info=`
 	DROP TABLE IF EXISTS ots_notify_info;
 	CREATE TABLE IF NOT EXISTS ots_notify_info (
-		order_id bigint  not null  comment '订单编号' ,
+		order_id varchar(32)  not null  comment '订单编号' ,
 		mer_no varchar(32)  not null  comment '商户编号' ,
 		mer_order_no varchar(64)  not null  comment '商户订单编号' ,
 		notify_url varchar(128)  not null  comment '通知地址' ,

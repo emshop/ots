@@ -21,7 +21,7 @@ func (o *Order) NotifyHandle(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Info("1. 开始订单通知")
-	ntf, err := notify.Start(ctx.Request().GetInt64(sql.FieldOrderID))
+	ntf, err := notify.Start(ctx.Request().GetString(sql.FieldOrderID))
 	if err != nil {
 		return err
 	}
@@ -30,7 +30,7 @@ func (o *Order) NotifyHandle(ctx hydra.IContext) interface{} {
 	ctx.Log().Info("2. 下游订单通知", ntf)
 
 	ctx.Log().Info("3. 保存通知结果")
-	err = notify.Save(ctx.Request().GetInt64(sql.FieldOrderID), enums.Success, "sucess")
+	err = notify.Save(ctx.Request().GetString(sql.FieldOrderID), enums.Success, "sucess")
 	if err != nil {
 		return err
 	}

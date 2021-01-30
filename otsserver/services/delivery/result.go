@@ -22,7 +22,7 @@ func (o *Delivery) SaveResultHandle(ctx hydra.IContext) interface{} {
 
 	//保存充值结果
 	_, err := delivery.SaveDeliveryResult(
-		ctx.Request().GetInt64(sql.FieldDeliveryID),
+		ctx.Request().GetString(sql.FieldDeliveryID),
 		ctx.Request().GetString(sql.FieldResultCode),
 		ctx.Request().GetString(sql.FieldReturnMsg),
 		ctx.Request().GetDecimal(sql.FieldRealDiscount),

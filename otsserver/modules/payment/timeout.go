@@ -10,7 +10,7 @@ import (
 )
 
 //Timeout 处理支付超时
-func Timeout(orderID int64) error {
+func Timeout(orderID string) error {
 	//启动事务进行支付处理
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {

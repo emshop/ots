@@ -30,7 +30,7 @@ func (b *Bind) StartHandle(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Info("1. 处理订单绑定")
-	deliveryID, err := bind.Bind(ctx.Request().GetInt64(sql.FieldOrderID))
+	deliveryID, err := bind.Bind(ctx.Request().GetString(sql.FieldOrderID))
 	if err != nil {
 		switch errs.GetCode(err) {
 		case http.StatusNoContent:

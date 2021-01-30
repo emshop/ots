@@ -26,7 +26,7 @@ func (o *Delivery) StartHandle(ctx hydra.IContext) interface{} {
 	if err := ctx.Request().Check(deliveryStartNowFields...); err != nil {
 		return err
 	}
-	_, err := delivery.StartNow(ctx.Request().GetInt64(sql.FieldDeliveryID))
+	_, err := delivery.StartNow(ctx.Request().GetString(sql.FieldDeliveryID))
 	return err
 }
 
@@ -38,7 +38,7 @@ func (o *Delivery) SaveSartHandle(ctx hydra.IContext) interface{} {
 		return err
 	}
 	err := delivery.SaveStart(
-		ctx.Request().GetInt64(sql.FieldDeliveryID),
+		ctx.Request().GetString(sql.FieldDeliveryID),
 		ctx.Request().GetDecimal(sql.FieldRealDiscount),
 		ctx.Request().GetString(sql.FieldResultCode),
 		ctx.Request().GetString(sql.FieldReturnMsg))

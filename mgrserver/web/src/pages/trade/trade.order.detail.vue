@@ -11,7 +11,7 @@
                     <div class="pull-right" style="margin-right: 10px">订单编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.order_id | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.order_id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户编号:</div>

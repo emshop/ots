@@ -10,7 +10,7 @@ import (
 )
 
 //Save 保存通知结果
-func Save(orderID int64, status enums.FlowStatus, msg string) error {
+func Save(orderID string, status enums.FlowStatus, msg string) error {
 	//启动事务进行支付处理
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {

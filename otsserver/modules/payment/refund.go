@@ -12,7 +12,7 @@ import (
 )
 
 //Refund 订单超时退款
-func Refund(orderID int64) error {
+func Refund(orderID string) error {
 	//启动事务进行支付处理
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {

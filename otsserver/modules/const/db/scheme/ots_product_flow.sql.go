@@ -8,7 +8,6 @@ const ots_product_flow=`
 		flow_name varchar(64)  not null  comment '流程名称' ,
 		tag_name varchar(64)  not null  comment 'tag标签' ,
 		pl_id int  not null  comment '产品线编号' ,
-		parent_flow_id int default 0 not null  comment '父级流程编号' ,
 		success_flow_id varchar(32) default '-' not null  comment '成功后续流程' ,
 		failed_flow_id varchar(32) default '-' not null  comment '失败后续流程' ,
 		unknown_flow_id varchar(32) default '-' not null  comment '未知后续流程' ,

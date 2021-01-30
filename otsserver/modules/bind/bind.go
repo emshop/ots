@@ -11,7 +11,7 @@ import (
 )
 
 //Bind 订单绑定上游渠道
-func Bind(orderID int64) (string, error) {
+func Bind(orderID string) (string, error) {
 
 	//查询订单是否需要绑定处理
 	orders, err := hydra.C.DB().GetRegularDB().Query(sql.SelectTradeOrderByOrderIDForBind, map[string]interface{}{

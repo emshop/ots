@@ -13,27 +13,27 @@ import (
 )
 
 //SaveQueryResult 保存发货查询获得的结果
-func SaveQueryResult(deliveryID int64, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
+func SaveQueryResult(deliveryID string, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
 	return Save(deliveryID, enums.ResultFromQuery, resultCode, returnMsg, discount, extParams)
 }
 
 //SaveNotifyResult 保存供货商通知的结果
-func SaveNotifyResult(deliveryID int64, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
+func SaveNotifyResult(deliveryID string, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
 	return Save(deliveryID, enums.ResultFromNotify, resultCode, returnMsg, discount, extParams)
 }
 
 //SaveDeliveryResult 保存同步发货返回的结果
-func SaveDeliveryResult(deliveryID int64, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
+func SaveDeliveryResult(deliveryID string, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
 	return Save(deliveryID, enums.ResultFromDelivery, resultCode, returnMsg, discount, extParams)
 }
 
 //SaveAuditResult 保存人工处理的结果
-func SaveAuditResult(deliveryID int64, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
+func SaveAuditResult(deliveryID string, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
 	return Save(deliveryID, enums.ResultAudit, resultCode, returnMsg, discount, extParams)
 }
 
 //Save 保存发货结果
-func Save(deliveryID int64, source enums.ResultSource, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
+func Save(deliveryID string, source enums.ResultSource, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, error) {
 
 	//查询发货记录
 	delivery, err := Get(deliveryID)
@@ -53,7 +53,7 @@ func Save(deliveryID int64, source enums.ResultSource, resultCode string, return
 	case enums.Failed:
 		err := SaveFailed(
 			deliveryID,
-			delivery.GetInt64(sql.FieldOrderID),
+			delivery.GetString(sql.FieldOrderID),
 			delivery.GetInt(sql.FieldTotalFace),
 			source.Format(resultCode), returnMsg)
 		if err != nil {
@@ -77,7 +77,7 @@ func Save(deliveryID int64, source enums.ResultSource, resultCode string, return
 }
 
 //SaveUnknown 保存未知的发货结果
-func SaveUnknown(deliveryID int64, code string, msg string) error {
+func SaveUnknown(deliveryID string, code string, msg string) error {
 	row, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateTradeDeliveryForSaveUnknown, map[string]interface{}{
 		sql.FieldDeliveryID: deliveryID,
 		sql.FieldResultCode: code,
@@ -93,7 +93,7 @@ func SaveUnknown(deliveryID int64, code string, msg string) error {
 }
 
 //SaveSuccess 保存成功发货结果
-func SaveSuccess(deliveryID int64, discount types.Decimal, params string, code string, msg string) error {
+func SaveSuccess(deliveryID string, discount types.Decimal, params string, code string, msg string) error {
 
 	//启动事务修改发货记录、交易订单
 	db, err := hydra.C.DB().GetRegularDB().Begin()
@@ -150,7 +150,7 @@ func SaveSuccess(deliveryID int64, discount types.Decimal, params string, code s
 }
 
 //SaveFailed 保存失败发货结果
-func SaveFailed(deliveryID int64, orderID int64, totalFace int, code string, msg string) error {
+func SaveFailed(deliveryID string, orderID string, totalFace int, code string, msg string) error {
 	//启动事务修改发货记录、交易订单
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {

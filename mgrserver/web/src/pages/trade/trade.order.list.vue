@@ -39,13 +39,19 @@
 			<el-table :data="dataList.items" border style="width: 100%">
 				<el-table-column prop="order_id" label="订单编号" >
 				<template slot-scope="scope">
-					<span>{{scope.row.order_id | fltrNumberFormat(0)}}</span>
+					<span>{{scope.row.order_id}}</span>
 				</template>
+				
 				</el-table-column>
 				<el-table-column prop="mer_no" label="商户编号" >
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
+				</el-table-column>
+				<el-table-column prop="mer_product_id" label="商品编号" >
+				<template slot-scope="scope">
+					<span>{{scope.row.mer_product_id | fltrNumberFormat(0)}}</span>
+				</template>
 				</el-table-column>
 				<el-table-column prop="pl_id" label="产品线" >
 					<template slot-scope="scope">

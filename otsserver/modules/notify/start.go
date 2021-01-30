@@ -11,7 +11,7 @@ import (
 )
 
 //Start 开始启动通知
-func Start(orderID int64) (*NotifyInfo, error) {
+func Start(orderID string) (*NotifyInfo, error) {
 	//修改支付状态
 	row, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateNotifyInfoForStart, map[string]interface{}{
 		sql.FieldOrderID: orderID,
@@ -40,7 +40,7 @@ func Start(orderID int64) (*NotifyInfo, error) {
 type NotifyInfo struct {
 
 	//OrderID 订单编号
-	OrderID int64 `json:"order_id"`
+	orderID string `json:"order_id"`
 
 	//MerNo 商户编号
 	MerNo string `json:"mer_no"`

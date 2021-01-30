@@ -18,15 +18,15 @@ func TestSingleDelivery(t *testing.T) {
 	order := <-orderCache.bindedOrder
 
 	//获取发货结果
-	_, err = delivery.StartNow(order.GetInt64(sql.FieldDeliveryID))
+	_, err = delivery.StartNow(order.GetString(sql.FieldDeliveryID))
 	assert.Equal(t, nil, err, err)
 
 	//保存发货结果
-	err = delivery.SaveStart(order.GetInt64(sql.FieldDeliveryID), types.GetDecimal(0), "000", "上游请求成功")
+	err = delivery.SaveStart(order.GetString(sql.FieldDeliveryID), types.GetDecimal(0), "000", "上游请求成功")
 	assert.Equal(t, nil, err, err)
 
 	//保存充值结果
-	status, err := delivery.SaveDeliveryResult(order.GetInt64(sql.FieldDeliveryID), "0000", "", types.GetDecimal(0), "")
+	status, err := delivery.SaveDeliveryResult(order.GetString(sql.FieldDeliveryID), "0000", "", types.GetDecimal(0), "")
 
 	assert.Equal(t, nil, err, err)
 	assert.Equal(t, enums.Success, status)
