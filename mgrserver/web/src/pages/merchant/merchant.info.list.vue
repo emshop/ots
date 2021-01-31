@@ -19,6 +19,10 @@
 					<el-button type="primary" @click="query" size="small">查询</el-button>
 				</el-form-item>
 				
+				<el-form-item>
+					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     	<!-- query end -->
@@ -54,6 +58,7 @@
 				</el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
 						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
@@ -61,9 +66,13 @@
 		</el-scrollbar>
 		<!-- list end-->
 
-		
+		<!-- Add Form -->
+		<Add ref="Add" :refresh="query"></Add>
+		<!--Add Form -->
 
-		
+		<!-- edit Form start-->
+		<Edit ref="Edit" :refresh="query"></Edit>
+		<!-- edit Form end-->
 
 		<!-- pagination start -->
 		<div class="page-pagination">
@@ -84,8 +93,12 @@
 
 
 <script>
+import Add from "./merchant.info.add"
+import Edit from "./merchant.info.edit"
 export default {
   components: {
+		Add,
+		Edit
   },
   data () {
 		return {
@@ -135,6 +148,13 @@ export default {
         mer_no: val.mer_no,
       }
       this.$emit("addTab","详情"+val.mer_no,"/merchant/info/detail",data);
+		},
+    showAdd(){
+      this.$refs.Add.show();
+		},
+    showEdit(val) {
+      this.$refs.Edit.editData = val
+      this.$refs.Edit.show();
 		},
   }
 }

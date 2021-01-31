@@ -69,7 +69,7 @@
 				</el-table-column>
 				<el-table-column prop="province_no" label="省份" >
 					<template slot-scope="scope">
-						<span >{{scope.row.province_no | fltrEnum("provice")}}</span>
+						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="city_no" label="城市" >
@@ -99,6 +99,7 @@
 				</el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
 						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
@@ -108,7 +109,9 @@
 
 		
 
-		
+		<!-- edit Form start-->
+		<Edit ref="Edit" :refresh="query"></Edit>
+		<!-- edit Form end-->
 
 		<!-- pagination start -->
 		<div class="page-pagination">
@@ -129,8 +132,10 @@
 
 
 <script>
+import Edit from "./merchant.product.edit"
 export default {
   components: {
+		Edit
   },
   data () {
 		return {
@@ -183,6 +188,10 @@ export default {
         mer_product_id: val.mer_product_id,
       }
       this.$emit("addTab","详情"+val.mer_product_id,"/merchant/product/detail",data);
+		},
+    showEdit(val) {
+      this.$refs.Edit.editData = val
+      this.$refs.Edit.show();
 		},
   }
 }

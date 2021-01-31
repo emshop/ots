@@ -26,12 +26,12 @@ After: After(字段名) //在某个字段后面
 
 | 字段名      | 类型         | 默认值  | 为空  |      约束       | 描述     |
 | ----------- | ------------ | :-----: | :---: | :-------------: | :------- |
-| mer_no      | varchar2(32) |         |  否   |    PK,l,r,DI    | 编号     |
-| mer_name    | varchar2(64) |         |  否   |    q,l,r,DN     | 名称     |
-| mer_crop    | varchar2(64) |         |  否   |       l,r       | 公司     |
-| mer_type    | number(1)    |         |  否   |       l,r       | 类型     |
-| bd_uid      | number(20)   |         |  否   | r,sl(user_info) | 商务人员 |
-| status      | number(1)    |    0    |  否   |   q,l,r,sl,cc   | 状态     |
+| mer_no      | varchar2(32) |         |  否   |    PK,l,r,c,DI    | 编号     |
+| mer_name    | varchar2(64) |         |  否   |    q,l,r,u,c,DN     | 名称     |
+| mer_crop    | varchar2(64) |         |  否   |       l,u,c,r       | 公司     |
+| mer_type    | number(1)    |         |  否   |       l,u,c,r       | 类型     |
+| bd_uid      | number(20)   |         |  否   | r,u,c,sl(user_info) | 商务人员 |
+| status      | number(1)    |    0    |  否   |   q,l,r,u,c,sl,cc   | 状态     |
 | create_time | date         | sysdate |  否   |       dp        | 创建时间 |
 
 
@@ -40,18 +40,18 @@ After: After(字段名) //在某个字段后面
 | 字段名               | 类型         | 默认值  | 为空  |            约束             | 描述                   |
 | -------------------- | ------------ | :-----: | :---: | :-------------------------: | :--------------------- |
 | mer_shelf_id         | number(10)   |   100   |  否   |        PK,SEQ,DI,l,r        | 货架编号               |
-| mer_shelf_name       | varchar2(64) |         |  否   |          DN,q,l,r           | 货架名称               |
+| mer_shelf_name       | varchar2(64) |         |  否   |          DN,q,l,u,r           | 货架名称               |
 | mer_no               | varchar2(32) |         |  否   | q,l,r,sl(ots_merchant_info) | 商户编号               |
-| mer_fee_discount     | number(10,5) |    0    |  否   |             l,r             | 商户佣金               |
-| trade_fee_discount   | number(10,5) |    0    |  否   |             l,r             | 交易服务费             |
-| payment_fee_discount | number(10,5) |    0    |  否   |             l,r             | 支付手续费             |
-| order_timeout        | number(10)   |         |  否   |             l,r             | 订单超时时长           |
-| payment_timeout      | number(10)   |         |  否   |              r              | 支付超时时长           |
-| invoice_type         | number(2)    |    1    |  否   |       r ,cc,sl(bool)        | 开票方式（1.不开发票） |
-| can_refund           | number(1)    |    1    |  否   |        r,sl(bool),cc        | 允许退款(0.是,1否)     |
-| limit_count          | number(10)   |    1    |  否   |              r              | 单次购买数量           |
-| can_split_order      | number(1)    |    0    |  否   |       l,r,sl(bool),cc       | 允许拆单               |
-| status               | number(1)    |    0    |  否   |          l,r,cc,sl          | 状态                   |
+| mer_fee_discount     | number(10,5) |    0    |  否   |             l,u,r             | 商户佣金               |
+| trade_fee_discount   | number(10,5) |    0    |  否   |             l,u,r             | 交易服务费             |
+| payment_fee_discount | number(10,5) |    0    |  否   |             l,u,r             | 支付手续费             |
+| order_timeout        | number(10)   |         |  否   |             l,u,r             | 订单超时时长           |
+| payment_timeout      | number(10)   |         |  否   |              u,r              | 支付超时时长           |
+| invoice_type         | number(2)    |    1    |  否   |       r ,u,cc,sl(bool)        | 开票方式（1.不开发票） |
+| can_refund           | number(1)    |    1    |  否   |        r,u,sl(bool),cc        | 允许退款(0.是,1否)     |
+| limit_count          | number(10)   |    1    |  否   |              u,r              | 单次购买数量           |
+| can_split_order      | number(1)    |    0    |  否   |       l,r,u,sl(bool),cc       | 允许拆单               |
+| status               | number(1)    |    0    |  否   |          l,r,u,cc,sl          | 状态                   |
 | create_time          | date         | sysdate |  否   |             l,r             | 创建时间               |
 
 ###  3.商户商品[ots_merchant_product]
@@ -65,10 +65,10 @@ After: After(字段名) //在某个字段后面
 | brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand)        | 品牌                 |
 | province_no    | varchar2(8)  |   '-'   |  否   |       l,r,UNQ(unq_mer_prod,4),sl(province)       | 省份                 |
 | city_no        | varchar2(8)  |   '-'   |  否   |         l,r,UNQ(unq_mer_prod,5),sl(city)         | 城市                 |
-| face           | number(10)   |         |  否   |             l,r,UNQ(unq_mer_prod,6)              | 面值                 |
-| mer_product_no | varchar2(32) |         |  是   |                        r                         | 商户商品编号         |
-| discount       | number(10,5) |         |  否   |                       l,r                        | 销售折扣（以面值算） |
-| status         | number(1)    |    0    |  否   |                    l,r,sl,cc                     | 状态(0.是,1.否)      |
+| face           | number(10)   |         |  否   |             l,r,u,UNQ(unq_mer_prod,6)              | 面值                 |
+| mer_product_no | varchar2(32) |         |  是   |                        u,r                         | 商户商品编号         |
+| discount       | number(10,5) |         |  否   |                       l,u,r                        | 销售折扣（以面值算） |
+| status         | number(1)    |    0    |  否   |                    l,r,u,sl,cc                     | 状态(0.是,1.否)      |
 | create_time    | date         | sysdate |  否   |                      l,r,dp                      | 创建时间             |
 
 

@@ -49,7 +49,7 @@
                     <div class="pull-right" style="margin-right: 10px">省份:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div >{{ info.province_no | fltrEnum("provice") }}</div>
+                    <div >{{ info.province_no | fltrEnum("province") }}</div>
                   </el-col>
                 </td>
               </tr>
