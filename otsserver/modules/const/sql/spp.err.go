@@ -9,7 +9,7 @@ t.pl_id,
 t.deal_code,
 t.error_code,
 t.error_desc
-from ots_supplier_error_code t
+from ots_supplier_ecode t
 where
 t.spp_no = @spp_no
 and  (t.pl_id = @pl_id or t.pl_id = 0)

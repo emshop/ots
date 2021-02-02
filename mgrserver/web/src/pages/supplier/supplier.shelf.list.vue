@@ -26,6 +26,10 @@
 					<el-button type="primary" @click="query" size="small">查询</el-button>
 				</el-form-item>
 				
+				<el-form-item>
+					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     	<!-- query end -->
@@ -33,58 +37,63 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="spp_shelf_id" label="货架编号" >
+				<el-table-column prop="spp_shelf_id" label="货架编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.spp_shelf_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="spp_shelf_name" label="货架名称" >
+				<el-table-column prop="spp_shelf_name" label="货架名称" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.spp_shelf_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.spp_shelf_name && scope.row.spp_shelf_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.spp_shelf_name}}</div>
+							<span>{{scope.row.spp_shelf_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.spp_shelf_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="spp_no" label="供货商" >
+				<el-table-column prop="spp_no" label="供货商" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="invoice_type" label="开发票" >
+				<el-table-column prop="invoice_type" label="开发票" align="center">
 					<template slot-scope="scope">
-						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("bool")}}</span>
+						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("invoice_type")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="spp_fee_discount" label="商户佣金" >
+				<el-table-column prop="spp_fee_discount" label="商户佣金" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.spp_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.spp_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="trade_fee_discount" label="交易服务费" >
+				<el-table-column prop="trade_fee_discount" label="交易服务费" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.trade_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.trade_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="payment_fee_discount" label="支付手续费" >
+				<el-table-column prop="payment_fee_discount" label="支付手续费" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="can_refund" label="支持退货" >
+				<el-table-column prop="can_refund" label="支持退货" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.can_refund|fltrTextColor">{{scope.row.can_refund | fltrEnum("bool")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="货架状态" >
+				<el-table-column prop="status" label="货架状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
 						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
@@ -92,9 +101,13 @@
 		</el-scrollbar>
 		<!-- list end-->
 
-		
+		<!-- Add Form -->
+		<Add ref="Add" :refresh="query"></Add>
+		<!--Add Form -->
 
-		
+		<!-- edit Form start-->
+		<Edit ref="Edit" :refresh="query"></Edit>
+		<!-- edit Form end-->
 
 		<!-- pagination start -->
 		<div class="page-pagination">
@@ -115,8 +128,12 @@
 
 
 <script>
+import Add from "./supplier.shelf.add"
+import Edit from "./supplier.shelf.edit"
 export default {
   components: {
+		Add,
+		Edit
   },
   data () {
 		return {
@@ -167,6 +184,13 @@ export default {
         spp_shelf_id: val.spp_shelf_id,
       }
       this.$emit("addTab","详情"+val.spp_shelf_id,"/supplier/shelf/detail",data);
+		},
+    showAdd(){
+      this.$refs.Add.show();
+		},
+    showEdit(val) {
+      this.$refs.Edit.editData = val
+      this.$refs.Edit.show();
 		},
   }
 }

@@ -38,12 +38,20 @@
 				</el-table-column>
 				<el-table-column prop="flow_name" label="流程名称" >
 					<template slot-scope="scope">
-						<span>{{scope.row.flow_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.flow_name && scope.row.flow_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.flow_name}}</div>
+							<span>{{scope.row.flow_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.flow_name}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="tag_name" label="tag标签" >
 					<template slot-scope="scope">
-						<span>{{scope.row.tag_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.tag_name && scope.row.tag_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.tag_name}}</div>
+							<span>{{scope.row.tag_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.tag_name}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="pl_id" label="产品线编号" >

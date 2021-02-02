@@ -33,7 +33,7 @@
                     <div class="pull-right" style="margin-right: 10px">发货结果:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.delivery_status | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.delivery_status |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -49,7 +49,7 @@
                     <div class="pull-right" style="margin-right: 10px">是否加入黑名单:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div >{{ info.add_to_blacklist | fltrEnum("bool") }}</div>
+                    <div :class="info.add_to_blacklist|fltrTextColor">{{ info.add_to_blacklist | fltrEnum("bool") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -59,13 +59,13 @@
                     <div class="pull-right" style="margin-right: 10px">审核状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div >{{ info.audit_status | fltrEnum("status") }}</div>
+                    <div :class="info.audit_status|fltrTextColor">{{ info.audit_status | fltrEnum("status") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">审核人:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.audit_by | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.audit_by |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -81,7 +81,11 @@
                     <div class="pull-right" style="margin-right: 10px">审核信息:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.audit_msg | fltrEnum("audit_msg") }}</div>
+                    <el-tooltip class="item" v-if="info.audit_msg && info.audit_msg.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.audit_msg}}</div>
+                      <div >{{ info.audit_msg | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.audit_msg}}</div>
                   </el-col>
                 </td>
               </tr>            

@@ -23,6 +23,7 @@ t.create_time,
 t.face,
 t.num,
 t.total_face,
+t.succ_face,
 t.cost_discount,
 t.cost_amount,
 t.spp_fee_amount,
@@ -57,11 +58,7 @@ total_face,
 cost_discount,
 spp_fee_discount,
 trade_fee_discount,
-payment_fee_discount,
-cost_amount,
-spp_fee_amount,
-trade_fee_amount,
-payment_fee_amount
+payment_fee_discount
 )values(
 @delivery_id,
 @order_id,
@@ -84,9 +81,5 @@ payment_fee_amount
 @cost_discount,
 @spp_fee_discount,
 @trade_fee_discount,
-@payment_fee_discount,
-@cost_discount * @face,
-@spp_fee_discount * @face,
-@trade_fee_discount * @face,
-@payment_fee_discount * @face
+@payment_fee_discount
 )`

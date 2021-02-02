@@ -11,7 +11,7 @@
                     <div class="pull-right" style="margin-right: 10px">商品编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.spp_product_id | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.spp_product_id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">货架:</div>
@@ -75,13 +75,13 @@
                     <div class="pull-right" style="margin-right: 10px">面值:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.face | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.face |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">成本折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.cost_discount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.cost_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>

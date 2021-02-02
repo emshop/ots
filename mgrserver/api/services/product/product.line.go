@@ -7,6 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	
 )
 
 //ProductLineHandler 产品线处理服务
@@ -31,7 +32,7 @@ func (u *ProductLineHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetProductLineByPlId,ctx.Request().GetMap())
+	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetProductLineByPlID,ctx.Request().GetMap())
 	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
 	}

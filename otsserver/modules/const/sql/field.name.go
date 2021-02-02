@@ -241,7 +241,7 @@ const FieldSppProductCost = "spp_product_cost"
 //FieldLastUpdateTime 字段最后更新时间的数据库名称
 const FieldLastUpdateTime = "last_update_time"
 
-//ots_supplier_error_code 供货商错误码的字段信息------------------------------------
+//ots_supplier_ecode 供货商错误码的字段信息------------------------------------
 
 //FieldDealCode 字段处理码的数据库名称
 const FieldDealCode = "deal_code"

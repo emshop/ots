@@ -3,11 +3,10 @@ package ut
 import (
 	"testing"
 
-	"github.com/emshop/ots/otsserver/modules/const/enums"
-	"github.com/emshop/ots/otsserver/modules/const/sql"
-	"github.com/emshop/ots/otsserver/modules/delivery"
+	"github.com/emshop/ots/otsserver/services/delivery"
+	"github.com/micro-plat/hydra/mock"
 	"github.com/micro-plat/lib4go/assert"
-	"github.com/micro-plat/lib4go/types"
+	"github.com/micro-plat/lib4go/errs"
 )
 
 func TestSingleDelivery(t *testing.T) {
@@ -15,20 +14,55 @@ func TestSingleDelivery(t *testing.T) {
 	err := orderCache.makeBindedOrder(1)
 	assert.Equal(t, nil, err)
 
+	//开始发货--------------------
 	order := <-orderCache.bindedOrder
+	input := string(order.Marshal())
+	ctx := mock.NewContext(input)
 
-	//获取发货结果
-	_, err = delivery.StartNow(order.GetString(sql.FieldDeliveryID))
-	assert.Equal(t, nil, err, err)
+	var dlv = &delivery.Delivery{}
+	rs := dlv.StartHandle(ctx)
 
-	//保存发货结果
-	err = delivery.SaveStart(order.GetString(sql.FieldDeliveryID), types.GetDecimal(0), "000", "上游请求成功")
-	assert.Equal(t, nil, err, err)
+	assert.Equal(t, nil, errs.GetError(rs), rs)
 
-	//保存充值结果
-	status, err := delivery.SaveDeliveryResult(order.GetString(sql.FieldDeliveryID), "0000", "", types.GetDecimal(0), "")
+	//保存请求结果---------------------------
+	ctx.Request().SetValue("result_code", "000")
+	ctx.Request().SetValue("return_msg", "上游请求成功")
+	rs = dlv.SaveSartHandle(ctx)
+	assert.Equal(t, nil, errs.GetError(rs), rs)
 
-	assert.Equal(t, nil, err, err)
-	assert.Equal(t, enums.Success, status)
+	//保存发货结果---------------------------
+	ctx.Request().SetValue("result_code", "000")
+	ctx.Request().SetValue("return_msg", "发货成功000")
+	rs = dlv.SaveResultHandle(ctx)
+	assert.Equal(t, nil, errs.GetError(rs), rs)
+
+}
+
+func TestSingleDeliveryFailed(t *testing.T) {
+	preper()
+	err := orderCache.makeBindedOrder(1)
+	assert.Equal(t, nil, err)
+
+	//开始发货--------------------
+	order := <-orderCache.bindedOrder
+	input := string(order.Marshal())
+	ctx := mock.NewContext(input)
+
+	var dlv = &delivery.Delivery{}
+	rs := dlv.StartHandle(ctx)
+
+	assert.Equal(t, nil, errs.GetError(rs), rs)
+
+	//保存请求结果---------------------------
+	ctx.Request().SetValue("result_code", "000")
+	ctx.Request().SetValue("return_msg", "上游请求成功")
+	rs = dlv.SaveSartHandle(ctx)
+	assert.Equal(t, nil, errs.GetError(rs), rs)
+
+	//保存发货结果---------------------------
+	ctx.Request().SetValue("result_code", "1111")
+	ctx.Request().SetValue("return_msg", "发货失败")
+	rs = dlv.SaveResultHandle(ctx)
+	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 }

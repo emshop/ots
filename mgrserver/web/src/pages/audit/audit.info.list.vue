@@ -50,7 +50,7 @@
 				</el-table-column>
 				<el-table-column prop="audit_status" label="审核状态" >
 					<template slot-scope="scope">
-						<span >{{scope.row.audit_status | fltrEnum("status")}}</span>
+						<span :class="scope.row.audit_status|fltrTextColor">{{scope.row.audit_status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="audit_by" label="审核人" >
@@ -65,7 +65,11 @@
 				</el-table-column>
 				<el-table-column prop="audit_msg" label="审核信息" >
 					<template slot-scope="scope">
-						<span>{{scope.row.audit_msg | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.audit_msg && scope.row.audit_msg.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.audit_msg}}</div>
+							<span>{{scope.row.audit_msg | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.audit_msg}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作">

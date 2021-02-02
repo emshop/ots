@@ -11,7 +11,7 @@
                     <div class="pull-right" style="margin-right: 10px">申请编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.apply_id | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.apply_id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">订单编号:</div>
@@ -43,7 +43,7 @@
                     <div class="pull-right" style="margin-right: 10px">退款原因:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.refund_cause | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.refund_cause |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">申请状态:</div>
@@ -59,7 +59,7 @@
                     <div class="pull-right" style="margin-right: 10px">退款金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.refund_amount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.refund_amount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>

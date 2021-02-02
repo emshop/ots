@@ -7,6 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	
 )
 
 //MerchantInfoHandler 商户信息处理服务
@@ -17,7 +18,25 @@ func NewMerchantInfoHandler() *MerchantInfoHandler {
 	return &MerchantInfoHandler{}
 }
 
+//PostHandle 添加商户信息数据
+func (u *MerchantInfoHandler) PostHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------添加商户信息数据--------")
+	
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(postMerchantInfoCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	count, err := hydra.C.DB().GetRegularDB().Execute(sql.InsertMerchantInfo,ctx.Request().GetMap())
+	if err != nil || count < 1 {
+		return errs.NewErrorf(http.StatusNotExtended, "添加数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
 
 
 //GetHandle 获取商户信息单条数据
@@ -76,8 +95,34 @@ func (u *MerchantInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+//PutHandle 更新商户信息数据
+func (u *MerchantInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------更新商户信息数据--------")
 
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(updateMerchantInfoCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantInfoByMerNo,ctx.Request().GetMap())
+	if err != nil||count<1 {
+		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
+
+var postMerchantInfoCheckFields = map[string]interface{}{
+	field.FieldMerNo:"required",
+	field.FieldMerName:"required",
+	field.FieldMerCrop:"required",
+	field.FieldMerType:"required",
+	field.FieldBdUid:"required",
+	field.FieldStatus:"required",
+	}
 
 var getMerchantInfoCheckFields = map[string]interface{}{
 	field.FieldMerNo:"required",
@@ -88,6 +133,12 @@ var queryMerchantInfoCheckFields = map[string]interface{}{
 	field.FieldStatus:"required",
 	}
 
-
+var updateMerchantInfoCheckFields = map[string]interface{}{
+	field.FieldMerName:"required",
+	field.FieldMerCrop:"required",
+	field.FieldMerType:"required",
+	field.FieldBdUid:"required",
+	field.FieldStatus:"required",
+	}
 
 

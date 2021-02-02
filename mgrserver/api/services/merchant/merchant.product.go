@@ -7,6 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	
 )
 
 //MerchantProductHandler 商户商品处理服务
@@ -31,7 +32,7 @@ func (u *MerchantProductHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetMerchantProductByMerProductId,ctx.Request().GetMap())
+	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetMerchantProductByMerProductID,ctx.Request().GetMap())
 	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
 	}
@@ -76,6 +77,25 @@ func (u *MerchantProductHandler) QueryHandle(ctx hydra.IContext) (r interface{})
 		"count": types.GetInt(count),
 	}
 }
+//PutHandle 更新商户商品数据
+func (u *MerchantProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
+
+	ctx.Log().Info("--------更新商户商品数据--------")
+
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(updateMerchantProductCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantProductByMerProductID,ctx.Request().GetMap())
+	if err != nil||count<1 {
+		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
 
 
 
@@ -90,6 +110,11 @@ var queryMerchantProductCheckFields = map[string]interface{}{
 	field.FieldBrandNo:"required",
 	}
 
-
+var updateMerchantProductCheckFields = map[string]interface{}{
+	field.FieldFace:"required",
+	field.FieldMerProductNo:"required",
+	field.FieldDiscount:"required",
+	field.FieldStatus:"required",
+	}
 
 

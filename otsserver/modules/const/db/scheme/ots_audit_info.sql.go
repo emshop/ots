@@ -14,5 +14,5 @@ const ots_audit_info=`
 		audit_by int    comment '审核人' ,
 		audit_time datetime    comment '审核时间' ,
 		audit_msg varchar(256)    comment '审核信息' 
-		
+		,primary key (delivery_id)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='发货人工审核表'`

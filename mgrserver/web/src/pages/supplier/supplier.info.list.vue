@@ -19,6 +19,10 @@
 					<el-button type="primary" @click="query" size="small">查询</el-button>
 				</el-form-item>
 				
+				<el-form-item>
+					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     	<!-- query end -->
@@ -26,34 +30,43 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="spp_no" label="编号" >
+				<el-table-column prop="spp_no" label="编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.spp_no}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="spp_name" label="名称" >
+				<el-table-column prop="spp_name" label="名称" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.spp_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.spp_name && scope.row.spp_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.spp_name}}</div>
+							<span>{{scope.row.spp_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.spp_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_crop" label="公司" >
+				<el-table-column prop="mer_crop" label="公司" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.mer_crop | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.mer_crop && scope.row.mer_crop.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.mer_crop}}</div>
+							<span>{{scope.row.mer_crop | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.mer_crop}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
 						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
@@ -61,9 +74,13 @@
 		</el-scrollbar>
 		<!-- list end-->
 
-		
+		<!-- Add Form -->
+		<Add ref="Add" :refresh="query"></Add>
+		<!--Add Form -->
 
-		
+		<!-- edit Form start-->
+		<Edit ref="Edit" :refresh="query"></Edit>
+		<!-- edit Form end-->
 
 		<!-- pagination start -->
 		<div class="page-pagination">
@@ -84,8 +101,12 @@
 
 
 <script>
+import Add from "./supplier.info.add"
+import Edit from "./supplier.info.edit"
 export default {
   components: {
+		Add,
+		Edit
   },
   data () {
 		return {
@@ -135,6 +156,13 @@ export default {
         spp_no: val.spp_no,
       }
       this.$emit("addTab","详情"+val.spp_no,"/supplier/info/detail",data);
+		},
+    showAdd(){
+      this.$refs.Add.show();
+		},
+    showEdit(val) {
+      this.$refs.Edit.editData = val
+      this.$refs.Edit.show();
 		},
   }
 }

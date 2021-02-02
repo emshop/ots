@@ -11,13 +11,17 @@
                     <div class="pull-right" style="margin-right: 10px">流程编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.flow_id | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.flow_id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">流程名称:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.flow_name | fltrEnum("flow_name") }}</div>
+                    <el-tooltip class="item" v-if="info.flow_name && info.flow_name.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.flow_name}}</div>
+                      <div >{{ info.flow_name | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.flow_name}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -27,7 +31,11 @@
                     <div class="pull-right" style="margin-right: 10px">tag标签:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.tag_name | fltrEnum("tag_name") }}</div>
+                    <el-tooltip class="item" v-if="info.tag_name && info.tag_name.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.tag_name}}</div>
+                      <div >{{ info.tag_name | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.tag_name}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">产品线编号:</div>
@@ -65,7 +73,11 @@
                     <div class="pull-right" style="margin-right: 10px">队列名称:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.queue_name | fltrEnum("queue_name") }}</div>
+                    <el-tooltip class="item" v-if="info.queue_name && info.queue_name.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.queue_name}}</div>
+                      <div >{{ info.queue_name | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.queue_name}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -75,13 +87,13 @@
                     <div class="pull-right" style="margin-right: 10px">超时时长:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.scan_interval | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.scan_interval |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">延后处理时长:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.delay | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.delay |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -91,13 +103,13 @@
                     <div class="pull-right" style="margin-right: 10px">超时时长:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.timeout | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.timeout |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">最大执行次数:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.max_count | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.max_count |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>            

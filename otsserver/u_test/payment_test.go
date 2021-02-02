@@ -24,7 +24,7 @@ func TestSinglePay(t *testing.T) {
 	//构建请求处理------------------------
 	payment := &payment.Payment{}
 	rs := payment.PayHandle(ctx)
-	err = ctx.Response().WriteAny(rs)
+	err = ctx.Response().WriteAny(getAny(rs))
 	status, _, _ := ctx.Response().GetFinalResponse()
 	assert.Equal(t, nil, err)
 	assert.Equal(t, 200, status)

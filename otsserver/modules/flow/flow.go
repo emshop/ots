@@ -3,6 +3,7 @@ package flow
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/emshop/ots/otsserver/modules/const/enums"
 	"github.com/emshop/ots/otsserver/modules/const/sql"
@@ -40,6 +41,22 @@ type ProductFlow struct {
 	MaxCount int `json:"max_count"`
 }
 
+//PFlows 后续流程
+type PFlows []*ProductFlow
+
+//Next 处理后续流程
+func (p PFlows) Next(obj interface{}, kv ...interface{}) (types.XMaps, error) {
+	xmaps := make(types.XMaps, 0)
+	for _, v := range p {
+		px, err := v.Next(obj, kv...)
+		if err != nil {
+			return nil, err
+		}
+		xmaps = append(xmaps, px)
+	}
+	return xmaps, nil
+}
+
 //Next 处理后续任务
 func (p *ProductFlow) Next(obj interface{}, kv ...interface{}) (types.XMap, error) {
 	if p.FlowID == 0 {
@@ -56,7 +73,7 @@ func (p *ProductFlow) Next(obj interface{}, kv ...interface{}) (types.XMap, erro
 }
 
 //NextByFirst 处理后续任务
-func NextByFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMap, error) {
+func NextByFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMaps, error) {
 	flow, err := GetFirst(tagName, plid, s)
 	if err != nil || flow == nil {
 		return nil, err
@@ -65,7 +82,7 @@ func NextByFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus, ctx interf
 }
 
 //Next 处理后续任务
-func Next(flowID int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMap, error) {
+func Next(flowID int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMaps, error) {
 	flow, err := Get(flowID, s)
 	if err != nil || flow == nil {
 		return nil, err
@@ -74,7 +91,7 @@ func Next(flowID int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (t
 }
 
 //GetFirst 获取产品线的首要流程
-func GetFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus) (*ProductFlow, error) {
+func GetFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus) (PFlows, error) {
 	//根据产品线父级流程编号获取流程配置
 	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectFlowByTag, map[string]interface{}{
 		sql.FieldPlID:    plid,
@@ -87,7 +104,7 @@ func GetFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus) (*ProductFlow
 }
 
 //Get 根据产品线，父母流程编号、本次处理结果获取后续处理流程配置
-func Get(flowID int, s enums.FlowStatus) (p *ProductFlow, err error) {
+func Get(flowID int, s enums.FlowStatus) (p PFlows, err error) {
 	//根据产品线父级流程编号获取流程配置
 	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectChildFlowByFlowID, map[string]interface{}{
 		sql.FieldFlowID: flowID,
@@ -98,9 +115,9 @@ func Get(flowID int, s enums.FlowStatus) (p *ProductFlow, err error) {
 	return getChildFlow(rows.Get(0), s)
 }
 
-func getChildFlow(flow types.XMap, s enums.FlowStatus) (p *ProductFlow, err error) {
+func getChildFlow(flow types.XMap, s enums.FlowStatus) (p PFlows, err error) {
 	if flow.Len() == 0 {
-		return &ProductFlow{}, nil
+		return nil, nil
 	}
 
 	var flowID = "0"
@@ -115,21 +132,26 @@ func getChildFlow(flow types.XMap, s enums.FlowStatus) (p *ProductFlow, err erro
 
 	//无后续处理流程
 	if flowID == "0" {
-		return &ProductFlow{}, nil
+		return nil, nil
 	}
-
+	fmt.Println("flows_ids:", flowID)
 	//查询对应的后续处理流程
 	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectProductFlowByFlowID, map[string]interface{}{
-		sql.FieldFlowID: flowID,
+		sql.FieldFlowID: formatIDS(flowID),
 		sql.FieldPlID:   flow.GetString(sql.FieldPlID),
 	})
 	if err != nil {
 		return nil, err
 	}
+
 	if rows.Len() == 0 {
 		return nil, fmt.Errorf("---产品线(%s)的后续处理流程(%s)未配置", flow.GetString(sql.FieldPlID), flowID)
 	}
-	p = &ProductFlow{}
-	err = rows.Get(0).ToAnyStruct(p)
+	p = make(PFlows, 0)
+	err = rows.ToAnyStructs(&p)
 	return p, err
+}
+func formatIDS(id string) string {
+	ids := strings.Split(id, ",")
+	return fmt.Sprintf(`'%s'`, strings.Join(ids, `','`))
 }

@@ -21,9 +21,9 @@ func Create(order types.XMap, shelf types.XMap, prod types.XMap) (string, bool, 
 	if err != nil {
 		return "", false, err
 	}
-	input[sql.FieldDeliveryID] = deliveryID
 
 	//启动事务进行支付处理
+	input.SetValue(sql.FieldDeliveryID, deliveryID)
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {
 		return "", false, err

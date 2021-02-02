@@ -27,13 +27,17 @@
                     <div class="pull-right" style="margin-right: 10px">商户订单编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_order_no | fltrEnum("mer_order_no") }}</div>
+                    <el-tooltip class="item" v-if="info.mer_order_no && info.mer_order_no.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.mer_order_no}}</div>
+                      <div >{{ info.mer_order_no | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.mer_order_no}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商品编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_product_id | fltrNumberFormat(0) }}</div>
+                    <div >{{ info.mer_product_id | fltrEnum("merchant_product") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -43,7 +47,7 @@
                     <div class="pull-right" style="margin-right: 10px">货架编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_shelf_id | fltrNumberFormat(0) }}</div>
+                    <div >{{ info.mer_shelf_id | fltrEnum("merchant_shelf") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">外部商品编号:</div>
@@ -81,7 +85,7 @@
                     <div class="pull-right" style="margin-right: 10px">城市:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.city_no | fltrEmpty }}</div>
+                    <div >{{ info.city_no | fltrEnum("city") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -91,13 +95,13 @@
                     <div class="pull-right" style="margin-right: 10px">面值:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.face | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.face |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">数量:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.num | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.num |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -107,29 +111,33 @@
                     <div class="pull-right" style="margin-right: 10px">商品总面值:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.total_face | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.total_face |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">用户账户:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.account_name | fltrEnum("account_name") }}</div>
+                    <el-tooltip class="item" v-if="info.account_name && info.account_name.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.account_name}}</div>
+                      <div >{{ info.account_name | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.account_name}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">开票方式:</div>
+                    <div class="pull-right" style="margin-right: 10px">支持发票:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.invoice_type | fltrNumberFormat(0) }}</div>
+                    <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">销售折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.sell_discount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.sell_discount |  fltrNumberFormat(5)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -139,13 +147,13 @@
                     <div class="pull-right" style="margin-right: 10px">总销售金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.sell_amount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.sell_amount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户佣金折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_fee_discount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.mer_fee_discount |  fltrNumberFormat(5)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -155,13 +163,13 @@
                     <div class="pull-right" style="margin-right: 10px">交易服务折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.trade_fee_discount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(5)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付手续费折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_fee_discount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(5)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -184,16 +192,32 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">完成时间:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.finish_time | fltrDate }}</div>
+                  </el-col>                 
+                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">订单超时时间:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.order_timeout | fltrDate }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付超时时间:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.payment_timeout | fltrDate }}</div>
+                  </el-col>                 
+                  <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">已绑定面值:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.bind_face |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -254,90 +278,84 @@
                     <div :class="info.is_refund|fltrTextColor">{{ info.is_refund | fltrEnum("bool") }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">成功绑定总面值:</div>
+                    <div class="pull-right" style="margin-right: 10px">成功总面值:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.bind_face | fltrNumberFormat(0) }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际成功总面值:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.success_face | fltrNumberFormat(0) }}</div>
-                  </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际成功总销售金额:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.success_sell_amount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_face |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际成功总佣金金额:</div>
+                    <div class="pull-right" style="margin-right: 10px">成功销售金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_mer_fee | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_sell_amount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际成功总服务费金额:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户佣金金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_mer_trade_fee | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_mer_fee |  fltrNumberFormat(3)}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际成功总手续费金额:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户服务费金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_mer_payment_fee | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_mer_trade_fee |  fltrNumberFormat(3)}}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际发货成功总成本:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户手续费金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_cost_amount | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_mer_payment_fee |  fltrNumberFormat(3)}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际发货成功总供货商佣金:</div>
+                    <div class="pull-right" style="margin-right: 10px">成本金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_spp_fee | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_cost_amount |  fltrNumberFormat(3)}}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际发货成功总供货商服务费:</div>
+                    <div class="pull-right" style="margin-right: 10px">供货商佣金:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_spp_trade_fee | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_spp_fee |  fltrNumberFormat(3)}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">实际成功总手续费金额:</div>
+                    <div class="pull-right" style="margin-right: 10px">供货商服务费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_spp_payment_fee | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.success_spp_trade_fee |  fltrNumberFormat(3)}}</div>
                   </el-col>                 
+                  <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">供货商手续费:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.success_spp_payment_fee |  fltrNumberFormat(3)}}</div>
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">利润:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.profit | fltrNumberFormat(2) }}</div>
+                    <div>{{ info.profit |  fltrNumberFormat(3)}}</div>
                   </el-col>
                 </td>
               </tr>            

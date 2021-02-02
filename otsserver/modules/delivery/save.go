@@ -48,13 +48,13 @@ func Save(deliveryID string, source enums.ResultSource, resultCode string, retur
 		delivery.GetInt(sql.FieldPlID),
 		resultCode)
 	returnMsg = types.GetString(returnMsg, msg)
-	fmt.Println("code:", result, msg)
 	switch result {
 	case enums.Failed:
 		err := SaveFailed(
 			deliveryID,
 			delivery.GetString(sql.FieldOrderID),
 			delivery.GetInt(sql.FieldTotalFace),
+			source,
 			source.Format(resultCode), returnMsg)
 		if err != nil {
 			return enums.Unknown, err
@@ -64,6 +64,7 @@ func Save(deliveryID string, source enums.ResultSource, resultCode string, retur
 		err := SaveSuccess(
 			deliveryID,
 			discount,
+			source,
 			extParams,
 			source.Format(resultCode), returnMsg)
 		if err != nil {
@@ -93,7 +94,7 @@ func SaveUnknown(deliveryID string, code string, msg string) error {
 }
 
 //SaveSuccess 保存成功发货结果
-func SaveSuccess(deliveryID string, discount types.Decimal, params string, code string, msg string) error {
+func SaveSuccess(deliveryID string, discount types.Decimal, source enums.ResultSource, params string, code string, msg string) error {
 
 	//启动事务修改发货记录、交易订单
 	db, err := hydra.C.DB().GetRegularDB().Begin()
@@ -101,9 +102,11 @@ func SaveSuccess(deliveryID string, discount types.Decimal, params string, code 
 		return err
 	}
 	row, err := db.Execute(sql.UpdateTradeDeliveryForSaveSuccess, map[string]interface{}{
-		sql.FieldDeliveryID:    deliveryID,
-		sql.FieldResultCode:    code,
-		sql.FieldReturnMsg:     msg,
+		sql.FieldDeliveryID:   deliveryID,
+		sql.FieldResultCode:   code,
+		sql.FieldResultSource: source,
+		sql.FieldReturnMsg:    msg,
+
 		sql.FieldCostDiscount:  discount.String(),
 		sql.FieldRequestParams: params,
 	})
@@ -132,7 +135,7 @@ func SaveSuccess(deliveryID string, discount types.Decimal, params string, code 
 	row, err = db.Execute(sql.UpdateTradeOrderForDeliverySuccess, map[string]interface{}{
 		sql.FieldOrderID:          data.Get(0).GetString(sql.FieldOrderID),
 		sql.FieldCostAmount:       data.Get(0).GetString(sql.FieldCostAmount),
-		sql.FieldSuccFace:         data.Get(0).GetString(sql.FieldSuccTotalFace),
+		sql.FieldSuccFace:         data.Get(0).GetString(sql.FieldSuccFace),
 		sql.FieldSppFeeAmount:     data.Get(0).GetString(sql.FieldSppFeeAmount),
 		sql.FieldPaymentFeeAmount: data.Get(0).GetString(sql.FieldPaymentFeeAmount),
 		sql.FieldTradeFeeAmount:   data.Get(0).GetString(sql.FieldTradeFeeAmount),
@@ -143,14 +146,14 @@ func SaveSuccess(deliveryID string, discount types.Decimal, params string, code 
 	}
 	if row == 0 {
 		db.Rollback()
-		return fmt.Errorf("无法修改订单(%d)为发货成功", deliveryID)
+		return fmt.Errorf("无法修改订单(%s)为发货成功", deliveryID)
 	}
 	db.Commit()
 	return nil
 }
 
 //SaveFailed 保存失败发货结果
-func SaveFailed(deliveryID string, orderID string, totalFace int, code string, msg string) error {
+func SaveFailed(deliveryID string, orderID string, totalFace int, source enums.ResultSource, code string, msg string) error {
 	//启动事务修改发货记录、交易订单
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {
@@ -158,9 +161,10 @@ func SaveFailed(deliveryID string, orderID string, totalFace int, code string, m
 	}
 
 	row, err := db.Execute(sql.UpdateTradeDeliveryForFailed, map[string]interface{}{
-		sql.FieldDeliveryID: deliveryID,
-		sql.FieldResultCode: code,
-		sql.FieldReturnMsg:  msg,
+		sql.FieldDeliveryID:   deliveryID,
+		sql.FieldResultCode:   code,
+		sql.FieldResultSource: source,
+		sql.FieldReturnMsg:    msg,
 	})
 	if err != nil {
 		db.Rollback()
@@ -182,7 +186,7 @@ func SaveFailed(deliveryID string, orderID string, totalFace int, code string, m
 	}
 	if row == 0 {
 		db.Rollback()
-		return fmt.Errorf("修改订单(%d)绑定金额出错", orderID)
+		return fmt.Errorf("修改订单(%s)绑定金额出错", orderID)
 	}
 	db.Commit()
 	return nil

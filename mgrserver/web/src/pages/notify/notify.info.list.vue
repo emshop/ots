@@ -41,7 +41,11 @@
 				</el-table-column>
 				<el-table-column prop="mer_order_no" label="订单编号" >
 					<template slot-scope="scope">
-						<span>{{scope.row.mer_order_no | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
+							<span>{{scope.row.mer_order_no | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.mer_order_no}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="notify_status" label="通知状态" >
@@ -71,7 +75,11 @@
 				</el-table-column>
 				<el-table-column prop="notify_msg" label="通知结果" >
 					<template slot-scope="scope">
-						<span>{{scope.row.notify_msg | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.notify_msg && scope.row.notify_msg.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.notify_msg}}</div>
+							<span>{{scope.row.notify_msg | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.notify_msg}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作">

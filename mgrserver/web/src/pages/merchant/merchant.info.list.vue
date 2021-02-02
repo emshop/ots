@@ -30,28 +30,36 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="mer_no" label="编号" >
+				<el-table-column prop="mer_no" label="编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.mer_no}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="mer_name" label="名称" >
+				<el-table-column prop="mer_name" label="名称" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.mer_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.mer_name && scope.row.mer_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.mer_name}}</div>
+							<span>{{scope.row.mer_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.mer_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_crop" label="公司" >
+				<el-table-column prop="mer_crop" label="公司" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.mer_crop | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.mer_crop && scope.row.mer_crop.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.mer_crop}}</div>
+							<span>{{scope.row.mer_crop | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.mer_crop}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_type" label="类型" >
-				<template slot-scope="scope">
-					<span>{{scope.row.mer_type | fltrNumberFormat(0)}}</span>
-				</template>
+				<el-table-column prop="mer_type" label="类型" align="center">
+					<template slot-scope="scope">
+						<span >{{scope.row.mer_type | fltrEnum("merchant_type")}}</span>
+					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>

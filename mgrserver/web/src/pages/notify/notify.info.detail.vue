@@ -27,13 +27,21 @@
                     <div class="pull-right" style="margin-right: 10px">订单编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_order_no | fltrEnum("mer_order_no") }}</div>
+                    <el-tooltip class="item" v-if="info.mer_order_no && info.mer_order_no.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.mer_order_no}}</div>
+                      <div >{{ info.mer_order_no | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.mer_order_no}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">通知地址:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.notify_url | fltrEnum("notify_url") }}</div>
+                    <el-tooltip class="item" v-if="info.notify_url && info.notify_url.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.notify_url}}</div>
+                      <div >{{ info.notify_url | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.notify_url}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -49,7 +57,7 @@
                     <div class="pull-right" style="margin-right: 10px">最大通知次数:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.max_count | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.max_count |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -59,7 +67,7 @@
                     <div class="pull-right" style="margin-right: 10px">通知次数:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.notify_count | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.notify_count |  fltrNumberFormat(0)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
@@ -91,7 +99,11 @@
                     <div class="pull-right" style="margin-right: 10px">通知结果:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.notify_msg | fltrEnum("notify_msg") }}</div>
+                    <el-tooltip class="item" v-if="info.notify_msg && info.notify_msg.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.notify_msg}}</div>
+                      <div >{{ info.notify_msg | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.notify_msg}}</div>
                   </el-col>
                 </td>
               </tr>            

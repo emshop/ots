@@ -11,7 +11,7 @@
                     <div class="pull-right" style="margin-right: 10px">编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.id | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商家:</div>
@@ -43,7 +43,7 @@
                     <div class="pull-right" style="margin-right: 10px">处理码:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.deal_code | fltrNumberFormat(0) }}</div>
+                    <div :class="info.deal_code|fltrTextColor">{{ info.deal_code | fltrEnum("deal_code") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">错误码:</div>
@@ -65,7 +65,11 @@
                     <div class="pull-right" style="margin-right: 10px">错误码描述:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.error_desc | fltrEnum("error_desc") }}</div>
+                    <el-tooltip class="item" v-if="info.error_desc && info.error_desc.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.error_desc}}</div>
+                      <div >{{ info.error_desc | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.error_desc}}</div>
                   </el-col>
                 </td>
               </tr>

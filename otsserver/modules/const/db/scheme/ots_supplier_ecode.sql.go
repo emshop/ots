@@ -13,6 +13,6 @@ const ots_supplier_ecode=`
 		status tinyint default 0 not null  comment '状态' ,
 		error_desc varchar(64)  not null  comment '错误码描述' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' 
-		,unique index unq_spp_error_code(spp_no,pl_id,category,error_code)
 		,primary key (id)
+		,unique index unq_spp_error_code(spp_no,pl_id,category,error_code)
 	) ENGINE=InnoDB auto_increment = 100 DEFAULT CHARSET=utf8mb4 COMMENT='供货商错误码'`

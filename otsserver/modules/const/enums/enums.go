@@ -68,6 +68,9 @@ const (
 	//ProcessNotStart 未开始
 	ProcessNotStart ProcessStatus = 10
 
+	//ProcessNoNeed 无须处理
+	ProcessNoNeed ProcessStatus = 11
+
 	//ProcessWaiting 等待处理
 	ProcessWaiting ProcessStatus = 20
 
@@ -121,6 +124,12 @@ func (r ResultSource) Format(code string) string {
 type FlowTag string
 
 const (
-	//RecvOrderByPID 来源于发货请求
-	RecvOrderByPID FlowTag = "recv_by_pid"
+	//FlowFlagRecvOrderByPID 来源于发货请求
+	FlowFlagRecvOrderByPID FlowTag = "recv_by_pid"
+
+	//FlowFlagOrderNotify 通知
+	FlowFlagOrderNotify FlowTag = "order_notify"
+
+	//FlowFlagDeliveryFinish 发货完成流程
+	FlowFlagDeliveryFinish FlowTag = "delivery_finish"
 )

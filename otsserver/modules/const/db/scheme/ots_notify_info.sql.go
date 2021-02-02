@@ -5,8 +5,8 @@ const ots_notify_info=`
 	DROP TABLE IF EXISTS ots_notify_info;
 	CREATE TABLE IF NOT EXISTS ots_notify_info (
 		order_id varchar(32)  not null  comment '订单编号' ,
-		mer_no varchar(32)  not null  comment '商户编号' ,
-		mer_order_no varchar(64)  not null  comment '商户订单编号' ,
+		mer_no varchar(32)  not null  comment '商户名称' ,
+		mer_order_no varchar(64)  not null  comment '订单编号' ,
 		notify_url varchar(128)  not null  comment '通知地址' ,
 		notify_status int default 10 not null  comment '通知状态（0成功,10未开始,20等待通知,30正在通知）' ,
 		max_count int default 10 not null  comment '最大通知次数' ,

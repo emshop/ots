@@ -7,6 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
 //SupplierProductHandler 供货商商品处理服务
@@ -17,7 +18,32 @@ func NewSupplierProductHandler() *SupplierProductHandler {
 	return &SupplierProductHandler{}
 }
 
+//PostHandle 添加供货商商品数据
+func (u *SupplierProductHandler) PostHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------添加供货商商品数据--------")
+	
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(postSupplierProductCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	xdb := hydra.C.DB().GetRegularDB()
+	sppProductID, err := db.GetNewID(xdb, sql.SQLGetSEQ, map[string]interface{}{"name": "供货商商品"})
+	if err != nil {
+		return err
+	}
+	input := ctx.Request().GetMap()
+	input["spp_product_id"] = sppProductID
+	count, err := xdb.Execute(sql.InsertSupplierProduct, input)
+	if err != nil || count < 1 {
+		return errs.NewErrorf(http.StatusNotExtended, "添加数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
 
 
 //GetHandle 获取供货商商品单条数据
@@ -31,7 +57,7 @@ func (u *SupplierProductHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetSupplierProductBySppProductId,ctx.Request().GetMap())
+	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetSupplierProductBySppProductID,ctx.Request().GetMap())
 	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
 	}
@@ -76,8 +102,39 @@ func (u *SupplierProductHandler) QueryHandle(ctx hydra.IContext) (r interface{})
 		"count": types.GetInt(count),
 	}
 }
+//PutHandle 更新供货商商品数据
+func (u *SupplierProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------更新供货商商品数据--------")
 
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(updateSupplierProductCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierProductBySppProductID,ctx.Request().GetMap())
+	if err != nil||count<1 {
+		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
+
+var postSupplierProductCheckFields = map[string]interface{}{
+	field.FieldSppProductID:"required",
+	field.FieldSppShelfID:"required",
+	field.FieldSppNo:"required",
+	field.FieldSppProductNo:"required",
+	field.FieldPlID:"required",
+	field.FieldBrandNo:"required",
+	field.FieldProvinceNo:"required",
+	field.FieldCityNo:"required",
+	field.FieldFace:"required",
+	field.FieldCostDiscount:"required",
+	field.FieldStatus:"required",
+	}
 
 var getSupplierProductCheckFields = map[string]interface{}{
 	field.FieldSppProductID:"required",
@@ -91,6 +148,8 @@ var querySupplierProductCheckFields = map[string]interface{}{
 	field.FieldProvinceNo:"required",
 	}
 
-
+var updateSupplierProductCheckFields = map[string]interface{}{
+	field.FieldSppProductNo:"required",
+	}
 
 

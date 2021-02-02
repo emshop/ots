@@ -7,6 +7,7 @@ import (
 	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
+	"github.com/micro-plat/lib4go/types"
 )
 
 //Save 保存通知结果
@@ -22,7 +23,7 @@ func Save(orderID string, status enums.FlowStatus, msg string) error {
 		//修改通知记录
 		row, err = db.Execute(sql.UpdateNotifyInfoForSuccess, map[string]interface{}{
 			sql.FieldOrderID:   orderID,
-			sql.FieldNotifyMsg: msg,
+			sql.FieldNotifyMsg: types.GetString(msg, "充值成功"),
 		})
 		if err != nil || row == 0 {
 			db.Rollback()
@@ -38,7 +39,7 @@ func Save(orderID string, status enums.FlowStatus, msg string) error {
 		//保存通知消息
 		row, err = db.Execute(sql.UpdateNotifyInfoForUnknown, map[string]interface{}{
 			sql.FieldOrderID:   orderID,
-			sql.FieldNotifyMsg: msg,
+			sql.FieldNotifyMsg: types.GetString(msg, "通知结果未知"),
 		})
 	}
 

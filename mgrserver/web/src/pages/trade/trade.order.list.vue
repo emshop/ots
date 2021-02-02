@@ -18,7 +18,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in plId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -37,63 +37,72 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="order_id" label="订单编号" >
+				<el-table-column prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="mer_no" label="商户编号" >
+				<el-table-column prop="mer_no" label="商户编号" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_product_id" label="商品编号" >
-				<template slot-scope="scope">
-					<span>{{scope.row.mer_product_id | fltrNumberFormat(0)}}</span>
-				</template>
+				<el-table-column prop="mer_product_id" label="商品编号" align="center">
+					<template slot-scope="scope">
+						<span >{{scope.row.mer_product_id | fltrEnum("merchant_product")}}</span>
+					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线" >
+				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="brand_no" label="品牌" >
+				<el-table-column prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="province_no" label="省份" >
+				<el-table-column prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="face" label="面值" >
+				<el-table-column prop="face" label="面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="num" label="数量" >
+				<el-table-column prop="num" label="数量" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.num | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="account_name" label="用户账户" >
+				<el-table-column prop="account_name" label="用户账户" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.account_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.account_name}}</div>
+							<span>{{scope.row.account_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.account_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="sell_discount" label="销售折扣" >
+				<el-table-column prop="sell_discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.sell_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.sell_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="order_status" label="订单状态" >
+				<el-table-column prop="bind_face" label="已绑定面值" align="center">
+				<template slot-scope="scope">
+					<span>{{scope.row.bind_face | fltrNumberFormat(0)}}</span>
+				</template>
+				</el-table-column>
+				<el-table-column prop="order_status" label="订单状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.order_status|fltrTextColor">{{scope.row.order_status | fltrEnum("order_status")}}</span>
 					</template>
@@ -140,7 +149,7 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			merNo: this.$enum.get("merchant_info"),
-			plId: this.$enum.get("product_line"),
+			plID: this.$enum.get("product_line"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}

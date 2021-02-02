@@ -69,7 +69,7 @@ func (o *Order) RequestHandle(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Info("5. 处理订单后续流程")
-	flw, err := flow.NextByFirst(enums.RecvOrderByPID, product.GetInt(sql.FieldPlID), enums.Success,
+	flw, err := flow.NextByFirst(enums.FlowFlagRecvOrderByPID, product.GetInt(sql.FieldPlID), enums.Success,
 		ctx, sql.FieldOrderID,
 		order.GetString(sql.FieldOrderID))
 	if err != nil {

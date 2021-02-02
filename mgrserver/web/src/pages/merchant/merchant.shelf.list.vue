@@ -26,52 +26,56 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="mer_shelf_id" label="货架编号" >
+				<el-table-column prop="mer_shelf_id" label="货架编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.mer_shelf_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="mer_shelf_name" label="货架名称" >
+				<el-table-column prop="mer_shelf_name" label="货架名称" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.mer_shelf_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.mer_shelf_name && scope.row.mer_shelf_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.mer_shelf_name}}</div>
+							<span>{{scope.row.mer_shelf_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.mer_shelf_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_no" label="商户编号" >
+				<el-table-column prop="mer_no" label="商户编号" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_fee_discount" label="商户佣金" >
+				<el-table-column prop="mer_fee_discount" label="商户佣金" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.mer_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.mer_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="trade_fee_discount" label="交易服务费" >
+				<el-table-column prop="trade_fee_discount" label="交易服务费" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.trade_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.trade_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="payment_fee_discount" label="支付手续费" >
+				<el-table-column prop="payment_fee_discount" label="支付手续费" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="order_timeout" label="订单超时时长" >
+				<el-table-column prop="order_timeout" label="订单超时时长" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_timeout | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="can_split_order" label="允许拆单" >
+				<el-table-column prop="can_split_order" label="允许拆单" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.can_split_order|fltrTextColor">{{scope.row.can_split_order | fltrEnum("bool")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>

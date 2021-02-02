@@ -12,5 +12,5 @@ const ots_refund_apply=`
 		apply_status tinyint default 10 not null  comment '申请状态' ,
 		refund_amount decimal(20,5)  not null  comment '退款金额' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' 
-		
+		,primary key (apply_id)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='退款申请'`

@@ -17,7 +17,11 @@
                     <div class="pull-right" style="margin-right: 10px">名称:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.spp_name | fltrEnum("spp_name") }}</div>
+                    <el-tooltip class="item" v-if="info.spp_name && info.spp_name.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.spp_name}}</div>
+                      <div >{{ info.spp_name | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.spp_name}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -27,13 +31,17 @@
                     <div class="pull-right" style="margin-right: 10px">公司:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_crop | fltrEnum("mer_crop") }}</div>
+                    <el-tooltip class="item" v-if="info.mer_crop && info.mer_crop.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.mer_crop}}</div>
+                      <div >{{ info.mer_crop | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.mer_crop}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商务人员:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.bd_uid | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.bd_uid |  fltrNumberFormat(0)}}</div>
                   </el-col>
                 </td>
               </tr>

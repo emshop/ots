@@ -20,7 +20,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in plId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -30,6 +30,10 @@
 						<el-option v-for="(item, index) in brandNo" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
+			
+					<el-form-item label="创建时间:">
+						<el-date-picker class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
+					</el-form-item>
 			
 				<el-form-item>
 					<el-button type="primary" @click="query" size="small">查询</el-button>
@@ -42,67 +46,74 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="delivery_id" label="发货编号" >
+				<el-table-column prop="delivery_id" label="发货编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.delivery_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="order_id" label="订单编号" >
+				<el-table-column prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="spp_no" label="供货商" >
+				<el-table-column prop="spp_no" label="供货商" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线" >
+				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="brand_no" label="品牌" >
+				<el-table-column prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="province_no" label="省份" >
-				<template slot-scope="scope">
-					<span>{{scope.row.province_no}}</span>
-				</template>
-				
-				</el-table-column>
-				<el-table-column prop="account_name" label="用户账户" >
+				<el-table-column prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.account_name | fltrSubstr(20)}}</span>
+						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="delivery_status" label="发货状态" >
+				<el-table-column prop="account_name" label="用户账户" align="center">
 					<template slot-scope="scope">
-						<span :class="scope.row.delivery_status|fltrTextColor">{{scope.row.delivery_status | fltrEnum("process_status")}}</span>
+						<el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.account_name}}</div>
+							<span>{{scope.row.account_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.account_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="delivery_status" label="发货状态" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.delivery_status|fltrTextColor">{{scope.row.delivery_status | fltrEnum("delivery_status")}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="face" label="商品面值" >
+				<el-table-column prop="face" label="商品面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="start_time" label="开始时间" >
+				<el-table-column prop="start_time" label="开始时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.start_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="return_msg" label="发货结果" >
+				<el-table-column prop="return_msg" label="发货结果" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.return_msg | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.return_msg && scope.row.return_msg.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.return_msg}}</div>
+							<span>{{scope.row.return_msg | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.return_msg}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作">
@@ -148,8 +159,9 @@ export default {
       queryData:{},               //查询数据对象
 			sppNo: this.$enum.get("supplier_info"),
 			merNo: this.$enum.get("merchant_info"),
-			plId: this.$enum.get("product_line"),
+			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
+			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },
@@ -167,6 +179,7 @@ export default {
     query:async function(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
+			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
       let res = await this.$http.xpost("/trade/delivery/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count

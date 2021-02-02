@@ -6,7 +6,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.mer_shelf_id" class="input-cos" placeholder="请选择货架">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in merShelfId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in merShelfID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -20,7 +20,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in plId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -42,57 +42,57 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="mer_product_id" label="商品编号" >
+				<el-table-column prop="mer_product_id" label="商品编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.mer_product_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="mer_shelf_id" label="货架" >
+				<el-table-column prop="mer_shelf_id" label="货架" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_shelf_id | fltrEnum("merchant_shelf")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_no" label="商户" >
+				<el-table-column prop="mer_no" label="商户" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线" >
+				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="brand_no" label="品牌" >
+				<el-table-column prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="province_no" label="省份" >
+				<el-table-column prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="city_no" label="城市" >
+				<el-table-column prop="city_no" label="城市" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.city_no | fltrEnum("city")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="face" label="面值" >
+				<el-table-column prop="face" label="面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="discount" label="销售折扣" >
+				<el-table-column prop="discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.discount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
@@ -143,9 +143,9 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			merShelfId: this.$enum.get("merchant_shelf"),
+			merShelfID: this.$enum.get("merchant_shelf"),
 			merNo: this.$enum.get("merchant_info"),
-			plId: this.$enum.get("product_line"),
+			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}

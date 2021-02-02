@@ -1,6 +1,11 @@
 <template>
 	<el-dialog title="编辑供货商商品" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
+      <el-form-item label="供货商商品编号" prop="spp_product_no">
+				<el-input maxlength="32" clearable v-model="editData.spp_product_no" placeholder="请输入供货商商品编号">
+				</el-input>
+      </el-form-item>
+      
     </el-form>
 		<div slot="footer" class="dialog-footer">
 			<el-button size="small" @click="dialogFormVisible = false">取 消</el-button>

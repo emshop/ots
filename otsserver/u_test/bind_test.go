@@ -28,7 +28,7 @@ func TestSingleBind(t *testing.T) {
 
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
-	err = ctx.Response().WriteAny(rs)
+	err = ctx.Response().WriteAny(getAny(rs))
 	status, _, _ := ctx.Response().GetFinalResponse()
 
 	assert.Equal(t, nil, err, input)

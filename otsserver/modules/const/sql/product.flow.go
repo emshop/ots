@@ -54,5 +54,5 @@ t.max_count
 from ots_product_flow t
 where
 t.pl_id = @pl_id
-and t.flow_id=@flow_id
+and t.flow_id in (#flow_id)
 `

@@ -2,17 +2,17 @@
 	<el-dialog title="编辑商户商品" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
       <el-form-item label="面值" prop="face">
-				<el-input clearable v-model="editData.face" placeholder="请输入面值">
+				<el-input maxlength="10" clearable v-model="editData.face" placeholder="请输入面值">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="商户商品编号" prop="mer_product_no">
-				<el-input clearable v-model="editData.mer_product_no" placeholder="请输入商户商品编号">
+				<el-input maxlength="32" clearable v-model="editData.mer_product_no" placeholder="请输入商户商品编号">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="销售折扣" prop="discount">
-				<el-input clearable v-model="editData.discount" placeholder="请输入销售折扣">
+				<el-input maxlength="0" clearable v-model="editData.discount" placeholder="请输入销售折扣">
 				</el-input>
       </el-form-item>
       
@@ -39,8 +39,14 @@ export default {
 			editData: {},                //编辑数据对象
       status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
-				mer_product_no: [
-					{ required: true, message: "请输入商户商品编号", trigger: "blur" }
+				face: [
+					{ required: true, message: "请输入面值", trigger: "blur" }
+				],
+				discount: [
+					{ required: true, message: "请输入销售折扣", trigger: "blur" }
+				],
+				status: [
+					{ required: true, message: "请输入状态", trigger: "blur" }
 				],
 			},
 		}

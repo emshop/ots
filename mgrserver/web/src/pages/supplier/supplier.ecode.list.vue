@@ -13,7 +13,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in plId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -35,6 +35,10 @@
 					<el-button type="primary" @click="query" size="small">查询</el-button>
 				</el-form-item>
 				
+				<el-form-item>
+					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     	<!-- query end -->
@@ -42,54 +46,59 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="id" label="编号" >
+				<el-table-column prop="id" label="编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="spp_no" label="商家" >
+				<el-table-column prop="spp_no" label="商家" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线" >
+				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="category" label="分类" >
+				<el-table-column prop="category" label="分类" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.category|fltrTextColor">{{scope.row.category | fltrEnum("result_source")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="deal_code" label="处理码" >
-				<template slot-scope="scope">
-					<span>{{scope.row.deal_code | fltrNumberFormat(0)}}</span>
-				</template>
+				<el-table-column prop="deal_code" label="处理码" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.deal_code|fltrTextColor">{{scope.row.deal_code | fltrEnum("deal_code")}}</span>
+					</template>
 				</el-table-column>
-				<el-table-column prop="error_code" label="错误码" >
+				<el-table-column prop="error_code" label="错误码" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.error_code}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="error_desc" label="错误码描述" >
+				<el-table-column prop="error_desc" label="错误码描述" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.error_desc | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.error_desc && scope.row.error_desc.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.error_desc}}</div>
+							<span>{{scope.row.error_desc | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.error_desc}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
 						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
@@ -97,9 +106,13 @@
 		</el-scrollbar>
 		<!-- list end-->
 
-		
+		<!-- Add Form -->
+		<Add ref="Add" :refresh="query"></Add>
+		<!--Add Form -->
 
-		
+		<!-- edit Form start-->
+		<Edit ref="Edit" :refresh="query"></Edit>
+		<!-- edit Form end-->
 
 		<!-- pagination start -->
 		<div class="page-pagination">
@@ -120,8 +133,12 @@
 
 
 <script>
+import Add from "./supplier.ecode.add"
+import Edit from "./supplier.ecode.edit"
 export default {
   components: {
+		Add,
+		Edit
   },
   data () {
 		return {
@@ -130,7 +147,7 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			sppNo: this.$enum.get("supplier_info"),
-			plId: this.$enum.get("product_line"),
+			plID: this.$enum.get("product_line"),
 			category: this.$enum.get("result_source"),
 			status: this.$enum.get("status"),
 			dataList: {count: 0,items: []}, //表单数据对象
@@ -174,6 +191,13 @@ export default {
         id: val.id,
       }
       this.$emit("addTab","详情"+val.id,"/supplier/ecode/detail",data);
+		},
+    showAdd(){
+      this.$refs.Add.show();
+		},
+    showEdit(val) {
+      this.$refs.Edit.editData = val
+      this.$refs.Edit.show();
 		},
   }
 }

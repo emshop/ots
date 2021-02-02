@@ -18,7 +18,7 @@ const ots_trade_order=`
 		num int  not null  comment '数量' ,
 		total_face int  not null  comment '商品总面值' ,
 		account_name varchar(64)  not null  comment '用户账户' ,
-		invoice_type tinyint  not null  comment '开票方式（1.不开发票）' ,
+		invoice_type tinyint  not null  comment '支持发票（1.不支持）' ,
 		sell_discount decimal(20,5)  not null  comment '销售折扣' ,
 		sell_amount decimal(20,5)  not null  comment '总销售金额' ,
 		mer_fee_discount decimal(20,5)  not null  comment '商户佣金折扣' ,
@@ -26,8 +26,10 @@ const ots_trade_order=`
 		payment_fee_discount decimal(20,5)  not null  comment '支付手续费折扣' ,
 		can_split_order tinyint default 1 not null  comment '是否拆单（0.是，1否）' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' ,
+		finish_time datetime default current_timestamp not null  comment '完成时间' ,
 		order_timeout datetime  not null  comment '订单超时时间' ,
 		payment_timeout datetime  not null  comment '支付超时时间' ,
+		bind_face int default 0 not null  comment '已绑定面值' ,
 		delivery_pause tinyint default 1 not null  comment '发货暂停（0.是，1否）' ,
 		order_status int default 10 not null  comment '订单状态' ,
 		payment_status int default 20 not null  comment '支付状态' ,
@@ -35,7 +37,6 @@ const ots_trade_order=`
 		refund_status int default 10 not null  comment '退款状态' ,
 		notify_status int default 10 not null  comment '通知状态' ,
 		is_refund tinyint default 1 not null  comment '用户退款（0.是，1否）' ,
-		bind_face int default 0 not null  comment '成功绑定总面值' ,
 		success_face int default 0 not null  comment '实际成功总面值' ,
 		success_sell_amount decimal(20,5) default 0 not null  comment '实际成功总销售金额 （1）' ,
 		success_mer_fee decimal(20,5) default 0 not null  comment '实际成功总佣金金额 （2）' ,
@@ -44,7 +45,7 @@ const ots_trade_order=`
 		success_cost_amount decimal(20,5) default 0 not null  comment '实际发货成功总成本 （5）' ,
 		success_spp_fee decimal(20,5) default 0 not null  comment '实际发货成功总供货商佣金 （6）' ,
 		success_spp_trade_fee decimal(20,5) default 0 not null  comment '实际发货成功总供货商服务费 （7）' ,
-		success_spp_payment_fee decimal(20,5) default 0 not null  comment '实际成功总手续费金额 （4）' ,
-		profit decimal(20,5) default 0 not null  comment '利润' 
+		success_spp_payment_fee decimal(20,5) default 0 not null  comment '实际成功总手续费金额 （8）' ,
+		profit decimal(20,5) default 0 not null  comment '利润(1-2-3-4-5+6-7-8)' 
 		,primary key (order_id)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单记录'`

@@ -113,7 +113,8 @@ trade_fee_discount,
 payment_fee_discount,
 can_split_order,
 order_timeout,
-payment_timeout
+payment_timeout,
+notify_status
 )values(
 @order_id,
 @mer_no,
@@ -137,6 +138,7 @@ payment_timeout
 @payment_fee_discount,
 @can_split_order,
 DATE_ADD(now(),INTERVAL @order_timeout SECOND),
-DATE_ADD(now(),INTERVAL @payment_timeout SECOND)
+DATE_ADD(now(),INTERVAL @payment_timeout SECOND),
+case @notify_url when '' then 11 else 10 end
 )
 `

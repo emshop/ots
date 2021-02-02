@@ -40,7 +40,7 @@ func TestRequestHandle(t *testing.T) {
 		//构建请求处理------------------------
 		order := &order.Order{}
 		rs := order.RequestHandle(ctx)
-		err := ctx.Response().WriteAny(rs)
+		err := ctx.Response().WriteAny(getAny(rs))
 
 		//校验结果
 		assert.Equal(t, nil, err)
@@ -73,7 +73,7 @@ func TestQueryHandle(t *testing.T) {
 		//验证查询----------------------------
 		qs := order.QueryHandle(ctx)
 		//写入响应流
-		err := ctx.Response().WriteAny(qs)
+		err := ctx.Response().WriteAny(getAny(qs))
 		//校验结果
 		assert.Equal(t, nil, err)
 		status, _, _ := ctx.Response().GetFinalResponse()

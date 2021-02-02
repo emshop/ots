@@ -6,7 +6,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.spp_shelf_id" class="input-cos" placeholder="请选择货架">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in sppShelfId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in sppShelfID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -20,7 +20,7 @@
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in plId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -42,6 +42,10 @@
 					<el-button type="primary" @click="query" size="small">查询</el-button>
 				</el-form-item>
 				
+				<el-form-item>
+					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     	<!-- query end -->
@@ -49,63 +53,64 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="spp_product_id" label="商品编号" >
+				<el-table-column prop="spp_product_id" label="商品编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.spp_product_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="spp_shelf_id" label="货架" >
+				<el-table-column prop="spp_shelf_id" label="货架" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_shelf_id | fltrEnum("supplier_shelf")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="spp_no" label="供货商" >
+				<el-table-column prop="spp_no" label="供货商" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线" >
+				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="brand_no" label="品牌" >
+				<el-table-column prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="province_no" label="省份" >
+				<el-table-column prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="city_no" label="城市" >
+				<el-table-column prop="city_no" label="城市" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.city_no | fltrEnum("city")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="face" label="面值" >
+				<el-table-column prop="face" label="面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="cost_discount" label="成本折扣" >
+				<el-table-column prop="cost_discount" label="成本折扣" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.cost_discount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>
 				</el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
+						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
 						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
@@ -113,9 +118,13 @@
 		</el-scrollbar>
 		<!-- list end-->
 
-		
+		<!-- Add Form -->
+		<Add ref="Add" :refresh="query"></Add>
+		<!--Add Form -->
 
-		
+		<!-- edit Form start-->
+		<Edit ref="Edit" :refresh="query"></Edit>
+		<!-- edit Form end-->
 
 		<!-- pagination start -->
 		<div class="page-pagination">
@@ -136,8 +145,12 @@
 
 
 <script>
+import Add from "./supplier.product.add"
+import Edit from "./supplier.product.edit"
 export default {
   components: {
+		Add,
+		Edit
   },
   data () {
 		return {
@@ -145,9 +158,9 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			sppShelfId: this.$enum.get("supplier_shelf"),
+			sppShelfID: this.$enum.get("supplier_shelf"),
 			sppNo: this.$enum.get("supplier_info"),
-			plId: this.$enum.get("product_line"),
+			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
 			provinceNo: this.$enum.get("province"),
 			dataList: {count: 0,items: []}, //表单数据对象
@@ -191,6 +204,13 @@ export default {
         spp_product_id: val.spp_product_id,
       }
       this.$emit("addTab","详情"+val.spp_product_id,"/supplier/product/detail",data);
+		},
+    showAdd(){
+      this.$refs.Add.show();
+		},
+    showEdit(val) {
+      this.$refs.Edit.editData = val
+      this.$refs.Edit.show();
 		},
   }
 }

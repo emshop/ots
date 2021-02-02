@@ -12,15 +12,26 @@ import (
 
 //Start 开始启动通知
 func Start(orderID string) (*NotifyInfo, error) {
+
+	row, err := hydra.C.DB().GetRegularDB().Scalar(sql.SelectOrderForNotify, map[string]interface{}{
+		sql.FieldOrderID: orderID,
+	})
+	if err != nil {
+		return nil, err
+	}
+	if types.GetInt(row) > 0 {
+		return nil, errs.NewError(http.StatusNoContent, "通知记录无须处理")
+	}
+
 	//修改支付状态
-	row, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateNotifyInfoForStart, map[string]interface{}{
+	row, err = hydra.C.DB().GetRegularDB().Execute(sql.UpdateNotifyInfoForStart, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})
 	if err != nil {
 		return nil, err
 	}
 	if row == 0 {
-		return nil, errs.NewError(http.StatusNoContent, "通知记录无须处理")
+		return nil, fmt.Errorf("订单无法启动通知流程")
 	}
 	data, err := hydra.C.DB().GetRegularDB().Query(sql.SelectNotifyInfoForStart, map[string]interface{}{
 		sql.FieldOrderID: orderID,
@@ -40,7 +51,7 @@ func Start(orderID string) (*NotifyInfo, error) {
 type NotifyInfo struct {
 
 	//OrderID 订单编号
-	orderID string `json:"order_id"`
+	OrderID string `json:"order_id"`
 
 	//MerNo 商户编号
 	MerNo string `json:"mer_no"`

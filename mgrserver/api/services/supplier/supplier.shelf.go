@@ -7,6 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
 //SupplierShelfHandler 供货商货架处理服务
@@ -17,7 +18,32 @@ func NewSupplierShelfHandler() *SupplierShelfHandler {
 	return &SupplierShelfHandler{}
 }
 
+//PostHandle 添加供货商货架数据
+func (u *SupplierShelfHandler) PostHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------添加供货商货架数据--------")
+	
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(postSupplierShelfCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	xdb := hydra.C.DB().GetRegularDB()
+	sppShelfID, err := db.GetNewID(xdb, sql.SQLGetSEQ, map[string]interface{}{"name": "供货商货架"})
+	if err != nil {
+		return err
+	}
+	input := ctx.Request().GetMap()
+	input["spp_shelf_id"] = sppShelfID
+	count, err := xdb.Execute(sql.InsertSupplierShelf, input)
+	if err != nil || count < 1 {
+		return errs.NewErrorf(http.StatusNotExtended, "添加数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
 
 
 //GetHandle 获取供货商货架单条数据
@@ -31,7 +57,7 @@ func (u *SupplierShelfHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetSupplierShelfBySppShelfId,ctx.Request().GetMap())
+	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetSupplierShelfBySppShelfID,ctx.Request().GetMap())
 	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
 	}
@@ -76,8 +102,41 @@ func (u *SupplierShelfHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+//PutHandle 更新供货商货架数据
+func (u *SupplierShelfHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------更新供货商货架数据--------")
 
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(updateSupplierShelfCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierShelfBySppShelfID,ctx.Request().GetMap())
+	if err != nil||count<1 {
+		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
+
+var postSupplierShelfCheckFields = map[string]interface{}{
+	field.FieldSppShelfID:"required",
+	field.FieldSppShelfName:"required",
+	field.FieldSppNo:"required",
+	field.FieldReqURL:"required",
+	field.FieldQueryURL:"required",
+	field.FieldNotifyURL:"required",
+	field.FieldInvoiceType:"required",
+	field.FieldSppFeeDiscount:"required",
+	field.FieldTradeFeeDiscount:"required",
+	field.FieldPaymentFeeDiscount:"required",
+	field.FieldCanRefund:"required",
+	field.FieldStatus:"required",
+	field.FieldLimitCount:"required",
+	}
 
 var getSupplierShelfCheckFields = map[string]interface{}{
 	field.FieldSppShelfID:"required",
@@ -89,6 +148,18 @@ var querySupplierShelfCheckFields = map[string]interface{}{
 	field.FieldStatus:"required",
 	}
 
-
+var updateSupplierShelfCheckFields = map[string]interface{}{
+	field.FieldSppShelfName:"required",
+	field.FieldReqURL:"required",
+	field.FieldQueryURL:"required",
+	field.FieldNotifyURL:"required",
+	field.FieldInvoiceType:"required",
+	field.FieldSppFeeDiscount:"required",
+	field.FieldTradeFeeDiscount:"required",
+	field.FieldPaymentFeeDiscount:"required",
+	field.FieldCanRefund:"required",
+	field.FieldStatus:"required",
+	field.FieldLimitCount:"required",
+	}
 
 
