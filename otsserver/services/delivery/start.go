@@ -18,12 +18,8 @@ var deliveryStartSaveFields = []string{
 	sql.FieldReturnMsg,
 }
 
-//Delivery 发货处理
-type Delivery struct {
-}
-
 //StartHandle 开始请求
-func (o *Delivery) StartHandle(ctx hydra.IContext) interface{} {
+func StartHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------开始发货请求----------------------")
 	if err := ctx.Request().Check(deliveryStartNowFields...); err != nil {
@@ -34,7 +30,7 @@ func (o *Delivery) StartHandle(ctx hydra.IContext) interface{} {
 }
 
 //SaveSartHandle 保存请求
-func (o *Delivery) SaveSartHandle(ctx hydra.IContext) interface{} {
+func SaveSartHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------保存发货请求----------------------")
 	if err := ctx.Request().Check(deliveryStartSaveFields...); err != nil {

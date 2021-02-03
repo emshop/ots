@@ -19,21 +19,20 @@ func TestSingleDelivery(t *testing.T) {
 	input := string(order.Marshal())
 	ctx := mock.NewContext(input)
 
-	var dlv = &delivery.Delivery{}
-	rs := dlv.StartHandle(ctx)
+	rs := delivery.StartHandle(ctx)
 
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 	//保存请求结果---------------------------
 	ctx.Request().SetValue("result_code", "000")
 	ctx.Request().SetValue("return_msg", "上游请求成功")
-	rs = dlv.SaveSartHandle(ctx)
+	rs = delivery.SaveSartHandle(ctx)
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 	//保存发货结果---------------------------
 	ctx.Request().SetValue("result_code", "000")
 	ctx.Request().SetValue("return_msg", "发货成功000")
-	rs = dlv.SaveResultHandle(ctx)
+	rs = delivery.SaveResultHandle(ctx)
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 }
@@ -48,21 +47,20 @@ func TestSingleDeliveryFailed(t *testing.T) {
 	input := string(order.Marshal())
 	ctx := mock.NewContext(input)
 
-	var dlv = &delivery.Delivery{}
-	rs := dlv.StartHandle(ctx)
+	rs := delivery.StartHandle(ctx)
 
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 	//保存请求结果---------------------------
 	ctx.Request().SetValue("result_code", "000")
 	ctx.Request().SetValue("return_msg", "上游请求成功")
-	rs = dlv.SaveSartHandle(ctx)
+	rs = delivery.SaveSartHandle(ctx)
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 	//保存发货结果---------------------------
 	ctx.Request().SetValue("result_code", "1111")
 	ctx.Request().SetValue("return_msg", "发货失败")
-	rs = dlv.SaveResultHandle(ctx)
+	rs = delivery.SaveResultHandle(ctx)
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 }

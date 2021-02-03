@@ -7,13 +7,13 @@
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="名称" prop="spp_name">
-				<el-input maxlength="64" clearable v-model="addData.spp_name" placeholder="请输入名称">
+      <el-form-item label="供货商名称" prop="spp_name">
+				<el-input maxlength="64" clearable v-model="addData.spp_name" placeholder="请输入供货商名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="公司" prop="mer_crop">
-				<el-input maxlength="64" clearable v-model="addData.mer_crop" placeholder="请输入公司">
+      <el-form-item label="所属公司" prop="mer_crop">
+				<el-input maxlength="64" clearable v-model="addData.mer_crop" placeholder="请输入所属公司">
 				</el-input>
       </el-form-item>
       
@@ -46,7 +46,7 @@ export default {
 			dialogAddVisible: false,
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
-				mer_crop: [{ required: true, message: "请输入公司", trigger: "blur" }],
+				mer_crop: [{ required: true, message: "请输入所属公司", trigger: "blur" }],
 				bd_uid: [{ required: true, message: "请输入商务人员", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},

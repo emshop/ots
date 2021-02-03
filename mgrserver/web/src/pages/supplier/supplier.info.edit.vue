@@ -1,13 +1,13 @@
 <template>
 	<el-dialog title="编辑供货商信息" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
-      <el-form-item label="名称" prop="spp_name">
-				<el-input maxlength="64" clearable v-model="editData.spp_name" placeholder="请输入名称">
+      <el-form-item label="供货商名称" prop="spp_name">
+				<el-input maxlength="64" clearable v-model="editData.spp_name" placeholder="请输入供货商名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="公司" prop="mer_crop">
-				<el-input maxlength="64" clearable v-model="editData.mer_crop" placeholder="请输入公司">
+      <el-form-item label="所属公司" prop="mer_crop">
+				<el-input maxlength="64" clearable v-model="editData.mer_crop" placeholder="请输入所属公司">
 				</el-input>
       </el-form-item>
       
@@ -40,7 +40,7 @@ export default {
       status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				spp_name: [
-					{ required: true, message: "请输入名称", trigger: "blur" }
+					{ required: true, message: "请输入供货商名称", trigger: "blur" }
 				],
 			},
 		}

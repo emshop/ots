@@ -11,7 +11,7 @@ import (
 )
 
 //TimeoutHandle 支付超时(异步流程)
-func (p *Payment) TimeoutHandle(ctx hydra.IContext) interface{} {
+func TimeoutHandle(ctx hydra.IContext) interface{} {
 	ctx.Log().Info("-------------处理支付超时----------------------")
 	if err := ctx.Request().Check(fields...); err != nil {
 		return err

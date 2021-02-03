@@ -9,6 +9,7 @@ t.last_update_time = now()
 where
 t.delivery_id = @delivery_id 
 and t.delivery_status = 20
+and exists(select 1 from ots_trade_order o where o.order_id = t.order_id and o.delivery_pause = 1)
 `
 
 //SelectTradeDeliveryForStart 查询单条数据订单发货表
@@ -39,9 +40,11 @@ t.spp_fee_amount,
 t.trade_fee_amount,
 t.payment_fee_amount
 from ots_trade_delivery t
+inner join ots_trade_order o on t.order_id = o.order_id
 where
 t.delivery_id = @delivery_id 
 and t.delivery_id = 30
+and o.delivery_pause = 1
 `
 
 //UpdateTradeDeliveryForDeliveryingSuccess 查询单条数据订单发货表

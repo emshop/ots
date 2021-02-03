@@ -7,7 +7,7 @@ import (
 )
 
 //PayHandle 上游付款
-func (o *Delivery) PayHandle(ctx hydra.IContext) interface{} {
+func PayHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------开始发货付款----------------------")
 	if err := ctx.Request().Check(deliveryStartNowFields...); err != nil {

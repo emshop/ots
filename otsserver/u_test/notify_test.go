@@ -20,12 +20,11 @@ func TestSingleNotifySuccess(t *testing.T) {
 	ctx := mock.NewContext(input)
 
 	//开始通知
-	ntf := &notify.Notify{}
-	rs := ntf.StartHandle(ctx)
+	rs := notify.StartHandle(ctx)
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 	//保存通知结果
-	rs = ntf.SuccessHandle(ctx)
+	rs = notify.SuccessHandle(ctx)
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 
 }

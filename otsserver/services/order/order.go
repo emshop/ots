@@ -18,12 +18,8 @@ var orderRequestFields = []string{
 	sql.FieldAccountName,
 }
 
-//Order 订单处理
-type Order struct {
-}
-
 //RequestHandle 下单处理
-func (o *Order) RequestHandle(ctx hydra.IContext) interface{} {
+func RequestHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------处理订单收单----------------------")
 	if err := ctx.Request().Check(orderRequestFields...); err != nil {

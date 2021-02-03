@@ -14,7 +14,7 @@ var fields = []string{
 }
 
 //NotifyHandle 订单通知
-func (o *Order) NotifyHandle(ctx hydra.IContext) interface{} {
+func NotifyHandle(ctx hydra.IContext) interface{} {
 	ctx.Log().Info("-------------处理订单查询----------------------")
 	if err := ctx.Request().Check(fields...); err != nil {
 		return err

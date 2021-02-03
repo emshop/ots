@@ -22,24 +22,24 @@
       </el-form-item>
       
       
-			<el-form-item label="开发票:" prop="invoice_type">
+			<el-form-item label="开票:" prop="invoice_type">
 				<el-select  placeholder="---请选择---" clearable v-model="editData.invoice_type" style="width: 100%;">
 					<el-option v-for="(item, index) in invoiceType" :key="index" :value="item.value" :label="item.name" ></el-option>
 				</el-select>
 			</el-form-item>
       
       <el-form-item label="商户佣金" prop="spp_fee_discount">
-				<el-input clearable v-model="editData.spp_fee_discount" placeholder="请输入商户佣金">
+				<el-input maxlength="0" clearable v-model="editData.spp_fee_discount" placeholder="请输入商户佣金">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="交易服务费" prop="trade_fee_discount">
-				<el-input clearable v-model="editData.trade_fee_discount" placeholder="请输入交易服务费">
+				<el-input maxlength="0" clearable v-model="editData.trade_fee_discount" placeholder="请输入交易服务费">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="支付手续费" prop="payment_fee_discount">
-				<el-input clearable v-model="editData.payment_fee_discount" placeholder="请输入支付手续费">
+				<el-input maxlength="0" clearable v-model="editData.payment_fee_discount" placeholder="请输入支付手续费">
 				</el-input>
       </el-form-item>
       

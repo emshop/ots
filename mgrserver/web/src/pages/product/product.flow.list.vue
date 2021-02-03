@@ -14,9 +14,9 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线编号">
+					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in plId" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
 				</el-form-item>
 			
@@ -31,12 +31,12 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="flow_id" label="流程编号" >
+				<el-table-column prop="flow_id" label="流程编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.flow_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="flow_name" label="流程名称" >
+				<el-table-column prop="flow_name" label="流程名称" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.flow_name && scope.row.flow_name.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.flow_name}}</div>
@@ -45,7 +45,7 @@
 						<span v-else>{{scope.row.flow_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="tag_name" label="tag标签" >
+				<el-table-column prop="tag_name" label="tag标签" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.tag_name && scope.row.tag_name.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.tag_name}}</div>
@@ -54,22 +54,22 @@
 						<span v-else>{{scope.row.tag_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线编号" >
+				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="success_flow_id" label="成功流程" >
+				<el-table-column prop="success_flow_id" label="成功流程" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.success_flow_id|fltrTextColor">{{scope.row.success_flow_id | fltrEnum("product_flow")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="failed_flow_id" label="失败流程" >
+				<el-table-column prop="failed_flow_id" label="失败流程" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.failed_flow_id|fltrTextColor">{{scope.row.failed_flow_id | fltrEnum("product_flow")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="unknown_flow_id" label="未知流程" >
+				<el-table-column prop="unknown_flow_id" label="未知流程" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.unknown_flow_id|fltrTextColor">{{scope.row.unknown_flow_id | fltrEnum("product_flow")}}</span>
 					</template>
@@ -115,7 +115,7 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			plId: this.$enum.get("product_line"),
+			plID: this.$enum.get("product_line"),
 			dataList: {count: 0,items: []}, //表单数据对象
 		}
   },

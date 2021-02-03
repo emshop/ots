@@ -16,7 +16,7 @@ var deliverySaveResultFields = []string{
 }
 
 //SaveResultHandle 开始请求
-func (o *Delivery) SaveResultHandle(ctx hydra.IContext) interface{} {
+func SaveResultHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------保存发货结果----------------------")
 	if err := ctx.Request().Check(deliverySaveResultFields...); err != nil {

@@ -1,5 +1,20 @@
 [
   {
+    "name": "订单发货表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/trade/delivery"
+  },
+  {
+    "name": "任务表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/system/task"
+  },
+  {
+    "name": "商户信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/info"
+  },
+  {
     "name": "供货商信息",
     "icon": "fa fa-user-circle text-primary",
     "path": "/supplier/info"
@@ -10,24 +25,9 @@
     "path": "/supplier/product"
   },
   {
-    "name": "订单发货表",
+    "name": "产品线",
     "icon": "fa fa-user-circle text-primary",
-    "path": "/trade/delivery"
-  },
-  {
-    "name": "订单记录",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/trade/order"
-  },
-  {
-    "name": "商户信息",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/merchant/info"
-  },
-  {
-    "name": "商户货架",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/merchant/shelf"
+    "path": "/product/line"
   },
   {
     "name": "退款申请",
@@ -35,14 +35,19 @@
     "path": "/refund/apply"
   },
   {
-    "name": "供货商错误码",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/supplier/ecode"
-  },
-  {
     "name": "供货商货架",
     "icon": "fa fa-user-circle text-primary",
     "path": "/supplier/shelf"
+  },
+  {
+    "name": "订单记录",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/trade/order"
+  },
+  {
+    "name": "账户信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/account/info"
   },
   {
     "name": "发货人工审核表",
@@ -55,13 +60,28 @@
     "path": "/merchant/product"
   },
   {
-    "name": "订单通知表",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/notify/info"
-  },
-  {
     "name": "业务流程",
     "icon": "fa fa-user-circle text-primary",
     "path": "/product/flow"
+  },
+  {
+    "name": "供货商错误码",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/supplier/ecode"
+  },
+  {
+    "name": "账户余额变动信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/account/record"
+  },
+  {
+    "name": "商户货架",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/shelf"
+  },
+  {
+    "name": "订单通知表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/notify/info"
   }
 ]

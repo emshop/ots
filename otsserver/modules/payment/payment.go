@@ -1,6 +1,7 @@
 package payment
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/emshop/ots/otsserver/modules/const/enums"
@@ -59,11 +60,11 @@ func Pay(orderID string) error {
 		"订单扣款")
 	if err != nil {
 		db.Rollback()
-		return err
+		return fmt.Errorf("商户(%s)扣款失败%w", order.GetString(sql.FieldMerNo), err)
 	}
 	if rs.GetCode() != beanpay.Success {
 		db.Rollback()
-		return errs.NewErrorf(rs.GetCode(), "扣款失败%s", rs.GetCode())
+		return errs.NewErrorf(rs.GetCode(), "商户(%s)扣款失败%s", order.GetString(sql.FieldMerNo), rs.GetCode())
 	}
 	db.Commit()
 	return nil

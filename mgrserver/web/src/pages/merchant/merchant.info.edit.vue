@@ -1,13 +1,13 @@
 <template>
 	<el-dialog title="编辑商户信息" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
-      <el-form-item label="名称" prop="mer_name">
-				<el-input maxlength="64" clearable v-model="editData.mer_name" placeholder="请输入名称">
+      <el-form-item label="商户名称" prop="mer_name">
+				<el-input maxlength="64" clearable v-model="editData.mer_name" placeholder="请输入商户名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="公司" prop="mer_crop">
-				<el-input maxlength="64" clearable v-model="editData.mer_crop" placeholder="请输入公司">
+      <el-form-item label="公司名称" prop="mer_crop">
+				<el-input maxlength="64" clearable v-model="editData.mer_crop" placeholder="请输入公司名称">
 				</el-input>
       </el-form-item>
       
@@ -51,10 +51,10 @@ export default {
       status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				mer_name: [
-					{ required: true, message: "请输入名称", trigger: "blur" }
+					{ required: true, message: "请输入商户名称", trigger: "blur" }
 				],
 				mer_crop: [
-					{ required: true, message: "请输入公司", trigger: "blur" }
+					{ required: true, message: "请输入公司名称", trigger: "blur" }
 				],
 				mer_type: [
 					{ required: true, message: "请输入类型", trigger: "blur" }

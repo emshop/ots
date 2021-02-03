@@ -15,7 +15,7 @@ var finishFields = []string{
 }
 
 //FinishHandle 订单完结处理
-func (o *Order) FinishHandle(ctx hydra.IContext) interface{} {
+func FinishHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------处理订单完结----------------------")
 	if err := ctx.Request().Check(finishFields...); err != nil {

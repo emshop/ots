@@ -8,7 +8,7 @@
       </el-form-item>
       
       
-			<el-form-item label="货架:" prop="spp_shelf_id">
+			<el-form-item label="货架名称:" prop="spp_shelf_id">
 				<el-select  placeholder="---请选择---" clearable v-model="addData.spp_shelf_id" style="width: 100%;">
 					<el-option v-for="(item, index) in sppShelfID" :key="index" :value="item.value" :label="item.name" ></el-option>
 				</el-select>

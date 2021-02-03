@@ -72,7 +72,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">开发票:</div>
+                    <div class="pull-right" style="margin-right: 10px">开票:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>

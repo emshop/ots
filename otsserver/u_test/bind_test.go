@@ -22,7 +22,6 @@ func TestSingleBind(t *testing.T) {
 	ctx := mock.NewContext(input)
 
 	//构建请求处理-----------------
-	bind := &bind.Bind{}
 
 	rs := bind.StartHandle(ctx)
 

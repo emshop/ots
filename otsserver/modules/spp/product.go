@@ -1,8 +1,6 @@
 package spp
 
 import (
-	"fmt"
-
 	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/types"
@@ -19,7 +17,6 @@ func GetProducts(plid int, brandNO string, provinceNO string, cityNO string, can
 		sql.FieldCostDiscount:  discount,
 		sql.FieldCanSplitOrder: canSplitOrder,
 	}
-	fmt.Println("input:", input)
 	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectSupplierProduct, input)
 	if err != nil {
 		return nil, err

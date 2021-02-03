@@ -26,22 +26,26 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="pl_id" label="产品线编号" >
+				<el-table-column prop="pl_id" label="产品线编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.pl_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="pl_name" label="产品线名称" >
+				<el-table-column prop="pl_name" label="产品线名称" align="center">
 					<template slot-scope="scope">
-						<span>{{scope.row.pl_name | fltrSubstr(20)}}</span>
+						<el-tooltip class="item" v-if="scope.row.pl_name && scope.row.pl_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.pl_name}}</div>
+							<span>{{scope.row.pl_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.pl_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" >
+				<el-table-column prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.create_time | fltrDate }}</span>
 				</template>

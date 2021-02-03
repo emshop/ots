@@ -43,7 +43,6 @@ export default {
 
   },
   mounted() {
-    this.$sys.checkAuthCode(this)
     this.getMenu();
     this.getSystemInfo();
     this.userinfo = this.$sys.getUserInfo()
@@ -53,7 +52,7 @@ export default {
       this.$sys.changePwd()
     },
     signOutM() {
-      this.$sys.loginout();
+      this.$sys.logout();
     },
     getMenu() {
       this.$sys.getMenus(this).then(res => {

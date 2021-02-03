@@ -56,7 +56,7 @@
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="invoice_type" label="开发票" align="center">
+				<el-table-column prop="invoice_type" label="开票" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("invoice_type")}}</span>
 					</template>

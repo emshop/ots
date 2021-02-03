@@ -35,7 +35,7 @@
       </el-form-item>
       
       
-			<el-form-item label="开发票:" prop="invoice_type">
+			<el-form-item label="开票:" prop="invoice_type">
 				<el-select  placeholder="---请选择---" clearable v-model="addData.invoice_type" style="width: 100%;">
 					<el-option v-for="(item, index) in invoiceType" :key="index" :value="item.value" :label="item.name" ></el-option>
 				</el-select>
@@ -97,7 +97,7 @@ export default {
 			rules: {                    //数据验证规则
 				query_url: [{ required: true, message: "请输入查询地址", trigger: "blur" }],
 				notify_url: [{ required: true, message: "请输入回调地址", trigger: "blur" }],
-				invoice_type: [{ required: true, message: "请输入开发票", trigger: "blur" }],
+				invoice_type: [{ required: true, message: "请输入开票", trigger: "blur" }],
 				spp_fee_discount: [{ required: true, message: "请输入商户佣金", trigger: "blur" }],
 				trade_fee_discount: [{ required: true, message: "请输入交易服务费", trigger: "blur" }],
 				payment_fee_discount: [{ required: true, message: "请输入支付手续费", trigger: "blur" }],

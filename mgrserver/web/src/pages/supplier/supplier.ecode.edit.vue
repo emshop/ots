@@ -7,7 +7,7 @@
       </el-form-item>
       
       
-			<el-form-item label="商家:" prop="spp_no">
+			<el-form-item label="供货商:" prop="spp_no">
 				<el-select  placeholder="---请选择---" clearable v-model="editData.spp_no" style="width: 100%;">
 					<el-option v-for="(item, index) in sppNo" :key="index" :value="item.value" :label="item.name" ></el-option>
 				</el-select>
@@ -75,7 +75,7 @@ export default {
 					{ required: true, message: "请输入编号", trigger: "blur" }
 				],
 				spp_no: [
-					{ required: true, message: "请输入商家", trigger: "blur" }
+					{ required: true, message: "请输入供货商", trigger: "blur" }
 				],
 				pl_id: [
 					{ required: true, message: "请输入产品线", trigger: "blur" }

@@ -14,7 +14,7 @@
                     <div>{{ info.spp_no | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">名称:</div>
+                    <div class="pull-right" style="margin-right: 10px">供货商名称:</div>
                   </el-col>
                   <el-col :span="6">
                     <el-tooltip class="item" v-if="info.spp_name && info.spp_name.length > 50" effect="dark" placement="top">
@@ -28,7 +28,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">公司:</div>
+                    <div class="pull-right" style="margin-right: 10px">所属公司:</div>
                   </el-col>
                   <el-col :span="6">
                     <el-tooltip class="item" v-if="info.mer_crop && info.mer_crop.length > 50" effect="dark" placement="top">

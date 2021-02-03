@@ -8,7 +8,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">货架编号:</div>
+                    <div class="pull-right" style="margin-right: 10px">编号:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.mer_shelf_id | fltrEmpty }}</div>
@@ -28,7 +28,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">商户编号:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户名称:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.mer_no | fltrEnum("merchant_info") }}</div>

@@ -133,3 +133,27 @@ const (
 	//FlowFlagDeliveryFinish 发货完成流程
 	FlowFlagDeliveryFinish FlowTag = "delivery_finish"
 )
+
+//FlowName 流程名称
+type FlowName string
+
+const (
+
+	//FlowOrderPay 订单支付流程
+	FlowOrderPay FlowName = "order_pay"
+
+	//FlowOrderPayTimeout 订单支付超时流程
+	FlowOrderPayTimeout FlowName = "pay_timeout"
+
+	//FlowOrderBind 订单绑定
+	FlowOrderBind FlowName = "order_bind"
+
+	//FlowDeliveryPay 发货支付
+	FlowDeliveryPay FlowName = "spp_payment"
+
+	//FlowOrderNotify 订单通知
+	FlowOrderNotify FlowName = "order_notify"
+
+	//FlowOrderFinish 订单完结
+	FlowOrderFinish FlowName = "order_finish"
+)

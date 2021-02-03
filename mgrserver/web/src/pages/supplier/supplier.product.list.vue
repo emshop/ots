@@ -4,7 +4,7 @@
 		<div class="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.spp_shelf_id" class="input-cos" placeholder="请选择货架">
+					<el-select size="medium" v-model="queryData.spp_shelf_id" class="input-cos" placeholder="请选择货架名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in sppShelfID" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
@@ -58,7 +58,7 @@
 					<span>{{scope.row.spp_product_id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="spp_shelf_id" label="货架" align="center">
+				<el-table-column prop="spp_shelf_id" label="货架名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_shelf_id | fltrEnum("supplier_shelf")}}</span>
 					</template>
@@ -95,7 +95,7 @@
 				</el-table-column>
 				<el-table-column prop="cost_discount" label="成本折扣" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.cost_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.cost_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
 				<el-table-column prop="status" label="状态" align="center">

@@ -65,7 +65,8 @@ func (p *ProductFlow) Next(obj interface{}, kv ...interface{}) (types.XMap, erro
 	input := types.NewXMap()
 	input.SetValue(sql.FieldFlowID, p.FlowID)
 	input.Append(kv...)
-	_, callback, err := qtask.Create(obj, p.FlowName, input, p.ScanInterval, p.QueueName)
+	_, callback, err := qtask.Create(obj, p.FlowName, input, p.ScanInterval, p.QueueName,
+		qtask.WithOrderNO(input.GetString(sql.FieldOrderID)))
 	if err != nil {
 		return nil, err
 	}
@@ -134,7 +135,6 @@ func getChildFlow(flow types.XMap, s enums.FlowStatus) (p PFlows, err error) {
 	if flowID == "0" {
 		return nil, nil
 	}
-	fmt.Println("flows_ids:", flowID)
 	//查询对应的后续处理流程
 	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectProductFlowByFlowID, map[string]interface{}{
 		sql.FieldFlowID: formatIDS(flowID),

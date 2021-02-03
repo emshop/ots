@@ -8,7 +8,7 @@
       </el-form-item>
       
       
-			<el-form-item label="商家:" prop="spp_no">
+			<el-form-item label="供货商:" prop="spp_no">
 				<el-select  placeholder="---请选择---" clearable v-model="addData.spp_no" style="width: 100%;">
 					<el-option v-for="(item, index) in sppNo" :key="index" :value="item.value" :label="item.name" ></el-option>
 				</el-select>

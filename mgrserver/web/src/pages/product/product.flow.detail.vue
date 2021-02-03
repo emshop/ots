@@ -38,7 +38,7 @@
                     <div>{{ info.tag_name}}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">产品线编号:</div>
+                    <div class="pull-right" style="margin-right: 10px">产品线:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.pl_id | fltrEnum("product_line") }}</div>

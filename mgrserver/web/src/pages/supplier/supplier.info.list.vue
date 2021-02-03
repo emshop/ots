@@ -4,7 +4,7 @@
 		<div class="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-input clearable v-model="queryData.spp_name" placeholder="请输入名称">
+					<el-input clearable v-model="queryData.spp_name" placeholder="请输入供货商名称">
 					</el-input>
 				</el-form-item>
 			
@@ -36,7 +36,7 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="spp_name" label="名称" align="center">
+				<el-table-column prop="spp_name" label="供货商名称" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.spp_name && scope.row.spp_name.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.spp_name}}</div>
@@ -45,7 +45,7 @@
 						<span v-else>{{scope.row.spp_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_crop" label="公司" align="center">
+				<el-table-column prop="mer_crop" label="所属公司" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.mer_crop && scope.row.mer_crop.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_crop}}</div>

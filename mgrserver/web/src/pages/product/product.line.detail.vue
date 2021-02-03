@@ -11,13 +11,17 @@
                     <div class="pull-right" style="margin-right: 10px">产品线编号:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.pl_id | fltrNumberFormat(0) }}</div>
+                    <div>{{ info.pl_id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">产品线名称:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.pl_name | fltrEnum("pl_name") }}</div>
+                    <el-tooltip class="item" v-if="info.pl_name && info.pl_name.length > 50" effect="dark" placement="top">
+                      <div slot="content" style="width: 110px">{{info.pl_name}}</div>
+                      <div >{{ info.pl_name | fltrSubstr(50) }}</div>
+                    </el-tooltip>
+                    <div>{{ info.pl_name}}</div>
                   </el-col>
                 </td>
               </tr>

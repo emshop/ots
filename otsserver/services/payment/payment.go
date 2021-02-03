@@ -19,21 +19,19 @@ var fields = []string{
 }
 
 //Payment 订单支付流程
-type Payment struct {
-}
 
 //PayHandle 处理订单支付(异步流程)
-func (p *Payment) PayHandle(ctx hydra.IContext) interface{} {
+func PayHandle(ctx hydra.IContext) interface{} {
 	ctx.Log().Info("-------------处理订单支付----------------------")
 	if err := ctx.Request().Check(fields...); err != nil {
 		return err
 	}
 
+	qtask.ProcessingByInput(ctx, ctx.Request())
 	ctx.Log().Infof("1. 处理订单支付(%d)", ctx.Request().GetInt64(sql.FieldOrderID))
 	err := payment.Pay(ctx.Request().GetString(sql.FieldOrderID))
-	if errs.GetCode(err) == http.StatusNoContent {
+	if errs.GetCode(err) == http.StatusNoContent || err == nil {
 		qtask.FinishByInput(ctx, ctx.Request())
-		return err
 	}
 	if err != nil {
 		return err

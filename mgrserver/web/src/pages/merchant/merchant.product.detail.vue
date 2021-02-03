@@ -14,7 +14,7 @@
                     <div>{{ info.mer_product_id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">货架:</div>
+                    <div class="pull-right" style="margin-right: 10px">货架名称:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.mer_shelf_id | fltrEnum("merchant_shelf") }}</div>
@@ -24,7 +24,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">商户:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户名称:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.mer_no | fltrEnum("merchant_info") }}</div>
@@ -81,7 +81,7 @@
                     <div class="pull-right" style="margin-right: 10px">销售折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.discount |  fltrNumberFormat(2)}}</div>
+                    <div>{{ info.discount |  fltrNumberFormat(5)}}</div>
                   </el-col>
                 </td>
               </tr>

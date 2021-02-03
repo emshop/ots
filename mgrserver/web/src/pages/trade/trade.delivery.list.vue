@@ -176,11 +176,11 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
-      let res = await this.$http.xpost("/trade/delivery/query",this.queryData)
+      let res = this.$http.xpost("/trade/delivery/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

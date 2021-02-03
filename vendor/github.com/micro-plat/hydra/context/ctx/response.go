@@ -68,9 +68,9 @@ func (c *response) Header(k string, v string) {
 
 //Header 获取头信息
 func (c *response) GetHeaders() types.XMap {
-	if c.headers != nil {
-		return c.headers
-	}
+	// if c.headers != nil {
+	// 	return c.headers
+	// }
 	hds := c.ctx.WHeaders()
 	c.headers = make(map[string]interface{})
 	for k, v := range hds {
@@ -169,6 +169,11 @@ func (c *response) WriteAny(v interface{}) error {
 	if v == nil {
 		return nil
 	}
+	switch v.(type) {
+	case *context.EmptyResult:
+		return nil
+	}
+
 	return c.Write(c.final.status, v)
 }
 
@@ -188,7 +193,8 @@ func (c *response) Write(status int, ct ...interface{}) error {
 	switch content.(type) {
 	case context.EmptyResult:
 		return nil
-
+	case *context.EmptyResult:
+		return nil
 	}
 
 	//2. 修改当前结果状态码与内容
@@ -198,7 +204,6 @@ func (c *response) Write(status int, ct ...interface{}) error {
 	if strings.Contains(c.final.contentType, "%s") {
 		c.final.contentType = fmt.Sprintf(c.final.contentType, c.path.GetEncoding())
 	}
-
 	if c.hasWrite {
 		return nil
 	}
@@ -241,7 +246,7 @@ func (c *response) swapBytp(status int, content interface{}) (rs int, rc interfa
 		c.log.Error(content)
 
 		//处理状态码
-		rs = types.DecodeInt(rs, 0, c.final.status)
+		rs = types.DecodeInt(status, 0, c.final.status)
 		if rs == 0 || rs >= http.StatusOK && rs < http.StatusBadRequest {
 			rs = http.StatusBadRequest
 		}

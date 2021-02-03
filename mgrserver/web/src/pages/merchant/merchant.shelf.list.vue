@@ -9,7 +9,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" class="input-cos" placeholder="请选择商户编号">
+					<el-select size="medium" v-model="queryData.mer_no" class="input-cos" placeholder="请选择商户名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
@@ -26,7 +26,7 @@
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="mer_shelf_id" label="货架编号" align="center">
+				<el-table-column prop="mer_shelf_id" label="编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.mer_shelf_id | fltrNumberFormat(0)}}</span>
 				</template>
@@ -40,7 +40,7 @@
 						<span v-else>{{scope.row.mer_shelf_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_no" label="商户编号" align="center">
+				<el-table-column prop="mer_no" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>

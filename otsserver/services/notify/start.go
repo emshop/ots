@@ -16,12 +16,8 @@ var notifyFields = []string{
 	sql.FieldOrderID,
 }
 
-//Notify 发货处理
-type Notify struct {
-}
-
 //StartHandle 开始订单通知信息
-func (o *Notify) StartHandle(ctx hydra.IContext) interface{} {
+func StartHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------开始订单通知----------------------")
 	if err := ctx.Request().Check(notifyFields...); err != nil {
@@ -45,7 +41,7 @@ func (o *Notify) StartHandle(ctx hydra.IContext) interface{} {
 }
 
 //SuccessHandle 保存成功通知结果
-func (o *Notify) SuccessHandle(ctx hydra.IContext) interface{} {
+func SuccessHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------保存通知成功结果----------------------")
 	if err := ctx.Request().Check(notifyFields...); err != nil {
@@ -74,7 +70,7 @@ func (o *Notify) SuccessHandle(ctx hydra.IContext) interface{} {
 }
 
 //FailedHandle 保存失败通知结果
-func (o *Notify) FailedHandle(ctx hydra.IContext) interface{} {
+func FailedHandle(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------保存通知失败结果----------------------")
 	if err := ctx.Request().Check(notifyFields...); err != nil {

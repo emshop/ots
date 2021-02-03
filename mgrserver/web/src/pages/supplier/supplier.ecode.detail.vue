@@ -14,7 +14,7 @@
                     <div>{{ info.id | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">商家:</div>
+                    <div class="pull-right" style="margin-right: 10px">供货商:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.spp_no | fltrEnum("supplier_info") }}</div>

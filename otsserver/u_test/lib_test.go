@@ -47,7 +47,6 @@ func (t *testCache) makeOrder(count int) error {
 		ctx := mock.NewContext(input)
 
 		//构建请求处理------------------------
-		order := &order.Order{}
 		rs := order.RequestHandle(ctx)
 		err := ctx.Response().WriteAny(getAny(rs))
 		if err != nil {
@@ -75,7 +74,6 @@ func (t *testCache) makePaidOrder(count int) error {
 		case order := <-t.order:
 			//构建context
 			ctx := mock.NewContext(string(order.Marshal()))
-			payment := &payment.Payment{}
 			ps := payment.PayHandle(ctx)
 			ctx.Response().WriteAny(getAny(ps))
 			status, _, _ := ctx.Response().GetFinalResponse()
@@ -97,8 +95,7 @@ func (t *testCache) makeDeliveryOrder(count int) error {
 	input := string(order.Marshal())
 	ctx := mock.NewContext(input)
 
-	var dlv = &delivery.Delivery{}
-	rs := dlv.StartHandle(ctx)
+	rs := delivery.StartHandle(ctx)
 
 	if err := errs.GetError(rs); err != nil {
 		return err
@@ -107,7 +104,7 @@ func (t *testCache) makeDeliveryOrder(count int) error {
 	//保存请求结果---------------------------
 	ctx.Request().SetValue("result_code", "000")
 	ctx.Request().SetValue("return_msg", "上游请求成功")
-	rs = dlv.SaveSartHandle(ctx)
+	rs = delivery.SaveSartHandle(ctx)
 	if err := errs.GetError(rs); err != nil {
 		return err
 	}
@@ -115,7 +112,7 @@ func (t *testCache) makeDeliveryOrder(count int) error {
 	//保存发货结果---------------------------
 	ctx.Request().SetValue("result_code", "000")
 	ctx.Request().SetValue("return_msg", "发货成功000")
-	rs = dlv.SaveResultHandle(ctx)
+	rs = delivery.SaveResultHandle(ctx)
 	if err := errs.GetError(rs); err != nil {
 		return err
 	}
@@ -139,8 +136,6 @@ func (t *testCache) makeBindedOrder(count int) error {
 			ctx := mock.NewContext(input)
 
 			//构建请求处理-----------------
-			bind := &bind.Bind{}
-
 			ps := bind.StartHandle(ctx)
 			ctx.Response().WriteAny(getAny(ps))
 			status, _, _ := ctx.Response().GetFinalResponse()
@@ -168,13 +163,12 @@ func (t *testCache) makeNotifyOrder(count int) error {
 			ctx := mock.NewContext(input)
 
 			//开始通知
-			ntf := &notify.Notify{}
-			rs := ntf.StartHandle(ctx)
+			rs := notify.StartHandle(ctx)
 			if err := errs.GetError(rs); err != nil {
 				return err
 			}
 			//保存通知结果
-			rs = ntf.SuccessHandle(ctx)
+			rs = notify.SuccessHandle(ctx)
 			if err := errs.GetError(rs); err != nil {
 				return err
 			}

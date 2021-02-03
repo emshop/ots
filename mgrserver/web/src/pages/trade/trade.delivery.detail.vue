@@ -95,7 +95,7 @@
                       <div slot="content" style="width: 110px">{{info.account_name}}</div>
                       <div >{{ info.account_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.account_name}}</div>
+                    <div>{{ info.account_name | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">发货状态:</div>
@@ -265,7 +265,7 @@
                       <div slot="content" style="width: 110px">{{info.return_msg}}</div>
                       <div >{{ info.return_msg | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.return_msg}}</div>
+                    <div>{{ info.return_msg | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -279,7 +279,7 @@
                       <div slot="content" style="width: 110px">{{info.request_params}}</div>
                       <div >{{ info.request_params | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.request_params}}</div>
+                    <div>{{ info.request_params | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">结果来源:</div>
@@ -330,8 +330,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/trade/delivery",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/trade/delivery",this.$route.query)
       },
       handleClick(tab) {}
     },

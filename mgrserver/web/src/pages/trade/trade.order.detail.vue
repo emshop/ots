@@ -31,10 +31,10 @@
                       <div slot="content" style="width: 110px">{{info.mer_order_no}}</div>
                       <div >{{ info.mer_order_no | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.mer_order_no}}</div>
+                    <div>{{ info.mer_order_no | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">商品编号:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户商品:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.mer_product_id | fltrEnum("merchant_product") }}</div>
@@ -44,7 +44,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">货架编号:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户货架:</div>
                   </el-col>
                   <el-col :span="6">
                     <div >{{ info.mer_shelf_id | fltrEnum("merchant_shelf") }}</div>
@@ -121,14 +121,14 @@
                       <div slot="content" style="width: 110px">{{info.account_name}}</div>
                       <div >{{ info.account_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.account_name}}</div>
+                    <div>{{ info.account_name | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">支持发票:</div>
+                    <div class="pull-right" style="margin-right: 10px">发票:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
@@ -185,7 +185,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -384,8 +384,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/trade/order",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/trade/order",this.$route.query)
       },
       handleClick(tab) {}
     },

@@ -7,13 +7,13 @@
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="名称" prop="mer_name">
-				<el-input maxlength="64" clearable v-model="addData.mer_name" placeholder="请输入名称">
+      <el-form-item label="商户名称" prop="mer_name">
+				<el-input maxlength="64" clearable v-model="addData.mer_name" placeholder="请输入商户名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="公司" prop="mer_crop">
-				<el-input maxlength="64" clearable v-model="addData.mer_crop" placeholder="请输入公司">
+      <el-form-item label="公司名称" prop="mer_crop">
+				<el-input maxlength="64" clearable v-model="addData.mer_crop" placeholder="请输入公司名称">
 				</el-input>
       </el-form-item>
       

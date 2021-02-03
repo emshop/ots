@@ -4,7 +4,7 @@
 		<div class="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.spp_no" class="input-cos" placeholder="请选择商家">
+					<el-select size="medium" v-model="queryData.spp_no" class="input-cos" placeholder="请选择供货商">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in sppNo" :key="index" :value="item.value" :label="item.name"></el-option>
 						</el-select>
@@ -51,7 +51,7 @@
 					<span>{{scope.row.id | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="spp_no" label="商家" align="center">
+				<el-table-column prop="spp_no" label="供货商" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>

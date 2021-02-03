@@ -9,7 +9,7 @@ import (
 )
 
 //QueryHandle 订单查询
-func (o *Order) QueryHandle(ctx hydra.IContext) interface{} {
+func QueryHandle(ctx hydra.IContext) interface{} {
 	ctx.Log().Info("-------------处理订单查询----------------------")
 	if err := ctx.Request().Check(sql.FieldMerNo, sql.FieldMerOrderNo); err != nil {
 		return err

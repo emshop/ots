@@ -48,7 +48,7 @@
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_product_id" label="商品编号" align="center">
+				<el-table-column prop="mer_product_id" label="商户商品" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_product_id | fltrEnum("merchant_product")}}</span>
 					</template>
@@ -94,7 +94,7 @@
 				</el-table-column>
 				<el-table-column prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<span>{{scope.row.create_time | dtpfltrDate("yyyy-MM-dd hh:mm:ss") }}</span>
 				</template>
 				</el-table-column>
 				<el-table-column prop="bind_face" label="已绑定面值" align="center">
@@ -165,11 +165,11 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
-      let res = await this.$http.xpost("/trade/order/query",this.queryData)
+      let res = this.$http.xpost("/trade/order/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

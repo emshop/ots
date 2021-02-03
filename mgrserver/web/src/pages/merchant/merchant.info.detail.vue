@@ -14,7 +14,7 @@
                     <div>{{ info.mer_no | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">名称:</div>
+                    <div class="pull-right" style="margin-right: 10px">商户名称:</div>
                   </el-col>
                   <el-col :span="6">
                     <el-tooltip class="item" v-if="info.mer_name && info.mer_name.length > 50" effect="dark" placement="top">
@@ -28,7 +28,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">公司:</div>
+                    <div class="pull-right" style="margin-right: 10px">公司名称:</div>
                   </el-col>
                   <el-col :span="6">
                     <el-tooltip class="item" v-if="info.mer_crop && info.mer_crop.length > 50" effect="dark" placement="top">
