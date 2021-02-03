@@ -195,13 +195,13 @@
                     <div class="pull-right" style="margin-right: 10px">完成时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.finish_time | fltrDate }}</div>
+                    <div>{{ info.finish_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">订单超时时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.order_timeout | fltrDate }}</div>
+                    <div>{{ info.order_timeout | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -211,7 +211,7 @@
                     <div class="pull-right" style="margin-right: 10px">支付超时时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_timeout | fltrDate }}</div>
+                    <div>{{ info.payment_timeout | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">已绑定面值:</div>

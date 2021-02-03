@@ -21,7 +21,7 @@
                       <div slot="content" style="width: 110px">{{info.spp_shelf_name}}</div>
                       <div >{{ info.spp_shelf_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.spp_shelf_name}}</div>
+                    <div>{{ info.spp_shelf_name | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -41,7 +41,7 @@
                       <div slot="content" style="width: 110px">{{info.req_url}}</div>
                       <div >{{ info.req_url | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.req_url}}</div>
+                    <div>{{ info.req_url | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -55,7 +55,7 @@
                       <div slot="content" style="width: 110px">{{info.query_url}}</div>
                       <div >{{ info.query_url | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.query_url}}</div>
+                    <div>{{ info.query_url | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">回调地址:</div>
@@ -65,7 +65,7 @@
                       <div slot="content" style="width: 110px">{{info.notify_url}}</div>
                       <div >{{ info.notify_url | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.notify_url}}</div>
+                    <div>{{ info.notify_url | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -158,8 +158,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/supplier/shelf",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/supplier/shelf",this.$route.query)
       },
       handleClick(tab) {}
     },

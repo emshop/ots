@@ -28,8 +28,9 @@
 			<el-table :data="dataList.items" border style="width: 100%">
 				<el-table-column prop="pl_id" label="产品线编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.pl_id | fltrNumberFormat(0)}}</span>
+					<span>{{scope.row.pl_id}}</span>
 				</template>
+				
 				</el-table-column>
 				<el-table-column prop="pl_name" label="产品线名称" align="center">
 					<template slot-scope="scope">
@@ -106,10 +107,10 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = await this.$http.xpost("/product/line/query",this.queryData)
+      let res = this.$http.xpost("/product/line/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

@@ -57,6 +57,12 @@ export default {
       bdUid: this.$enum.get("user_info"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
+				mer_no: [{ required: true, message: "请输入编号", trigger: "blur" }],
+				mer_name: [{ required: true, message: "请输入商户名称", trigger: "blur" }],
+				mer_crop: [{ required: true, message: "请输入公司名称", trigger: "blur" }],
+				mer_type: [{ required: true, message: "请输入类型", trigger: "blur" }],
+				bd_uid: [{ required: true, message: "请输入商务人员", trigger: "blur" }],
+				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}
 	},

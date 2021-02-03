@@ -25,7 +25,7 @@ func TestRequestSuccessHandle(t *testing.T) {
 		ctx := mock.NewContext(c.input)
 
 		//构建请求处理------------------------
-		rs := order.RequestHandle(ctx)
+		rs := order.Request(ctx)
 		err := ctx.Response().WriteAny(getAny(rs))
 
 		//校验结果
@@ -63,7 +63,7 @@ func TestRequestHandle(t *testing.T) {
 		ctx := mock.NewContext(c.input)
 
 		//构建请求处理------------------------
-		rs := order.RequestHandle(ctx)
+		rs := order.Request(ctx)
 		err := ctx.Response().WriteAny(getAny(rs))
 
 		//校验结果

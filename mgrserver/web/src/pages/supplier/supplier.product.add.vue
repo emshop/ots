@@ -94,9 +94,14 @@ export default {
       cityNo: this.$enum.get("city"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
-				spp_product_no: [{ required: true, message: "请输入供货商商品编号", trigger: "blur" }],
-				province_no: [{ required: true, message: "请输入省份", trigger: "blur" }],
-				city_no: [{ required: true, message: "请输入城市", trigger: "blur" }],
+				spp_product_id: [{ required: true, message: "请输入商品编号", trigger: "blur" }],
+				spp_shelf_id: [{ required: true, message: "请输入货架名称", trigger: "blur" }],
+				spp_no: [{ required: true, message: "请输入供货商", trigger: "blur" }],
+				pl_id: [{ required: true, message: "请输入产品线", trigger: "blur" }],
+				brand_no: [{ required: true, message: "请输入品牌", trigger: "blur" }],
+				face: [{ required: true, message: "请输入面值", trigger: "blur" }],
+				cost_discount: [{ required: true, message: "请输入成本折扣", trigger: "blur" }],
+				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}
 	},

@@ -3,6 +3,7 @@ package sql
 const GetSystemTaskByTaskID = `
 select
 	t.task_id,
+	t.order_no,
 	t.name,
 	t.create_time,
 	t.last_execute_time,
@@ -13,7 +14,6 @@ select
 	t.delete_time,
 	t.count,
 	t.max_count,
-	t.order_no,
 	t.status,
 	t.batch_id,
 	t.queue_name,
@@ -27,7 +27,7 @@ const GetSystemTaskListCount = `
 select count(1)
 from tsk_system_task t
 where
-	&t.name
+	&t.order_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)`
 
@@ -35,18 +35,16 @@ where
 const GetSystemTaskList = `
 select
 	t.task_id,
+	t.order_no,
 	t.name,
 	t.create_time,
 	t.last_execute_time,
-	t.next_execute_time,
 	t.count,
-	t.max_count,
-	t.order_no,
 	t.status,
 	t.queue_name 
 from tsk_system_task t
 where
-	&t.name
+	&t.order_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
 order by t.task_id desc

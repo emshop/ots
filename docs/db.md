@@ -167,9 +167,9 @@ After: After(字段名) //在某个字段后面
 | payment_fee_discount    | number(20,5) |            |  否   |         r,decimal(5)         | 支付手续费折扣        |
 | can_split_order         | number(1)    |     1      |  否   |        r,sl(bool),cc         | 是否拆单（0.是，1否） |
 | create_time             | date         |  sysdate   |  否   |     q(dp),l(dtp),r(dtp)      | 创建时间              |
-| finish_time             | date         |  sysdate   |  否   |              r               | 完成时间              |
-| order_timeout           | date         |            |  否   |              r               | 订单超时时间          |
-| payment_timeout         | date         |            |  否   |              r               | 支付超时时间          |
+| finish_time             | date         |  sysdate   |  否   |            r(dtp)            | 完成时间              |
+| order_timeout           | date         |            |  否   |           r,r(dtp)           | 订单超时时间          |
+| payment_timeout         | date         |            |  否   |           r,r(dtp)           | 支付超时时间          |
 | bind_face               | number(10)   |     0      |  否   |             r,l              | 已绑定面值            |
 | delivery_pause          | number(1)    |     1      |  否   |        r,sl(bool),cc         | 发货暂停（0.是，1否） |
 | order_status            | number(3)    |     10     |  否   |          l,r,sl,cc           | 订单状态              |
@@ -316,8 +316,8 @@ After: After(字段名) //在某个字段后面
 | 字段名            | 类型          | 默认值  | 为空  |           约束            | 描述                                        |
 | ----------------- | ------------- | :-----: | :---: | :-----------------------: | :------------------------------------------ |
 | task_id           | number(20)    |         |  否   |        PK,SEQ,l,r         | 编号                                        |
-| order_no          | varchar2(32)  |         |  是   |            l,r            | 订单号                                      |
-| name              | varchar2(32)  |         |  否   |           q,l,r           | 流程名称                                    |
+| order_no          | varchar2(32)  |         |  是   |            q,l,r            | 订单号                                      |
+| name              | varchar2(32)  |         |  否   |           l,r           | 流程名称                                    |
 | create_time       | date          | sysdate |  否   |    q(dp),l(dtp),r(dtp)    | 创建时间                                    |
 | last_execute_time | date          |         |  是   |       l(dtp),r(dtp)       | 上次执行时间                                |
 | next_execute_time | date          |         |  否   |          r(dtp)           | 下次执行时间                                |

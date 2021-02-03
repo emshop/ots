@@ -21,7 +21,7 @@
                       <div slot="content" style="width: 110px">{{info.pl_name}}</div>
                       <div >{{ info.pl_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.pl_name}}</div>
+                    <div>{{ info.pl_name | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -66,8 +66,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/product/line",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/product/line",this.$route.query)
       },
       handleClick(tab) {}
     },

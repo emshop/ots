@@ -22,7 +22,7 @@ func TestSinglePay(t *testing.T) {
 	ctx := mock.NewContext(string(order.Marshal()))
 
 	//构建请求处理------------------------
-	rs := payment.PayHandle(ctx)
+	rs := payment.Paying(ctx)
 	err = ctx.Response().WriteAny(getAny(rs))
 	status, _, _ := ctx.Response().GetFinalResponse()
 	assert.Equal(t, nil, err)
@@ -59,7 +59,7 @@ func TestPay(t *testing.T) {
 		ctx := mock.NewContext(types.Translate(string(c.input.Marshal()), "OrderID", id))
 
 		//构建请求处理------------------------
-		rs := payment.PayHandle(ctx)
+		rs := payment.Paying(ctx)
 
 		err = ctx.Response().WriteAny(rs)
 

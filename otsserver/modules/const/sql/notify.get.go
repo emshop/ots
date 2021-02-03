@@ -22,7 +22,7 @@ t.mer_order_no,
 t.account_name,
 t.invoice_type,
 t.sell_discount,
-t.sell_amount,
+t.sell_amount
 from ots_notify_info n
 inner join ots_trade_order t on t.order_id = n.order_id
 where

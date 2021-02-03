@@ -129,10 +129,10 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = await this.$http.xpost("/supplier/info/query",this.queryData)
+      let res = this.$http.xpost("/supplier/info/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

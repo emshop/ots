@@ -202,7 +202,7 @@ const FieldMerType = "mer_type"
 //FieldMsgContent 字段消息内容的数据库名称
 const FieldMsgContent = "msg_content"
 
-//FieldName 字段名称的数据库名称
+//FieldName 字段流程名称的数据库名称
 const FieldName = "name"
 
 //FieldNextExecuteTime 字段下次执行时间的数据库名称
@@ -229,7 +229,7 @@ const FieldNum = "num"
 //FieldOrderID 字段订单编号的数据库名称
 const FieldOrderID = "order_id"
 
-//FieldOrderNo 字段外部业务单号的数据库名称
+//FieldOrderNo 字段订单号的数据库名称
 const FieldOrderNo = "order_no"
 
 //FieldOrderStatus 字段订单状态的数据库名称
@@ -337,7 +337,7 @@ const FieldSppShelfName = "spp_shelf_name"
 //FieldStartTime 字段开始时间的数据库名称
 const FieldStartTime = "start_time"
 
-//FieldStatus 字段状态 0：正常 1:锁定的数据库名称
+//FieldStatus 字段状态(20 等待，30 正在,0 已处理,90 处理失败)的数据库名称
 const FieldStatus = "status"
 
 //FieldSuccFace 字段成功面值的数据库名称

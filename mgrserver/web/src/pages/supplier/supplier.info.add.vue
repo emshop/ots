@@ -46,9 +46,8 @@ export default {
 			dialogAddVisible: false,
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
-				mer_crop: [{ required: true, message: "请输入所属公司", trigger: "blur" }],
-				bd_uid: [{ required: true, message: "请输入商务人员", trigger: "blur" }],
-				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
+				spp_no: [{ required: true, message: "请输入编号", trigger: "blur" }],
+				spp_name: [{ required: true, message: "请输入供货商名称", trigger: "blur" }],
 			},
 		}
 	},

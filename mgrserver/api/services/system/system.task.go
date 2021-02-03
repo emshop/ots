@@ -85,7 +85,7 @@ var getSystemTaskCheckFields = map[string]interface{}{
 }
 
 var querySystemTaskCheckFields = map[string]interface{}{
-	field.FieldName:"required",
+	field.FieldOrderNo:"required",
 	field.FieldCreateTime:"required",
 	}
 

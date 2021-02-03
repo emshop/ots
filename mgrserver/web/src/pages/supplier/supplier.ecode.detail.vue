@@ -69,7 +69,7 @@
                       <div slot="content" style="width: 110px">{{info.error_desc}}</div>
                       <div >{{ info.error_desc | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.error_desc}}</div>
+                    <div>{{ info.error_desc | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -108,8 +108,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/supplier/ecode",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/supplier/ecode",this.$route.query)
       },
       handleClick(tab) {}
     },

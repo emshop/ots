@@ -18,33 +18,31 @@ var fields = []string{
 	sql.FieldOrderID,
 }
 
-//Payment 订单支付流程
-
-//PayHandle 处理订单支付(异步流程)
-func PayHandle(ctx hydra.IContext) interface{} {
+//Paying 处理订单支付(异步流程)
+func Paying(ctx hydra.IContext) interface{} {
 	ctx.Log().Info("-------------处理订单支付----------------------")
 	if err := ctx.Request().Check(fields...); err != nil {
 		return err
 	}
 
+	ctx.Log().Infof("1. 处理订单支付(%s)", ctx.Request().GetString(sql.FieldOrderID))
 	qtask.ProcessingByInput(ctx, ctx.Request())
-	ctx.Log().Infof("1. 处理订单支付(%d)", ctx.Request().GetInt64(sql.FieldOrderID))
 	err := payment.Pay(ctx.Request().GetString(sql.FieldOrderID))
-	if errs.GetCode(err) == http.StatusNoContent || err == nil {
+	switch { //无须处理或处理成功则关闭流程
+	case errs.GetCode(err) == http.StatusNoContent:
 		qtask.FinishByInput(ctx, ctx.Request())
-	}
-	if err != nil {
-		return err
+		return nil
+	case err == nil:
+		qtask.FinishByInput(ctx, ctx.Request())
 	}
 
 	ctx.Log().Info("2. 获取支付后续流程")
 	status := types.DecodeInt(err, nil, enums.Success, enums.Failed)
-	flw, err := flow.Next(ctx.Request().GetInt(sql.FieldFlowID),
+	flw := flow.Next(ctx.Request().GetInt(sql.FieldFlowID),
 		enums.FlowStatus(status), ctx,
 		sql.FieldOrderID,
 		ctx.Request().GetString(sql.FieldOrderID))
 	if err != nil {
-		ctx.Log().Error("执行支付后续流程失败", err)
 		return err
 	}
 	return flw

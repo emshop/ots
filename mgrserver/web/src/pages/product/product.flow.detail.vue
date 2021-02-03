@@ -21,7 +21,7 @@
                       <div slot="content" style="width: 110px">{{info.flow_name}}</div>
                       <div >{{ info.flow_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.flow_name}}</div>
+                    <div>{{ info.flow_name | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -35,7 +35,7 @@
                       <div slot="content" style="width: 110px">{{info.tag_name}}</div>
                       <div >{{ info.tag_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.tag_name}}</div>
+                    <div>{{ info.tag_name | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">产品线:</div>
@@ -77,7 +77,7 @@
                       <div slot="content" style="width: 110px">{{info.queue_name}}</div>
                       <div >{{ info.queue_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.queue_name}}</div>
+                    <div>{{ info.queue_name | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -138,8 +138,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/product/flow",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/product/flow",this.$route.query)
       },
       handleClick(tab) {}
     },

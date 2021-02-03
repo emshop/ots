@@ -74,21 +74,40 @@ func (p *ProductFlow) Next(obj interface{}, kv ...interface{}) (types.XMap, erro
 }
 
 //NextByFirst 处理后续任务
-func NextByFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMaps, error) {
+func NextByFirst(tagName enums.FlowTag, plid int, s enums.FlowStatus, ctx hydra.IContext, kv ...interface{}) types.XMaps {
 	flow, err := GetFirst(tagName, plid, s)
-	if err != nil || flow == nil {
-		return nil, err
+	if err != nil {
+		ctx.Log().Errorf("获取后续流程失败:%v", err)
+		return nil
 	}
-	return flow.Next(ctx, kv...)
+	if flow == nil {
+		return nil
+	}
+	flw, err := flow.Next(ctx, kv...)
+	if err != nil {
+		ctx.Log().Errorf("获取后续流程失败:%v", err)
+		return nil
+	}
+	ctx.Meta().SetValue("flow", flw)
+	return flw
 }
 
 //Next 处理后续任务
-func Next(flowID int, s enums.FlowStatus, ctx interface{}, kv ...interface{}) (types.XMaps, error) {
+func Next(flowID int, s enums.FlowStatus, ctx hydra.IContext, kv ...interface{}) types.XMaps {
 	flow, err := Get(flowID, s)
-	if err != nil || flow == nil {
-		return nil, err
+	if err != nil {
+		ctx.Log().Errorf("获取后续流程失败:%v", err)
+		return nil
 	}
-	return flow.Next(ctx, kv...)
+	if flow == nil {
+		return nil
+	}
+	flw, err := flow.Next(ctx, kv...)
+	if err != nil {
+		ctx.Log().Errorf("获取后续流程失败:%v", err)
+		return nil
+	}
+	return flw
 }
 
 //GetFirst 获取产品线的首要流程

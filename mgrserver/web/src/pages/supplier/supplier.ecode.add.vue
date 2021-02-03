@@ -73,6 +73,14 @@ export default {
       dealCode: this.$enum.get("deal_code"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
+				id: [{ required: true, message: "请输入编号", trigger: "blur" }],
+				spp_no: [{ required: true, message: "请输入供货商", trigger: "blur" }],
+				pl_id: [{ required: true, message: "请输入产品线", trigger: "blur" }],
+				category: [{ required: true, message: "请输入分类", trigger: "blur" }],
+				deal_code: [{ required: true, message: "请输入处理码", trigger: "blur" }],
+				error_code: [{ required: true, message: "请输入错误码", trigger: "blur" }],
+				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
+				error_desc: [{ required: true, message: "请输入错误码描述", trigger: "blur" }],
 			},
 		}
 	},

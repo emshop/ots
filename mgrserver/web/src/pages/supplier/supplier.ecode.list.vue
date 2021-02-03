@@ -48,8 +48,9 @@
 			<el-table :data="dataList.items" border style="width: 100%">
 				<el-table-column prop="id" label="编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.id | fltrNumberFormat(0)}}</span>
+					<span>{{scope.row.id}}</span>
 				</template>
+				
 				</el-table-column>
 				<el-table-column prop="spp_no" label="供货商" align="center">
 					<template slot-scope="scope">
@@ -164,10 +165,10 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = await this.$http.xpost("/supplier/ecode/query",this.queryData)
+      let res = this.$http.xpost("/supplier/ecode/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

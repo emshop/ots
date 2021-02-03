@@ -4,7 +4,7 @@
 		<div class="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-input clearable v-model="queryData.name" placeholder="请输入流程名称">
+					<el-input clearable v-model="queryData.order_no" placeholder="请输入订单号">
 					</el-input>
 				</el-form-item>
 			

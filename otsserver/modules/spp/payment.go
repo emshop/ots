@@ -30,7 +30,7 @@ func Pay(deliveryID string) error {
 	}
 	if row == 0 {
 		db.Rollback()
-		return errs.NewErrorf(http.StatusNoContent, "发货记录(%d)无须付款", deliveryID)
+		return errs.NewErrorf(http.StatusNoContent, "发货记录(%s)无须付款", deliveryID)
 	}
 
 	//查询发货信息
@@ -43,7 +43,7 @@ func Pay(deliveryID string) error {
 	}
 	if orders.Len() == 0 {
 		db.Rollback()
-		return errs.NewErrorf(http.StatusNoContent, "未查询到发货记录(%d)", deliveryID)
+		return errs.NewErrorf(http.StatusNoContent, "未查询到发货记录(%s)", deliveryID)
 	}
 
 	//获取账户信息
@@ -63,7 +63,7 @@ func Pay(deliveryID string) error {
 	}
 	if rs.GetCode() != beanpay.Success {
 		db.Rollback()
-		return errs.NewErrorf(rs.GetCode(), "%d扣款失败%s", deliveryID, rs.GetCode())
+		return errs.NewErrorf(rs.GetCode(), "%s扣款失败%s", deliveryID, rs.GetCode())
 	}
 	db.Commit()
 	return nil

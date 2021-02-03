@@ -21,7 +21,7 @@
                       <div slot="content" style="width: 110px">{{info.spp_name}}</div>
                       <div >{{ info.spp_name | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.spp_name}}</div>
+                    <div>{{ info.spp_name | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -35,7 +35,7 @@
                       <div slot="content" style="width: 110px">{{info.mer_crop}}</div>
                       <div >{{ info.mer_crop | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.mer_crop}}</div>
+                    <div>{{ info.mer_crop | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商务人员:</div>
@@ -86,8 +86,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/supplier/info",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/supplier/info",this.$route.query)
       },
       handleClick(tab) {}
     },

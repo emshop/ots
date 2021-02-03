@@ -126,8 +126,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/supplier/product",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/supplier/product",this.$route.query)
       },
       handleClick(tab) {}
     },

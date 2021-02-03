@@ -23,7 +23,7 @@ func TestSingleBind(t *testing.T) {
 
 	//构建请求处理-----------------
 
-	rs := bind.StartHandle(ctx)
+	rs := bind.Binding(ctx)
 
 	assert.Equal(t, nil, errs.GetError(rs), rs)
 

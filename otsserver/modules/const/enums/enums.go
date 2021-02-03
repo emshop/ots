@@ -151,6 +151,9 @@ const (
 	//FlowDeliveryPay 发货支付
 	FlowDeliveryPay FlowName = "spp_payment"
 
+	//FlowMockDelivery 发货流程
+	FlowMockDelivery FlowName = "mock_deliery"
+
 	//FlowOrderNotify 订单通知
 	FlowOrderNotify FlowName = "order_notify"
 

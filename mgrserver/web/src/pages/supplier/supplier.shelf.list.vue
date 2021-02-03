@@ -39,8 +39,9 @@
 			<el-table :data="dataList.items" border style="width: 100%">
 				<el-table-column prop="spp_shelf_id" label="货架编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.spp_shelf_id | fltrNumberFormat(0)}}</span>
+					<span>{{scope.row.spp_shelf_id}}</span>
 				</template>
+				
 				</el-table-column>
 				<el-table-column prop="spp_shelf_name" label="货架名称" align="center">
 					<template slot-scope="scope">
@@ -157,10 +158,10 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = await this.$http.xpost("/supplier/shelf/query",this.queryData)
+      let res = this.$http.xpost("/supplier/shelf/query",this.queryData)
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },
