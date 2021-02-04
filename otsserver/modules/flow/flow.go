@@ -157,7 +157,6 @@ func getChildFlow(flow types.XMap, s enums.FlowStatus) (p PFlows, err error) {
 	//查询对应的后续处理流程
 	rows, err := hydra.C.DB().GetRegularDB().Query(sql.SelectProductFlowByFlowID, map[string]interface{}{
 		sql.FieldFlowID: formatIDS(flowID),
-		sql.FieldPlID:   flow.GetString(sql.FieldPlID),
 	})
 	if err != nil {
 		return nil, err

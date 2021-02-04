@@ -41,7 +41,7 @@ func Bind(orderID string) (string, error) {
 
 	//无可用产品
 	if products.Len() == 0 {
-		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%d", orderID)
+		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", orderID)
 	}
 
 	//循环处理每次绑定

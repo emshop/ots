@@ -59,16 +59,16 @@ After: After(字段名) //在某个字段后面
 | 字段名         | 类型         | 默认值  | 为空  |                       约束                       | 描述                 |
 | -------------- | ------------ | :-----: | :---: | :----------------------------------------------: | :------------------- |
 | mer_product_id | number(10)   |  10000  |  否   |                    PK,SEQ,l,r                    | 商品编号             |
-| mer_shelf_id   | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,7),sl(ots_merchant_shelf) | 货架名称             |
-| mer_no         | varchar2(32) |         |  否   | q,l,r,UNQ(unq_mer_prod,1),sl(ots_merchant_info)  | 商户名称             |
-| pl_id          | number(10)   |         |  否   |  q,l,r,UNQ(unq_mer_prod,2),sl(ots_product_line)  | 产品线               |
-| brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand)        | 品牌                 |
-| province_no    | varchar2(8)  |   '-'   |  否   |       l,r,UNQ(unq_mer_prod,4),sl(province)       | 省份                 |
-| city_no        | varchar2(8)  |   '-'   |  否   |         l,r,UNQ(unq_mer_prod,5),sl(city)         | 城市                 |
-| face           | number(10)   |         |  否   |            l,r,u,UNQ(unq_mer_prod,6)             | 面值                 |
-| mer_product_no | varchar2(32) |         |  是   |                       u,r                        | 商户商品编号         |
-| discount       | number(10,5) |         |  否   |                 l,u,r,decimal(5)                 | 销售折扣（以面值算） |
-| status         | number(1)    |    0    |  否   |                   l,r,u,sl,cc                    | 状态(0.是,1.否)      |
+| mer_shelf_id   | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,7),sl(ots_merchant_shelf),c | 货架名称             |
+| mer_no         | varchar2(32) |         |  否   | q,l,r,UNQ(unq_mer_prod,1),sl(ots_merchant_info),c  | 商户名称             |
+| pl_id          | number(10)   |         |  否   |  q,l,r,UNQ(unq_mer_prod,2),sl(ots_product_line),c  | 产品线               |
+| brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand),c        | 品牌                 |
+| province_no    | varchar2(8)  |   '-'   |  否   |       l,r,UNQ(unq_mer_prod,4),sl(province),c       | 省份                 |
+| city_no        | varchar2(8)  |   '-'   |  否   |         l,r,UNQ(unq_mer_prod,5),sl(city),c         | 城市                 |
+| face           | number(10)   |         |  否   |            l,r,UNQ(unq_mer_prod,6),c             | 面值                 |
+| mer_product_no | varchar2(32) |         |  是   |                       u,r,c                        | 商户商品编号         |
+| discount       | number(10,5) |         |  否   |                 l,u,r,decimal(5),c                 | 销售折扣（以面值算） |
+| status         | number(1)    |    0    |  否   |                   l,r,u,sl,cc,c                    | 状态(0.是,1.否)      |
 | create_time    | date         | sysdate |  否   |                      l,r,dp                      | 创建时间             |
 
 
@@ -109,7 +109,7 @@ After: After(字段名) //在某个字段后面
 
 | 字段名         | 类型         | 默认值  | 为空  |              约束              | 描述           |
 | -------------- | ------------ | :-----: | :---: | :----------------------------: | :------------- |
-| spp_product_id | number(10)   |  60000  |  否   |          PK,SEQ,l,r,c          | 商品编号       |
+| spp_product_id | number(10)   |  60000  |  否   |          PK,SEQ,l,r          | 商品编号       |
 | spp_shelf_id   | number(10)   |         |  否   | l,r,q,sl(ots_supplier_shelf),c | 货架名称       |
 | spp_no         | varchar2(32) |         |  否   | l,r,q,sl(ots_supplier_info),c  | 供货商         |
 | spp_product_no | varchar2(32) |         |  是   |             r,c,u              | 供货商商品编号 |
@@ -118,8 +118,8 @@ After: After(字段名) //在某个字段后面
 | province_no    | varchar2(8)  |    *    |  是   |      l,r,q,sl(province),c      | 省份           |
 | city_no        | varchar2(8)  |    *    |  是   |        l,r,sl(city) ,c         | 城市           |
 | face           | number(10)   |         |  否   |             l,r,c              | 面值           |
-| cost_discount  | number(10,5) |         |  否   |        l,r,c,decimal(5)        | 成本折扣       |
-| status         | number(1)    |    0    |  否   |          l,r,sl,cc,c           | 状态           |
+| cost_discount  | number(10,5) |         |  否   |        l,r,c,decimal(5),u        | 成本折扣       |
+| status         | number(1)    |    0    |  否   |          l,r,sl,cc,c,u           | 状态           |
 | create_time    | date         | sysdate |  是   |              l,r               | 创建时间       |
 
 
@@ -148,7 +148,7 @@ After: After(字段名) //在某个字段后面
 | order_id                | varchar2(32) | 1100000000 |  否   |           PK,l,q,r           | 订单编号              |
 | mer_no                  | varchar2(32) |            |  否   | l,Q,sl(ots_merchant_info),r  | 商户编号              |
 | mer_order_no            | varchar2(64) |            |  否   |              r               | 商户订单编号          |
-| mer_product_id          | number(10)   |    300     |  否   | r,l,sl(ots_merchant_product) | 商户商品              |
+| mer_product_id          | number(10)   |    300     |  否   | r,sl(ots_merchant_product) | 商户商品              |
 | mer_shelf_id            | number(10)   |            |  否   |   r,sl(ots_merchant_shelf)   | 商户货架              |
 | mer_product_no          | varchar2(32) |            |  是   |              r               | 外部商品编号          |
 | pl_id                   | number(10)   |            |  否   |  l,Q,sl(ots_product_line),r  | 产品线                |
@@ -302,7 +302,7 @@ After: After(字段名) //在某个字段后面
 | pl_id           | number(10)   |        |  否   | l,r,UNQ(unq_flow_tag),q,sl(ots_product_line),u,c | 产品线       |
 | success_flow_id | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc,u,c          | 成功流程     |
 | failed_flow_id  | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc,u,c          | 失败流程     |
-| unknown_flow_id | varchar2(32) |  '-'   |  否   |         l,r ,sl(ots_product_flow),cc,u,c         | 未知流程     |
+| unknown_flow_id | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc,u,c          | 未知流程     |
 | queue_name      | varchar2(64) |  '-'   |  否   |                      r,u,c                       | 队列名称     |
 | scan_interval   | number(10)   |        |  否   |                      r,u,c                       | 超时时长     |
 | delay           | number(10)   |   0    |  否   |                      r,u,c                       | 延后处理时长 |

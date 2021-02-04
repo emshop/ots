@@ -137,7 +137,6 @@ var queryProductLineCheckFields = map[string]interface{}{
 	}
 
 var updateProductLineCheckFields = map[string]interface{}{
-	field.FieldPlID:"required",
 	field.FieldPlName:"required",
 	field.FieldStatus:"required",
 	}

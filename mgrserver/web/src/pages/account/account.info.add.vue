@@ -29,7 +29,7 @@
 			</el-form-item>
       
       <el-form-item label="信用余额" prop="credit">
-				<el-input maxlength="0" clearable v-model="addData.credit" placeholder="请输入信用余额">
+				<el-input  clearable v-model="addData.credit" placeholder="请输入信用余额">
 				</el-input>
       </el-form-item>
       

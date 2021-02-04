@@ -35,6 +35,10 @@
 					<el-button type="primary" @click="query" size="small">查询</el-button>
 				</el-form-item>
 				
+				<el-form-item>
+					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     	<!-- query end -->
@@ -108,7 +112,9 @@
 		</el-scrollbar>
 		<!-- list end-->
 
-		
+		<!-- Add Form -->
+		<Add ref="Add" :refresh="query"></Add>
+		<!--Add Form -->
 
 		<!-- edit Form start-->
 		<Edit ref="Edit" :refresh="query"></Edit>
@@ -133,9 +139,11 @@
 
 
 <script>
+import Add from "./merchant.product.add"
 import Edit from "./merchant.product.edit"
 export default {
   components: {
+		Add,
 		Edit
   },
   data () {
@@ -189,6 +197,9 @@ export default {
         mer_product_id: val.mer_product_id,
       }
       this.$emit("addTab","详情"+val.mer_product_id,"/merchant/product/detail",data);
+		},
+    showAdd(){
+      this.$refs.Add.show();
 		},
     showEdit(val) {
       this.$refs.Edit.editData = val

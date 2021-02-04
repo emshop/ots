@@ -7,7 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
-	
+	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
 //MerchantProductHandler 商户商品处理服务
@@ -18,7 +18,32 @@ func NewMerchantProductHandler() *MerchantProductHandler {
 	return &MerchantProductHandler{}
 }
 
+//PostHandle 添加商户商品数据
+func (u *MerchantProductHandler) PostHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------添加商户商品数据--------")
+	
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(postMerchantProductCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	xdb := hydra.C.DB().GetRegularDB()
+	merProductID, err := db.GetNewID(xdb, sql.SQLGetSEQ, map[string]interface{}{"name": "商户商品"})
+	if err != nil {
+		return err
+	}
+	input := ctx.Request().GetMap()
+	input["mer_product_id"] = merProductID
+	count, err := xdb.Execute(sql.InsertMerchantProduct, input)
+	if err != nil || count < 1 {
+		return errs.NewErrorf(http.StatusNotExtended, "添加数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
 
 
 //GetHandle 获取商户商品单条数据
@@ -97,7 +122,18 @@ func (u *MerchantProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	return "success"
 }
 
-
+var postMerchantProductCheckFields = map[string]interface{}{
+	field.FieldMerShelfID:"required",
+	field.FieldMerNo:"required",
+	field.FieldPlID:"required",
+	field.FieldBrandNo:"required",
+	field.FieldProvinceNo:"required",
+	field.FieldCityNo:"required",
+	field.FieldFace:"required",
+	field.FieldMerProductNo:"required",
+	field.FieldDiscount:"required",
+	field.FieldStatus:"required",
+	}
 
 var getMerchantProductCheckFields = map[string]interface{}{
 	field.FieldMerProductID:"required",
@@ -111,7 +147,6 @@ var queryMerchantProductCheckFields = map[string]interface{}{
 	}
 
 var updateMerchantProductCheckFields = map[string]interface{}{
-	field.FieldFace:"required",
 	field.FieldMerProductNo:"required",
 	field.FieldDiscount:"required",
 	field.FieldStatus:"required",

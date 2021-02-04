@@ -7,17 +7,17 @@
       </el-form-item>
       
       <el-form-item label="商户佣金" prop="mer_fee_discount">
-				<el-input maxlength="0" clearable v-model="editData.mer_fee_discount" placeholder="请输入商户佣金">
+				<el-input  clearable v-model="editData.mer_fee_discount" placeholder="请输入商户佣金">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="交易服务费" prop="trade_fee_discount">
-				<el-input maxlength="0" clearable v-model="editData.trade_fee_discount" placeholder="请输入交易服务费">
+				<el-input  clearable v-model="editData.trade_fee_discount" placeholder="请输入交易服务费">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="支付手续费" prop="payment_fee_discount">
-				<el-input maxlength="0" clearable v-model="editData.payment_fee_discount" placeholder="请输入支付手续费">
+				<el-input  clearable v-model="editData.payment_fee_discount" placeholder="请输入支付手续费">
 				</el-input>
       </el-form-item>
       

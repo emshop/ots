@@ -17,7 +17,7 @@ t.status
 from ots_supplier_product t
 inner join ots_supplier_info s on t.spp_no = s.spp_no
 where
-t.pl_id = @pl_id
+t.pl_id = @pl_id and t.pl_id !=0
 and t.brand_no = @brand_no
 and t.province_no = @province_no
 and t.city_no = @city_no

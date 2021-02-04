@@ -47,7 +47,7 @@ func Save(deliveryID string, source enums.ResultSource, resultCode string, retur
 		source,
 		delivery.GetInt(sql.FieldPlID),
 		resultCode)
-	returnMsg = types.GetString(returnMsg, msg)
+	returnMsg = fmt.Sprintf("%s(%s)", returnMsg, msg)
 	switch result {
 	case enums.Failed:
 		err := SaveFailed(

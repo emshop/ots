@@ -48,11 +48,6 @@
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_product_id" label="商户商品" align="center">
-					<template slot-scope="scope">
-						<span >{{scope.row.mer_product_id | fltrEnum("merchant_product")}}</span>
-					</template>
-				</el-table-column>
 				<el-table-column prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>

@@ -29,6 +29,8 @@ func Binding(ctx hydra.IContext) interface{} {
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	deliveryID, err := bind.Bind(ctx.Request().GetString(sql.FieldOrderID))
 	switch {
+	case errs.GetCode(err) == http.StatusAccepted:
+		return err
 	case errs.GetCode(err) == http.StatusNoContent:
 		qtask.FinishByInput(ctx, ctx.Request()) //当订单绑定完成后自动关闭流程
 		return nil

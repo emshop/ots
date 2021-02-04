@@ -1,4 +1,35 @@
 package sql
+//InsertMerchantProduct 添加商户商品
+const InsertMerchantProduct = `
+insert into ots_merchant_product
+(
+	mer_product_id,
+	mer_shelf_id,
+	mer_no,
+	pl_id,
+	brand_no,
+	province_no,
+	city_no,
+	face,
+	mer_product_no,
+	discount,
+	status
+)
+values
+(
+	@mer_product_id,
+	@mer_shelf_id,
+	@mer_no,
+	@pl_id,
+	@brand_no,
+	@province_no,
+	@city_no,
+	@face,
+	@mer_product_no,
+	@discount,
+	@status
+)`
+
 //GetMerchantProductByMerProductID 查询单条数据商户商品
 const GetMerchantProductByMerProductID = `
 select
@@ -55,7 +86,6 @@ limit @ps offset @offset
 const UpdateMerchantProductByMerProductID = `
 update ots_merchant_product 
 set
-	face = @face,
 	mer_product_no = @mer_product_no,
 	discount = @discount,
 	status = @status

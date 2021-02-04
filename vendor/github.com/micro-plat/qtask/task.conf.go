@@ -28,6 +28,11 @@ func GetScanInterval() int {
 	return conf.ScanInterval
 }
 
+//GetPlatName 获取队列对应的平台名称
+func GetPlatName() string {
+	return conf.GetPlatName()
+}
+
 //ConfOption 配置选项
 type ConfOption func()
 
@@ -52,5 +57,12 @@ func WithDBName(dbName string) ConfOption {
 func WithQueueName(queueName string) ConfOption {
 	return func() {
 		conf.QueueName = queueName
+	}
+}
+
+// WithPlatName 设置消息队列对应平台的名称
+func WithPlatName(platName string) ConfOption {
+	return func() {
+		conf.PlatName = platName
 	}
 }

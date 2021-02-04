@@ -190,7 +190,7 @@ const FieldMerProductID = "mer_product_id"
 //FieldMerProductNo 字段商户商品编号的数据库名称
 const FieldMerProductNo = "mer_product_no"
 
-//FieldMerShelfID 字段货架的数据库名称
+//FieldMerShelfID 字段货架名称的数据库名称
 const FieldMerShelfID = "mer_shelf_id"
 
 //FieldMerShelfName 字段货架名称的数据库名称
@@ -319,7 +319,7 @@ const FieldSppFeeDiscount = "spp_fee_discount"
 //FieldSppName 字段名称的数据库名称
 const FieldSppName = "spp_name"
 
-//FieldSppNo 字段商家的数据库名称
+//FieldSppNo 字段供货商的数据库名称
 const FieldSppNo = "spp_no"
 
 //FieldSppProductID 字段商品编号的数据库名称
@@ -328,7 +328,7 @@ const FieldSppProductID = "spp_product_id"
 //FieldSppProductNo 字段供货商商品编号的数据库名称
 const FieldSppProductNo = "spp_product_no"
 
-//FieldSppShelfID 字段货架的数据库名称
+//FieldSppShelfID 字段货架名称的数据库名称
 const FieldSppShelfID = "spp_shelf_id"
 
 //FieldSppShelfName 字段货架名称的数据库名称
@@ -337,7 +337,7 @@ const FieldSppShelfName = "spp_shelf_name"
 //FieldStartTime 字段开始时间的数据库名称
 const FieldStartTime = "start_time"
 
-//FieldStatus 字段状态(20 等待，30 正在,0 已处理,90 处理失败)的数据库名称
+//FieldStatus 字段状态的数据库名称
 const FieldStatus = "status"
 
 //FieldSuccFace 字段成功面值的数据库名称

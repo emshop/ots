@@ -6,6 +6,18 @@
 				</el-input>
       </el-form-item>
       
+      <el-form-item label="成本折扣" prop="cost_discount">
+				<el-input  clearable v-model="editData.cost_discount" placeholder="请输入成本折扣">
+				</el-input>
+      </el-form-item>
+      
+      
+			<el-form-item label="状态:" prop="status">
+				<el-select  placeholder="---请选择---" clearable v-model="editData.status" style="width: 100%;">
+					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name" ></el-option>
+				</el-select>
+			</el-form-item>
+      
     </el-form>
 		<div slot="footer" class="dialog-footer">
 			<el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
@@ -20,7 +32,14 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
+				cost_discount: [
+					{ required: true, message: "请输入成本折扣", trigger: "blur" }
+				],
+				status: [
+					{ required: true, message: "请输入状态", trigger: "blur" }
+				],
 			},
 		}
 	},

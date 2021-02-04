@@ -17,4 +17,5 @@ and t.category = @category
 and t.error_code = @error_code
 and t.status = 0
 order by t.pl_id desc
+limit 1
 `

@@ -4,7 +4,6 @@ const InsertSupplierProduct = `
 insert into ots_supplier_product
 (
 	spp_product_id,
-	spp_product_id,
 	spp_shelf_id,
 	spp_no,
 	spp_product_no,
@@ -18,7 +17,6 @@ insert into ots_supplier_product
 )
 values
 (
-	@spp_product_id,
 	@spp_product_id,
 	@spp_shelf_id,
 	@spp_no,
@@ -90,7 +88,9 @@ limit @ps offset @offset
 const UpdateSupplierProductBySppProductID = `
 update ots_supplier_product 
 set
-	spp_product_no = @spp_product_no
+	spp_product_no = @spp_product_no,
+	cost_discount = @cost_discount,
+	status = @status
 where
 	&spp_product_id`
 

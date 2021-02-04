@@ -2,11 +2,6 @@
   <!-- Add Form -->
   <el-dialog title="添加供货商商品" width="65%"  :visible.sync="dialogAddVisible">
     <el-form :model="addData" :inline="true" :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="商品编号" prop="spp_product_id">
-				<el-input maxlength="10" clearable v-model="addData.spp_product_id" placeholder="请输入商品编号">
-				</el-input>
-      </el-form-item>
-      
       
 			<el-form-item label="货架名称:" prop="spp_shelf_id">
 				<el-select  placeholder="---请选择---" clearable v-model="addData.spp_shelf_id" style="width: 100%;">
@@ -60,7 +55,7 @@
       </el-form-item>
       
       <el-form-item label="成本折扣" prop="cost_discount">
-				<el-input maxlength="0" clearable v-model="addData.cost_discount" placeholder="请输入成本折扣">
+				<el-input  clearable v-model="addData.cost_discount" placeholder="请输入成本折扣">
 				</el-input>
       </el-form-item>
       
@@ -94,7 +89,6 @@ export default {
       cityNo: this.$enum.get("city"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
-				spp_product_id: [{ required: true, message: "请输入商品编号", trigger: "blur" }],
 				spp_shelf_id: [{ required: true, message: "请输入货架名称", trigger: "blur" }],
 				spp_no: [{ required: true, message: "请输入供货商", trigger: "blur" }],
 				pl_id: [{ required: true, message: "请输入产品线", trigger: "blur" }],

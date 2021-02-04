@@ -9,6 +9,7 @@ const SQLGetSEQ = `insert into tsk_system_seq (name,create_time) values (@name, 
 const SQLCreateTask = `insert into tsk_system_task
 (task_id,
  name,
+ plat_name,
  next_execute_time,
  max_execute_time,
  next_interval,
@@ -20,7 +21,8 @@ const SQLCreateTask = `insert into tsk_system_task
  msg_content)
 values
 (@task_id,
- @name, 
+ @name,
+ @plat_name,
  date_add(now(),interval #first_timeout second),   
  date_add(now(),interval #max_timeout second),
  @next_interval,
@@ -56,6 +58,7 @@ t.next_execute_time = date_add(now(),interval t.next_interval second)
 where t.max_execute_time > now() 
 and t.next_execute_time <= now() 
 and t.count < t.max_count
+and t.plat_name = @plat_name
 and t.status in(20,30)
 limit 1000`
 

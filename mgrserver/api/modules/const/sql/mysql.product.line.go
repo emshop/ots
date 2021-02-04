@@ -51,7 +51,6 @@ limit @ps offset @offset
 const UpdateProductLineByPlID = `
 update ots_product_line 
 set
-	pl_id = @pl_id,
 	pl_name = @pl_name,
 	status = @status
 where

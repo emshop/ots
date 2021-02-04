@@ -123,7 +123,6 @@ func (u *SupplierProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 }
 
 var postSupplierProductCheckFields = map[string]interface{}{
-	field.FieldSppProductID:"required",
 	field.FieldSppShelfID:"required",
 	field.FieldSppNo:"required",
 	field.FieldSppProductNo:"required",
@@ -150,6 +149,8 @@ var querySupplierProductCheckFields = map[string]interface{}{
 
 var updateSupplierProductCheckFields = map[string]interface{}{
 	field.FieldSppProductNo:"required",
+	field.FieldCostDiscount:"required",
+	field.FieldStatus:"required",
 	}
 
 

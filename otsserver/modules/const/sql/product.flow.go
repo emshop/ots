@@ -1,18 +1,5 @@
 package sql
 
-//SelectChildFlowByPlID 根据产品线获取业务流程配置
-const SelectChildFlowByPlID = `
-select
-t.flow_id,
-t.pl_id,
-t.success_flow_id,
-t.failed_flow_id,
-t.unknown_flow_id
-from ots_product_flow t
-where
-t.pl_id = @pl_id
-`
-
 //SelectFlowByTag 根据产品线获取业务流程配置
 const SelectFlowByTag = `
 select
@@ -23,8 +10,10 @@ t.failed_flow_id,
 t.unknown_flow_id
 from ots_product_flow t
 where
-t.pl_id = @pl_id
-and t.tag_name=@tag_name
+(t.pl_id = @pl_id or t.pl_id = 0)
+and t.tag_name = @tag_name
+order by t.pl_id desc
+limit 1
 `
 
 //SelectChildFlowByFlowID 根据产品线获取业务流程配置
@@ -53,6 +42,5 @@ t.timeout,
 t.max_count 
 from ots_product_flow t
 where
-t.pl_id = @pl_id
-and t.flow_id in (#flow_id)
+t.flow_id in (#flow_id)
 `
