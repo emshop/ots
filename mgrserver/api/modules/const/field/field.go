@@ -265,7 +265,7 @@ const FieldProvinceNo = "province_no"
 //FieldQueryURL 字段查询地址的数据库名称
 const FieldQueryURL = "query_url"
 
-//FieldQueueName 字段消息队列的数据库名称
+//FieldQueueName 字段队列名称的数据库名称
 const FieldQueueName = "queue_name"
 
 //FieldRealDiscount 字段供货商实际折扣的数据库名称

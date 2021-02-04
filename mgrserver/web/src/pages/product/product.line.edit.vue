@@ -1,6 +1,18 @@
 <template>
 	<el-dialog title="编辑产品线" width="25%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
+      <el-form-item label="产品线名称" prop="pl_name">
+				<el-input maxlength="64" clearable v-model="editData.pl_name" placeholder="请输入产品线名称">
+				</el-input>
+      </el-form-item>
+      
+      
+			<el-form-item label="状态:" prop="status">
+				<el-select  placeholder="---请选择---" clearable v-model="editData.status" style="width: 100%;">
+					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name" ></el-option>
+				</el-select>
+			</el-form-item>
+      
     </el-form>
 		<div slot="footer" class="dialog-footer">
 			<el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
@@ -15,7 +27,14 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
+				pl_name: [
+					{ required: true, message: "请输入产品线名称", trigger: "blur" }
+				],
+				status: [
+					{ required: true, message: "请输入状态", trigger: "blur" }
+				],
 			},
 		}
 	},

@@ -286,28 +286,28 @@ After: After(字段名) //在某个字段后面
 # 四、基础信息类
 ###  1. 产品线[ots_product_line]
 
-| 字段名      | 类型         | 默认值  | 为空  |     约束      | 描述       |
-| ----------- | ------------ | :-----: | :---: | :-----------: | :--------- |
-| pl_id       | number(10)   |   100   |  否   | PK,SEQ,l,r,DI | 产品线编号 |
-| pl_name     | varchar2(64) |         |  否   |   q,l,r,DN    | 产品线名称 |
-| status      | number(1)    |    0    |  否   |  l,q,r,sl,cc  | 状态       |
-| create_time | date         | sysdate |  否   |      l,r      | 创建时间   |
+| 字段名      | 类型         | 默认值  | 为空  |        约束        | 描述       |
+| ----------- | ------------ | :-----: | :---: | :----------------: | :--------- |
+| pl_id       | number(10)   |   100   |  否   |   PK,SEQ,l,r,DI    | 产品线编号 |
+| pl_name     | varchar2(64) |         |  否   |    q,l,r,DN,u,c    | 产品线名称 |
+| status      | number(1)    |    0    |  否   | l,q,r,sl,cc,u,c,rb | 状态       |
+| create_time | date         | sysdate |  否   |      l,r(dtp)      | 创建时间   |
 
 ###  2. 业务流程[ots_product_flow]
-| 字段名          | 类型         | 默认值 | 为空  |                     约束                     | 描述         |
-| --------------- | ------------ | :----: | :---: | :------------------------------------------: | :----------- |
-| flow_id         | number(10)   |  200   |  否   |                PK,SEQ,l,r,DI                 | 流程编号     |
-| flow_name       | varchar2(64) |        |  否   |                   q,DN,l,r                   | 流程名称     |
-| tag_name        | varchar2(64) |        |  否   |           q,l,r,UNQ(unq_flow_tag)            | tag标签      |
-| pl_id           | number(10)   |        |  否   | l,r,UNQ(unq_flow_tag),q,sl(ots_product_line) | 产品线       |
-| success_flow_id | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc          | 成功流程     |
-| failed_flow_id  | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc          | 失败流程     |
-| unknown_flow_id | varchar2(32) |  '-'   |  否   |         l,r ,sl(ots_product_flow),cc         | 未知流程     |
-| queue_name      | varchar2(64) |  '-'   |  否   |                      r                       | 队列名称     |
-| scan_interval   | number(10)   |        |  否   |                      r                       | 超时时长     |
-| delay           | number(10)   |   0    |  否   |                      r                       | 延后处理时长 |
-| timeout         | number(10)   |        |  否   |                      r                       | 超时时长     |
-| max_count       | number(10)   |        |  否   |                      r                       | 最大执行次数 |
+| 字段名          | 类型         | 默认值 | 为空  |                       约束                       | 描述         |
+| --------------- | ------------ | :----: | :---: | :----------------------------------------------: | :----------- |
+| flow_id         | number(10)   |  200   |  否   |                  PK,SEQ,l,r,DI                   | 流程编号     |
+| flow_name       | varchar2(64) |        |  否   |                   q,DN,l,r,u,c                   | 流程名称     |
+| tag_name        | varchar2(64) |        |  否   |           q,l,r,UNQ(unq_flow_tag),u,c            | tag标签      |
+| pl_id           | number(10)   |        |  否   | l,r,UNQ(unq_flow_tag),q,sl(ots_product_line),u,c | 产品线       |
+| success_flow_id | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc,u,c          | 成功流程     |
+| failed_flow_id  | varchar2(32) |  '-'   |  否   |         l,r,sl(ots_product_flow),cc,u,c          | 失败流程     |
+| unknown_flow_id | varchar2(32) |  '-'   |  否   |         l,r ,sl(ots_product_flow),cc,u,c         | 未知流程     |
+| queue_name      | varchar2(64) |  '-'   |  否   |                      r,u,c                       | 队列名称     |
+| scan_interval   | number(10)   |        |  否   |                      r,u,c                       | 超时时长     |
+| delay           | number(10)   |   0    |  否   |                      r,u,c                       | 延后处理时长 |
+| timeout         | number(10)   |        |  否   |                      r,u,c                       | 超时时长     |
+| max_count       | number(10)   |        |  否   |                      r,u,c                       | 最大执行次数 |
 
 
 
@@ -316,8 +316,8 @@ After: After(字段名) //在某个字段后面
 | 字段名            | 类型          | 默认值  | 为空  |           约束            | 描述                                        |
 | ----------------- | ------------- | :-----: | :---: | :-----------------------: | :------------------------------------------ |
 | task_id           | number(20)    |         |  否   |        PK,SEQ,l,r         | 编号                                        |
-| order_no          | varchar2(32)  |         |  是   |            q,l,r            | 订单号                                      |
-| name              | varchar2(32)  |         |  否   |           l,r           | 流程名称                                    |
+| order_no          | varchar2(32)  |         |  是   |           q,l,r           | 订单号                                      |
+| name              | varchar2(32)  |         |  否   |            l,r            | 流程名称                                    |
 | create_time       | date          | sysdate |  否   |    q(dp),l(dtp),r(dtp)    | 创建时间                                    |
 | last_execute_time | date          |         |  是   |       l(dtp),r(dtp)       | 上次执行时间                                |
 | next_execute_time | date          |         |  否   |          r(dtp)           | 下次执行时间                                |

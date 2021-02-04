@@ -85,6 +85,10 @@ var getAccountRecordCheckFields = map[string]interface{}{
 }
 
 var queryAccountRecordCheckFields = map[string]interface{}{
+	field.FieldAccountID:"required",
+	field.FieldTradeNo:"required",
+	field.FieldTradeType:"required",
+	field.FieldChangeType:"required",
 	}
 
 

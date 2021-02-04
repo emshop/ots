@@ -1,4 +1,19 @@
 package sql
+//InsertProductLine 添加产品线
+const InsertProductLine = `
+insert into ots_product_line
+(
+	pl_id,
+	pl_name,
+	status
+)
+values
+(
+	@pl_id,
+	@pl_name,
+	@status
+)`
+
 //GetProductLineByPlID 查询单条数据产品线
 const GetProductLineByPlID = `
 select
@@ -32,3 +47,13 @@ where
 order by t.pl_id desc
 limit @ps offset @offset
 `
+//UpdateProductLineByPlID 更新产品线
+const UpdateProductLineByPlID = `
+update ots_product_line 
+set
+	pl_id = @pl_id,
+	pl_name = @pl_name,
+	status = @status
+where
+	&pl_id`
+

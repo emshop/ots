@@ -65,7 +65,7 @@ Enum.prototype.get = function (type, pid, group) {
   if (!type) return [];
 
   var result = getEnumList(type, pid, group) //根据存储查询
-  if (result.length == 0){
+  if (needCallback(result)){
     result = getEnumListByCallback(type, pid, group)//根据回调获取
   }
   return result
@@ -80,7 +80,6 @@ Enum.prototype.getName = function (type, value, group) {
   var enumMap = Enum.prototype.get(type, null, group)
   var data = value.split(",")
   var result = []
-
   for (var i = 0; i < data.length; i++){
     for (var j = 0; j < enumMap.length; j++){
       if (enumMap[j].value == data[i]) {
@@ -131,4 +130,15 @@ function getEnumList(type, pid, group){
     }
   }) 
   return list
+}
+
+//needCallback 检查是否需要执行回调
+function needCallback(list){
+  if(!list||list.length == 0){
+     return true
+  }
+  if (list.length == 1){
+      return list[0].value == "*"||list[0].value == "0"
+  }
+  return false
 }
