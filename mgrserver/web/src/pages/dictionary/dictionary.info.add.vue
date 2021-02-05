@@ -3,44 +3,40 @@
   <el-dialog title="添加字典配置" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
       <el-form-item label="名称" prop="name">
-				<el-input maxlength="64" 
-				
+				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.name" placeholder="请输入名称">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="值" prop="value">
-				<el-input maxlength="32" 
-				
+				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.value" placeholder="请输入值">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="类型" prop="type">
-				<el-input maxlength="32" 
-				
+				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.type" placeholder="请输入类型">
 				</el-input>
       </el-form-item>
       
       
 			<el-form-item label="状态:" prop="status">
-				<el-select style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
       
       <el-form-item label="排序值" prop="sort_no">
-				<el-input maxlength="2" 
-				
+				<el-input size="medium" maxlength="2"
 				 clearable v-model="addData.sort_no" placeholder="请输入排序值">
 				</el-input>
       </el-form-item>
       
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button size="small" @click="resetForm('addForm')">取 消</el-button>
-      <el-button size="small" type="success" @click="add('addForm')">确 定</el-button>
+      <el-button size="medium" @click="resetForm('addForm')">取 消</el-button>
+      <el-button size="medium" type="success" @click="add('addForm')">确 定</el-button>
     </div>
   </el-dialog>
   <!--Add Form -->

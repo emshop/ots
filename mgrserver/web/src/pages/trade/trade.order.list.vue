@@ -4,7 +4,7 @@
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-input clearable v-model="queryData.order_id" placeholder="请输入订单编号">
+					<el-input clearable size="medium" v-model="queryData.order_id" placeholder="请输入订单编号">
 					</el-input>
 				</el-form-item>
 			
@@ -37,11 +37,11 @@
 				</el-form-item>
 			
 				<el-form-item label="创建时间:">
-						<el-date-picker class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
+						<el-date-picker size="medium" class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button type="primary" @click="query" size="small">查询</el-button>
+					<el-button  type="primary" @click="query" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>
@@ -63,9 +63,23 @@
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
+				<el-table-column   prop="mer_order_no" label="商户订单编号" align="center">
+					<template slot-scope="scope">
+						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
+							<span>{{scope.row.mer_order_no | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.mer_order_no}}</span>
+					</template>
+				</el-table-column>
 				<el-table-column   prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="brand_no" label="品牌" align="center">
+					<template slot-scope="scope">
+						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="province_no" label="省份" align="center">
@@ -102,7 +116,7 @@
 					<div>{{scope.row.create_time | fltrDate("MM/dd HH:mm:ss") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="bind_face" label="已绑定面值" align="center">
+				<el-table-column   prop="bind_face" label="绑定面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.bind_face | fltrNumberFormat(0)}}</span>
 				</template>

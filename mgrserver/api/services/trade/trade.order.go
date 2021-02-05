@@ -10,7 +10,7 @@ import (
 	
 )
 
-//TradeOrderHandler 订单记录处理服务
+//TradeOrderHandler 订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]处理服务
 type TradeOrderHandler struct {
 }
 
@@ -21,10 +21,10 @@ func NewTradeOrderHandler() *TradeOrderHandler {
 
 
 
-//GetHandle 获取订单记录单条数据
+//GetHandle 获取订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]单条数据
 func (u *TradeOrderHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 
-	ctx.Log().Info("--------获取订单记录单条数据--------")
+	ctx.Log().Info("--------获取订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]单条数据--------")
 
 	ctx.Log().Info("1.参数校验")
 	if err := ctx.Request().CheckMap(getTradeOrderCheckFields); err != nil {
@@ -44,10 +44,10 @@ func (u *TradeOrderHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
-//QueryHandle  获取订单记录数据列表
+//QueryHandle  获取订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]数据列表
 func (u *TradeOrderHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
-	ctx.Log().Info("--------获取订单记录数据列表--------")
+	ctx.Log().Info("--------获取订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]数据列表--------")
 
 	ctx.Log().Info("1.参数校验")
 	if err := ctx.Request().CheckMap(queryTradeOrderCheckFields); err != nil {

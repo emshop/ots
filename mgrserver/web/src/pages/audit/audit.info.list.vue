@@ -4,7 +4,7 @@
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-input clearable v-model="queryData.order_id" placeholder="请输入订单编号">
+					<el-input clearable size="medium" v-model="queryData.order_id" placeholder="请输入订单编号">
 					</el-input>
 				</el-form-item>
 			
@@ -16,7 +16,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button type="primary" @click="query" size="small">查询</el-button>
+					<el-button  type="primary" @click="query" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>

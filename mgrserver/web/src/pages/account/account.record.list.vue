@@ -11,7 +11,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-input clearable v-model="queryData.trade_no" placeholder="请输入交易编号">
+					<el-input clearable size="medium" v-model="queryData.trade_no" placeholder="请输入交易编号">
 					</el-input>
 				</el-form-item>
 			
@@ -30,7 +30,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button type="primary" @click="query" size="small">查询</el-button>
+					<el-button  type="primary" @click="query" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>

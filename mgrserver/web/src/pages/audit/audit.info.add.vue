@@ -4,8 +4,8 @@
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button size="small" @click="resetForm('addForm')">取 消</el-button>
-      <el-button size="small" type="success" @click="add('addForm')">确 定</el-button>
+      <el-button size="medium" @click="resetForm('addForm')">取 消</el-button>
+      <el-button size="medium" type="success" @click="add('addForm')">确 定</el-button>
     </div>
   </el-dialog>
   <!--Add Form -->

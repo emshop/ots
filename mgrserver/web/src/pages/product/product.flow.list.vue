@@ -4,12 +4,12 @@
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-input clearable v-model="queryData.flow_name" placeholder="请输入流程名称">
+					<el-input clearable size="medium" v-model="queryData.flow_name" placeholder="请输入流程名称">
 					</el-input>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-input clearable v-model="queryData.tag_name" placeholder="请输入tag标签">
+					<el-input clearable size="medium" v-model="queryData.tag_name" placeholder="请输入tag标签">
 					</el-input>
 				</el-form-item>
 			
@@ -21,11 +21,11 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button type="primary" @click="query" size="small">查询</el-button>
+					<el-button  type="primary" @click="query" size="medium">查询</el-button>
 				</el-form-item>
 				
 				<el-form-item>
-					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+					<el-button type="success" size="medium" @click="showAdd">添加</el-button>
 				</el-form-item>
 				
 			</el-form>

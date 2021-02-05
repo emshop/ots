@@ -32,7 +32,7 @@ After: After(字段名) //在某个字段后面
 | mer_type    | number(1)    |         |  否   | l,u,c,r,sl(merchant_type) | 类型     |
 | bd_uid      | number(20)   |    0    |  是   |    r,u,c,sl(user_info)    | 商务人员 |
 | status      | number(1)    |    0    |  否   |    q,l,r,u,c,sl,cc,rd     | 状态     |
-| create_time | date         | sysdate |  否   |            dp             | 创建时间 |
+| create_time | date         | sysdate |  否   |            r,l            | 创建时间 |
 
 
 ###  2. 商户货架[ots_merchant_shelf]
@@ -56,20 +56,20 @@ After: After(字段名) //在某个字段后面
 
 ###  3.商户商品[ots_merchant_product]
 
-| 字段名         | 类型         | 默认值  | 为空  |                        约束                        | 描述                 |
-| -------------- | ------------ | :-----: | :---: | :------------------------------------------------: | :------------------- |
-| mer_product_id | number(10)   |  10000  |  否   |                     PK,SEQ,l,r                     | 商品编号             |
-| mer_shelf_id   | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,7),sl(ots_merchant_shelf),c | 货架名称             |
-| mer_no         | varchar2(32) |         |  否   | q,l,r,UNQ(unq_mer_prod,1),sl(ots_merchant_info),c  | 商户名称             |
-| pl_id          | number(10)   |         |  否   |  q,l,r,UNQ(unq_mer_prod,2),sl(ots_product_line),c  | 产品线               |
-| brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand),c        | 品牌                 |
-| province_no    | varchar2(8)  |   '-'   |  否   |       l,r,UNQ(unq_mer_prod,4),sl(province),c       | 省份                 |
-| city_no        | varchar2(8)  |   '-'   |  否   |         l,r,UNQ(unq_mer_prod,5),sl(city),c         | 城市                 |
-| face           | number(10)   |         |  否   |             l,r,UNQ(unq_mer_prod,6),c              | 面值                 |
-| mer_product_no | varchar2(32) |         |  是   |                       u,r,c                        | 商户商品编号         |
-| discount       | number(10,5) |         |  否   |                 l,u,r,decimal(5),c                 | 销售折扣（以面值算） |
-| status         | number(1)    |    0    |  否   |                   l,r,u,sl,cc,c                    | 状态(0.是,1.否)      |
-| create_time    | date         | sysdate |  否   |                       l,r,dp                       | 创建时间             |
+| 字段名         | 类型         | 默认值  | 为空  |                          约束                           | 描述                 |
+| -------------- | ------------ | :-----: | :---: | :-----------------------------------------------------: | :------------------- |
+| mer_product_id | number(10)   |  10000  |  否   |                       PK,SEQ,l,r                        | 商品编号             |
+| mer_shelf_id   | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,7),sl(ots_merchant_shelf),c,sort | 货架名称             |
+| mer_no         | varchar2(32) |         |  否   | q,l,r,UNQ(unq_mer_prod,1),sl(ots_merchant_info),c,sort  | 商户名称             |
+| pl_id          | number(10)   |         |  否   |  q,l,r,UNQ(unq_mer_prod,2),sl(ots_product_line),c,sort  | 产品线               |
+| brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand),c,sort        | 品牌                 |
+| province_no    | varchar2(8)  |   '-'   |  否   |       l,r,UNQ(unq_mer_prod,4),sl(province),c,sort       | 省份                 |
+| city_no        | varchar2(8)  |   '-'   |  否   |         l,r,UNQ(unq_mer_prod,5),sl(city),c,sort         | 城市                 |
+| face           | number(10)   |         |  否   |             l,r,UNQ(unq_mer_prod,6),c,sort              | 面值                 |
+| mer_product_no | varchar2(32) |         |  是   |                          u,r,c                          | 商户商品编号         |
+| discount       | number(10,5) |         |  否   |                 l,u,r,decimal(5),c,sort                 | 销售折扣（以面值算） |
+| status         | number(1)    |    0    |  否   |                   l,r,u,sl,cc,c,sort                    | 状态(0.是,1.否)      |
+| create_time    | date         | sysdate |  否   |             l,r(f:yyyy-MM-dd HH:mm:ss),sort             | 创建时间             |
 
 
 ## 二、供货商信息
@@ -145,23 +145,23 @@ After: After(字段名) //在某个字段后面
 
 | 字段名                  | 类型         |   默认值   | 为空  |                             约束                             | 描述                  |
 | ----------------------- | ------------ | :--------: | :---: | :----------------------------------------------------------: | :-------------------- |
-| order_id                | varchar2(32) | 1100000000 |  否   |                           PK,l,q,r,sort,fixed                           | 订单编号              |
+| order_id                | varchar2(32) | 1100000000 |  否   |                     PK,l,q,r,sort,fixed                      | 订单编号              |
 | mer_no                  | varchar2(32) |            |  否   |                 l,Q,sl(ots_merchant_info),r                  | 商户编号              |
-| mer_order_no            | varchar2(64) |            |  否   |                              r                               | 商户订单编号          |
+| mer_order_no            | varchar2(64) |            |  否   |                              r,l                               | 商户订单编号          |
 | mer_product_id          | number(10)   |    300     |  否   |                  r,sl(ots_merchant_product)                  | 商户商品              |
 | mer_shelf_id            | number(10)   |            |  否   |                   r,sl(ots_merchant_shelf)                   | 商户货架              |
 | mer_product_no          | varchar2(32) |            |  是   |                              r                               | 外部商品编号          |
 | pl_id                   | number(10)   |            |  否   |                  l,Q,sl(ots_product_line),r                  | 产品线                |
-| brand_no                | varchar2(8)  |            |  否   |                         r,sl(brand)                          | 品牌                  |
+| brand_no                | varchar2(8)  |            |  否   |                         l,r,sl(brand)                          | 品牌                  |
 | province_no             | varchar2(8)  |            |  否   |                      q,l,r,sl(province)                      | 省份                  |
 | city_no                 | varchar2(8)  |            |  否   |                 r,q(e:#province_no),sl(city)                 | 城市                  |
 | face                    | number(10)   |            |  否   |                             l,r                              | 面值                  |
 | num                     | number(10)   |            |  否   |                             l,r                              | 数量                  |
 | total_face              | number(10)   |            |  否   |                              r                               | 商品总面值            |
 | account_name            | varchar2(64) |            |  否   |                             l,r                              | 用户账户              |
-| invoice_type            | number(2)    |            |  否   |                    r ,cc,sl(invoice_type)                    | 发票（1.不支持）      |
+| invoice_type            | number(2)    |            |  否   |                   r,cc,sl(invoice_type)                    | 发票（1.不支持）      |
 | sell_discount           | number(20,5) |            |  否   |                        l,r,decimal(5)                        | 销售折扣              |
-| sell_amount             | number(20,5) |            |  否   |                              r                               | 总销售金额            |
+| sell_amount             | number(20,5) |            |  否   |                             r                              | 总销售金额            |
 | mer_fee_discount        | number(20,5) |            |  否   |                         r,decimal(5)                         | 商户佣金折扣          |
 | trade_fee_discount      | number(20,5) |            |  否   |                         r,decimal(5)                         | 交易服务折扣          |
 | payment_fee_discount    | number(20,5) |            |  否   |                         r,decimal(5)                         | 支付手续费折扣        |
@@ -170,7 +170,7 @@ After: After(字段名) //在某个字段后面
 | finish_time             | date         |  sysdate   |  否   |                   r(f:yyyy-MM-dd HH:mm:ss)                   | 完成时间              |
 | order_timeout           | date         |            |  否   |                  r,r(f:yyyy-MM-dd HH:mm:ss)                  | 订单超时时间          |
 | payment_timeout         | date         |            |  否   |                  r,r(f:yyyy-MM-dd HH:mm:ss)                  | 支付超时时间          |
-| bind_face               | number(10)   |     0      |  否   |                             r,l                              | 已绑定面值            |
+| bind_face               | number(10)   |     0      |  否   |                             r,l                              | 绑定面值            |
 | delivery_pause          | number(1)    |     1      |  否   |                        r,sl(bool),cc                         | 发货暂停（0.是，1否） |
 | order_status            | number(3)    |     10     |  否   |                          l,r,sl,cc                           | 订单状态              |
 | payment_status          | number(3)    |     20     |  否   |                   r,sl(process_status),cc                    | 支付状态              |
@@ -208,7 +208,7 @@ After: After(字段名) //在某个字段后面
 | account_name         | varchar2(64)   |         |  否   |             r,l              | 用户账户                                  |
 | delivery_status      | number(3)      |   20    |  否   |  r,l,sl(delivery_status),cc  | 发货状态                                  |
 | payment_status       | number(3)      |   10    |  否   |   r,sl(process_status),cc    | 支付状态                                  |
-| create_time          | date           | sysdate |  否   |           r,l,q(f:yyyy-MM-dd)           | 创建时间                                  |
+| create_time          | date           | sysdate |  否   |     r,l,q(f:yyyy-MM-dd)      | 创建时间                                  |
 | face                 | number(10)     |         |  否   |             r,l              | 商品面值                                  |
 | num                  | number(10)     |         |  否   |              r               | 发货数量                                  |
 | total_face           | number(10)     |         |  否   |              r               | 发货总面值                                |

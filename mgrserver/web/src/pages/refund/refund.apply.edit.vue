@@ -3,8 +3,8 @@
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
     </el-form>
 		<div slot="footer" class="dialog-footer">
-			<el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
-			<el-button type="success" size="small" @click="edit">确 定</el-button>
+			<el-button size="medium" @click="dialogFormVisible = false">取 消</el-button>
+			<el-button type="success" size="medium" @click="edit">确 定</el-button>
 		</div>
 	</el-dialog>
 </template>

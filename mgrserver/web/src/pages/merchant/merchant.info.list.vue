@@ -4,7 +4,7 @@
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-input clearable v-model="queryData.mer_name" placeholder="请输入商户名称">
+					<el-input clearable size="medium" v-model="queryData.mer_name" placeholder="请输入商户名称">
 					</el-input>
 				</el-form-item>
 			
@@ -16,11 +16,11 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button type="primary" @click="query" size="small">查询</el-button>
+					<el-button  type="primary" @click="query" size="medium">查询</el-button>
 				</el-form-item>
 				
 				<el-form-item>
-					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+					<el-button type="success" size="medium" @click="showAdd">添加</el-button>
 				</el-form-item>
 				
 			</el-form>
@@ -64,6 +64,11 @@
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
+				</el-table-column>
+				<el-table-column   prop="create_time" label="创建时间" align="center">
+				<template slot-scope="scope">
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
+				</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">

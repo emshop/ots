@@ -32,11 +32,11 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button type="primary" @click="query" size="small">查询</el-button>
+					<el-button  type="primary" @click="query" size="medium">查询</el-button>
 				</el-form-item>
 				
 				<el-form-item>
-					<el-button type="success" size="small" @click="showAdd">添加</el-button>
+					<el-button type="success" size="medium" @click="showAdd">添加</el-button>
 				</el-form-item>
 				
 			</el-form>
@@ -53,52 +53,52 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column   prop="mer_shelf_id" label="货架名称" align="center">
+				<el-table-column  sortable prop="mer_shelf_id" label="货架名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_shelf_id | fltrEnum("merchant_shelf")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="mer_no" label="商户名称" align="center">
+				<el-table-column  sortable prop="mer_no" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="pl_id" label="产品线" align="center">
+				<el-table-column  sortable prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="brand_no" label="品牌" align="center">
+				<el-table-column  sortable prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="province_no" label="省份" align="center">
+				<el-table-column  sortable prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="city_no" label="城市" align="center">
+				<el-table-column  sortable prop="city_no" label="城市" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.city_no | fltrEnum("city")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="face" label="面值" align="center">
+				<el-table-column  sortable prop="face" label="面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="discount" label="销售折扣" align="center">
+				<el-table-column  sortable prop="discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.discount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="status" label="状态" align="center">
+				<el-table-column  sortable prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="create_time" label="创建时间" align="center">
+				<el-table-column  sortable prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
 					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
