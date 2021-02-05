@@ -3,14 +3,16 @@
   <el-dialog title="添加产品线" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
       <el-form-item label="产品线名称" prop="pl_name">
-				<el-input maxlength="64" clearable v-model="addData.pl_name" placeholder="请输入产品线名称">
+				<el-input maxlength="64" 
+				
+				 clearable v-model="addData.pl_name" placeholder="请输入产品线名称">
 				</el-input>
       </el-form-item>
       
       
 			<el-form-item label="状态:" prop="status">
-				<el-select  placeholder="---请选择---" clearable v-model="addData.status" style="width: 100%;">
-					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name" ></el-option>
+				<el-select style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
       
@@ -29,7 +31,7 @@ export default {
 		return {
 			addData: {},
 			dialogAddVisible: false,
-      status: this.$enum.get("status"),
+			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				pl_name: [{ required: true, message: "请输入产品线名称", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],

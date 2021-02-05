@@ -21,19 +21,19 @@ insert into ots_supplier_shelf
 values
 (
 	@spp_shelf_id,
-	@spp_shelf_id,
+	if(isnull(@spp_shelf_id)||@spp_shelf_id='',0,@spp_shelf_id),
 	@spp_shelf_name,
 	@spp_no,
 	@req_url,
 	@query_url,
 	@notify_url,
-	@invoice_type,
-	@spp_fee_discount,
-	@trade_fee_discount,
-	@payment_fee_discount,
-	@can_refund,
-	@status,
-	@limit_count
+	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
+	if(isnull(@spp_fee_discount)||@spp_fee_discount='',0,@spp_fee_discount),
+	if(isnull(@trade_fee_discount)||@trade_fee_discount='',0,@trade_fee_discount),
+	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
+	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
+	if(isnull(@status)||@status='',0,@status),
+	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 )`
 
 //GetSupplierShelfBySppShelfID 查询单条数据供货商货架
@@ -91,17 +91,17 @@ limit @ps offset @offset
 const UpdateSupplierShelfBySppShelfID = `
 update ots_supplier_shelf 
 set
-	spp_shelf_name = @spp_shelf_name,
-	req_url = @req_url,
-	query_url = @query_url,
-	notify_url = @notify_url,
-	invoice_type = @invoice_type,
-	spp_fee_discount = @spp_fee_discount,
-	trade_fee_discount = @trade_fee_discount,
-	payment_fee_discount = @payment_fee_discount,
-	can_refund = @can_refund,
-	status = @status,
-	limit_count = @limit_count
+	spp_shelf_name =	@spp_shelf_name,
+	req_url =	@req_url,
+	query_url =	@query_url,
+	notify_url =	@notify_url,
+	invoice_type =	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
+	spp_fee_discount =	if(isnull(@spp_fee_discount)||@spp_fee_discount='',0,@spp_fee_discount),
+	trade_fee_discount =	if(isnull(@trade_fee_discount)||@trade_fee_discount='',0,@trade_fee_discount),
+	payment_fee_discount =	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
+	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
+	status =	if(isnull(@status)||@status='',0,@status),
+	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 where
 	&spp_shelf_id`
 

@@ -1,34 +1,34 @@
 <template>
 	<div class="panel panel-default">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_shelf_id" class="input-cos" placeholder="请选择货架名称">
+					<el-select size="medium" v-model="queryData.mer_shelf_id" clearable filterable class="input-cos" placeholder="请选择货架名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merShelfID" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" class="input-cos" placeholder="请选择商户名称">
+					<el-select size="medium" v-model="queryData.mer_no" clearable filterable class="input-cos" placeholder="请选择商户名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.pl_id" class="input-cos" placeholder="请选择产品线">
+					<el-select size="medium" v-model="queryData.pl_id" clearable filterable class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.brand_no" class="input-cos" placeholder="请选择品牌">
+					<el-select size="medium" v-model="queryData.brand_no" clearable filterable class="input-cos" placeholder="请选择品牌">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in brandNo" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -45,67 +45,68 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="mer_product_id" label="商品编号" align="center">
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="mer_product_id" label="商品编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.mer_product_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="mer_shelf_id" label="货架名称" align="center">
+				<el-table-column   prop="mer_shelf_id" label="货架名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_shelf_id | fltrEnum("merchant_shelf")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_no" label="商户名称" align="center">
+				<el-table-column   prop="mer_no" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="pl_id" label="产品线" align="center">
+				<el-table-column   prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="brand_no" label="品牌" align="center">
+				<el-table-column   prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="province_no" label="省份" align="center">
+				<el-table-column   prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="city_no" label="城市" align="center">
+				<el-table-column   prop="city_no" label="城市" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.city_no | fltrEnum("city")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="face" label="面值" align="center">
+				<el-table-column   prop="face" label="面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="discount" label="销售折扣" align="center">
+				<el-table-column   prop="discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.discount | fltrNumberFormat(5)}}</span>
+					<span>{{scope.row.discount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" align="center">
+				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" align="center">
+				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showEdit(scope.row)">编辑</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -156,12 +157,14 @@ export default {
 			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -173,7 +176,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = this.$http.xpost("/merchant/product/query",this.queryData)
+      let res = this.$http.xpost("/merchant/product/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

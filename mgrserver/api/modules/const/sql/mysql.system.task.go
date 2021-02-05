@@ -39,6 +39,7 @@ select
 	t.name,
 	t.create_time,
 	t.last_execute_time,
+	t.next_execute_time,
 	t.count,
 	t.status,
 	t.queue_name 

@@ -20,7 +20,7 @@ func TestFinish(t *testing.T) {
 	ctx := mock.NewContext(input)
 
 	//开始
-	rs := order.FinishHandle(ctx)
+	rs := order.Finish(ctx)
 	assert.Equal(t, nil, errs.GetError(rs))
 
 }

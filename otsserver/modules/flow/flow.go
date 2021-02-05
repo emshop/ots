@@ -65,12 +65,21 @@ func (p *ProductFlow) Next(obj interface{}, kv ...interface{}) (types.XMap, erro
 	input := types.NewXMap()
 	input.SetValue(sql.FieldFlowID, p.FlowID)
 	input.Append(kv...)
-	_, callback, err := qtask.Create(obj, p.FlowName, input, p.ScanInterval, p.QueueName,
-		qtask.WithOrderNO(input.GetString(sql.FieldOrderID)))
+
+	if p.Delay == 0 {
+		_, callback, err := qtask.Create(obj, p.FlowName, input, p.ScanInterval, p.QueueName,
+			qtask.WithOrderNO(input.GetString(sql.FieldOrderID)), qtask.WithDeadline(p.Timeout))
+		if err != nil {
+			return nil, err
+		}
+		return input, callback(obj)
+	}
+	_, err := qtask.Delay(obj, p.FlowName, input, p.Delay, p.ScanInterval, p.QueueName,
+		qtask.WithOrderNO(input.GetString(sql.FieldOrderID)), qtask.WithDeadline(p.Timeout))
 	if err != nil {
 		return nil, err
 	}
-	return input, callback(obj)
+	return input, nil
 }
 
 //NextByFirst 处理后续任务

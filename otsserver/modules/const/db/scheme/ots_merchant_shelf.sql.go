@@ -4,9 +4,9 @@ package scheme
 const ots_merchant_shelf=`
 	DROP TABLE IF EXISTS ots_merchant_shelf;
 	CREATE TABLE IF NOT EXISTS ots_merchant_shelf (
-		mer_shelf_id int  not null auto_increment comment '货架编号' ,
+		mer_shelf_id int  not null auto_increment comment '编号' ,
 		mer_shelf_name varchar(64)  not null  comment '货架名称' ,
-		mer_no varchar(32)  not null  comment '商户编号' ,
+		mer_no varchar(32)  not null  comment '商户名称' ,
 		mer_fee_discount decimal(10,5) default 0 not null  comment '商户佣金' ,
 		trade_fee_discount decimal(10,5) default 0 not null  comment '交易服务费' ,
 		payment_fee_discount decimal(10,5) default 0 not null  comment '支付手续费' ,

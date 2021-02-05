@@ -81,7 +81,7 @@
                     <div class="pull-right" style="margin-right: 10px">销售折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -97,7 +97,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>            

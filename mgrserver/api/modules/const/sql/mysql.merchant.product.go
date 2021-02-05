@@ -18,16 +18,16 @@ insert into ots_merchant_product
 values
 (
 	@mer_product_id,
-	@mer_shelf_id,
+	if(isnull(@mer_shelf_id)||@mer_shelf_id='',0,@mer_shelf_id),
 	@mer_no,
-	@pl_id,
+	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
 	@brand_no,
 	@province_no,
 	@city_no,
-	@face,
+	if(isnull(@face)||@face='',0,@face),
 	@mer_product_no,
-	@discount,
-	@status
+	if(isnull(@discount)||@discount='',0,@discount),
+	if(isnull(@status)||@status='',0,@status),
 )`
 
 //GetMerchantProductByMerProductID 查询单条数据商户商品
@@ -86,9 +86,9 @@ limit @ps offset @offset
 const UpdateMerchantProductByMerProductID = `
 update ots_merchant_product 
 set
-	mer_product_no = @mer_product_no,
-	discount = @discount,
-	status = @status
+	mer_product_no =	@mer_product_no,
+	discount =	if(isnull(@discount)||@discount='',0,@discount),
+	status =	if(isnull(@status)||@status='',0,@status),
 where
 	&mer_product_id`
 

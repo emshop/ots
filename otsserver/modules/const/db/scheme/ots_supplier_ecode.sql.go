@@ -5,7 +5,7 @@ const ots_supplier_ecode=`
 	DROP TABLE IF EXISTS ots_supplier_ecode;
 	CREATE TABLE IF NOT EXISTS ots_supplier_ecode (
 		id bigint  not null auto_increment comment '编号' ,
-		spp_no varchar(32)  not null  comment '商家' ,
+		spp_no varchar(32)  not null  comment '供货商' ,
 		pl_id int  not null  comment '产品线' ,
 		category varchar(32)  not null  comment '分类' ,
 		deal_code tinyint  not null  comment '处理码' ,

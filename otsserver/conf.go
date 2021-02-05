@@ -14,7 +14,7 @@ import (
 
 func init() {
 	hydra.OnReadying(func() {
-		qtask.Config(qtask.WithScanInterval(10))
+		qtask.Config(qtask.WithScanInterval(1))
 	})
 	hydra.OnReady(func() {
 		hydra.Conf.API("8081")
@@ -39,7 +39,8 @@ func init() {
 	app.MQC("/order/bind", bind.Binding, string(enums.FlowOrderBind))
 	app.MQC("/delivery/pay", delivery.Paying, string(enums.FlowDeliveryPay))
 	app.MQC("/order/notify", order.Notify, string(enums.FlowOrderNotify))
-	app.MQC("/order/finish", order.FinishHandle, string(enums.FlowOrderFinish))
+	app.MQC("/order/finish", order.Finish, string(enums.FlowOrderFinish))
+	app.MQC("/order/timeout", order.Tiemout, string(enums.FlowOrderTimeout))
 	app.MQC("/order/delivery/mock", delivery.MockHandle, string(enums.FlowMockDelivery))
 
 }

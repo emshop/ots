@@ -1,16 +1,16 @@
 <template>
-	<div class="panel panel-default">
+	<div class="panel panel-default" id="panel-body">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" >
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
 					<el-input clearable v-model="queryData.order_no" placeholder="请输入订单号">
 					</el-input>
 				</el-form-item>
 			
-					<el-form-item label="创建时间:">
+				<el-form-item label="创建时间:">
 						<el-date-picker class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
-					</el-form-item>
+				</el-form-item>
 			
 				<el-form-item>
 					<el-button type="primary" @click="query" size="small">查询</el-button>
@@ -22,46 +22,52 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="task_id" label="编号" align="center">
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="task_id" label="编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.task_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="order_no" label="订单号" align="center">
+				<el-table-column   prop="order_no" label="订单号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_no}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="name" label="流程名称" align="center">
+				<el-table-column   prop="name" label="流程名称" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.name}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" align="center">
+				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | dtpfltrDate("yyyy-MM-dd hh:mm:ss") }}</span>
+					<div>{{scope.row.create_time | fltrDate("MM/dd HH:mm:ss") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="last_execute_time" label="上次执行时间" align="center">
+				<el-table-column   prop="last_execute_time" label="上次执行时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.last_execute_time | dtpfltrDate("yyyy-MM-dd hh:mm:ss") }}</span>
+					<div>{{scope.row.last_execute_time | fltrDate("MM/dd HH:mm:ss") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="count" label="执行次数" align="center">
+				<el-table-column   prop="next_execute_time" label="下次执行时间" align="center">
+				<template slot-scope="scope">
+					<div>{{scope.row.next_execute_time | fltrDate("MM/dd HH:mm:ss") }}</div>
+				</template>
+				</el-table-column>
+				<el-table-column   prop="count" label="执行次数" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.count | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" align="center">
+				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("process_status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="queue_name" label="消息队列" align="center">
+				<el-table-column   prop="queue_name" label="消息队列" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.queue_name && scope.row.queue_name.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.queue_name}}</div>
@@ -70,9 +76,9 @@
 						<span v-else>{{scope.row.queue_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -112,12 +118,14 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -130,7 +138,7 @@ export default {
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
-      let res = this.$http.xpost("/system/task/query",this.queryData)
+      let res = this.$http.xpost("/system/task/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

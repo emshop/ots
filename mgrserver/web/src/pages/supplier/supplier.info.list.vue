@@ -1,7 +1,7 @@
 <template>
 	<div class="panel panel-default">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
 					<el-input clearable v-model="queryData.spp_name" placeholder="请输入供货商名称">
@@ -9,10 +9,10 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.status" class="input-cos" placeholder="请选择状态">
+					<el-select size="medium" v-model="queryData.status" clearable filterable class="input-cos" placeholder="请选择状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -29,14 +29,15 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="spp_no" label="编号" align="center">
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="spp_no" label="编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.spp_no}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="spp_name" label="供货商名称" align="center">
+				<el-table-column   prop="spp_name" label="供货商名称" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.spp_name && scope.row.spp_name.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.spp_name}}</div>
@@ -45,7 +46,7 @@
 						<span v-else>{{scope.row.spp_name}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_crop" label="所属公司" align="center">
+				<el-table-column   prop="mer_crop" label="所属公司" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.mer_crop && scope.row.mer_crop.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_crop}}</div>
@@ -54,20 +55,20 @@
 						<span v-else>{{scope.row.mer_crop}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" align="center">
+				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" align="center">
+				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showEdit(scope.row)">编辑</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -115,12 +116,14 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			status: this.$enum.get("status"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -132,7 +135,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = this.$http.xpost("/supplier/info/query",this.queryData)
+      let res = this.$http.xpost("/supplier/info/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

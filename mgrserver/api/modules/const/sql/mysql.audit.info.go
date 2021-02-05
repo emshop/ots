@@ -7,7 +7,6 @@ select
 	t.create_time,
 	t.delivery_status,
 	t.end_order,
-	t.add_to_blacklist,
 	t.audit_status,
 	t.audit_by,
 	t.audit_time,

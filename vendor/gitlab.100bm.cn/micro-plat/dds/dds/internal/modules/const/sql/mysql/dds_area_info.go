@@ -9,7 +9,7 @@ CREATE TABLE  dds_area_info (
 	grade TINYINT(2)    comment '行政级别' ,
 	full_spell VARCHAR(64)    comment '英文/全拼' ,
 	simple_spell VARCHAR(16)    comment '简拼' ,
-	sort_id SMALLINT(3) default 0 not null  comment '排序' ,
+	sort_id INT(11) default 0 not null  comment '排序' ,
 	status SMALLINT(2)  default 0 not null  comment '状态' ,
 	PRIMARY KEY (canton_code),
 	KEY IDX_AREA_PARENT_CODE (parent_code)

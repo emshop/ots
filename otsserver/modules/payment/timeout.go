@@ -32,7 +32,7 @@ func Timeout(orderID string) error {
 
 	//查询订单，检查无法处理的原因
 	db.Rollback()
-	order, err := db.Query(sql.SelectTradeOrderByOrderID, map[string]interface{}{
+	order, err := hydra.C.DB().GetRegularDB().Query(sql.SelectTradeOrderByOrderID, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})
 	if err != nil {

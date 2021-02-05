@@ -9,18 +9,42 @@ import (
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
 	"github.com/micro-plat/lib4go/errs"
+	"github.com/micro-plat/lib4go/types"
 )
 
 //Refund 订单超时退款
 func Refund(orderID string) error {
+
+	r, err := hydra.C.DB().GetRegularDB().Scalar(sql.SelectTradeOrderByNoneedDeal, map[string]interface{}{
+		sql.FieldOrderID: orderID,
+	})
+	if err != nil {
+		return err
+	}
+	if types.GetInt(r) > 0 {
+		return errs.NewError(http.StatusNoContent, "订单无须处理")
+	}
+
 	//启动事务进行支付处理
 	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {
 		return err
 	}
 
+	row, err := db.Execute(sql.UpdateTradeOrderForOrderTimeout, map[string]interface{}{
+		sql.FieldOrderID: orderID,
+	})
+	if err != nil {
+		db.Rollback()
+		return err
+	}
+	if row == 0 {
+		db.Rollback()
+		return errs.NewError(http.StatusNoContent, "订单无须处理")
+	}
+
 	//修改超时订单为退款中
-	row, err := db.Execute(sql.UpdateTradeOrderForRefund, map[string]interface{}{
+	row, err = db.Execute(sql.UpdateTradeOrderForRefund, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})
 	if err != nil {

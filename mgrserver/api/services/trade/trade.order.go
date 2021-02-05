@@ -88,6 +88,8 @@ var queryTradeOrderCheckFields = map[string]interface{}{
 	field.FieldOrderID:"required",
 	field.FieldMerNo:"required",
 	field.FieldPlID:"required",
+	field.FieldProvinceNo:"required",
+	field.FieldCityNo:"required",
 	field.FieldCreateTime:"required",
 	}
 

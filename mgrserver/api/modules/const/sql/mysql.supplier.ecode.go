@@ -16,13 +16,13 @@ insert into ots_supplier_ecode
 values
 (
 	@id,
-	@id,
+	if(isnull(@id)||@id='',0,@id),
 	@spp_no,
-	@pl_id,
+	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
 	@category,
-	@deal_code,
+	if(isnull(@deal_code)||@deal_code='',0,@deal_code),
 	@error_code,
-	@status,
+	if(isnull(@status)||@status='',0,@status),
 	@error_desc
 )`
 
@@ -77,14 +77,14 @@ limit @ps offset @offset
 const UpdateSupplierEcodeByID = `
 update ots_supplier_ecode 
 set
-	id = @id,
-	spp_no = @spp_no,
-	pl_id = @pl_id,
-	category = @category,
-	deal_code = @deal_code,
-	error_code = @error_code,
-	status = @status,
-	error_desc = @error_desc
+	id =	if(isnull(@id)||@id='',0,@id),
+	spp_no =	@spp_no,
+	pl_id =	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
+	category =	@category,
+	deal_code =	if(isnull(@deal_code)||@deal_code='',0,@deal_code),
+	error_code =	@error_code,
+	status =	if(isnull(@status)||@status='',0,@status),
+	error_desc =	@error_desc
 where
 	&id`
 

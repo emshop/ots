@@ -8,7 +8,7 @@ create table dds_area_info(
     grade number(2)   ,
     full_spell varchar2(64)   ,
     simple_spell varchar2(16)   ,
-    sort_id number(3) default 0 not null,
+    sort_id number(11) default 0 not null,
     status number(2) default 0 not null 
     );
 

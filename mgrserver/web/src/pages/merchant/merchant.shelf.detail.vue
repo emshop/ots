@@ -37,7 +37,7 @@
                     <div class="pull-right" style="margin-right: 10px">商户佣金:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.mer_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -47,13 +47,13 @@
                     <div class="pull-right" style="margin-right: 10px">交易服务费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付手续费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -76,48 +76,42 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">开票方式:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
-                  </el-col>                 
-                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">允许退款:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.can_refund|fltrTextColor">{{ info.can_refund | fltrEnum("bool") }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">单次购买数量:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.limit_count |  fltrNumberFormat(0)}}</div>
-                  </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">允许拆单:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div :class="info.can_split_order|fltrTextColor">{{ info.can_split_order | fltrEnum("bool") }}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">允许拆单:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div :class="info.can_split_order|fltrTextColor">{{ info.can_split_order | fltrEnum("bool") }}</div>
+                  </el-col>                 
+                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">状态:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>            

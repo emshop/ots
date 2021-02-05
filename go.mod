@@ -10,7 +10,7 @@ replace github.com/micro-plat/qtask => ../../../github.com/micro-plat/qtask
 
 replace github.com/micro-plat/lib4go => ../../../github.com/micro-plat/lib4go
 
-replace gitlab.100bm.cn/micro-plat/dds/dds => ../../../gitlab.100bm.cn/micro-plat/dds/dds
+// replace gitlab.100bm.cn/micro-plat/dds/dds => ../../../gitlab.100bm.cn/micro-plat/dds/dds
 
 require (
 	github.com/go-sql-driver/mysql v1.5.0
@@ -18,5 +18,5 @@ require (
 	github.com/micro-plat/hydra v1.0.5
 	github.com/micro-plat/lib4go v1.0.10
 	github.com/micro-plat/qtask v1.10.1
-	gitlab.100bm.cn/micro-plat/dds/dds v0.0.13
+	gitlab.100bm.cn/micro-plat/dds/dds v1.0.3
 )

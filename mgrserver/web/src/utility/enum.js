@@ -73,13 +73,14 @@ Enum.prototype.get = function (type, pid, group) {
 
 //根据value值获取name
 Enum.prototype.getName = function (type, value, group) {
-  if (value == "") {
+  if (!value) {
     return "-"
   }
 
   var enumMap = Enum.prototype.get(type, null, group)
   var data = value.split(",")
   var result = []
+
   for (var i = 0; i < data.length; i++){
     for (var j = 0; j < enumMap.length; j++){
       if (enumMap[j].value == data[i]) {
@@ -123,22 +124,23 @@ function getEnumListByCallback(type, pid, group){
 //根据type从window._EnumList_中获取相应的数据
 function getEnumList(type, pid, group){
   var list = []
+  var location = window.location.pathname
   var result = window._EnumList_[type] || []
   result.forEach((item)=>{
-    if ((!item.group || item.group == group) && (!pid ||item.pid == pid)) {
+    if ((!item.group || item.group == group) && (!pid ||item.pid == pid) && (!item.location || item.location == location || item.location.indexOf(location) > -1)) {
       list.push(item)
     }
   }) 
   return list
 }
 
-//needCallback 检查是否需要执行回调
+//检查是否需要执行回调
 function needCallback(list){
-  if(!list||list.length == 0){
+  if(!list || list.length == 0){
      return true
   }
   if (list.length == 1){
-      return list[0].value == "*"||list[0].value == "0"
+      return list[0].value == "*" || list[0].value == "0"
   }
   return false
 }

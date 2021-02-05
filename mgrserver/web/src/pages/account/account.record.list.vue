@@ -1,13 +1,13 @@
 <template>
 	<div class="panel panel-default">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.account_id" class="input-cos" placeholder="请选择帐户编号">
+					<el-select size="medium" v-model="queryData.account_id" clearable filterable class="input-cos" placeholder="请选择帐户编号">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in accountID" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -16,17 +16,17 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.trade_type" class="input-cos" placeholder="请选择交易类型">
+					<el-select size="medium" v-model="queryData.trade_type" clearable filterable class="input-cos" placeholder="请选择交易类型">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in tradeType" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.change_type" class="input-cos" placeholder="请选择变动类型">
+					<el-select size="medium" v-model="queryData.change_type" clearable filterable class="input-cos" placeholder="请选择变动类型">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in changeType" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -39,52 +39,53 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="record_id" label="变动编号" align="center">
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="record_id" label="变动编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.record_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="account_id" label="帐户编号" align="center">
+				<el-table-column   prop="account_id" label="帐户编号" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.account_id | fltrEnum("account_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="trade_no" label="交易编号" align="center">
+				<el-table-column   prop="trade_no" label="交易编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.trade_no}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="trade_type" label="交易类型" align="center">
+				<el-table-column   prop="trade_type" label="交易类型" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.trade_type | fltrEnum("trade_type")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="change_type" label="变动类型" align="center">
+				<el-table-column   prop="change_type" label="变动类型" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.change_type | fltrEnum("change_type")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="amount" label="变动金额" align="center">
+				<el-table-column   prop="amount" label="变动金额" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.amount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="balance" label="帐户余额" align="center">
+				<el-table-column   prop="balance" label="帐户余额" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.balance | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" align="center">
+				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -126,12 +127,14 @@ export default {
 			accountID: this.$enum.get("account_info"),
 			tradeType: this.$enum.get("trade_type"),
 			changeType: this.$enum.get("change_type"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -143,7 +146,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = this.$http.xpost("/account/record/query",this.queryData)
+      let res = this.$http.xpost("/account/record/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

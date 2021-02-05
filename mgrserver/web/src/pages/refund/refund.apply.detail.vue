@@ -65,7 +65,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>            
@@ -94,8 +94,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/refund/apply",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/refund/apply",this.$route.query)
       },
       handleClick(tab) {}
     },

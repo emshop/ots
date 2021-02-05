@@ -18,16 +18,16 @@ insert into ots_supplier_product
 values
 (
 	@spp_product_id,
-	@spp_shelf_id,
+	if(isnull(@spp_shelf_id)||@spp_shelf_id='',0,@spp_shelf_id),
 	@spp_no,
 	@spp_product_no,
-	@pl_id,
+	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
 	@brand_no,
 	@province_no,
 	@city_no,
-	@face,
-	@cost_discount,
-	@status
+	if(isnull(@face)||@face='',0,@face),
+	if(isnull(@cost_discount)||@cost_discount='',0,@cost_discount),
+	if(isnull(@status)||@status='',0,@status),
 )`
 
 //GetSupplierProductBySppProductID 查询单条数据供货商商品
@@ -88,9 +88,9 @@ limit @ps offset @offset
 const UpdateSupplierProductBySppProductID = `
 update ots_supplier_product 
 set
-	spp_product_no = @spp_product_no,
-	cost_discount = @cost_discount,
-	status = @status
+	spp_product_no =	@spp_product_no,
+	cost_discount =	if(isnull(@cost_discount)||@cost_discount='',0,@cost_discount),
+	status =	if(isnull(@status)||@status='',0,@status),
 where
 	&spp_product_id`
 

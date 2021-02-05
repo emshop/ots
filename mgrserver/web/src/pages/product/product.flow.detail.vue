@@ -84,7 +84,7 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">超时时长:</div>
+                    <div class="pull-right" style="margin-right: 10px">执行间隔:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.scan_interval |  fltrNumberFormat(0)}}</div>

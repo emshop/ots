@@ -33,6 +33,7 @@ export default {
 			this.refresh()
 		},
 		show() {
+			this.editData = this.$http.xget("/system/task", { task_id: this.editData.task_id })
 			this.dialogFormVisible = true;
 		},
 		edit() {

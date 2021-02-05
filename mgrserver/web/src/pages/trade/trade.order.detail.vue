@@ -128,234 +128,224 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">发票:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
-                  </el-col>                 
-                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">销售折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.sell_discount |  fltrNumberFormat(5)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.sell_discount |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">总销售金额:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.sell_amount |  fltrNumberFormat(2)}}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户佣金折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.mer_fee_discount |  fltrNumberFormat(5)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.mer_fee_discount |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">交易服务折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(5)}}</div>
-                  </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">支付手续费折扣:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
+                  <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">支付手续费折扣:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">是否拆单:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.can_split_order|fltrTextColor">{{ info.can_split_order | fltrEnum("bool") }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">完成时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.finish_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
-                  </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">订单超时时间:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.order_timeout | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
+                    <div>{{ info.finish_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">订单超时时间:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.order_timeout | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                  </el-col>                 
+                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付超时时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_timeout | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
-                  </el-col>                 
+                    <div>{{ info.payment_timeout | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">已绑定面值:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.bind_face |  fltrNumberFormat(0)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">发货暂停:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.delivery_pause|fltrTextColor">{{ info.delivery_pause | fltrEnum("bool") }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">订单状态:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.order_status|fltrTextColor">{{ info.order_status | fltrEnum("order_status") }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付状态:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.payment_status|fltrTextColor">{{ info.payment_status | fltrEnum("process_status") }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">发货状态:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.delivery_status|fltrTextColor">{{ info.delivery_status | fltrEnum("process_status") }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">退款状态:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.refund_status|fltrTextColor">{{ info.refund_status | fltrEnum("process_status") }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">通知状态:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.notify_status|fltrTextColor">{{ info.notify_status | fltrEnum("process_status") }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">用户退款:</div>
                   </el-col>
                   <el-col :span="6">
                     <div :class="info.is_refund|fltrTextColor">{{ info.is_refund | fltrEnum("bool") }}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">成功总面值:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.success_face |  fltrNumberFormat(0)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">成功销售金额:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.success_sell_amount |  fltrNumberFormat(2)}}</div>
-                  </el-col>                 
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户佣金金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_mer_fee |  fltrNumberFormat(3)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.success_mer_fee |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户服务费金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_mer_trade_fee |  fltrNumberFormat(3)}}</div>
-                  </el-col>                 
+                    <div>{{ info.success_mer_trade_fee |  fltrNumberFormat(2)}}</div>
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户手续费金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_mer_payment_fee |  fltrNumberFormat(3)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.success_mer_payment_fee |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">成本金额:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_cost_amount |  fltrNumberFormat(3)}}</div>
-                  </el-col>                 
+                    <div>{{ info.success_cost_amount |  fltrNumberFormat(2)}}</div>
+                  </el-col>
+                </td>
+              </tr>
+              <tr>
+                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">供货商佣金:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_spp_fee |  fltrNumberFormat(3)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.success_spp_fee |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">供货商服务费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.success_spp_trade_fee |  fltrNumberFormat(3)}}</div>
-                  </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">供货商手续费:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.success_spp_payment_fee |  fltrNumberFormat(3)}}</div>
+                    <div>{{ info.success_spp_trade_fee |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
                   <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">供货商手续费:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.success_spp_payment_fee |  fltrNumberFormat(2)}}</div>
+                  </el-col>                 
+                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">利润:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.profit |  fltrNumberFormat(3)}}</div>
+                    <div>{{ info.profit |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>            

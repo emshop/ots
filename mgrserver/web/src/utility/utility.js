@@ -73,6 +73,19 @@ Utility.prototype.phoneFormat = function (phone){
     return phone.replace(reg, "$1****$2");
 }
 
+//http请求参数处理
+Utility.prototype.delEmptyProperty = function(obj){
+    if(typeof obj != "object"){
+        return obj
+    }
+    for (var i in obj) {
+        if (!obj[i]) {
+            delete obj[i];
+        } 
+    }
+    return obj
+}
+
 /*
 * 参数说明：
 * number：要格式化的数字
@@ -127,15 +140,15 @@ Vue.filter('fltrNumberFormat', (value, decimals = 2) => {
 
 //日期格式转换
 Vue.filter('fltrDate', (value, format = "yyyy-MM-dd") => {
-    if (value === '') {
+    if (!value) {
         return '-'
     } 
     return Utility.prototype.dateFormat(value, format)
 })
 
 //完整日期格式转换
-Vue.filter('fltrDateTime', (value, format = "yyyy-MM-dd hh:mm") => {
-    if (value === '') {
+Vue.filter('fltrDateTime', (value, format = "yyyy-MM-dd HH:mm") => {
+    if (!value) {
         return '-'
     } 
     return Utility.prototype.dateFormat(value, format)
@@ -143,7 +156,7 @@ Vue.filter('fltrDateTime', (value, format = "yyyy-MM-dd hh:mm") => {
   
 //空值时默认显示'---'
 Vue.filter('fltrEmpty', value => {
-    if (value === '') {
+    if (!value) {
         return '---'
     }
     return value
@@ -171,7 +184,7 @@ Vue.filter('fltrBgColor', value => {
 })
 
 //日期格式转换
-Utility.prototype.dateFormat = function (date, fmt = "yyyy-MM-dd hh:mm") {
+Utility.prototype.dateFormat = function (date, fmt = "yyyy-MM-dd HH:mm") {
     if(!date){
         return ""
     }
@@ -179,7 +192,8 @@ Utility.prototype.dateFormat = function (date, fmt = "yyyy-MM-dd hh:mm") {
     var o = {
         'M+': d.getMonth() + 1, // 月份
         'd+': d.getDate(), // 日
-        'h+': d.getHours(), // 小时
+        "h+": d.getHours()%12 == 0 ? 12 : d.getHours()%12, //12小时制         
+        "H+": d.getHours(), //24小时小时 
         'm+': d.getMinutes(), // 分
         's+': d.getSeconds(), // 秒
         'q+': Math.floor((d.getMonth() + 3) / 3), // 季度
@@ -194,4 +208,11 @@ Utility.prototype.dateFormat = function (date, fmt = "yyyy-MM-dd hh:mm") {
         }
     }
     return fmt
+}
+
+// 设置管理系统table组件的高度
+Utility.prototype.getTableHeight = function (id){
+    var hd = document.body.clientHeight //网页可见区域高
+    var panelBody = document.getElementById(id)
+    return hd - panelBody.clientHeight - 196  //220
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
-	
+	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
 //MerchantShelfHandler 商户货架处理服务
@@ -18,7 +18,32 @@ func NewMerchantShelfHandler() *MerchantShelfHandler {
 	return &MerchantShelfHandler{}
 }
 
+//PostHandle 添加商户货架数据
+func (u *MerchantShelfHandler) PostHandle(ctx hydra.IContext) (r interface{}) {
 
+	ctx.Log().Info("--------添加商户货架数据--------")
+	
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(postMerchantShelfCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	xdb := hydra.C.DB().GetRegularDB()
+	merShelfID, err := db.GetNewID(xdb, sql.SQLGetSEQ, map[string]interface{}{"name": "商户货架"})
+	if err != nil {
+		return err
+	}
+	input := ctx.Request().GetMap()
+	input["mer_shelf_id"] = merShelfID
+	count, err := xdb.Execute(sql.InsertMerchantShelf, input)
+	if err != nil || count < 1 {
+		return errs.NewErrorf(http.StatusNotExtended, "添加数据出错:%+v", err)
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return "success"
+}
 
 
 //GetHandle 获取商户货架单条数据
@@ -97,7 +122,20 @@ func (u *MerchantShelfHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	return "success"
 }
 
-
+var postMerchantShelfCheckFields = map[string]interface{}{
+	field.FieldMerShelfName:"required",
+	field.FieldMerNo:"required",
+	field.FieldMerFeeDiscount:"required",
+	field.FieldTradeFeeDiscount:"required",
+	field.FieldPaymentFeeDiscount:"required",
+	field.FieldOrderTimeout:"required",
+	field.FieldPaymentTimeout:"required",
+	field.FieldInvoiceType:"required",
+	field.FieldCanRefund:"required",
+	field.FieldLimitCount:"required",
+	field.FieldCanSplitOrder:"required",
+	field.FieldStatus:"required",
+	}
 
 var getMerchantShelfCheckFields = map[string]interface{}{
 	field.FieldMerShelfID:"required",

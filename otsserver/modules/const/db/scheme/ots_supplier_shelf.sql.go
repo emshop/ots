@@ -10,7 +10,7 @@ const ots_supplier_shelf=`
 		req_url varchar(128)  not null  comment '请求地址' ,
 		query_url varchar(128)    comment '查询地址' ,
 		notify_url varchar(128)    comment '回调地址' ,
-		invoice_type tinyint default 1   comment '开发票' ,
+		invoice_type tinyint default 1   comment '开票' ,
 		spp_fee_discount decimal(10,5) default 0   comment '商户佣金' ,
 		trade_fee_discount decimal(10,5) default 0   comment '交易服务费' ,
 		payment_fee_discount decimal(10,5) default 0   comment '支付手续费' ,

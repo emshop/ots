@@ -117,7 +117,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -149,7 +149,7 @@
                     <div class="pull-right" style="margin-right: 10px">扣款折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.cost_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.cost_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -159,13 +159,13 @@
                     <div class="pull-right" style="margin-right: 10px">实际折扣:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.real_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.real_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户佣金:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.spp_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.spp_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -175,13 +175,13 @@
                     <div class="pull-right" style="margin-right: 10px">交易服务费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付手续费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -191,29 +191,13 @@
                     <div class="pull-right" style="margin-right: 10px">发货成本:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.cost_amount |  fltrNumberFormat(3)}}</div>
+                    <div>{{ info.cost_amount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">供货商佣金:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.spp_fee_amount |  fltrNumberFormat(3)}}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">供货商服务费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.trade_fee_amount |  fltrNumberFormat(3)}}</div>
-                  </el-col>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">供货商手续费:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.payment_fee_amount |  fltrNumberFormat(3)}}</div>
+                    <div>{{ info.trade_fee_amount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -229,7 +213,7 @@
                     <div class="pull-right" style="margin-right: 10px">开始时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.start_time | fltrDate }}</div>
+                    <div>{{ info.start_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -239,7 +223,7 @@
                     <div class="pull-right" style="margin-right: 10px">结束时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.end_time | fltrDate }}</div>
+                    <div>{{ info.end_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">供货商发货编号:</div>
@@ -301,7 +285,7 @@
                     <div class="pull-right" style="margin-right: 10px">最后更新时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.last_update_time | fltrDate }}</div>
+                    <div>{{ info.last_update_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>            

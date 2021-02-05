@@ -1,13 +1,13 @@
 <template>
 	<div class="panel panel-default">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.eid" class="input-cos" placeholder="请选择商户信息">
+					<el-select size="medium" v-model="queryData.eid" clearable filterable class="input-cos" placeholder="请选择商户信息">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in eid" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -24,43 +24,44 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="account_id" label="帐户编号" align="center">
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="account_id" label="帐户编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.account_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="account_name" label="帐户名称" align="center">
+				<el-table-column   prop="account_name" label="帐户名称" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.account_name}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="groups" label="用户分组" align="center">
+				<el-table-column   prop="groups" label="用户分组" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.groups | fltrEnum("account_group")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="eid" label="商户信息" align="center">
+				<el-table-column   prop="eid" label="商户信息" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.eid | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="status" label="状态" align="center">
-					<template slot-scope="scope">
-						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
-					</template>
-				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" align="center">
+				<el-table-column   prop="status" label="状态" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<span>{{scope.row.status | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column   prop="create_time" label="创建时间" align="center">
+				<template slot-scope="scope">
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
+				</template>
+				</el-table-column>
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showEdit(scope.row)">编辑</el-button>
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showEdit(scope.row)">编辑</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -108,12 +109,14 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			eid: this.$enum.get("merchant_info"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -125,7 +128,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = this.$http.xpost("/account/info/query",this.queryData)
+      let res = this.$http.xpost("/account/info/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

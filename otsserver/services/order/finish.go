@@ -18,8 +18,8 @@ var finishFields = []string{
 	sql.FieldOrderID,
 }
 
-//FinishHandle 订单完结处理
-func FinishHandle(ctx hydra.IContext) interface{} {
+//Finish 订单完结处理
+func Finish(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Info("-------------处理订单完结----------------------")
 	if err := ctx.Request().Check(finishFields...); err != nil {
@@ -38,8 +38,11 @@ func FinishHandle(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Info("2. 处理后续流程")
-	status := types.DecodeInt(err, nil, enums.Success, enums.Failed)
+	status := types.DecodeInt(err, nil, int(enums.Success), int(enums.Failed))
 	flw := flow.Next(ctx.Request().GetInt(sql.FieldFlowID), enums.FlowStatus(status), ctx,
 		sql.FieldOrderID, ctx.Request().GetString(sql.FieldOrderID))
+	if err != nil {
+		return err
+	}
 	return flw
 }

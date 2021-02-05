@@ -1,7 +1,6 @@
 package payment
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/emshop/ots/otsserver/modules/const/enums"
@@ -10,10 +9,22 @@ import (
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
 	"github.com/micro-plat/lib4go/errs"
+	"github.com/micro-plat/lib4go/types"
 )
 
 //Pay 处理订单支付
 func Pay(orderID string) error {
+
+	//检查订单是否超时
+	r, err := hydra.C.DB().GetRegularDB().Scalar(sql.SelectTradeOrderByNoneedPay, map[string]interface{}{
+		sql.FieldOrderID: orderID,
+	})
+	if err != nil {
+		return err
+	}
+	if types.GetInt(r) > 0 {
+		return errs.NewError(http.StatusNoContent, "订单已超时，无须支付")
+	}
 
 	//启动事务进行支付处理
 	db, err := hydra.C.DB().GetRegularDB().Begin()
@@ -60,11 +71,11 @@ func Pay(orderID string) error {
 		"订单扣款")
 	if err != nil {
 		db.Rollback()
-		return fmt.Errorf("商户(%s)扣款失败%w", order.GetString(sql.FieldMerNo), err)
+		return errs.NewErrorf(int(enums.CodeBalanceLow), "商户(%s)扣款失败%v", order.GetString(sql.FieldMerNo), err)
 	}
 	if rs.GetCode() != beanpay.Success {
 		db.Rollback()
-		return errs.NewErrorf(rs.GetCode(), "商户(%s)扣款失败%s", order.GetString(sql.FieldMerNo), rs.GetCode())
+		return errs.NewErrorf(rs.GetCode(), "商户(%s)扣款失败%d", order.GetString(sql.FieldMerNo), rs.GetCode())
 	}
 	db.Commit()
 	return nil

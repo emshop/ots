@@ -27,7 +27,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">发货结果:</div>
@@ -46,37 +46,31 @@
                     <div :class="info.end_order|fltrTextColor">{{ info.end_order | fltrEnum("bool") }}</div>
                   </el-col>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">是否加入黑名单:</div>
+                    <div class="pull-right" style="margin-right: 10px">审核状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div :class="info.add_to_blacklist|fltrTextColor">{{ info.add_to_blacklist | fltrEnum("bool") }}</div>
+                    <div :class="info.audit_status|fltrTextColor">{{ info.audit_status | fltrEnum("status") }}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">审核状态:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div :class="info.audit_status|fltrTextColor">{{ info.audit_status | fltrEnum("status") }}</div>
-                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">审核人:</div>
                   </el-col>
                   <el-col :span="6">
                     <div>{{ info.audit_by |  fltrNumberFormat(0)}}</div>
+                  </el-col>                 
+                  <el-col :span="6">
+                    <div class="pull-right" style="margin-right: 10px">审核时间:</div>
+                  </el-col>
+                  <el-col :span="6">
+                    <div>{{ info.audit_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>
               <tr>
                 <td>                 
-                  <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">审核时间:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.audit_time | fltrDate }}</div>
-                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">审核信息:</div>
                   </el-col>
@@ -85,7 +79,7 @@
                       <div slot="content" style="width: 110px">{{info.audit_msg}}</div>
                       <div >{{ info.audit_msg | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.audit_msg}}</div>
+                    <div>{{ info.audit_msg | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>            
@@ -114,8 +108,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/audit/info",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/audit/info",this.$route.query)
       },
       handleClick(tab) {}
     },

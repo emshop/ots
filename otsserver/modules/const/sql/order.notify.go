@@ -17,4 +17,5 @@ from ots_trade_order t
 where
 t.order_id = @order_id
 and t.notify_status = 11
+and t.order_status = 50
 `

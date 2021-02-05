@@ -31,19 +31,21 @@ func Paying(ctx hydra.IContext) interface{} {
 	switch { //无须处理或处理成功则关闭流程
 	case errs.GetCode(err) == http.StatusNoContent:
 		qtask.FinishByInput(ctx, ctx.Request())
-		return nil
+		return err
 	case err == nil:
 		qtask.FinishByInput(ctx, ctx.Request())
 	}
 
-	ctx.Log().Info("2. 获取支付后续流程")
-	status := types.DecodeInt(err, nil, enums.Success, enums.Failed)
+	ctx.Log().Info("2. 获取支付后续流程", err)
+	status := types.DecodeInt(err, nil, int(enums.Success), int(enums.Failed))
 	flw := flow.Next(ctx.Request().GetInt(sql.FieldFlowID),
 		enums.FlowStatus(status), ctx,
 		sql.FieldOrderID,
 		ctx.Request().GetString(sql.FieldOrderID))
+
 	if err != nil {
 		return err
 	}
+
 	return flw
 }

@@ -31,7 +31,7 @@
                       <div slot="content" style="width: 110px">{{info.mer_order_no}}</div>
                       <div >{{ info.mer_order_no | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.mer_order_no}}</div>
+                    <div>{{ info.mer_order_no | fltrEmpty }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">通知地址:</div>
@@ -41,7 +41,7 @@
                       <div slot="content" style="width: 110px">{{info.notify_url}}</div>
                       <div >{{ info.notify_url | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.notify_url}}</div>
+                    <div>{{ info.notify_url | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -73,7 +73,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -83,13 +83,13 @@
                     <div class="pull-right" style="margin-right: 10px">开始时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.start_time | fltrDate }}</div>
+                    <div>{{ info.start_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">结束时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.end_time | fltrDate }}</div>
+                    <div>{{ info.end_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -103,7 +103,7 @@
                       <div slot="content" style="width: 110px">{{info.notify_msg}}</div>
                       <div >{{ info.notify_msg | fltrSubstr(50) }}</div>
                     </el-tooltip>
-                    <div>{{ info.notify_msg}}</div>
+                    <div>{{ info.notify_msg | fltrEmpty }}</div>
                   </el-col>
                 </td>
               </tr>            
@@ -132,8 +132,8 @@
       init(){
         this.queryData()
       },
-      queryData:async function() {
-        this.info = await this.$http.xget("/notify/info",this.$route.query)
+      queryData() {
+        this.info = this.$http.xget("/notify/info",this.$route.query)
       },
       handleClick(tab) {}
     },

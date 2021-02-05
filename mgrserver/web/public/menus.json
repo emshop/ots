@@ -1,23 +1,8 @@
 [
   {
-    "name": "账户信息",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/account/info"
-  },
-  {
-    "name": "商户货架",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/merchant/shelf"
-  },
-  {
     "name": "供货商货架",
     "icon": "fa fa-user-circle text-primary",
     "path": "/supplier/shelf"
-  },
-  {
-    "name": "供货商信息",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/supplier/info"
   },
   {
     "name": "任务表",
@@ -25,29 +10,9 @@
     "path": "/system/task"
   },
   {
-    "name": "发货人工审核表",
+    "name": "订单通知表",
     "icon": "fa fa-user-circle text-primary",
-    "path": "/audit/info"
-  },
-  {
-    "name": "商户商品",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/merchant/product"
-  },
-  {
-    "name": "业务流程",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/product/flow"
-  },
-  {
-    "name": "退款申请",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/refund/apply"
-  },
-  {
-    "name": "商户信息",
-    "icon": "fa fa-user-circle text-primary",
-    "path": "/merchant/info"
+    "path": "/notify/info"
   },
   {
     "name": "供货商错误码",
@@ -55,14 +20,19 @@
     "path": "/supplier/ecode"
   },
   {
-    "name": "订单记录",
+    "name": "供货商信息",
     "icon": "fa fa-user-circle text-primary",
-    "path": "/trade/order"
+    "path": "/supplier/info"
   },
   {
-    "name": "订单发货表",
+    "name": "供货商商品",
     "icon": "fa fa-user-circle text-primary",
-    "path": "/trade/delivery"
+    "path": "/supplier/product"
+  },
+  {
+    "name": "账户信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/account/info"
   },
   {
     "name": "账户余额变动信息",
@@ -70,9 +40,24 @@
     "path": "/account/record"
   },
   {
-    "name": "订单通知表",
+    "name": "退款申请",
     "icon": "fa fa-user-circle text-primary",
-    "path": "/notify/info"
+    "path": "/refund/apply"
+  },
+  {
+    "name": "商户货架",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/shelf"
+  },
+  {
+    "name": "业务流程",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/product/flow"
+  },
+  {
+    "name": "订单记录",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/trade/order"
   },
   {
     "name": "产品线",
@@ -80,8 +65,28 @@
     "path": "/product/line"
   },
   {
-    "name": "供货商商品",
+    "name": "订单发货表",
     "icon": "fa fa-user-circle text-primary",
-    "path": "/supplier/product"
+    "path": "/trade/delivery"
+  },
+  {
+    "name": "字典配置",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/dictionary/info"
+  },
+  {
+    "name": "发货人工审核表",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/audit/info"
+  },
+  {
+    "name": "商户信息",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/info"
+  },
+  {
+    "name": "商户商品",
+    "icon": "fa fa-user-circle text-primary",
+    "path": "/merchant/product"
   }
 ]

@@ -16,7 +16,6 @@ select
 	t.num,
 	t.total_face,
 	t.account_name,
-	t.invoice_type,
 	t.sell_discount,
 	t.sell_amount,
 	t.mer_fee_discount,
@@ -57,6 +56,8 @@ where
 	&t.order_id
 	&t.mer_no
 	&t.pl_id
+	&t.province_no
+	&t.city_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)`
 
@@ -65,9 +66,7 @@ const GetTradeOrderList = `
 select
 	t.order_id,
 	t.mer_no,
-	t.mer_product_id,
 	t.pl_id,
-	t.brand_no,
 	t.province_no,
 	t.face,
 	t.num,
@@ -81,6 +80,8 @@ where
 	&t.order_id
 	&t.mer_no
 	&t.pl_id
+	&t.province_no
+	&t.city_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
 order by t.order_id desc

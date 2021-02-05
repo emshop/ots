@@ -1,7 +1,7 @@
 <template>
 	<div class="panel panel-default">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
 					<el-input clearable v-model="queryData.order_id" placeholder="请输入订单编号">
@@ -9,10 +9,10 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.audit_status" class="input-cos" placeholder="请选择审核状态">
+					<el-select size="medium" v-model="queryData.audit_status" clearable filterable class="input-cos" placeholder="请选择审核状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in auditStatus" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -25,45 +25,46 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="delivery_id" label="发货编号" >
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="delivery_id" label="发货编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.delivery_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="order_id" label="订单编号" >
+				<el-table-column   prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="delivery_status" label="发货结果" >
+				<el-table-column   prop="delivery_status" label="发货结果" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.delivery_status | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="audit_status" label="审核状态" >
+				<el-table-column   prop="audit_status" label="审核状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.audit_status|fltrTextColor">{{scope.row.audit_status | fltrEnum("status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="audit_by" label="审核人" >
+				<el-table-column   prop="audit_by" label="审核人" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.audit_by | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="audit_time" label="审核时间" >
+				<el-table-column   prop="audit_time" label="审核时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.audit_time | fltrDate }}</span>
+					<div>{{scope.row.audit_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="audit_msg" label="审核信息" >
+				<el-table-column   prop="audit_msg" label="审核信息" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.audit_msg && scope.row.audit_msg.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.audit_msg}}</div>
@@ -72,9 +73,9 @@
 						<span v-else>{{scope.row.audit_msg}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -114,12 +115,14 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			auditStatus: this.$enum.get("status"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -128,10 +131,10 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = await this.$http.xpost("/audit/info/query",this.queryData)
+      let res = this.$http.xpost("/audit/info/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

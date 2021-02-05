@@ -3,30 +3,38 @@
   <el-dialog title="添加供货商信息" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
       <el-form-item label="编号" prop="spp_no">
-				<el-input maxlength="32" clearable v-model="addData.spp_no" placeholder="请输入编号">
+				<el-input maxlength="32" 
+				
+				 clearable v-model="addData.spp_no" placeholder="请输入编号">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="供货商名称" prop="spp_name">
-				<el-input maxlength="64" clearable v-model="addData.spp_name" placeholder="请输入供货商名称">
+				<el-input maxlength="64" 
+				
+				 clearable v-model="addData.spp_name" placeholder="请输入供货商名称">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="所属公司" prop="mer_crop">
-				<el-input maxlength="64" clearable v-model="addData.mer_crop" placeholder="请输入所属公司">
+				<el-input maxlength="64" 
+				
+				 clearable v-model="addData.mer_crop" placeholder="请输入所属公司">
 				</el-input>
       </el-form-item>
       
       <el-form-item label="商务人员" prop="bd_uid">
-				<el-input maxlength="20" clearable v-model="addData.bd_uid" placeholder="请输入商务人员">
+				<el-input maxlength="20" 
+				
+				 clearable v-model="addData.bd_uid" placeholder="请输入商务人员">
 				</el-input>
       </el-form-item>
       
       
-			<el-form-item label="状态:" prop="status">
-				<el-select  placeholder="---请选择---" clearable v-model="addData.status" style="width: 100%;">
-					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name" ></el-option>
-				</el-select>
+			<el-form-item  label="状态:" prop="status">
+				<el-radio-group v-model="addData.status" style="margin-left:5px">
+        	<el-radio v-for="(item, index) in status" :key="index" :label="item.value">{{item.name}}</el-radio>
+				</el-radio-group>
 			</el-form-item>
       
     </el-form>
@@ -44,7 +52,7 @@ export default {
 		return {
 			addData: {},
 			dialogAddVisible: false,
-      status: this.$enum.get("status"),
+			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				spp_no: [{ required: true, message: "请输入编号", trigger: "blur" }],
 				spp_name: [{ required: true, message: "请输入供货商名称", trigger: "blur" }],

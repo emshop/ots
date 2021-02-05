@@ -56,26 +56,16 @@
               <tr>
                 <td>                 
                   <el-col :span="6">
-                    <div class="pull-right" style="margin-right: 10px">信用余额:</div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div>{{ info.credit |  fltrNumberFormat(2)}}</div>
-                  </el-col>                 
-                  <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">状态:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
-                  </el-col>
-                </td>
-              </tr>
-              <tr>
-                <td>                 
+                    <div>{{ info.status |  fltrNumberFormat(0)}}</div>
+                  </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>            

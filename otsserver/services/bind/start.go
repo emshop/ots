@@ -37,7 +37,7 @@ func Binding(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Info("2. 执行后续流程")
-	status := types.DecodeInt(err, nil, enums.Success, enums.Failed)
+	status := types.DecodeInt(err, nil, int(enums.Success), int(enums.Failed))
 	flw := flow.Next(ctx.Request().GetInt(sql.FieldFlowID), enums.FlowStatus(status), ctx,
 		sql.FieldOrderID, ctx.Request().GetString(sql.FieldOrderID),
 		sql.FieldDeliveryID, deliveryID)

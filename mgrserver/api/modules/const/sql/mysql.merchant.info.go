@@ -17,9 +17,9 @@ values
 	@mer_no,
 	@mer_name,
 	@mer_crop,
-	@mer_type,
-	@bd_uid,
-	@status
+	if(isnull(@mer_type)||@mer_type='',0,@mer_type),
+	if(isnull(@bd_uid)||@bd_uid='',0,@bd_uid),
+	if(isnull(@status)||@status='',0,@status),
 )`
 
 //GetMerchantInfoByMerNo 查询单条数据商户信息
@@ -62,11 +62,11 @@ limit @ps offset @offset
 const UpdateMerchantInfoByMerNo = `
 update ots_merchant_info 
 set
-	mer_name = @mer_name,
-	mer_crop = @mer_crop,
-	mer_type = @mer_type,
-	bd_uid = @bd_uid,
-	status = @status
+	mer_name =	@mer_name,
+	mer_crop =	@mer_crop,
+	mer_type =	if(isnull(@mer_type)||@mer_type='',0,@mer_type),
+	bd_uid =	if(isnull(@bd_uid)||@bd_uid='',0,@bd_uid),
+	status =	if(isnull(@status)||@status='',0,@status),
 where
 	&mer_no`
 

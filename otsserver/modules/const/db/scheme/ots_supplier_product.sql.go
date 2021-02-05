@@ -5,7 +5,7 @@ const ots_supplier_product=`
 	DROP TABLE IF EXISTS ots_supplier_product;
 	CREATE TABLE IF NOT EXISTS ots_supplier_product (
 		spp_product_id int  not null auto_increment comment '商品编号' ,
-		spp_shelf_id int  not null  comment '货架' ,
+		spp_shelf_id int  not null  comment '货架名称' ,
 		spp_no varchar(32)  not null  comment '供货商' ,
 		spp_product_no varchar(32)    comment '供货商商品编号' ,
 		pl_id int  not null  comment '产品线' ,

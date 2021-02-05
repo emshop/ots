@@ -28,13 +28,14 @@ select
   'province' type,
 	canton_code value,
 	chinese_name name,
-	parent_code,
+	parent_code pid,
 	grade,
 	full_spell,
 	simple_spell
 from dds_area_info
 where &parent_code
-order by canton_code
+and grade='1'
+order by sort_id
 `
 
 //GetCityByProvinceID 根据省获取市信息
@@ -43,14 +44,14 @@ select
  'city' type,
 	canton_code value,
 	chinese_name name,
-	parent_code,
+	parent_code pid,
 	grade,
 	full_spell,
 	simple_spell
 from dds_area_info
 where &parent_code
 and grade='2'
-order by canton_code
+order by sort_id
 `
 
 //GetAll 根据省获取市信息
@@ -59,10 +60,10 @@ select
   'region' type,
 	canton_code value,
 	chinese_name name,
-	parent_code,
+	parent_code pid,
 	grade,
 	full_spell,
 	simple_spell
 from dds_area_info
-order by canton_code
+order by sort_id
 `

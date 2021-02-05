@@ -31,6 +31,9 @@ const (
 
 	//CodeOverLimit 超过数量限制
 	CodeOverLimit OrderCode = 903
+
+	//CodeBalanceLow 余额不足
+	CodeBalanceLow OrderCode = 801
 )
 
 //OrderStatus 订单状态码
@@ -156,6 +159,9 @@ const (
 
 	//FlowOrderNotify 订单通知
 	FlowOrderNotify FlowName = "order_notify"
+
+	//FlowOrderTimeout 订单超时
+	FlowOrderTimeout FlowName = "order_timeout"
 
 	//FlowOrderFinish 订单完结
 	FlowOrderFinish FlowName = "order_finish"

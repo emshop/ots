@@ -75,13 +75,13 @@
                     <div class="pull-right" style="margin-right: 10px">开票:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
+                    <div >{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">商户佣金:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.spp_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.spp_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -91,13 +91,13 @@
                     <div class="pull-right" style="margin-right: 10px">交易服务费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.trade_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">支付手续费:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(5)}}</div>
+                    <div>{{ info.payment_fee_discount |  fltrNumberFormat(2)}}</div>
                   </el-col>
                 </td>
               </tr>
@@ -129,7 +129,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate }}</div>
+                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>            

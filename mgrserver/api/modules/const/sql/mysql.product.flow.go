@@ -21,15 +21,15 @@ values
 	@flow_id,
 	@flow_name,
 	@tag_name,
-	@pl_id,
+	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
 	@success_flow_id,
 	@failed_flow_id,
 	@unknown_flow_id,
 	@queue_name,
-	@scan_interval,
-	@delay,
-	@timeout,
-	@max_count
+	if(isnull(@scan_interval)||@scan_interval='',0,@scan_interval),
+	if(isnull(@delay)||@delay='',0,@delay),
+	if(isnull(@timeout)||@timeout='',0,@timeout),
+	if(isnull(@max_count)||@max_count='',0,@max_count),
 )`
 
 //GetProductFlowByFlowID 查询单条数据业务流程
@@ -82,17 +82,17 @@ limit @ps offset @offset
 const UpdateProductFlowByFlowID = `
 update ots_product_flow 
 set
-	flow_name = @flow_name,
-	tag_name = @tag_name,
-	pl_id = @pl_id,
-	success_flow_id = @success_flow_id,
-	failed_flow_id = @failed_flow_id,
-	unknown_flow_id = @unknown_flow_id,
-	queue_name = @queue_name,
-	scan_interval = @scan_interval,
-	delay = @delay,
-	timeout = @timeout,
-	max_count = @max_count
+	flow_name =	@flow_name,
+	tag_name =	@tag_name,
+	pl_id =	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
+	success_flow_id =	@success_flow_id,
+	failed_flow_id =	@failed_flow_id,
+	unknown_flow_id =	@unknown_flow_id,
+	queue_name =	@queue_name,
+	scan_interval =	if(isnull(@scan_interval)||@scan_interval='',0,@scan_interval),
+	delay =	if(isnull(@delay)||@delay='',0,@delay),
+	timeout =	if(isnull(@timeout)||@timeout='',0,@timeout),
+	max_count =	if(isnull(@max_count)||@max_count='',0,@max_count),
 where
 	&flow_id`
 

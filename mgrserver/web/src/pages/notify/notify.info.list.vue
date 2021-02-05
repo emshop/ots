@@ -1,20 +1,20 @@
 <template>
 	<div class="panel panel-default">
     	<!-- query start -->
-		<div class="panel-body">
+		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" class="input-cos" placeholder="请选择商户名称">
+					<el-select size="medium" v-model="queryData.mer_no" clearable filterable class="input-cos" placeholder="请选择商户名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.notify_status" class="input-cos" placeholder="请选择通知状态">
+					<el-select size="medium" v-model="queryData.notify_status" clearable filterable class="input-cos" placeholder="请选择通知状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in notifyStatus" :key="index" :value="item.value" :label="item.name"></el-option>
-						</el-select>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -27,19 +27,20 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" border style="width: 100%">
-				<el-table-column prop="order_id" label="订单编号" >
+			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+				
+				<el-table-column   prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_id}}</span>
 				</template>
 				
 				</el-table-column>
-				<el-table-column prop="mer_no" label="商户名称" >
+				<el-table-column   prop="mer_no" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="mer_order_no" label="订单编号" >
+				<el-table-column   prop="mer_order_no" label="订单编号" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
@@ -48,32 +49,32 @@
 						<span v-else>{{scope.row.mer_order_no}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="notify_status" label="通知状态" >
+				<el-table-column   prop="notify_status" label="通知状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.notify_status|fltrTextColor">{{scope.row.notify_status | fltrEnum("process_status")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="notify_count" label="通知次数" >
+				<el-table-column   prop="notify_count" label="通知次数" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.notify_count | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column prop="create_time" label="创建时间" >
+				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.create_time | fltrDate }}</span>
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="start_time" label="开始时间" >
+				<el-table-column   prop="start_time" label="开始时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.start_time | fltrDate }}</span>
+					<div>{{scope.row.start_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="end_time" label="结束时间" >
+				<el-table-column   prop="end_time" label="结束时间" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.end_time | fltrDate }}</span>
+					<div>{{scope.row.end_time | fltrDate("yyyy-MM-dd") }}</div>
 				</template>
 				</el-table-column>
-				<el-table-column prop="notify_msg" label="通知结果" >
+				<el-table-column   prop="notify_msg" label="通知结果" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.notify_msg && scope.row.notify_msg.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.notify_msg}}</div>
@@ -82,9 +83,9 @@
 						<span v-else>{{scope.row.notify_msg}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" @click="showDetail(scope.row)">详情</el-button>
+						<el-button type="text" size="mini" @click="showDetail(scope.row)">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -125,12 +126,14 @@ export default {
       queryData:{},               //查询数据对象
 			merNo: this.$enum.get("merchant_info"),
 			notifyStatus: this.$enum.get("process_status"),
-			dataList: {count: 0,items: []}, //表单数据对象
+			dataList: {count: 0,items: []}, //表单数据对象,
+			maxHeight: document.body.clientHeight
 		}
   },
   created(){
   },
   mounted(){
+		this.maxHeight = this.$utility.getTableHeight("panel-body")
     this.init()
   },
 	methods:{
@@ -139,10 +142,10 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
-    query:async function(){
+    query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
-      let res = await this.$http.xpost("/notify/info/query",this.queryData)
+      let res = this.$http.xpost("/notify/info/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items
 			this.dataList.count = res.count
     },

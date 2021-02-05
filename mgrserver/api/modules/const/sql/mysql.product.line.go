@@ -11,7 +11,7 @@ values
 (
 	@pl_id,
 	@pl_name,
-	@status
+	if(isnull(@status)||@status='',0,@status),
 )`
 
 //GetProductLineByPlID 查询单条数据产品线
@@ -51,8 +51,8 @@ limit @ps offset @offset
 const UpdateProductLineByPlID = `
 update ots_product_line 
 set
-	pl_name = @pl_name,
-	status = @status
+	pl_name =	@pl_name,
+	status =	if(isnull(@status)||@status='',0,@status),
 where
 	&pl_id`
 

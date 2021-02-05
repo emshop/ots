@@ -18,8 +18,8 @@ values
 	@ident,
 	@groups,
 	@eid,
-	@credit,
-	@status
+	if(isnull(@credit)||@credit='',0,@credit),
+	if(isnull(@status)||@status='',0,@status),
 )`
 
 //GetAccountInfoByAccountID 查询单条数据账户信息
@@ -31,7 +31,6 @@ select
 	t.groups,
 	t.eid,
 	t.balance,
-	t.credit,
 	t.status,
 	t.create_time
 from beanpay_account_info t
@@ -64,9 +63,9 @@ limit @ps offset @offset
 const UpdateAccountInfoByAccountID = `
 update beanpay_account_info 
 set
-	account_name = @account_name,
-	credit = @credit,
-	status = @status
+	account_name =	@account_name,
+	credit =	if(isnull(@credit)||@credit='',0,@credit),
+	status =	if(isnull(@status)||@status='',0,@status),
 where
 	&account_id`
 

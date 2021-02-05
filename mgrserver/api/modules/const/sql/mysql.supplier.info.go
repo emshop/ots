@@ -16,8 +16,8 @@ values
 	@spp_no,
 	@spp_name,
 	@mer_crop,
-	@bd_uid,
-	@status
+	if(isnull(@bd_uid)||@bd_uid='',0,@bd_uid),
+	if(isnull(@status)||@status='',0,@status),
 )`
 
 //GetSupplierInfoBySppNo 查询单条数据供货商信息
@@ -60,10 +60,10 @@ limit @ps offset @offset
 const UpdateSupplierInfoBySppNo = `
 update ots_supplier_info 
 set
-	spp_name = @spp_name,
-	mer_crop = @mer_crop,
-	bd_uid = @bd_uid,
-	status = @status
+	spp_name =	@spp_name,
+	mer_crop =	@mer_crop,
+	bd_uid =	if(isnull(@bd_uid)||@bd_uid='',0,@bd_uid),
+	status =	if(isnull(@status)||@status='',0,@status),
 where
 	&spp_no`
 

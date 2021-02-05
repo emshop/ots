@@ -33,7 +33,7 @@
                     <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.create_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
+                    <div>{{ info.create_time | fltrDate("MM/dd HH:mm:ss") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -43,13 +43,13 @@
                     <div class="pull-right" style="margin-right: 10px">上次执行时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.last_execute_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
+                    <div>{{ info.last_execute_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">下次执行时间:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.next_execute_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
+                    <div>{{ info.next_execute_time | fltrDate("MM/dd HH:mm:ss") }}</div>
                   </el-col>
                 </td>
               </tr>
@@ -59,7 +59,7 @@
                     <div class="pull-right" style="margin-right: 10px">执行期限:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.max_execute_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
+                    <div>{{ info.max_execute_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>                 
                   <el-col :span="6">
                     <div class="pull-right" style="margin-right: 10px">时间间隔:</div>
@@ -81,7 +81,7 @@
                     <div class="pull-right" style="margin-right: 10px">删除期限:</div>
                   </el-col>
                   <el-col :span="6">
-                    <div>{{ info.delete_time | fltrDate("yyyy-MM-dd hh:mm:ss") }}</div>
+                    <div>{{ info.delete_time | fltrDate("yyyy-MM-dd") }}</div>
                   </el-col>
                 </td>
               </tr>

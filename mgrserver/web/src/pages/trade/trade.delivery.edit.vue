@@ -33,6 +33,7 @@ export default {
 			this.refresh()
 		},
 		show() {
+			this.editData = this.$http.xget("/trade/delivery", { delivery_id: this.editData.delivery_id })
 			this.dialogFormVisible = true;
 		},
 		edit() {
