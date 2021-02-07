@@ -66,7 +66,7 @@ t.pl_id,
 t.brand_no,
 t.province_no,
 t.city_no,
-case when t.can_split_order = 0 then t.total_face-t.bind_face else t.face end 'total_face',
+case when t.can_split_order = 0 then t.total_face-t.bind_face else t.face end 'face',
 t.account_name,
 t.invoice_type,
 t.can_split_order,
@@ -77,15 +77,11 @@ t.delivery_pause,
 t.order_status,
 t.payment_status,
 t.delivery_status,
+t.total_face,
 t.bind_face
 from ots_trade_order t
 where
-t.order_id = @order_id 
-and (t.delivery_status = 20 or t.delivery_status = 30)
-and (t.total_face - t.bind_face) > 0
-and t.delivery_pause = 1
-and t.payment_status = 0
-and t.order_status = 20
+t.order_id = @order_id
 `
 
 //InsertTradeOrder 插入单条数据订单记录

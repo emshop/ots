@@ -1,8 +1,6 @@
 package payment
 
 import (
-	"net/http"
-
 	"github.com/emshop/ots/otsserver/modules/const/enums"
 	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/emshop/ots/otsserver/modules/flow"
@@ -28,8 +26,8 @@ func Paying(ctx hydra.IContext) interface{} {
 	ctx.Log().Infof("1. 处理订单支付(%s)", ctx.Request().GetString(sql.FieldOrderID))
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	err := payment.Pay(ctx.Request().GetString(sql.FieldOrderID))
-	switch { //无须处理或处理成功则关闭流程
-	case errs.GetCode(err) == http.StatusNoContent:
+	switch {
+	case errs.GetStop(err):
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	case err == nil:

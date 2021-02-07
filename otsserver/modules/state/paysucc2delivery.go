@@ -14,7 +14,7 @@ type PaySucc2Delivery struct {
 }
 
 //Check 检查状态
-func (o *PaySucc2Delivery) Check(order types.IXMap) bool {
+func (o PaySucc2Delivery) Check(order types.IXMap) bool {
 	orderStatus := order.GetInt(sql.FieldOrderStatus)
 	payStatus := order.GetInt(sql.FieldPaymentStatus)
 	deliveryStatus := order.GetInt(sql.FieldDeliveryStatus)
@@ -25,7 +25,7 @@ func (o *PaySucc2Delivery) Check(order types.IXMap) bool {
 }
 
 //Update 订单支付成功的订单修改为开始发货（订单状态:10->20,发货状态:10->20）
-func (o *PaySucc2Delivery) Update(db db.IDBExecuter, orderID string) error {
+func (o PaySucc2Delivery) Update(db db.IDBExecuter, orderID string) error {
 	row, err := db.Execute(sql.UpdateOrderForWaitDelivery, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})

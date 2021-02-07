@@ -10,6 +10,26 @@ and t.order_status = 10
 and t.payment_status = 10
 `
 
+//UpdateOrderForPaySuccess 将订单状态修改为等待支付
+const UpdateOrderForPaySuccess = `
+update ots_trade_order t set
+t.payment_status = 0
+where
+t.order_id = @order_id
+and t.order_status = 10
+and t.payment_status = 20
+`
+
+//UpdateOrderForPayFailed 将订单状态修改为支付失败
+const UpdateOrderForPayFailed = `
+update ots_trade_order t set
+t.payment_status = 90
+where
+t.order_id = @order_id
+and t.order_status = 10
+and t.payment_status = 20
+`
+
 //UpdateOrderForWaitDelivery 将订单状态修改为等待发货
 const UpdateOrderForWaitDelivery = `
 update ots_trade_order t set

@@ -1,14 +1,11 @@
 package bind
 
 import (
-	"net/http"
-
 	"github.com/emshop/ots/otsserver/modules/bind"
 	"github.com/emshop/ots/otsserver/modules/const/enums"
 	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/emshop/ots/otsserver/modules/flow"
 	"github.com/micro-plat/hydra"
-	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
 	"github.com/micro-plat/qtask"
 )
@@ -27,13 +24,12 @@ func Binding(ctx hydra.IContext) interface{} {
 
 	ctx.Log().Infof("1. 处理订单绑定(%s)", ctx.Request().GetString(sql.FieldOrderID))
 	qtask.ProcessingByInput(ctx, ctx.Request())
-	deliveryID, err := bind.Bind(ctx.Request().GetString(sql.FieldOrderID))
+	deliveryID, finish, err := bind.Bind(ctx.Request().GetString(sql.FieldOrderID))
 	switch {
-	case errs.GetCode(err) == http.StatusAccepted:
+	case err != nil:
 		return err
-	case errs.GetCode(err) == http.StatusNoContent:
+	case finish:
 		qtask.FinishByInput(ctx, ctx.Request()) //当订单绑定完成后自动关闭流程
-		return nil
 	}
 
 	ctx.Log().Info("2. 执行后续流程")

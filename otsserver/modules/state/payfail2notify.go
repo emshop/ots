@@ -14,7 +14,7 @@ type PayFail2Notify struct {
 }
 
 //Check 检查状态
-func (o *PayFail2Notify) Check(order types.IXMap) bool {
+func (o PayFail2Notify) Check(order types.IXMap) bool {
 	orderStatus := order.GetInt(sql.FieldOrderStatus)
 	payStatus := order.GetInt(sql.FieldPaymentStatus)
 	deliveryStatus := order.GetInt(sql.FieldDeliveryStatus)
@@ -28,7 +28,7 @@ func (o *PayFail2Notify) Check(order types.IXMap) bool {
 }
 
 //Update 支付失败改为等待通知(订单状态10->50,发货状态10->11,通知状态:11->11,10->20 )
-func (o *PayFail2Notify) Update(db db.IDBExecuter, orderID string) error {
+func (o PayFail2Notify) Update(db db.IDBExecuter, orderID string) error {
 	row, err := db.Execute(sql.UpdateOrderForNotifyByPayFailed, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})

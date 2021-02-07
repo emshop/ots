@@ -42,12 +42,3 @@ where
 t.order_id = @order_id 
 and (t.order_timeout < now() or t.order_status in(0,90))
 `
-
-//SelectTradeOrderByNoneedPay 查询超时订单
-const SelectTradeOrderByNoneedPay = `
-select count(0)
-from ots_trade_order t
-where
-t.order_id = @order_id 
-and t.order_status != 10
-`

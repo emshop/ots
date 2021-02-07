@@ -14,7 +14,7 @@ type Notify2Pay struct {
 }
 
 //Check 检查状态
-func (o *Notify2Pay) Check(order types.IXMap) bool {
+func (o Notify2Pay) Check(order types.IXMap) bool {
 	orderStatus := order.GetInt(sql.FieldOrderStatus)
 	notifyStatus := order.GetInt(sql.FieldNotifyStatus)
 
@@ -24,7 +24,7 @@ func (o *Notify2Pay) Check(order types.IXMap) bool {
 }
 
 //Update 订单通知完成后结束订单(订单状态:50->0/90）
-func (o *Notify2Pay) Update(db db.IDBExecuter, orderID string) error {
+func (o Notify2Pay) Update(db db.IDBExecuter, orderID string) error {
 	row, err := db.Execute(sql.UpdateOrderForFinishByNotify, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})

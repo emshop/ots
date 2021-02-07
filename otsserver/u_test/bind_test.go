@@ -11,6 +11,7 @@ import (
 )
 
 func TestSingleBind(t *testing.T) {
+
 	preper()
 	err := orderCache.makePaidOrder(1)
 	assert.Equal(t, nil, err)

@@ -14,14 +14,14 @@ type Order2Pay struct {
 }
 
 //Check 检查状态
-func (o *Order2Pay) Check(order types.IXMap) bool {
+func (o Order2Pay) Check(order types.IXMap) bool {
 	orderStatus := order.GetInt(sql.FieldOrderStatus)
 	payStatus := order.GetInt(sql.FieldPaymentStatus)
 	return orderStatus == int(enums.OrderPaying) && payStatus == int(enums.ProcessNotStart)
 }
 
 //Update 修改订单状态为等待支付（订单状态为10不变，支付状态修改为20）
-func (o *Order2Pay) Update(db db.IDBExecuter, orderID string) error {
+func (o Order2Pay) Update(db db.IDBExecuter, orderID string) error {
 	row, err := db.Execute(sql.UpdateOrderForWaitPaying, map[string]interface{}{
 		sql.FieldOrderID: orderID,
 	})
