@@ -7,8 +7,8 @@ import (
 )
 
 var App = hydra.NewApp(
-	hydra.WithPlatName("平台名", "平台中文名"),
-	hydra.WithSystemName("系统名", "系统中文名"),
+	hydra.WithPlatName("emshop", "充值交易平台"),
+	hydra.WithSystemName("mgrserver", "运营系统"),
 	hydra.WithServerTypes(http.Web),
 )
 

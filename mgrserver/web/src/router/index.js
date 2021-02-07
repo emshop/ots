@@ -6,11 +6,18 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   routes: [
+	  {
+		path: '/',
+		name: 'menus',
+		component: () => import('../pages/system/menus.vue'),
+	  },
+	  
     {
-      path: '/',
+      path: '/pages/',
       name: 'menus',
       component: () => import('../pages/system/menus.vue'),
       children:[
+
 				{
 					path: 'account/info',
 					name: 'AccountInfo',

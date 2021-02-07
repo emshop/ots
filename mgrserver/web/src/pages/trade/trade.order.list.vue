@@ -50,7 +50,7 @@
 
     	<!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column fixed sortable prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
@@ -173,13 +173,16 @@ export default {
 			cityNo: [],
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+	  this.$nextTick(()=>{
+		  this.maxHeight = this.$utility.getTableHeight("panel-body")
+	  })
+		
     this.init()
   },
 	methods:{

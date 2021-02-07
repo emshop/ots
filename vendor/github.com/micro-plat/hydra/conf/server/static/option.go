@@ -95,6 +95,7 @@ func WithArchive(archive string) Option {
 			s.Archive = archive + ".zip"
 			return
 		}
+
 		s.Archive = archive
 	}
 }

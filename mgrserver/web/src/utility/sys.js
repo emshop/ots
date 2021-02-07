@@ -87,7 +87,7 @@ Sys.prototype.findMenuItem = function(menus, path){
     if (!cur){                
         path = path.substring(0, path.lastIndexOf('/'));
         if (!path){
-            return {}
+            return getMenuItem(menus, '/')
         }
         cur = getMenuItem(menus, path)
     }
