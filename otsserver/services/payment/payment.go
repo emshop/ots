@@ -27,7 +27,7 @@ func Paying(ctx hydra.IContext) interface{} {
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	err := payment.Pay(ctx.Request().GetString(sql.FieldOrderID))
 	switch {
-	case errs.GetStop(err):
+	case errs.NeedStop(err):
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	case err == nil:

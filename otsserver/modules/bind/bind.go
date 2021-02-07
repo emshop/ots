@@ -12,18 +12,20 @@ import (
 )
 
 //Bind 订单绑定上游渠道
-func Bind(orderID string) (string, bool, error) {
+func Bind(orderID string) (string, error) {
 
 	//查询订单，检查是否可以绑定
 	order, err := orders.GetOrderForBind(orderID)
 	if err != nil {
-		return "", false, err
+		return "", err
 	}
 	var binding state.Binding
 	if !binding.Check(order) {
-		return "", false, errs.NewErrorf(http.StatusNoContent, "订单(%s)状态错误，无法绑定", orderID)
+		return "", errs.NewStopf(http.StatusNoContent, "订单(%s)状态错误，无法绑定", orderID)
 	}
-
+	if binding.IsFinish(order) {
+		return "", errs.NewStopf(http.StatusNoContent, "订单(%s)已全部绑定", orderID)
+	}
 	//查询上游产品
 	products, err := spp.GetProducts(
 		order.GetInt(sql.FieldPlID),
@@ -34,12 +36,12 @@ func Bind(orderID string) (string, bool, error) {
 		order.GetInt(sql.FieldFace),
 		order.GetDecimal(sql.FieldSellDiscount))
 	if err != nil {
-		return "", false, err
+		return "", err
 	}
 
 	//无可用产品
 	if products.Len() == 0 {
-		return "", false, errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", orderID)
+		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", orderID)
 	}
 
 	//循环处理每次绑定
@@ -48,7 +50,7 @@ func Bind(orderID string) (string, bool, error) {
 		//查询货架信息
 		shelf, err := spp.GetShelfByID(product.GetInt(sql.FieldSppShelfID))
 		if err != nil {
-			return "", false, err
+			return "", err
 		}
 		if shelf.Len() == 0 {
 			continue
@@ -56,21 +58,10 @@ func Bind(orderID string) (string, bool, error) {
 
 		//创建发货记录
 		deliveryID, ok, err := delivery.Create(order, shelf, product)
-		if err != nil {
-			return deliveryID, false, err
-		}
-		if ok {
-			order, err := orders.GetOrderForBind(orderID)
-			if err != nil {
-				return "", false, err
-			}
-			var binding state.Binding
-			if binding.IsFinish(order) {
-				return deliveryID, true, nil
-			}
-			return deliveryID, false, nil
+		if err != nil || ok {
+			return deliveryID, err
 		}
 	}
 
-	return "", false, errs.NewErrorf(http.StatusAccepted, "无可用的上游可绑定%d", orderID)
+	return "", errs.NewErrorf(http.StatusAccepted, "无可用的上游可绑定%d", orderID)
 }
