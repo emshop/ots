@@ -5,15 +5,9 @@ import Router from 'vue-router';
 Vue.use(Router);
 export default new Router({
   mode: 'history',
-  routes: [
-	  {
-		path: '/',
-		name: 'menus',
-		component: () => import('../pages/system/menus.vue'),
-	  },
-	  
+  routes: [	  
     {
-      path: '/pages/',
+      path: '/',
       name: 'menus',
       component: () => import('../pages/system/menus.vue'),
       children:[
