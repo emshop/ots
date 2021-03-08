@@ -371,7 +371,7 @@ After: After(字段名) //在某个字段后面
 | id      | number(10)   |        |  否   | PK,IS,SEQ,l,r,DI | 编号   |
 | name    | varchar2(64) |        |  否   |   q,c,u,l,r,DN   | 名称   |
 | value   | varchar2(32) |        |  否   |     c,u,l,r      | 值     |
-| type    | varchar2(32) |        |  否   |    q,c,u,l,r     | 类型   |
+| type    | varchar2(32) |        |  否   |    q,c,u,l,r,DT     | 类型   |
 | status  | number(1)    |   0    |  否   | q,c,u,l,r,sl,cc  | 状态   |
 | sort_no | number(2)    |   0    |  否   |     c,u,l,r      | 排序值 |
 
