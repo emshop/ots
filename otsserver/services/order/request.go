@@ -10,6 +10,7 @@ import (
 	"github.com/emshop/ots/otsserver/modules/orders"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
+	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
 
 var orderRequestFields = []string{
@@ -21,13 +22,14 @@ var orderRequestFields = []string{
 }
 
 //Request 下单处理
-func Request(ctx hydra.IContext) interface{} {
+func Request(ctx hydra.IContext) (r interface{}) {
 
 	ctx.Log().Info("-------------处理订单收单----------------------")
 	if err := ctx.Request().Check(orderRequestFields...); err != nil {
 		return err
 	}
 
+	defer lcs.New(ctx.Log(), "创建订单", "20190401123").Start("开始创单").End(r)
 	ctx.Log().Info("1. 查询订单信息")
 	order, err := orders.Query(ctx.Request().GetString(sql.FieldMerNo),
 		ctx.Request().GetString(sql.FieldMerOrderNo))

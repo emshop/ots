@@ -17,7 +17,6 @@ import (
 //init 检查应用程序配置文件，并根据配置初始化服务
 func init() {
 	hydra.OnReady(func() {
-		hydra.S.Group("api")
 		hydra.S.Web("/supplier/ecode", supplier.NewSupplierEcodeHandler())
 		hydra.S.Web("/supplier/shelf", supplier.NewSupplierShelfHandler())
 		hydra.S.Web("/audit/info", audit.NewAuditInfoHandler())
@@ -37,6 +36,5 @@ func init() {
 		hydra.S.Web("/dictionary/info", dictionary.NewDictionaryInfoHandler())
 		hydra.S.Web("/merchant/info", merchant.NewMerchantInfoHandler())
 		hydra.S.Web("/notify/info", notify.NewNotifyInfoHandler())
-
 	})
 }

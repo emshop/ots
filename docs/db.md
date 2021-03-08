@@ -375,6 +375,17 @@ After: After(字段名) //在某个字段后面
 | status  | number(1)    |   0    |  否   | q,c,u,l,r,sl,cc  | 状态   |
 | sort_no | number(2)    |   0    |  否   |     c,u,l,r      | 排序值 |
 
+### 生命周期记录表[^lcs_life_time]
+
+| 字段名             | 类型          | 默认值   | 为空 | 约束   | 描述                   |
+| ----------------- | ------------ | :-----: | :--: | :---: | :---------------------|
+| id                | bigint   |         |  否  | PK, IS, SEQ | id                     |
+| order_no          | varchar(32) |         |  否  |  IS, IDX  | 子系统唯一标识         |
+| batch_no          | varchar(32) |         |  是  |  IS  | 自定义字段               |
+| extral_param      | varchar(32) |         |  是  |  IS  | 子系统唯一标识           |
+| ip                | varchar(32)|          |  是  |  IS  | 用户ip                  |
+| content           | varchar(1000)|        |  否  |  IS   | 内容           |
+| create_time       | datetime        | current_timestamp  |  否  |  IS  | 创建时间                  |
 
 * 生成DB gitcli db create ../docs/db.md  ./modules/const/db/scheme --gofile --drop --cover --seqfile
 * 生成代码 gitcli md code entity ./docs/db.md -t 
