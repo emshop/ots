@@ -138,7 +138,7 @@ const (
 	FlowDeliveryBind FlowName = "delivery:bind"
 
 	//FlowDeliveryPay 发货支付
-	FlowDeliveryPay FlowName = "spp_payment"
+	FlowDeliveryPay FlowName = "delivery:pay"
 
 	//FlowDelivery 发货开始流程
 	FlowDelivery FlowName = "delivery:start"
