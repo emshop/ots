@@ -1,5 +1,5 @@
 <template>
-	<el-dialog title="编辑订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
+	<el-dialog title="编辑订单记录" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
     </el-form>
 		<div slot="footer" class="dialog-footer">
@@ -33,7 +33,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/trade/order", { order_id: this.editData.order_id })
+			var order_id = this.editData.order_id
+			this.editData = this.$http.xget("/trade/order", { order_id: order_id })
+			this.editData.order_id = order_id
 			this.dialogFormVisible = true;
 		},
 		edit() {

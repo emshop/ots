@@ -13,5 +13,5 @@ require (
 	github.com/micro-plat/lib4go v1.1.0
 	github.com/micro-plat/qtask v1.10.1
 	gitlab.100bm.cn/micro-plat/dds/dds v1.0.3
-	gitlab.100bm.cn/micro-plat/lcs/lcs v0.0.4
+	gitlab.100bm.cn/micro-plat/lcs/lcs v1.1.0
 )

@@ -1,4 +1,5 @@
 package sql
+
 //InsertDictionaryInfo 添加字典配置
 const InsertDictionaryInfo = `
 insert into dds_dictionary_info
@@ -17,7 +18,7 @@ values
 	@value,
 	@type,
 	if(isnull(@status)||@status='',0,@status),
-	if(isnull(@sort_no)||@sort_no='',0,@sort_no),
+	if(isnull(@sort_no)||@sort_no='',0,@sort_no)
 )`
 
 //GetDictionaryInfoByID 查询单条数据字典配置
@@ -59,6 +60,7 @@ where
 order by t.id desc
 limit @ps offset @offset
 `
+
 //UpdateDictionaryInfoByID 更新字典配置
 const UpdateDictionaryInfoByID = `
 update dds_dictionary_info 
@@ -67,7 +69,6 @@ set
 	value =	@value,
 	type =	@type,
 	status =	if(isnull(@status)||@status='',0,@status),
-	sort_no =	if(isnull(@sort_no)||@sort_no='',0,@sort_no),
+	sort_no =	if(isnull(@sort_no)||@sort_no='',0,@sort_no)
 where
 	&id`
-

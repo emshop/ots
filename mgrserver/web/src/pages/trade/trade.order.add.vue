@@ -1,6 +1,6 @@
 <template>
   <!-- Add Form -->
-  <el-dialog title="添加订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]" width="25%" :visible.sync="dialogAddVisible">
+  <el-dialog title="添加订单记录" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
     </el-form>
     <div slot="footer" class="dialog-footer">

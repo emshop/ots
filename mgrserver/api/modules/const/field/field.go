@@ -79,7 +79,7 @@ const FieldCredit = "credit"
 //FieldDealCode 字段处理码的数据库名称
 const FieldDealCode = "deal_code"
 
-//FieldDelay 字段延后处理时长的数据库名称
+//FieldDelay 字段延后时长的数据库名称
 const FieldDelay = "delay"
 
 //FieldDeleteInterval 字段删除间隔,秒数的数据库名称
@@ -136,6 +136,9 @@ const FieldFlowID = "flow_id"
 //FieldFlowName 字段流程名称的数据库名称
 const FieldFlowName = "flow_name"
 
+//FieldFlowTag 字段流程名称的数据库名称
+const FieldFlowTag = "flow_tag"
+
 //FieldGroups 字段用户分组的数据库名称
 const FieldGroups = "groups"
 
@@ -160,7 +163,7 @@ const FieldLastUpdateTime = "last_update_time"
 //FieldLimitCount 字段单次最大发货数量的数据库名称
 const FieldLimitCount = "limit_count"
 
-//FieldMaxCount 字段最大执行次数的数据库名称
+//FieldMaxCount 字段最大次数的数据库名称
 const FieldMaxCount = "max_count"
 
 //FieldMaxExecuteTime 字段执行期限(此时间前的任务可以被执行)的数据库名称
@@ -265,7 +268,7 @@ const FieldProvinceNo = "province_no"
 //FieldQueryURL 字段查询地址的数据库名称
 const FieldQueryURL = "query_url"
 
-//FieldQueueName 字段消息队列的数据库名称
+//FieldQueueName 字段队列名称的数据库名称
 const FieldQueueName = "queue_name"
 
 //FieldRealDiscount 字段实际折扣的数据库名称

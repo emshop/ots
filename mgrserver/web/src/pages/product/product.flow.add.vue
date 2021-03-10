@@ -2,17 +2,12 @@
   <!-- Add Form -->
   <el-dialog title="添加业务流程" width="65%"  :visible.sync="dialogAddVisible">
     <el-form :model="addData" :inline="true" :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="流程名称" prop="flow_name">
-				<el-input size="medium" maxlength="64"
-				 clearable v-model="addData.flow_name" placeholder="请输入流程名称">
-				</el-input>
-      </el-form-item>
       
-      <el-form-item label="tag标签" prop="tag_name">
-				<el-input size="medium" maxlength="64"
-				 clearable v-model="addData.tag_name" placeholder="请输入tag标签">
-				</el-input>
-      </el-form-item>
+			<el-form-item label="流程名称:" prop="flow_tag">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.flow_tag"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in flowTag" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
       
       
 			<el-form-item label="产品线:" prop="pl_id">
@@ -21,56 +16,42 @@
 				</el-select>
 			</el-form-item>
       
-      
-			<el-form-item label="成功流程:" prop="success_flow_id">
-				<el-select size="medium"  placeholder="---请选择---" clearable filterable v-model="successFlowIDArray" multiple style="width: 100%;">
-					<el-option v-for="(item, index) in successFlowID" :key="index" :value="item.value" :label="item.name" ></el-option>
-				</el-select>
-			</el-form-item>
-      
-      
-			<el-form-item label="失败流程:" prop="failed_flow_id">
-				<el-select size="medium"  placeholder="---请选择---" clearable filterable v-model="failedFlowIDArray" multiple style="width: 100%;">
-					<el-option v-for="(item, index) in failedFlowID" :key="index" :value="item.value" :label="item.name" ></el-option>
-				</el-select>
-			</el-form-item>
-      
-      
-			<el-form-item label="未知流程:" prop="unknown_flow_id">
-				<el-select size="medium"  placeholder="---请选择---" clearable filterable v-model="unknownFlowIDArray" multiple style="width: 100%;">
-					<el-option v-for="(item, index) in unknownFlowID" :key="index" :value="item.value" :label="item.name" ></el-option>
-				</el-select>
-			</el-form-item>
-      
-      <el-form-item label="队列名称" prop="queue_name">
+      <el-form-item label="队列名称:" prop="queue_name">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.queue_name" placeholder="请输入队列名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="执行间隔" prop="scan_interval">
+      <el-form-item label="执行间隔:" prop="scan_interval">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.scan_interval" placeholder="请输入执行间隔">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="延后处理时长" prop="delay">
+      <el-form-item label="延后时长:" prop="delay">
 				<el-input size="medium" maxlength="10"
-				 clearable v-model="addData.delay" placeholder="请输入延后处理时长">
+				 clearable v-model="addData.delay" placeholder="请输入延后时长">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="超时时长" prop="timeout">
+      <el-form-item label="超时时长:" prop="timeout">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.timeout" placeholder="请输入超时时长">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="最大执行次数" prop="max_count">
+      <el-form-item label="最大次数:" prop="max_count">
 				<el-input size="medium" maxlength="10"
-				 clearable v-model="addData.max_count" placeholder="请输入最大执行次数">
+				 clearable v-model="addData.max_count" placeholder="请输入最大次数">
 				</el-input>
       </el-form-item>
+      
+      
+			<el-form-item label="状态:" prop="status">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
       
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -87,25 +68,12 @@ export default {
 		return {
 			addData: {},
 			dialogAddVisible: false,
+			flowTag:this.$enum.get("flow_tag"),
 			plID:this.$enum.get("product_line"),
-			successFlowID: this.$enum.get("product_flow"),
-			successFlowIDArray: [],
-			failedFlowID: this.$enum.get("product_flow"),
-			failedFlowIDArray: [],
-			unknownFlowID: this.$enum.get("product_flow"),
-			unknownFlowIDArray: [],
+			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
-				flow_name: [{ required: true, message: "请输入流程名称", trigger: "blur" }],
-				tag_name: [{ required: true, message: "请输入tag标签", trigger: "blur" }],
+				flow_tag: [{ required: true, message: "请输入流程名称", trigger: "blur" }],
 				pl_id: [{ required: true, message: "请输入产品线", trigger: "blur" }],
-				success_flow_id: [{ required: true, message: "请输入成功流程", trigger: "blur" }],
-				failed_flow_id: [{ required: true, message: "请输入失败流程", trigger: "blur" }],
-				unknown_flow_id: [{ required: true, message: "请输入未知流程", trigger: "blur" }],
-				queue_name: [{ required: true, message: "请输入队列名称", trigger: "blur" }],
-				scan_interval: [{ required: true, message: "请输入执行间隔", trigger: "blur" }],
-				delay: [{ required: true, message: "请输入延后处理时长", trigger: "blur" }],
-				timeout: [{ required: true, message: "请输入超时时长", trigger: "blur" }],
-				max_count: [{ required: true, message: "请输入最大执行次数", trigger: "blur" }],
 			},
 		}
 	},
@@ -130,9 +98,6 @@ export default {
 			this.dialogAddVisible = true;
 		},
 		add(formName) {
-			this.addData.success_flow_id = this.successFlowIDArray.toString()
-			this.addData.failed_flow_id = this.failedFlowIDArray.toString()
-			this.addData.unknown_flow_id = this.unknownFlowIDArray.toString()
 			this.$refs[formName].validate((valid) => {
 				if (valid) {
 					this.$http.post("/product/flow", this.addData, {}, true, true)

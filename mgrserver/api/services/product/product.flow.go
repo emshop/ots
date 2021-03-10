@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -113,8 +113,8 @@ func (u *ProductFlowHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateProductFlowByFlowID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateProductFlowByFlowID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -123,17 +123,14 @@ func (u *ProductFlowHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 }
 
 var postProductFlowCheckFields = map[string]interface{}{
-	field.FieldFlowName:"required",
-	field.FieldTagName:"required",
+	field.FieldFlowTag:"required",
 	field.FieldPlID:"required",
-	field.FieldSuccessFlowID:"required",
-	field.FieldFailedFlowID:"required",
-	field.FieldUnknownFlowID:"required",
-	field.FieldQueueName:"required",
-	field.FieldScanInterval:"required",
-	field.FieldDelay:"required",
-	field.FieldTimeout:"required",
-	field.FieldMaxCount:"required",
+	
+	
+	
+	
+	
+	
 	}
 
 var getProductFlowCheckFields = map[string]interface{}{
@@ -141,23 +138,20 @@ var getProductFlowCheckFields = map[string]interface{}{
 }
 
 var queryProductFlowCheckFields = map[string]interface{}{
-	field.FieldFlowName:"required",
-	field.FieldTagName:"required",
+	field.FieldFlowTag:"required",
 	field.FieldPlID:"required",
+	field.FieldStatus:"required",
 	}
 
 var updateProductFlowCheckFields = map[string]interface{}{
-	field.FieldFlowName:"required",
-	field.FieldTagName:"required",
+	field.FieldFlowTag:"required",
 	field.FieldPlID:"required",
-	field.FieldSuccessFlowID:"required",
-	field.FieldFailedFlowID:"required",
-	field.FieldUnknownFlowID:"required",
-	field.FieldQueueName:"required",
-	field.FieldScanInterval:"required",
-	field.FieldDelay:"required",
-	field.FieldTimeout:"required",
-	field.FieldMaxCount:"required",
+	
+	
+	
+	
+	
+	
 	}
 
 

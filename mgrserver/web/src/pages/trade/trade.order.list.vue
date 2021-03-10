@@ -9,28 +9,28 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" clearable filterable class="input-cos" placeholder="请选择商户编号">
+					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户编号">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.pl_id" clearable filterable class="input-cos" placeholder="请选择产品线">
+					<el-select size="medium" v-model="queryData.pl_id"  clearable filterable class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.province_no" @change="setCityNo(queryData.province_no)" clearable filterable class="input-cos" placeholder="请选择省份">
+					<el-select size="medium" v-model="queryData.province_no"  clearable filterable class="input-cos" placeholder="请选择省份" @change="setCityNo(queryData.province_no)">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in provinceNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.city_no" clearable filterable class="input-cos" placeholder="请选择城市">
+					<el-select size="medium" v-model="queryData.city_no"  clearable filterable class="input-cos" placeholder="请选择城市" @change="handleChooseTool()">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in cityNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
@@ -41,7 +41,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>
@@ -54,7 +54,7 @@
 				
 				<el-table-column fixed sortable prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.order_id}}</span>
+					<span>{{scope.row.order_id | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -69,7 +69,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
 							<span>{{scope.row.mer_order_no | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.mer_order_no}}</span>
+						<span v-else>{{scope.row.mer_order_no | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="pl_id" label="产品线" align="center">
@@ -103,7 +103,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.account_name}}</div>
 							<span>{{scope.row.account_name | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.account_name}}</span>
+						<span v-else>{{scope.row.account_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="sell_discount" label="销售折扣" align="center">
@@ -179,10 +179,9 @@ export default {
   created(){
   },
   mounted(){
-	  this.$nextTick(()=>{
-		  this.maxHeight = this.$utility.getTableHeight("panel-body")
-	  })
-		
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -190,18 +189,24 @@ export default {
     init(){
       this.query()
 		},
+		handleChooseTool() {
+      this.$forceUpdate()
+    },
 		setCityNo(pid){
-			this.cityNo=[];
 			this.queryData.city_no = ""
 			this.cityNo=this.$enum.get("city",pid)
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
       let res = this.$http.xpost("/trade/order/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

@@ -141,27 +141,27 @@ After: After(字段名) //在某个字段后面
 
 # 三、交易类
 
-###  1. 订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]
+###  1. 订单记录[ots_trade_order]{tab(ots_trade_delivery|)}
 
 | 字段名                  | 类型         |   默认值   | 为空  |                             约束                             | 描述                  |
 | ----------------------- | ------------ | :--------: | :---: | :----------------------------------------------------------: | :-------------------- |
 | order_id                | varchar2(32) | 1100000000 |  否   |                     PK,l,q,r,sort,fixed                      | 订单编号              |
 | mer_no                  | varchar2(32) |            |  否   |                 l,Q,sl(ots_merchant_info),r                  | 商户编号              |
-| mer_order_no            | varchar2(64) |            |  否   |                              r,l                               | 商户订单编号          |
+| mer_order_no            | varchar2(64) |            |  否   |                             r,l                              | 商户订单编号          |
 | mer_product_id          | number(10)   |    300     |  否   |                  r,sl(ots_merchant_product)                  | 商户商品              |
 | mer_shelf_id            | number(10)   |            |  否   |                   r,sl(ots_merchant_shelf)                   | 商户货架              |
 | mer_product_no          | varchar2(32) |            |  是   |                              r                               | 外部商品编号          |
 | pl_id                   | number(10)   |            |  否   |                  l,Q,sl(ots_product_line),r                  | 产品线                |
-| brand_no                | varchar2(8)  |            |  否   |                         l,r,sl(brand)                          | 品牌                  |
+| brand_no                | varchar2(8)  |            |  否   |                        l,r,sl(brand)                         | 品牌                  |
 | province_no             | varchar2(8)  |            |  否   |                      q,l,r,sl(province)                      | 省份                  |
 | city_no                 | varchar2(8)  |            |  否   |                 r,q(e:#province_no),sl(city)                 | 城市                  |
 | face                    | number(10)   |            |  否   |                             l,r                              | 面值                  |
 | num                     | number(10)   |            |  否   |                             l,r                              | 数量                  |
 | total_face              | number(10)   |            |  否   |                              r                               | 商品总面值            |
 | account_name            | varchar2(64) |            |  否   |                             l,r                              | 用户账户              |
-| invoice_type            | number(2)    |            |  否   |                   r,cc,sl(invoice_type)                    | 发票（1.不支持）      |
+| invoice_type            | number(2)    |            |  否   |                    r,cc,sl(invoice_type)                     | 发票（1.不支持）      |
 | sell_discount           | number(20,5) |            |  否   |                        l,r,decimal(5)                        | 销售折扣              |
-| sell_amount             | number(20,5) |            |  否   |                             r                              | 总销售金额            |
+| sell_amount             | number(20,5) |            |  否   |                              r                               | 总销售金额            |
 | mer_fee_discount        | number(20,5) |            |  否   |                         r,decimal(5)                         | 商户佣金折扣          |
 | trade_fee_discount      | number(20,5) |            |  否   |                         r,decimal(5)                         | 交易服务折扣          |
 | payment_fee_discount    | number(20,5) |            |  否   |                         r,decimal(5)                         | 支付手续费折扣        |
@@ -170,7 +170,7 @@ After: After(字段名) //在某个字段后面
 | finish_time             | date         |  sysdate   |  否   |                   r(f:yyyy-MM-dd HH:mm:ss)                   | 完成时间              |
 | order_timeout           | date         |            |  否   |                  r,r(f:yyyy-MM-dd HH:mm:ss)                  | 订单超时时间          |
 | payment_timeout         | date         |            |  否   |                  r,r(f:yyyy-MM-dd HH:mm:ss)                  | 支付超时时间          |
-| bind_face               | number(10)   |     0      |  否   |                             r,l                              | 绑定面值            |
+| bind_face               | number(10)   |     0      |  否   |                             r,l                              | 绑定面值              |
 | delivery_pause          | number(1)    |     1      |  否   |                        r,sl(bool),cc                         | 发货暂停（0.是，1否） |
 | order_status            | number(3)    |     10     |  否   |                          l,r,sl,cc                           | 订单状态              |
 | payment_status          | number(3)    |     20     |  否   |                   r,sl(process_status),cc                    | 支付状态              |
@@ -294,22 +294,17 @@ After: After(字段名) //在某个字段后面
 | create_time | date         | sysdate |  否   |     l,r(dtp)      | 创建时间   |
 
 ###  2. 业务流程[ots_product_flow]
-| 字段名          | 类型         | 默认值 | 为空  |                       约束                       | 描述         |
-| --------------- | ------------ | :----: | :---: | :----------------------------------------------: | :----------- |
-| flow_id         | number(10)   |  200   |  否   |                  PK,SEQ,l,r,DI                   | 流程编号     |
-| flow_name       | varchar2(64) |        |  否   |                   q,DN,l,r,u,c                   | 流程名称     |
-| tag_name        | varchar2(64) |        |  否   |           q,l,r,UNQ(unq_flow_tag),u,c            | tag标签      |
-| pl_id           | number(10)   |        |  否   | l,r,UNQ(unq_flow_tag),q,sl(ots_product_line),u,c | 产品线       |
-| success_flow_id | varchar2(32) |  '-'   |  否   |         l,r,slm(ots_product_flow),cc,u,c         | 成功流程     |
-| failed_flow_id  | varchar2(32) |  '-'   |  否   |         l,r,slm(ots_product_flow),cc,u,c         | 失败流程     |
-| unknown_flow_id | varchar2(32) |  '-'   |  否   |         l,r,slm(ots_product_flow),cc,u,c         | 未知流程     |
-| queue_name      | varchar2(64) |  '-'   |  否   |                      r,u,c                       | 队列名称     |
-| scan_interval   | number(10)   |        |  否   |                      r,u,c                       | 执行间隔     |
-| delay           | number(10)   |   0    |  否   |                      r,u,c                       | 延后处理时长 |
-| timeout         | number(10)   |        |  否   |                      r,u,c                       | 超时时长     |
-| max_count       | number(10)   |        |  否   |                      r,u,c                       | 最大执行次数 |
-
-
+| 字段名        | 类型         | 默认值 | 为空  |                       约束                       | 描述     |
+| ------------- | ------------ | :----: | :---: | :----------------------------------------------: | :------- |
+| flow_id       | number(10)   |  200   |  否   |                  PK,SEQ,l,r,DI                   | 流程编号 |
+| flow_tag      | varchar2(32) |        |  否   |     q,l,r,UNQ(unq_flow_tag),u,c,sl(flow_tag)     | 流程名称 |
+| pl_id         | number(10)   |        |  否   | l,r,UNQ(unq_flow_tag),q,u,c,sl(ots_product_line) | 产品线   |
+| queue_name    | varchar2(64) |  '-'   |  是   |                     r,u,c,l                      | 队列名称 |
+| scan_interval | number(10)   |   0     |  是   |                     r,u,c,l                      | 执行间隔 |
+| delay         | number(10)   |   0    |  是   |                     r,u,c,l                      | 延后时长 |
+| timeout       | number(10)   |    0    |  是   |                     r,u,c,l                      | 超时时长 |
+| max_count     | number(10)   |   0     |  是   |                     r,u,c,l                      | 最大次数 |
+| status        | number(1)    |   0    |  是   |                l,q,r,sl,cc,u,c,r                 | 状态     |
 
 ### 任务表[^tsk_system_task]
 
@@ -353,7 +348,7 @@ After: After(字段名) //在某个字段后面
 | ----------- | -------------- | :-----: | :---: | :----------------------------: | :------------------------------------------------------------- |
 | record_id   | number(20)     | 100000  |  否   |           PK,SEQ,l,r           | 变动编号                                                       |
 | account_id  | number(20)     |         |  否   | l,r,q,sl(beanpay_account_info) | 帐户编号                                                       |
-| trade_no    | varchar2(32)   |         |  否   |             q,l,r              | 交易编号                                                       |
+| trade_no    | varchar2(32)   |         |  否   |             q,l,r,sl()              | 交易编号                                                       |
 | ext_no      | varchar2(32)   |    0    |  是   |               r                | 拓展编号                                                       |
 | trade_type  | number(1)      |    1    |  否   |      l,r,q,sl(trade_type)      | 交易类型 1:交易 2：手续费 3:佣金 4:红冲 5:平账                 |
 | change_type | number(1)      |         |  否   |     l,r,q,sl(change_type)      | 变动类型 1:加款 2:提款 3：扣款 4：退款 5: 交易平账 6: 余额平账 |
@@ -371,21 +366,21 @@ After: After(字段名) //在某个字段后面
 | id      | number(10)   |        |  否   | PK,IS,SEQ,l,r,DI | 编号   |
 | name    | varchar2(64) |        |  否   |   q,c,u,l,r,DN   | 名称   |
 | value   | varchar2(32) |        |  否   |     c,u,l,r      | 值     |
-| type    | varchar2(32) |        |  否   |    q,c,u,l,r,DT     | 类型   |
+| type    | varchar2(32) |        |  否   |   q,c,u,l,r,DT   | 类型   |
 | status  | number(1)    |   0    |  否   | q,c,u,l,r,sl,cc  | 状态   |
 | sort_no | number(2)    |   0    |  否   |     c,u,l,r      | 排序值 |
 
 ### 生命周期记录表[^lcs_life_time]
 
-| 字段名             | 类型          | 默认值   | 为空 | 约束   | 描述                   |
-| ----------------- | ------------ | :-----: | :--: | :---: | :---------------------|
-| id                | bigint   |         |  否  | PK, IS, SEQ | id                     |
-| order_no          | varchar(32) |         |  否  |  IS, IDX  | 子系统唯一标识         |
-| batch_no          | varchar(32) |         |  是  |  IS  | 自定义字段               |
-| extral_param      | varchar(32) |         |  是  |  IS  | 子系统唯一标识           |
-| ip                | varchar(32)|          |  是  |  IS  | 用户ip                  |
-| content           | varchar(1000)|        |  否  |  IS   | 内容           |
-| create_time       | datetime        | current_timestamp  |  否  |  IS  | 创建时间                  |
+| 字段名       | 类型          |      默认值       | 为空  |    约束     | 描述           |
+| ------------ | ------------- | :---------------: | :---: | :---------: | :------------- |
+| id           | bigint        |                   |  否   | PK, IS, SEQ | id             |
+| order_no     | varchar(32)   |                   |  否   |   IS, IDX   | 子系统唯一标识 |
+| batch_no     | varchar(32)   |                   |  是   |     IS      | 自定义字段     |
+| extral_param | varchar(32)   |                   |  是   |     IS      | 子系统唯一标识 |
+| ip           | varchar(32)   |                   |  是   |     IS      | 用户ip         |
+| content      | varchar(1000) |                   |  否   |     IS      | 内容           |
+| create_time  | datetime      | current_timestamp |  否   |     IS      | 创建时间       |
 
 * 生成DB gitcli db create ../docs/db.md  ./modules/const/db/scheme --gofile --drop --cover --seqfile
 * 生成代码 gitcli md code entity ./docs/db.md -t 
