@@ -60,7 +60,7 @@ and m.status = 0
 	@mer_no,
 	@mer_order_no,
 	case @notify_url when '' then '-' else @notify_url end,
-	10,
+	case @notify_url when '' then 11 else 10 end,
 	10
 )`,
 
@@ -114,7 +114,7 @@ notify_status
 @can_split_order,
 DATE_ADD(now(),INTERVAL @order_timeout SECOND),
 DATE_ADD(now(),INTERVAL @payment_timeout SECOND),
-case @notify_url when '' then 11 else 10 end
+10
 )
 `,
 }

@@ -3,7 +3,6 @@ package deliverys
 import (
 	"errors"
 	"net/http"
-	"time"
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
@@ -116,9 +115,6 @@ type TradeDelivery struct {
 
 	//PaymentStatus 支付状态
 	PaymentStatus int `json:"payment_status"`
-
-	//CreateTime 创建时间
-	CreateTime time.Time `json:"create_time"`
 
 	//Face 商品面值
 	Face int `json:"face"`

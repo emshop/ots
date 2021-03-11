@@ -3,6 +3,8 @@ package services
 import (
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/services/delivery"
+	"github.com/emshop/ots/flowserver/services/finish"
+	"github.com/emshop/ots/flowserver/services/notify"
 	"github.com/emshop/ots/flowserver/services/order"
 	"github.com/emshop/ots/flowserver/services/payment"
 	"github.com/micro-plat/hydra"
@@ -20,8 +22,14 @@ func init() {
 	hydra.S.Micro("/delivery/notify/save", delivery.SaveNotifyResult)
 	hydra.S.Micro("/delivery/audit/save", delivery.SaveAuditResult)
 
+	hydra.S.Micro("/notify/get", notify.GetNotify)
+	hydra.S.Micro("/notify/success", notify.SaveSuccess)
+	hydra.S.Micro("/notify/unknown", notify.Unknown)
+
 	//内部流程
 	hydra.S.MQC("/payment/paying", payment.Paying, string(enums.FlowPaymentStart))
 	hydra.S.MQC("/delivery/binding", delivery.Binding, string(enums.FlowDeliveryBind))
 	hydra.S.MQC("/delivery/mock", delivery.MockHandle, "delivery:mock")
+	hydra.S.MQC("/notify/start", notify.Notify, string(enums.FlowNotifyStart))
+	hydra.S.MQC("/finish/start", finish.Finish, string(enums.FlowFinishStart))
 }

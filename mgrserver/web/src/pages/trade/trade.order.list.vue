@@ -1,6 +1,6 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
@@ -46,9 +46,9 @@
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				

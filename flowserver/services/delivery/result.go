@@ -35,7 +35,12 @@ func SaveDeliveryResult(ctx hydra.IContext) interface{} {
 	}
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowOrderNotifyStart, ctx)
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return flw
+	}
+	if s == enums.Failed {
+		ctx.Log().Info("2. 执行后续流程")
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
 		return flw
 	}
 	return nil
@@ -63,7 +68,12 @@ func SaveQueryResult(ctx hydra.IContext) interface{} {
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowOrderNotifyStart, ctx)
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return flw
+	}
+	if s == enums.Failed {
+		ctx.Log().Info("2. 执行后续流程")
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
 		return flw
 	}
 	return nil
@@ -91,7 +101,12 @@ func SaveNotifyResult(ctx hydra.IContext) interface{} {
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowOrderNotifyStart, ctx)
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return flw
+	}
+	if s == enums.Failed {
+		ctx.Log().Info("2. 执行后续流程")
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
 		return flw
 	}
 	return nil
@@ -119,7 +134,12 @@ func SaveAuditResult(ctx hydra.IContext) interface{} {
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowOrderNotifyStart, ctx)
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return flw
+	}
+	if s == enums.Failed {
+		ctx.Log().Info("2. 执行后续流程")
+		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
 		return flw
 	}
 	return nil

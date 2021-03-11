@@ -143,8 +143,8 @@ const (
 	//FlowDelivery 发货开始流程
 	FlowDelivery FlowName = "delivery:start"
 
-	//FlowOrderNotifyStart 订单通知
-	FlowOrderNotifyStart FlowName = "notify:start"
+	//FlowNotifyStart 订单通知
+	FlowNotifyStart FlowName = "notify:start"
 
 	//FlowFinishStart 订单完结
 	FlowFinishStart FlowName = "finish:start"
