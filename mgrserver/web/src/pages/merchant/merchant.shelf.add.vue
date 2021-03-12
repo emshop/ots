@@ -2,7 +2,7 @@
   <!-- Add Form -->
   <el-dialog title="添加商户货架" width="65%"  :visible.sync="dialogAddVisible">
     <el-form :model="addData" :inline="true" :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="货架名称" prop="mer_shelf_name">
+      <el-form-item label="货架名称:" prop="mer_shelf_name">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.mer_shelf_name" placeholder="请输入货架名称">
 				</el-input>
@@ -15,31 +15,31 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="商户佣金" prop="mer_fee_discount">
+      <el-form-item label="商户佣金:" prop="mer_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.mer_fee_discount" placeholder="请输入商户佣金">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="交易服务费" prop="trade_fee_discount">
+      <el-form-item label="交易服务费:" prop="trade_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.trade_fee_discount" placeholder="请输入交易服务费">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="支付手续费" prop="payment_fee_discount">
+      <el-form-item label="支付手续费:" prop="payment_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.payment_fee_discount" placeholder="请输入支付手续费">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="订单超时时长" prop="order_timeout">
+      <el-form-item label="订单超时时长:" prop="order_timeout">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.order_timeout" placeholder="请输入订单超时时长">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="支付超时时长" prop="payment_timeout">
+      <el-form-item label="支付超时时长:" prop="payment_timeout">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.payment_timeout" placeholder="请输入支付超时时长">
 				</el-input>
@@ -59,7 +59,7 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="单次购买数量" prop="limit_count">
+      <el-form-item label="单次购买数量:" prop="limit_count">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.limit_count" placeholder="请输入单次购买数量">
 				</el-input>

@@ -70,7 +70,7 @@ func SaveUnknown(deliveryID string, code string, msg string) (types.IXMap, error
 		fields.FieldDeliveryID: deliveryID,
 		fields.FieldResultCode: code,
 		fields.FieldReturnMsg:  msg,
-	}, updateTradeDeliveryForSaveUnknown...)
+	}, updateDeliveryForSaveUnknown...)
 	if err != nil {
 		return nil, err
 	}

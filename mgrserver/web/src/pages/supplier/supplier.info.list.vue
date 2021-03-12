@@ -1,6 +1,6 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
@@ -9,14 +9,14 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.status" clearable filterable class="input-cos" placeholder="请选择状态">
+					<el-select size="medium" v-model="queryData.status"  clearable filterable class="input-cos" placeholder="请选择状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 				<el-form-item>
@@ -25,15 +25,15 @@
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column   prop="spp_no" label="编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.spp_no}}</span>
+					<span>{{scope.row.spp_no | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -43,7 +43,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.spp_name}}</div>
 							<span>{{scope.row.spp_name | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.spp_name}}</span>
+						<span v-else>{{scope.row.spp_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="mer_crop" label="所属公司" align="center">
@@ -52,7 +52,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.mer_crop}}</div>
 							<span>{{scope.row.mer_crop | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.mer_crop}}</span>
+						<span v-else>{{scope.row.mer_crop | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
@@ -117,13 +117,15 @@ export default {
       queryData:{},               //查询数据对象
 			status: this.$enum.get("status"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -132,11 +134,15 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
       let res = this.$http.xpost("/supplier/info/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

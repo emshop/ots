@@ -2,19 +2,19 @@
   <!-- Add Form -->
   <el-dialog title="添加商户信息" width="65%"  :visible.sync="dialogAddVisible">
     <el-form :model="addData" :inline="true" :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="编号" prop="mer_no">
+      <el-form-item label="编号:" prop="mer_no">
 				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.mer_no" placeholder="请输入编号">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="商户名称" prop="mer_name">
+      <el-form-item label="商户名称:" prop="mer_name">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.mer_name" placeholder="请输入商户名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="公司名称" prop="mer_crop">
+      <el-form-item label="公司名称:" prop="mer_crop">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.mer_crop" placeholder="请输入公司名称">
 				</el-input>

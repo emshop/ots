@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	
 )
 
@@ -62,6 +62,7 @@ func (u *MerchantInfoHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取商户信息数据列表
 func (u *MerchantInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -95,6 +96,7 @@ func (u *MerchantInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新商户信息数据
 func (u *MerchantInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -106,8 +108,8 @@ func (u *MerchantInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantInfoByMerNo,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantInfoByMerNo,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -118,9 +120,9 @@ func (u *MerchantInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 var postMerchantInfoCheckFields = map[string]interface{}{
 	field.FieldMerNo:"required",
 	field.FieldMerName:"required",
-	field.FieldMerCrop:"required",
+	
 	field.FieldMerType:"required",
-	field.FieldBdUid:"required",
+	
 	field.FieldStatus:"required",
 	}
 
@@ -128,16 +130,18 @@ var getMerchantInfoCheckFields = map[string]interface{}{
 	field.FieldMerNo:"required",
 }
 
+
 var queryMerchantInfoCheckFields = map[string]interface{}{
 	field.FieldMerName:"required",
 	field.FieldStatus:"required",
 	}
 
+
 var updateMerchantInfoCheckFields = map[string]interface{}{
 	field.FieldMerName:"required",
-	field.FieldMerCrop:"required",
+	
 	field.FieldMerType:"required",
-	field.FieldBdUid:"required",
+	
 	field.FieldStatus:"required",
 	}
 

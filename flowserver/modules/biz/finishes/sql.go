@@ -6,6 +6,7 @@ var update2Success = []string{
 	`update ots_trade_order t set
 	t.order_status = 0,
 	t.refund_status = 11,
+	t.profit = t.success_sell_amount - t.success_mer_fee - t.success_mer_trade_fee - t.success_mer_payment_fee - t.success_cost_amount + t.success_spp_fee - t.success_spp_trade_fee - t.success_spp_payment_fee,
 	t.finish_time = now()
 	where
 	t.order_id = @order_id
@@ -35,17 +36,16 @@ var update2Refund = []string{
 	`select
 	 t.order_id,
 	 t.mer_no,
-	 t.mer_order_no,
-	 t.face,
-	 t.num,
-	 t.total_face,
+	 t.mer_order_no,	
 	 t.sell_amount
 	 from ots_trade_order t
 	 where
 	 t.order_id = @order_id 
 	 and t.order_status = 60
 	 and t.payment_status = 0
-	 and t.delivery_status = 90`,
+	 and t.success_face = 0
+	 and t.delivery_status = 90
+	 and t.refund_status = 10`,
 
 	//将订单状态修改为成功
 	`update ots_trade_order t set
@@ -55,10 +55,10 @@ var update2Refund = []string{
 	where
 	t.order_id = @order_id
 	and t.order_status = 60
-	and t.delivery_status = 90
-	and t.success_face = 0
-	and t.payment_status = 0
-	and t.refund_status = 10`,
+	 and t.payment_status = 0
+	 and t.success_face = 0
+	 and t.delivery_status = 90
+	 and t.refund_status = 10`,
 }
 
 var forceRefund = []string{

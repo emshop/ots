@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -69,6 +69,7 @@ func (u *MerchantProductHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取商户商品数据列表
 func (u *MerchantProductHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *MerchantProductHandler) QueryHandle(ctx hydra.IContext) (r interface{})
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新商户商品数据
 func (u *MerchantProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -113,8 +115,8 @@ func (u *MerchantProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantProductByMerProductID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantProductByMerProductID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -130,7 +132,7 @@ var postMerchantProductCheckFields = map[string]interface{}{
 	field.FieldProvinceNo:"required",
 	field.FieldCityNo:"required",
 	field.FieldFace:"required",
-	field.FieldMerProductNo:"required",
+	
 	field.FieldDiscount:"required",
 	field.FieldStatus:"required",
 	}
@@ -139,6 +141,7 @@ var getMerchantProductCheckFields = map[string]interface{}{
 	field.FieldMerProductID:"required",
 }
 
+
 var queryMerchantProductCheckFields = map[string]interface{}{
 	field.FieldMerShelfID:"required",
 	field.FieldMerNo:"required",
@@ -146,8 +149,9 @@ var queryMerchantProductCheckFields = map[string]interface{}{
 	field.FieldBrandNo:"required",
 	}
 
+
 var updateMerchantProductCheckFields = map[string]interface{}{
-	field.FieldMerProductNo:"required",
+	
 	field.FieldDiscount:"required",
 	field.FieldStatus:"required",
 	}

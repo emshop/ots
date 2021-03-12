@@ -1,6 +1,6 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
@@ -13,32 +13,32 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column   prop="task_id" label="编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.task_id}}</span>
+					<span>{{scope.row.task_id | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
 				<el-table-column   prop="order_no" label="订单号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.order_no}}</span>
+					<span>{{scope.row.order_no | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
 				<el-table-column   prop="name" label="流程名称" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.name}}</span>
+					<span>{{scope.row.name | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -73,7 +73,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.queue_name}}</div>
 							<span>{{scope.row.queue_name | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.queue_name}}</span>
+						<span v-else>{{scope.row.queue_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
@@ -119,13 +119,15 @@ export default {
       queryData:{},               //查询数据对象
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -134,12 +136,16 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
       let res = this.$http.xpost("/system/task/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

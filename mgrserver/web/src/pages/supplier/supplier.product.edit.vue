@@ -1,13 +1,13 @@
 <template>
 	<el-dialog title="编辑供货商商品" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
-      <el-form-item label="供货商商品编号" prop="spp_product_no">
+      <el-form-item label="供货商商品编号:" prop="spp_product_no">
 				<el-input size="medium" maxlength="32"
 				clearable v-model="editData.spp_product_no" placeholder="请输入供货商商品编号">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="成本折扣" prop="cost_discount">
+      <el-form-item label="成本折扣:" prop="cost_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				clearable v-model="editData.cost_discount" placeholder="请输入成本折扣">
 				</el-input>
@@ -15,7 +15,7 @@
       
       
 			<el-form-item label="状态:" prop="status">
-				<el-select size="medium" style="width: 100%;"	v-model="editData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.status" clearable filterable class="input-cos" placeholder="---请选择---"	>
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
@@ -59,7 +59,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/supplier/product", { spp_product_id: this.editData.spp_product_id })
+			var spp_product_id = this.editData.spp_product_id
+			this.editData = this.$http.xget("/supplier/product", { spp_product_id: spp_product_id })
+			this.editData.spp_product_id = spp_product_id
 			this.dialogFormVisible = true;
 		},
 		edit() {

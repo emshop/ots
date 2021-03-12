@@ -1,5 +1,5 @@
 package sql
-//GetRefundApplyByApplyID 查询单条数据退款申请
+//GetRefundApplyByApplyID 查询退款申请单条数据
 const GetRefundApplyByApplyID = `
 select
 	t.apply_id,
@@ -41,3 +41,4 @@ where
 order by t.apply_id desc
 limit @ps offset @offset
 `
+

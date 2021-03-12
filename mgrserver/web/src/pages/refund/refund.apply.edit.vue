@@ -33,7 +33,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/refund/apply", { apply_id: this.editData.apply_id })
+			var apply_id = this.editData.apply_id
+			this.editData = this.$http.xget("/refund/apply", { apply_id: apply_id })
+			this.editData.apply_id = apply_id
 			this.dialogFormVisible = true;
 		},
 		edit() {

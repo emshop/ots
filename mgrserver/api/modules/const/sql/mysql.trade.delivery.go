@@ -1,5 +1,5 @@
 package sql
-//GetTradeDeliveryByDeliveryID 查询单条数据订单发货表
+//GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
 const GetTradeDeliveryByDeliveryID = `
 select
 	t.delivery_id,
@@ -25,7 +25,9 @@ select
 	t.trade_fee_discount,
 	t.payment_fee_discount,
 	t.cost_amount,
+	t.spp_fee_amount,
 	t.trade_fee_amount,
+	t.payment_fee_amount,
 	t.succ_face,
 	t.start_time,
 	t.end_time,
@@ -39,6 +41,49 @@ select
 from ots_trade_delivery t
 where
 	&delivery_id`
+//GetTradeDeliveryDetailByOrderID 查询订单发货表单条详情数据
+const GetTradeDeliveryDetailByOrderID= `
+select
+	t.delivery_id,
+	t.order_id,
+	t.spp_no,
+	t.spp_product_id,
+	t.mer_product_id,
+	t.pl_id,
+	t.brand_no,
+	t.province_no,
+	t.city_no,
+	t.invoice_type,
+	t.account_name,
+	t.delivery_status,
+	t.payment_status,
+	t.create_time,
+	t.face,
+	t.num,
+	t.total_face,
+	t.cost_discount,
+	t.real_discount,
+	t.spp_fee_discount,
+	t.trade_fee_discount,
+	t.payment_fee_discount,
+	t.cost_amount,
+	t.spp_fee_amount,
+	t.trade_fee_amount,
+	t.payment_fee_amount,
+	t.succ_face,
+	t.start_time,
+	t.end_time,
+	t.spp_delivery_no,
+	t.spp_product_no,
+	t.return_msg,
+	t.request_params,
+	t.result_source,
+	t.result_code,
+	t.last_update_time
+from ots_trade_delivery t
+where
+	&order_id
+`
 
 //GetTradeDeliveryListCount 获取订单发货表列表条数
 const GetTradeDeliveryListCount = `
@@ -78,3 +123,4 @@ where
 order by t.delivery_id desc
 limit @ps offset @offset
 `
+

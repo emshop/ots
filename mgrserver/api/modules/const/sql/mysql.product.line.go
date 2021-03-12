@@ -11,10 +11,10 @@ values
 (
 	@pl_id,
 	@pl_name,
-	if(isnull(@status)||@status='',0,@status),
+	if(isnull(@status)||@status='',0,@status)
 )`
 
-//GetProductLineByPlID 查询单条数据产品线
+//GetProductLineByPlID 查询产品线单条数据
 const GetProductLineByPlID = `
 select
 	t.pl_id,
@@ -47,12 +47,13 @@ where
 order by t.pl_id desc
 limit @ps offset @offset
 `
+
 //UpdateProductLineByPlID 更新产品线
 const UpdateProductLineByPlID = `
 update ots_product_line 
 set
 	pl_name =	@pl_name,
-	status =	if(isnull(@status)||@status='',0,@status),
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&pl_id`
 

@@ -1,5 +1,5 @@
 package sql
-//GetAccountRecordByRecordID 查询单条数据账户余额变动信息
+//GetAccountRecordByRecordID 查询账户余额变动信息单条数据
 const GetAccountRecordByRecordID = `
 select
 	t.record_id,
@@ -47,3 +47,4 @@ where
 order by t.record_id desc
 limit @ps offset @offset
 `
+

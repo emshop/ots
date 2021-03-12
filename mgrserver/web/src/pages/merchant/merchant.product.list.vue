@@ -1,38 +1,38 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_shelf_id" clearable filterable class="input-cos" placeholder="请选择货架名称">
+					<el-select size="medium" v-model="queryData.mer_shelf_id"  clearable filterable class="input-cos" placeholder="请选择货架名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merShelfID" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" clearable filterable class="input-cos" placeholder="请选择商户名称">
+					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.pl_id" clearable filterable class="input-cos" placeholder="请选择产品线">
+					<el-select size="medium" v-model="queryData.pl_id"  clearable filterable class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.brand_no" clearable filterable class="input-cos" placeholder="请选择品牌">
+					<el-select size="medium" v-model="queryData.brand_no"  clearable filterable class="input-cos" placeholder="请选择品牌">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in brandNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 				<el-form-item>
@@ -41,15 +41,15 @@
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column   prop="mer_product_id" label="商品编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.mer_product_id}}</span>
+					<span>{{scope.row.mer_product_id | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -158,13 +158,15 @@ export default {
 			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -173,11 +175,15 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
       let res = this.$http.xpost("/merchant/product/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

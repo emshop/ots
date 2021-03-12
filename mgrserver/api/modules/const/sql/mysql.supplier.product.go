@@ -27,10 +27,10 @@ values
 	@city_no,
 	if(isnull(@face)||@face='',0,@face),
 	if(isnull(@cost_discount)||@cost_discount='',0,@cost_discount),
-	if(isnull(@status)||@status='',0,@status),
+	if(isnull(@status)||@status='',0,@status)
 )`
 
-//GetSupplierProductBySppProductID 查询单条数据供货商商品
+//GetSupplierProductBySppProductID 查询供货商商品单条数据
 const GetSupplierProductBySppProductID = `
 select
 	t.spp_product_id,
@@ -84,13 +84,14 @@ where
 order by t.spp_product_id desc
 limit @ps offset @offset
 `
+
 //UpdateSupplierProductBySppProductID 更新供货商商品
 const UpdateSupplierProductBySppProductID = `
 update ots_supplier_product 
 set
 	spp_product_no =	@spp_product_no,
 	cost_discount =	if(isnull(@cost_discount)||@cost_discount='',0,@cost_discount),
-	status =	if(isnull(@status)||@status='',0,@status),
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&spp_product_id`
 

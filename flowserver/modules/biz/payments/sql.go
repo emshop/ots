@@ -7,15 +7,16 @@ var dealTimeoutOrder = []string{
 update ots_trade_order t set
 t.payment_status = 90,
 t.delivery_status = 11,
-t.refund_status = 11,
-t.order_status = 50
+t.finish_time = now(),
+t.order_status = 50,
+t.notify_status = 20
 where
 t.order_id = @order_id
 and t.order_status = 10
 and t.payment_status = 20
 and t.delivery_status = 10
-and t.refund_status = 10
-and t.payment_timeout < now()
+and t.notify_status = 10
+and (t.payment_timeout < now() or t.order_timeout < now())
 `,
 }
 
@@ -37,9 +38,9 @@ and t.payment_status = 20`,
 
 	//将订单状态修改为支付成功,发货开始
 	`update ots_trade_order t set
+	t.order_status = 20,
 t.payment_status = 0,
-t.order_status = 20,
-t.delivery_status =20
+t.delivery_status = 20
 where
 t.order_id = @order_id
 and t.order_status = 10

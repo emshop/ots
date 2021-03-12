@@ -16,7 +16,7 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="供货商商品编号" prop="spp_product_no">
+      <el-form-item label="供货商商品编号:" prop="spp_product_no">
 				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.spp_product_no" placeholder="请输入供货商商品编号">
 				</el-input>
@@ -43,19 +43,19 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="城市" prop="city_no">
+      <el-form-item label="城市:" prop="city_no">
 				<el-input size="medium" maxlength="8"
 				 clearable v-model="addData.city_no" placeholder="请输入城市">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="面值" prop="face">
+      <el-form-item label="面值:" prop="face">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.face" placeholder="请输入面值">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="成本折扣" prop="cost_discount">
+      <el-form-item label="成本折扣:" prop="cost_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.cost_discount" placeholder="请输入成本折扣">
 				</el-input>

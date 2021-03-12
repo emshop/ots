@@ -2,13 +2,13 @@
   <!-- Add Form -->
   <el-dialog title="添加供货商货架" width="65%"  :visible.sync="dialogAddVisible">
     <el-form :model="addData" :inline="true" :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="货架编号" prop="spp_shelf_id">
+      <el-form-item label="货架编号:" prop="spp_shelf_id">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.spp_shelf_id" placeholder="请输入货架编号">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="货架名称" prop="spp_shelf_name">
+      <el-form-item label="货架名称:" prop="spp_shelf_name">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.spp_shelf_name" placeholder="请输入货架名称">
 				</el-input>
@@ -21,19 +21,19 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="请求地址" prop="req_url">
+      <el-form-item label="请求地址:" prop="req_url">
 				<el-input size="medium" maxlength="128"
 				 clearable v-model="addData.req_url" placeholder="请输入请求地址">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="查询地址" prop="query_url">
+      <el-form-item label="查询地址:" prop="query_url">
 				<el-input size="medium" maxlength="128"
 				 clearable v-model="addData.query_url" placeholder="请输入查询地址">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="回调地址" prop="notify_url">
+      <el-form-item label="回调地址:" prop="notify_url">
 				<el-input size="medium" maxlength="128"
 				 clearable v-model="addData.notify_url" placeholder="请输入回调地址">
 				</el-input>
@@ -46,19 +46,19 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="商户佣金" prop="spp_fee_discount">
+      <el-form-item label="商户佣金:" prop="spp_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.spp_fee_discount" placeholder="请输入商户佣金">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="交易服务费" prop="trade_fee_discount">
+      <el-form-item label="交易服务费:" prop="trade_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.trade_fee_discount" placeholder="请输入交易服务费">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="支付手续费" prop="payment_fee_discount">
+      <el-form-item label="支付手续费:" prop="payment_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.payment_fee_discount" placeholder="请输入支付手续费">
 				</el-input>
@@ -78,7 +78,7 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="单次最大发货数量" prop="limit_count">
+      <el-form-item label="单次最大发货数量:" prop="limit_count">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.limit_count" placeholder="请输入单次最大发货数量">
 				</el-input>

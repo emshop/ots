@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -69,6 +69,7 @@ func (u *SupplierEcodeHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取供货商错误码数据列表
 func (u *SupplierEcodeHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *SupplierEcodeHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新供货商错误码数据
 func (u *SupplierEcodeHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -113,8 +115,8 @@ func (u *SupplierEcodeHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierEcodeByID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierEcodeByID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -137,12 +139,14 @@ var getSupplierEcodeCheckFields = map[string]interface{}{
 	field.FieldID:"required",
 }
 
+
 var querySupplierEcodeCheckFields = map[string]interface{}{
 	field.FieldSppNo:"required",
 	field.FieldPlID:"required",
 	field.FieldCategory:"required",
 	field.FieldStatus:"required",
 	}
+
 
 var updateSupplierEcodeCheckFields = map[string]interface{}{
 	field.FieldID:"required",

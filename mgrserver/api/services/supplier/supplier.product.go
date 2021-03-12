@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -69,6 +69,7 @@ func (u *SupplierProductHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取供货商商品数据列表
 func (u *SupplierProductHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *SupplierProductHandler) QueryHandle(ctx hydra.IContext) (r interface{})
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新供货商商品数据
 func (u *SupplierProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -113,8 +115,8 @@ func (u *SupplierProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierProductBySppProductID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierProductBySppProductID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -125,11 +127,11 @@ func (u *SupplierProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 var postSupplierProductCheckFields = map[string]interface{}{
 	field.FieldSppShelfID:"required",
 	field.FieldSppNo:"required",
-	field.FieldSppProductNo:"required",
+	
 	field.FieldPlID:"required",
 	field.FieldBrandNo:"required",
-	field.FieldProvinceNo:"required",
-	field.FieldCityNo:"required",
+	
+	
 	field.FieldFace:"required",
 	field.FieldCostDiscount:"required",
 	field.FieldStatus:"required",
@@ -139,6 +141,7 @@ var getSupplierProductCheckFields = map[string]interface{}{
 	field.FieldSppProductID:"required",
 }
 
+
 var querySupplierProductCheckFields = map[string]interface{}{
 	field.FieldSppShelfID:"required",
 	field.FieldSppNo:"required",
@@ -147,8 +150,9 @@ var querySupplierProductCheckFields = map[string]interface{}{
 	field.FieldProvinceNo:"required",
 	}
 
+
 var updateSupplierProductCheckFields = map[string]interface{}{
-	field.FieldSppProductNo:"required",
+	
 	field.FieldCostDiscount:"required",
 	field.FieldStatus:"required",
 	}

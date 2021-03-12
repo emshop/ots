@@ -37,6 +37,9 @@ const FieldBalance = "balance"
 //FieldBatchID 字段执行批次号的数据库名称
 const FieldBatchID = "batch_id"
 
+//FieldBatchNo 字段自定义字段的数据库名称
+const FieldBatchNo = "batch_no"
+
 //FieldBdUid 字段商务人员的数据库名称
 const FieldBdUid = "bd_uid"
 
@@ -60,6 +63,9 @@ const FieldChangeType = "change_type"
 
 //FieldCityNo 字段城市的数据库名称
 const FieldCityNo = "city_no"
+
+//FieldContent 字段内容的数据库名称
+const FieldContent = "content"
 
 //FieldCostAmount 字段发货成本的数据库名称
 const FieldCostAmount = "cost_amount"
@@ -121,6 +127,9 @@ const FieldExt = "ext"
 //FieldExtNo 字段拓展编号的数据库名称
 const FieldExtNo = "ext_no"
 
+//FieldExtralParam 字段子系统唯一标识的数据库名称
+const FieldExtralParam = "extral_param"
+
 //FieldFace 字段面值的数据库名称
 const FieldFace = "face"
 
@@ -142,7 +151,7 @@ const FieldFlowTag = "flow_tag"
 //FieldGroups 字段用户分组的数据库名称
 const FieldGroups = "groups"
 
-//FieldID 字段编号的数据库名称
+//FieldID 字段id的数据库名称
 const FieldID = "id"
 
 //FieldIdent 字段系统标识的数据库名称
@@ -150,6 +159,9 @@ const FieldIdent = "ident"
 
 //FieldInvoiceType 字段发票（1.不支持）的数据库名称
 const FieldInvoiceType = "invoice_type"
+
+//FieldIp 字段用户ip的数据库名称
+const FieldIp = "ip"
 
 //FieldIsRefund 字段用户退款（0.是，1否）的数据库名称
 const FieldIsRefund = "is_refund"
@@ -163,7 +175,7 @@ const FieldLastUpdateTime = "last_update_time"
 //FieldLimitCount 字段单次最大发货数量的数据库名称
 const FieldLimitCount = "limit_count"
 
-//FieldMaxCount 字段最大次数的数据库名称
+//FieldMaxCount 字段最大执行次数的数据库名称
 const FieldMaxCount = "max_count"
 
 //FieldMaxExecuteTime 字段执行期限(此时间前的任务可以被执行)的数据库名称
@@ -232,7 +244,7 @@ const FieldNum = "num"
 //FieldOrderID 字段订单编号的数据库名称
 const FieldOrderID = "order_id"
 
-//FieldOrderNo 字段订单号的数据库名称
+//FieldOrderNo 字段子系统唯一标识的数据库名称
 const FieldOrderNo = "order_no"
 
 //FieldOrderStatus 字段订单状态的数据库名称
@@ -268,7 +280,7 @@ const FieldProvinceNo = "province_no"
 //FieldQueryURL 字段查询地址的数据库名称
 const FieldQueryURL = "query_url"
 
-//FieldQueueName 字段队列名称的数据库名称
+//FieldQueueName 字段消息队列的数据库名称
 const FieldQueueName = "queue_name"
 
 //FieldRealDiscount 字段实际折扣的数据库名称

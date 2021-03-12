@@ -1,5 +1,5 @@
 package sql
-//GetNotifyInfoByOrderID 查询单条数据订单通知表
+//GetNotifyInfoByOrderID 查询订单通知表单条数据
 const GetNotifyInfoByOrderID = `
 select
 	t.order_id,
@@ -16,6 +16,24 @@ select
 from ots_notify_info t
 where
 	&order_id`
+//GetNotifyInfoDetailByOrderID 查询订单通知表单条详情数据
+const GetNotifyInfoDetailByOrderID= `
+select
+	t.order_id,
+	t.mer_no,
+	t.mer_order_no,
+	t.notify_url,
+	t.notify_status,
+	t.max_count,
+	t.notify_count,
+	t.create_time,
+	t.start_time,
+	t.end_time,
+	t.notify_msg
+from ots_notify_info t
+where
+	&order_id
+`
 
 //GetNotifyInfoListCount 获取订单通知表列表条数
 const GetNotifyInfoListCount = `
@@ -44,3 +62,4 @@ where
 order by t.order_id desc
 limit @ps offset @offset
 `
+

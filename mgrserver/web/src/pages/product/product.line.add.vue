@@ -2,7 +2,7 @@
   <!-- Add Form -->
   <el-dialog title="添加产品线" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="产品线名称" prop="pl_name">
+      <el-form-item label="产品线名称:" prop="pl_name">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.pl_name" placeholder="请输入产品线名称">
 				</el-input>

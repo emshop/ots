@@ -33,7 +33,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/notify/info", { order_id: this.editData.order_id })
+			var order_id = this.editData.order_id
+			this.editData = this.$http.xget("/notify/info", { order_id: order_id })
+			this.editData.order_id = order_id
 			this.dialogFormVisible = true;
 		},
 		edit() {

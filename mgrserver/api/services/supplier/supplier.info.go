@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	
 )
 
@@ -62,6 +62,7 @@ func (u *SupplierInfoHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取供货商信息数据列表
 func (u *SupplierInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -95,6 +96,7 @@ func (u *SupplierInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新供货商信息数据
 func (u *SupplierInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -106,8 +108,8 @@ func (u *SupplierInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierInfoBySppNo,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierInfoBySppNo,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -118,25 +120,27 @@ func (u *SupplierInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 var postSupplierInfoCheckFields = map[string]interface{}{
 	field.FieldSppNo:"required",
 	field.FieldSppName:"required",
-	field.FieldMerCrop:"required",
-	field.FieldBdUid:"required",
-	field.FieldStatus:"required",
+	
+	
+	
 	}
 
 var getSupplierInfoCheckFields = map[string]interface{}{
 	field.FieldSppNo:"required",
 }
 
+
 var querySupplierInfoCheckFields = map[string]interface{}{
 	field.FieldSppName:"required",
 	field.FieldStatus:"required",
 	}
 
+
 var updateSupplierInfoCheckFields = map[string]interface{}{
 	field.FieldSppName:"required",
-	field.FieldMerCrop:"required",
-	field.FieldBdUid:"required",
-	field.FieldStatus:"required",
+	
+	
+	
 	}
 
 

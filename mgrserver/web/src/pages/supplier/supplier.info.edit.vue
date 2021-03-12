@@ -1,19 +1,19 @@
 <template>
 	<el-dialog title="编辑供货商信息" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
-      <el-form-item label="供货商名称" prop="spp_name">
+      <el-form-item label="供货商名称:" prop="spp_name">
 				<el-input size="medium" maxlength="64"
 				clearable v-model="editData.spp_name" placeholder="请输入供货商名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="所属公司" prop="mer_crop">
+      <el-form-item label="所属公司:" prop="mer_crop">
 				<el-input size="medium" maxlength="64"
 				clearable v-model="editData.mer_crop" placeholder="请输入所属公司">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="商务人员" prop="bd_uid">
+      <el-form-item label="商务人员:" prop="bd_uid">
 				<el-input size="medium" maxlength="20"
 				clearable v-model="editData.bd_uid" placeholder="请输入商务人员">
 				</el-input>
@@ -62,7 +62,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/supplier/info", { spp_no: this.editData.spp_no })
+			var spp_no = this.editData.spp_no
+			this.editData = this.$http.xget("/supplier/info", { spp_no: spp_no })
+			this.editData.spp_no = spp_no
 			this.dialogFormVisible = true;
 		},
 		edit() {

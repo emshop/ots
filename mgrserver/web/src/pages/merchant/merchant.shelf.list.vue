@@ -1,6 +1,6 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
@@ -9,14 +9,14 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" clearable filterable class="input-cos" placeholder="请选择商户名称">
+					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 				<el-form-item>
@@ -25,15 +25,15 @@
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column   prop="mer_shelf_id" label="编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.mer_shelf_id}}</span>
+					<span>{{scope.row.mer_shelf_id | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -43,7 +43,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.mer_shelf_name}}</div>
 							<span>{{scope.row.mer_shelf_name | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.mer_shelf_name}}</span>
+						<span v-else>{{scope.row.mer_shelf_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="mer_no" label="商户名称" align="center">
@@ -53,23 +53,28 @@
 				</el-table-column>
 				<el-table-column   prop="mer_fee_discount" label="商户佣金" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.mer_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.mer_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="trade_fee_discount" label="交易服务费" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.trade_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.trade_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="payment_fee_discount" label="支付手续费" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="order_timeout" label="订单超时时长" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_timeout | fltrNumberFormat(0)}}</span>
 				</template>
+				</el-table-column>
+				<el-table-column   prop="invoice_type" label="开票方式" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("invoice_type")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column   prop="can_split_order" label="允许拆单" align="center">
 					<template slot-scope="scope">
@@ -138,13 +143,15 @@ export default {
       queryData:{},               //查询数据对象
 			merNo: this.$enum.get("merchant_info"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -153,11 +160,15 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
       let res = this.$http.xpost("/merchant/shelf/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

@@ -16,7 +16,7 @@ import (
 //Bind 绑定订单
 func Bind(orderID string) (string, error) {
 
-	//检查订单是否需要绑定
+	//1. 检查订单是否需要绑定
 	db := hydra.C.DB().GetRegularDB()
 	input := types.XMap{fields.FieldOrderID: orderID}
 	orders, err := db.Query(checkOrderForBind, input)
@@ -27,16 +27,16 @@ func Bind(orderID string) (string, error) {
 		return "", errs.NewStop(204, "订单无须进行绑定")
 	}
 
-	//查询订单支持的上游产品
+	//2. 查询订单支持的上游产品
 	products, err := dbs.Query(db, orders.Get(0), querySppProducts...)
 	if errors.Is(err, xerr.ErrNOTEXISTS) || products.Len() == 0 {
-		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s%v", orderID, err)
+		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", orderID)
 	}
 	if err != nil {
 		return "", err
 	}
 
-	//根据商品创建发货记录
+	//3. 根据商品创建发货记录
 	deliveryID, err := pkgs.GetDeliveryID()
 	if err != nil {
 		return "", err

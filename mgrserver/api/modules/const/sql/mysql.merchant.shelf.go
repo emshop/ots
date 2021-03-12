@@ -31,10 +31,10 @@ values
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
 	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
-	if(isnull(@status)||@status='',0,@status),
+	if(isnull(@status)||@status='',0,@status)
 )`
 
-//GetMerchantShelfByMerShelfID 查询单条数据商户货架
+//GetMerchantShelfByMerShelfID 查询商户货架单条数据
 const GetMerchantShelfByMerShelfID = `
 select
 	t.mer_shelf_id,
@@ -45,6 +45,7 @@ select
 	t.payment_fee_discount,
 	t.order_timeout,
 	t.payment_timeout,
+	t.invoice_type,
 	t.can_refund,
 	t.limit_count,
 	t.can_split_order,
@@ -72,6 +73,7 @@ select
 	t.trade_fee_discount,
 	t.payment_fee_discount,
 	t.order_timeout,
+	t.invoice_type,
 	t.can_split_order,
 	t.status,
 	t.create_time 
@@ -82,6 +84,7 @@ where
 order by t.mer_shelf_id desc
 limit @ps offset @offset
 `
+
 //UpdateMerchantShelfByMerShelfID 更新商户货架
 const UpdateMerchantShelfByMerShelfID = `
 update ots_merchant_shelf 
@@ -96,7 +99,7 @@ set
 	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
 	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	can_split_order =	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
-	status =	if(isnull(@status)||@status='',0,@status),
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&mer_shelf_id`
 

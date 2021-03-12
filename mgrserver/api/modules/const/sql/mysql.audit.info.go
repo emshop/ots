@@ -1,5 +1,5 @@
 package sql
-//GetAuditInfoByDeliveryID 查询单条数据发货人工审核表
+//GetAuditInfoByDeliveryID 查询发货人工审核表单条数据
 const GetAuditInfoByDeliveryID = `
 select
 	t.delivery_id,
@@ -41,3 +41,4 @@ where
 order by t.delivery_id desc
 limit @ps offset @offset
 `
+

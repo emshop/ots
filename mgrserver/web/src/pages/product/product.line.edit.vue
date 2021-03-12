@@ -1,7 +1,7 @@
 <template>
 	<el-dialog title="编辑产品线" width="25%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
-      <el-form-item label="产品线名称" prop="pl_name">
+      <el-form-item label="产品线名称:" prop="pl_name">
 				<el-input size="medium" maxlength="64"
 				clearable v-model="editData.pl_name" placeholder="请输入产品线名称">
 				</el-input>
@@ -9,7 +9,7 @@
       
       
 			<el-form-item label="状态:" prop="status">
-				<el-select size="medium" style="width: 100%;"	v-model="editData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.status" clearable filterable class="input-cos" placeholder="---请选择---"	>
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
@@ -53,7 +53,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/product/line", { pl_id: this.editData.pl_id })
+			var pl_id = this.editData.pl_id
+			this.editData = this.$http.xget("/product/line", { pl_id: pl_id })
+			this.editData.pl_id = pl_id
 			this.dialogFormVisible = true;
 		},
 		edit() {

@@ -14,38 +14,27 @@ t.province_no,
 t.city_no,
 t.face,
 t.mer_product_no,
-t.discount
+t.discount,
+s.mer_shelf_name,
+s.mer_fee_discount,
+s.trade_fee_discount,
+s.payment_fee_discount,
+s.order_timeout,
+s.payment_timeout,
+s.invoice_type,
+s.can_refund,
+s.limit_count,
+s.can_split_order
 from ots_merchant_product t
 inner join ots_merchant_info m on t.mer_no = m.mer_no
+inner join ots_merchant_shelf s on s.mer_shelf_id = t.mer_shelf_id and s.mer_no = m.mer_no
 where
 t.mer_product_id = @mer_product_id 
 and t.mer_no = @mer_no
+and s.limit_count >= @num
 and t.status = 0 
-and m.status = 0`,
-
-	//货架信息
-	`
-select
-t.mer_shelf_id,
-t.mer_shelf_name,
-t.mer_no,
-t.mer_fee_discount,
-t.trade_fee_discount,
-t.payment_fee_discount,
-t.order_timeout,
-t.payment_timeout,
-t.invoice_type,
-t.can_refund,
-t.limit_count,
-t.can_split_order
-from ots_merchant_shelf t
-inner join ots_merchant_info m on t.mer_no = m.mer_no
-where
-t.mer_shelf_id = @mer_shelf_id 
-and t.mer_no = @mer_no
-and t.status = 0
 and m.status = 0
-`,
+and s.status = 0`,
 
 	//添加通知记录
 	`insert into ots_notify_info(
@@ -89,6 +78,10 @@ payment_fee_discount,
 can_split_order,
 order_timeout,
 payment_timeout,
+order_status,
+payment_status,
+delivery_status,
+refund_status,
 notify_status
 )values(
 @order_id,
@@ -114,7 +107,7 @@ notify_status
 @can_split_order,
 DATE_ADD(now(),INTERVAL @order_timeout SECOND),
 DATE_ADD(now(),INTERVAL @payment_timeout SECOND),
-10
+10,20,10,10,10
 )
 `,
 }

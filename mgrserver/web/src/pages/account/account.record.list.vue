@@ -1,49 +1,51 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.account_id" clearable filterable class="input-cos" placeholder="请选择帐户编号">
+					<el-select size="medium" v-model="queryData.account_id"  clearable filterable class="input-cos" placeholder="请选择帐户编号">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in accountID" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-input clearable size="medium" v-model="queryData.trade_no" placeholder="请输入交易编号">
-					</el-input>
+					<el-select size="medium" v-model="queryData.trade_no"  clearable filterable class="input-cos" placeholder="请选择交易编号">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in tradeNo" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.trade_type" clearable filterable class="input-cos" placeholder="请选择交易类型">
+					<el-select size="medium" v-model="queryData.trade_type"  clearable filterable class="input-cos" placeholder="请选择交易类型">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in tradeType" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.change_type" clearable filterable class="input-cos" placeholder="请选择变动类型">
+					<el-select size="medium" v-model="queryData.change_type"  clearable filterable class="input-cos" placeholder="请选择变动类型">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in changeType" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column   prop="record_id" label="变动编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.record_id}}</span>
+					<span>{{scope.row.record_id | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -53,10 +55,9 @@
 					</template>
 				</el-table-column>
 				<el-table-column   prop="trade_no" label="交易编号" align="center">
-				<template slot-scope="scope">
-					<span>{{scope.row.trade_no}}</span>
-				</template>
-				
+					<template slot-scope="scope">
+						<span >{{scope.row.trade_no | fltrEnum("trade_no")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column   prop="trade_type" label="交易类型" align="center">
 					<template slot-scope="scope">
@@ -125,16 +126,19 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			accountID: this.$enum.get("account_info"),
+			tradeNo: this.$enum.get("trade_no"),
 			tradeType: this.$enum.get("trade_type"),
 			changeType: this.$enum.get("change_type"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -143,11 +147,15 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
       let res = this.$http.xpost("/account/record/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

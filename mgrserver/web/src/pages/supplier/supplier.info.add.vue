@@ -2,25 +2,25 @@
   <!-- Add Form -->
   <el-dialog title="添加供货商信息" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="编号" prop="spp_no">
+      <el-form-item label="编号:" prop="spp_no">
 				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.spp_no" placeholder="请输入编号">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="供货商名称" prop="spp_name">
+      <el-form-item label="供货商名称:" prop="spp_name">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.spp_name" placeholder="请输入供货商名称">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="所属公司" prop="mer_crop">
+      <el-form-item label="所属公司:" prop="mer_crop">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.mer_crop" placeholder="请输入所属公司">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="商务人员" prop="bd_uid">
+      <el-form-item label="商务人员:" prop="bd_uid">
 				<el-input size="medium" maxlength="20"
 				 clearable v-model="addData.bd_uid" placeholder="请输入商务人员">
 				</el-input>

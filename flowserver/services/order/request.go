@@ -8,6 +8,7 @@ import (
 	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
+	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
 
 //Request 下单处理
@@ -19,6 +20,7 @@ func Request(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("1. 查询订单信息")
+
 	order, err := orders.Query(ctx.Request().GetString(sql.FieldMerNo),
 		ctx.Request().GetString(sql.FieldMerOrderNo))
 	if err == nil && order.Len() > 0 {
@@ -32,13 +34,16 @@ func Request(ctx hydra.IContext) (r interface{}) {
 		ctx.Request().GetString(fields.FieldAccountName),
 		ctx.Request().GetInt(fields.FieldNum),
 		ctx.Request().GetString(fields.FieldNotifyUrl))
+	if err != nil && errs.GetCode(err) != 0 {
+		return err
+	}
 	if err != nil {
 		return errs.NewErrorf(int(enums.CodeUnknownErr), "订单创建失败:%v", err)
 	}
 	if !ok {
 		return order
 	}
-
+	defer lcs.New(ctx.Log(), "创建订单", order.GetString(fields.FieldOrderID)).Start("生成订单").End(r)
 	ctx.Log().Info("3. 处理订单后续流程")
 	flows.NextByOrderNO(order.GetString(fields.FieldOrderID), enums.FlowPaymentStart, ctx)
 	return order

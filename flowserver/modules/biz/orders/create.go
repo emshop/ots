@@ -1,7 +1,10 @@
 package orders
 
 import (
+	"errors"
+
 	"github.com/emshop/ots/flowserver/modules/const/fields"
+	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/dbs"
 	"github.com/emshop/ots/flowserver/modules/pkgs"
 	"github.com/emshop/ots/otsserver/modules/const/enums"
@@ -38,6 +41,10 @@ func Create(merNo string, merOrderNo string, merProductID int, accountName strin
 		return nil, false, err
 	}
 	_, err = dbs.Executes(db, input, createOrder...)
+	if errors.Is(err, xerr.ErrNOTEXISTS) {
+		db.Rollback()
+		return nil, false, errs.NewError(int(enums.CodeParamNoSetting), "商品不存在或未启用")
+	}
 	if err != nil {
 		db.Rollback()
 		return nil, false, err

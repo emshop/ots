@@ -19,10 +19,10 @@ values
 	@groups,
 	@eid,
 	if(isnull(@credit)||@credit='',0,@credit),
-	if(isnull(@status)||@status='',0,@status),
+	if(isnull(@status)||@status='',0,@status)
 )`
 
-//GetAccountInfoByAccountID 查询单条数据账户信息
+//GetAccountInfoByAccountID 查询账户信息单条数据
 const GetAccountInfoByAccountID = `
 select
 	t.account_id,
@@ -59,13 +59,14 @@ where
 order by t.account_id desc
 limit @ps offset @offset
 `
+
 //UpdateAccountInfoByAccountID 更新账户信息
 const UpdateAccountInfoByAccountID = `
 update beanpay_account_info 
 set
 	account_name =	@account_name,
 	credit =	if(isnull(@credit)||@credit='',0,@credit),
-	status =	if(isnull(@status)||@status='',0,@status),
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&account_id`
 

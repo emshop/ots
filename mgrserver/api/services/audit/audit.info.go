@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	
 )
 
@@ -44,6 +44,7 @@ func (u *AuditInfoHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取发货人工审核表数据列表
 func (u *AuditInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -80,14 +81,17 @@ func (u *AuditInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
 
 
+
 var getAuditInfoCheckFields = map[string]interface{}{
 	field.FieldDeliveryID:"required",
 }
+
 
 var queryAuditInfoCheckFields = map[string]interface{}{
 	field.FieldOrderID:"required",
 	field.FieldAuditStatus:"required",
 	}
+
 
 
 

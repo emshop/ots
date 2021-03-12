@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	
 )
 
@@ -44,6 +44,7 @@ func (u *RefundApplyHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取退款申请数据列表
 func (u *RefundApplyHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -80,15 +81,18 @@ func (u *RefundApplyHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
 
 
+
 var getRefundApplyCheckFields = map[string]interface{}{
 	field.FieldApplyID:"required",
 }
+
 
 var queryRefundApplyCheckFields = map[string]interface{}{
 	field.FieldOrderID:"required",
 	field.FieldMerNo:"required",
 	field.FieldMerOrderNo:"required",
 	}
+
 
 
 

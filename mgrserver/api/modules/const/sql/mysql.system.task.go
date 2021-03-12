@@ -1,5 +1,5 @@
 package sql
-//GetSystemTaskByTaskID 查询单条数据任务表
+//GetSystemTaskByTaskID 查询任务表单条数据
 const GetSystemTaskByTaskID = `
 select
 	t.task_id,
@@ -51,3 +51,27 @@ where
 order by t.task_id desc
 limit @ps offset @offset
 `
+//GetSystemTaskDetailListCount 获取任务表列表条数
+const GetSystemTaskDetailListCount = `
+select count(1)
+from tsk_system_task t
+where
+&order_no`
+
+//GetSystemTaskDetailList 查询任务表列表数据
+const GetSystemTaskDetailList = `
+select
+	t.task_id,
+	t.order_no,
+	t.name,
+	t.create_time,
+	t.last_execute_time,
+	t.next_execute_time,
+	t.count,
+	t.status,
+	t.queue_name 
+from tsk_system_task t
+where
+&order_no
+limit @ps offset @offset`
+

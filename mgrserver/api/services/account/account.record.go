@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	
 )
 
@@ -44,6 +44,7 @@ func (u *AccountRecordHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取账户余额变动信息数据列表
 func (u *AccountRecordHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -80,9 +81,11 @@ func (u *AccountRecordHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
 
 
+
 var getAccountRecordCheckFields = map[string]interface{}{
 	field.FieldRecordID:"required",
 }
+
 
 var queryAccountRecordCheckFields = map[string]interface{}{
 	field.FieldAccountID:"required",
@@ -90,6 +93,7 @@ var queryAccountRecordCheckFields = map[string]interface{}{
 	field.FieldTradeType:"required",
 	field.FieldChangeType:"required",
 	}
+
 
 
 

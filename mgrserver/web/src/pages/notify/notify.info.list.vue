@@ -1,37 +1,37 @@
 <template>
 	<div class="panel panel-default">
-    	<!-- query start -->
+    <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no" clearable filterable class="input-cos" placeholder="请选择商户名称">
+					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户名称">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.notify_status" clearable filterable class="input-cos" placeholder="请选择通知状态">
+					<el-select size="medium" v-model="queryData.notify_status"  clearable filterable class="input-cos" placeholder="请选择通知状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in notifyStatus" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-button  type="primary" @click="query" size="medium">查询</el-button>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
 			</el-form>
 		</div>
-    	<!-- query end -->
+    <!-- query end -->
 
-    	<!-- list start-->
+    <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :max-height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
 				
 				<el-table-column   prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.order_id}}</span>
+					<span>{{scope.row.order_id | fltrEmpty }}</span>
 				</template>
 				
 				</el-table-column>
@@ -46,7 +46,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
 							<span>{{scope.row.mer_order_no | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.mer_order_no}}</span>
+						<span v-else>{{scope.row.mer_order_no | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="notify_status" label="通知状态" align="center">
@@ -80,7 +80,7 @@
 							<div slot="content" style="width: 110px">{{scope.row.notify_msg}}</div>
 							<span>{{scope.row.notify_msg | fltrSubstr(20) }}</span>
 						</el-tooltip>
-						<span v-else>{{scope.row.notify_msg}}</span>
+						<span v-else>{{scope.row.notify_msg | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
@@ -127,13 +127,15 @@ export default {
 			merNo: this.$enum.get("merchant_info"),
 			notifyStatus: this.$enum.get("process_status"),
 			dataList: {count: 0,items: []}, //表单数据对象,
-			maxHeight: document.body.clientHeight
+			maxHeight: 0
 		}
   },
   created(){
   },
   mounted(){
-		this.maxHeight = this.$utility.getTableHeight("panel-body")
+		this.$nextTick(()=>{
+			this.maxHeight = this.$utility.getTableHeight("panel-body")
+		})
     this.init()
   },
 	methods:{
@@ -142,11 +144,15 @@ export default {
       this.query()
 		},
     /**查询数据并赋值*/
+		queryDatas() {
+      this.paging.pi = 1
+      this.query()
+    },
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
       let res = this.$http.xpost("/notify/info/query",this.$utility.delEmptyProperty(this.queryData))
-			this.dataList.items = res.items
+			this.dataList.items = res.items || []
 			this.dataList.count = res.count
     },
     /**改变页容量*/

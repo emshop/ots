@@ -30,6 +30,7 @@ func init() {
 	hydra.S.MQC("/payment/paying", payment.Paying, string(enums.FlowPaymentStart))
 	hydra.S.MQC("/delivery/binding", delivery.Binding, string(enums.FlowDeliveryBind))
 	hydra.S.MQC("/delivery/mock", delivery.MockHandle, "delivery:mock")
+	hydra.S.MQC("/delivery/paying", delivery.Paying, string(enums.FlowDeliveryPay))
 	hydra.S.MQC("/notify/start", notify.Notify, string(enums.FlowNotifyStart))
 	hydra.S.MQC("/finish/start", finish.Finish, string(enums.FlowFinishStart))
 }

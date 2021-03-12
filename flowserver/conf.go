@@ -12,7 +12,7 @@ import (
 
 func init() {
 	hydra.OnReadying(func() {
-		qtask.Config(qtask.WithScanInterval(1))
+		qtask.Config(qtask.WithScanInterval(50))
 	})
 	hydra.OnReady(func() {
 		hydra.Conf.API("8081")

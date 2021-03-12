@@ -33,10 +33,10 @@ values
 	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
 	if(isnull(@status)||@status='',0,@status),
-	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
+	if(isnull(@limit_count)||@limit_count='',0,@limit_count)
 )`
 
-//GetSupplierShelfBySppShelfID 查询单条数据供货商货架
+//GetSupplierShelfBySppShelfID 查询供货商货架单条数据
 const GetSupplierShelfBySppShelfID = `
 select
 	t.spp_shelf_id,
@@ -87,6 +87,7 @@ where
 order by t.spp_shelf_id desc
 limit @ps offset @offset
 `
+
 //UpdateSupplierShelfBySppShelfID 更新供货商货架
 const UpdateSupplierShelfBySppShelfID = `
 update ots_supplier_shelf 
@@ -101,7 +102,7 @@ set
 	payment_fee_discount =	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
 	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
 	status =	if(isnull(@status)||@status='',0,@status),
-	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
+	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count)
 where
 	&spp_shelf_id`
 

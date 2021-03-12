@@ -5,15 +5,17 @@ import (
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
+	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
 
 //Notify 获取订单通知信息
-func Notify(ctx hydra.IContext) interface{} {
+func Notify(ctx hydra.IContext) (r interface{}) {
 	ctx.Log().Info("-------------处理下游订单通知----------------------")
 	if err := ctx.Request().Check(notifyFields...); err != nil {
 		return err
 	}
 	ctx.Log().Info("1. 获取通知信息")
+	defer lcs.New(ctx.Log(), "订单通知", ctx.Request().GetString(fields.FieldOrderID)).Start("通知").End(r)
 	rpns := GetNotify(ctx)
 	if err := errs.GetError(rpns); err != nil {
 		if errs.NeedStop(err) {

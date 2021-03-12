@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -69,6 +69,7 @@ func (u *AccountInfoHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取账户信息数据列表
 func (u *AccountInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *AccountInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新账户信息数据
 func (u *AccountInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -113,8 +115,8 @@ func (u *AccountInfoHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateAccountInfoByAccountID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateAccountInfoByAccountID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -135,9 +137,11 @@ var getAccountInfoCheckFields = map[string]interface{}{
 	field.FieldAccountID:"required",
 }
 
+
 var queryAccountInfoCheckFields = map[string]interface{}{
 	field.FieldEid:"required",
 	}
+
 
 var updateAccountInfoCheckFields = map[string]interface{}{
 	field.FieldAccountName:"required",

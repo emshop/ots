@@ -2,6 +2,7 @@ package deliverys
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
@@ -19,7 +20,7 @@ func SaveStart(deliveryID string, discount types.Decimal, resultCode string, ret
 	result, msg := GetDealCode(deliveryID, enums.ResultFromRequest, resultCode)
 
 	//根据发货结果修改发货记录状态
-	input := map[string]interface{}{
+	input := types.XMap{
 		fields.FieldDeliveryID:   deliveryID,
 		fields.FieldResultCode:   resultCode,
 		fields.FieldReturnMsg:    types.GetString(returnMsg, msg),
@@ -29,9 +30,19 @@ func SaveStart(deliveryID string, discount types.Decimal, resultCode string, ret
 	var err error
 	switch result {
 	case enums.Failed:
-		row, err = hydra.C.DB().GetRegularDB().Execute(UpdateTradeDeliveryForDeliveryingFailed, input)
+		db, err := hydra.C.DB().GetRegularDB().Begin()
+		if err != nil {
+			return err
+		}
+		_, err = dbs.Executes(db, input, updateDeliveryForDeliveryingFailed...)
+		if err != nil {
+			db.Rollback()
+			return fmt.Errorf("无法将发货记录处理为失败:%w", err)
+		}
+		db.Commit()
+		return nil
 	default: //非失败都纳入成功处理，等待后续通知、查询或人工审核
-		row, err = hydra.C.DB().GetRegularDB().Execute(UpdateTradeDeliveryForDeliveryingSuccess, input)
+		row, err = hydra.C.DB().GetRegularDB().Execute(updateDeliveryForDeliveryingSuccess, input)
 	}
 	if err != nil {
 		return err

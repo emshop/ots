@@ -5,12 +5,14 @@ import (
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
+	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
 
 //MockHandle 上游付款
-func MockHandle(ctx hydra.IContext) interface{} {
+func MockHandle(ctx hydra.IContext) (r interface{}) {
 
 	ctx.Log().Info("-------------打桩发货处理----------------------")
+	defer lcs.New(ctx.Log(), "交易发货", ctx.Request().GetString(fields.FieldOrderID)).Start("发货").End(r)
 	ctx.Log().Info("1. 获取发货信息")
 	rpns := GetRequest(ctx)
 	if err := errs.GetError(rpns); err != nil {

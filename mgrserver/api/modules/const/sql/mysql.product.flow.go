@@ -26,7 +26,7 @@ values
 	if(isnull(@status)||@status='',0,@status)
 )`
 
-//GetProductFlowByFlowID 查询单条数据业务流程
+//GetProductFlowByFlowID 查询业务流程单条数据
 const GetProductFlowByFlowID = `
 select
 	t.flow_id,
@@ -47,7 +47,7 @@ const GetProductFlowListCount = `
 select count(1)
 from ots_product_flow t
 where
-	?t.flow_tag
+	&t.flow_tag
 	&t.pl_id
 	&t.status`
 
@@ -65,12 +65,13 @@ select
 	t.status 
 from ots_product_flow t
 where
-	?t.flow_tag
+	&t.flow_tag
 	&t.pl_id
 	&t.status
 order by t.flow_id desc
 limit @ps offset @offset
 `
+
 //UpdateProductFlowByFlowID 更新业务流程
 const UpdateProductFlowByFlowID = `
 update ots_product_flow 

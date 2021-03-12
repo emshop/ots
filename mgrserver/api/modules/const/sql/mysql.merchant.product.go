@@ -27,10 +27,10 @@ values
 	if(isnull(@face)||@face='',0,@face),
 	@mer_product_no,
 	if(isnull(@discount)||@discount='',0,@discount),
-	if(isnull(@status)||@status='',0,@status),
+	if(isnull(@status)||@status='',0,@status)
 )`
 
-//GetMerchantProductByMerProductID 查询单条数据商户商品
+//GetMerchantProductByMerProductID 查询商户商品单条数据
 const GetMerchantProductByMerProductID = `
 select
 	t.mer_product_id,
@@ -82,13 +82,14 @@ where
 order by t.mer_product_id desc
 limit @ps offset @offset
 `
+
 //UpdateMerchantProductByMerProductID 更新商户商品
 const UpdateMerchantProductByMerProductID = `
 update ots_merchant_product 
 set
 	mer_product_no =	@mer_product_no,
 	discount =	if(isnull(@discount)||@discount='',0,@discount),
-	status =	if(isnull(@status)||@status='',0,@status),
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&mer_product_id`
 

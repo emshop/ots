@@ -2,7 +2,7 @@
   <!-- Add Form -->
   <el-dialog title="添加供货商错误码" width="65%"  :visible.sync="dialogAddVisible">
     <el-form :model="addData" :inline="true" :rules="rules" ref="addForm" label-width="110px">
-      <el-form-item label="编号" prop="id">
+      <el-form-item label="编号:" prop="id">
 				<el-input size="medium" maxlength="20"
 				 clearable v-model="addData.id" placeholder="请输入编号">
 				</el-input>
@@ -36,7 +36,7 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="错误码" prop="error_code">
+      <el-form-item label="错误码:" prop="error_code">
 				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.error_code" placeholder="请输入错误码">
 				</el-input>
@@ -49,7 +49,7 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="错误码描述" prop="error_desc">
+      <el-form-item label="错误码描述:" prop="error_desc">
 				<el-input size="medium" maxlength="64"
 				 clearable v-model="addData.error_desc" placeholder="请输入错误码描述">
 				</el-input>

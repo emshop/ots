@@ -1,10 +1,9 @@
 package sql
-
 //InsertDictionaryInfo 添加字典配置
 const InsertDictionaryInfo = `
 insert into dds_dictionary_info
 (
-	
+	id,
 	name,
 	value,
 	type,
@@ -13,7 +12,7 @@ insert into dds_dictionary_info
 )
 values
 (
-	
+	@id,
 	@name,
 	@value,
 	@type,
@@ -21,7 +20,7 @@ values
 	if(isnull(@sort_no)||@sort_no='',0,@sort_no)
 )`
 
-//GetDictionaryInfoByID 查询单条数据字典配置
+//GetDictionaryInfoByID 查询字典配置单条数据
 const GetDictionaryInfoByID = `
 select
 	t.id,
@@ -72,3 +71,4 @@ set
 	sort_no =	if(isnull(@sort_no)||@sort_no='',0,@sort_no)
 where
 	&id`
+

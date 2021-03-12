@@ -22,25 +22,24 @@ func Save(orderID string, status enums.FlowStatus, msg string) (order types.IXMa
 
 	input := types.XMap{
 		sql.FieldOrderID:   orderID,
-		sql.FieldNotifyMsg: types.GetString(msg, types.DecodeString(status, enums.Success, "充值成功", "订单无须处理")),
+		sql.FieldNotifyMsg: types.GetString(msg, types.DecodeString(status, enums.Success, "通知成功", "结果未知")),
 	}
 
 	//执行通知结果保存
 	switch status {
 	case enums.Success:
 		order, err = dbs.Executes(db, input, updateNotifyForSuccess...)
-
 	default:
 		order, err = dbs.Executes(db, input, updateNotifyInfoForUnknown)
 	}
+	if err == nil {
+		db.Commit()
+		return order, nil
+	}
+
+	db.Rollback()
 	if errors.Is(err, xerr.ErrNOTEXISTS) {
-		db.Rollback()
 		return nil, errs.NewStopf(http.StatusNoContent, "订单(%s)无须处理通知", orderID)
 	}
-	if err != nil {
-		db.Rollback()
-		return nil, err
-	}
-	db.Commit()
-	return order, nil
+	return nil, err
 }

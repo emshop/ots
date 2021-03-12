@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -69,6 +69,7 @@ func (u *MerchantShelfHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取商户货架数据列表
 func (u *MerchantShelfHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *MerchantShelfHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新商户货架数据
 func (u *MerchantShelfHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -113,8 +115,8 @@ func (u *MerchantShelfHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantShelfByMerShelfID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateMerchantShelfByMerShelfID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -141,10 +143,12 @@ var getMerchantShelfCheckFields = map[string]interface{}{
 	field.FieldMerShelfID:"required",
 }
 
+
 var queryMerchantShelfCheckFields = map[string]interface{}{
 	field.FieldMerShelfName:"required",
 	field.FieldMerNo:"required",
 	}
+
 
 var updateMerchantShelfCheckFields = map[string]interface{}{
 	field.FieldMerShelfName:"required",

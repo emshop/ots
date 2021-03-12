@@ -35,6 +35,7 @@ func SaveDeliveryResult(ctx hydra.IContext) interface{} {
 	}
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
 		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
 		return flw
 	}
@@ -68,6 +69,7 @@ func SaveQueryResult(ctx hydra.IContext) interface{} {
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
 		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
 		return flw
 	}
@@ -101,6 +103,7 @@ func SaveNotifyResult(ctx hydra.IContext) interface{} {
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
 		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
 		return flw
 	}
@@ -134,6 +137,7 @@ func SaveAuditResult(ctx hydra.IContext) interface{} {
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Info("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
 		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
 		return flw
 	}

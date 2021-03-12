@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -69,6 +69,7 @@ func (u *SupplierShelfHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取供货商货架数据列表
 func (u *SupplierShelfHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *SupplierShelfHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新供货商货架数据
 func (u *SupplierShelfHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -113,8 +115,8 @@ func (u *SupplierShelfHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Info("2.执行操作")
-	count,err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierShelfBySppShelfID,ctx.Request().GetMap())
-	if err != nil||count<1 {
+	_, err := hydra.C.DB().GetRegularDB().Execute(sql.UpdateSupplierShelfBySppShelfID,ctx.Request().GetMap())
+	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"更新数据出错:%+v", err)
 	}
 
@@ -127,20 +129,21 @@ var postSupplierShelfCheckFields = map[string]interface{}{
 	field.FieldSppShelfName:"required",
 	field.FieldSppNo:"required",
 	field.FieldReqURL:"required",
-	field.FieldQueryURL:"required",
-	field.FieldNotifyURL:"required",
-	field.FieldInvoiceType:"required",
-	field.FieldSppFeeDiscount:"required",
-	field.FieldTradeFeeDiscount:"required",
-	field.FieldPaymentFeeDiscount:"required",
-	field.FieldCanRefund:"required",
-	field.FieldStatus:"required",
-	field.FieldLimitCount:"required",
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
 var getSupplierShelfCheckFields = map[string]interface{}{
 	field.FieldSppShelfID:"required",
 }
+
 
 var querySupplierShelfCheckFields = map[string]interface{}{
 	field.FieldSppShelfName:"required",
@@ -148,18 +151,19 @@ var querySupplierShelfCheckFields = map[string]interface{}{
 	field.FieldStatus:"required",
 	}
 
+
 var updateSupplierShelfCheckFields = map[string]interface{}{
 	field.FieldSppShelfName:"required",
 	field.FieldReqURL:"required",
-	field.FieldQueryURL:"required",
-	field.FieldNotifyURL:"required",
-	field.FieldInvoiceType:"required",
-	field.FieldSppFeeDiscount:"required",
-	field.FieldTradeFeeDiscount:"required",
-	field.FieldPaymentFeeDiscount:"required",
-	field.FieldCanRefund:"required",
-	field.FieldStatus:"required",
-	field.FieldLimitCount:"required",
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 
 

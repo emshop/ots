@@ -69,6 +69,7 @@ func (u *ProductFlowHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 	return items.Get(0)
 }
 
+
 //QueryHandle  获取业务流程数据列表
 func (u *ProductFlowHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -102,6 +103,7 @@ func (u *ProductFlowHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		"count": types.GetInt(count),
 	}
 }
+
 //PutHandle 更新业务流程数据
 func (u *ProductFlowHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
@@ -137,11 +139,13 @@ var getProductFlowCheckFields = map[string]interface{}{
 	field.FieldFlowID:"required",
 }
 
+
 var queryProductFlowCheckFields = map[string]interface{}{
 	field.FieldFlowTag:"required",
 	field.FieldPlID:"required",
 	field.FieldStatus:"required",
 	}
+
 
 var updateProductFlowCheckFields = map[string]interface{}{
 	field.FieldFlowTag:"required",

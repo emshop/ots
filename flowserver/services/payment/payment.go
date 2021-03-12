@@ -8,6 +8,7 @@ import (
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
+	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
 
 var requireFields = []string{
@@ -15,13 +16,14 @@ var requireFields = []string{
 }
 
 //Paying 处理订单支付(异步流程)
-func Paying(ctx hydra.IContext) interface{} {
+func Paying(ctx hydra.IContext) (r interface{}) {
 	ctx.Log().Info("-------------处理订单支付----------------------")
 	if err := ctx.Request().Check(requireFields...); err != nil {
 		return err
 	}
 
 	ctx.Log().Info("1. 处理订单支付")
+	defer lcs.New(ctx.Log(), "订单支付", ctx.Request().GetString(fields.FieldOrderID)).Start("支付").End(r)
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	err := payments.Pay(ctx.Request().GetString(fields.FieldOrderID))
 	switch {

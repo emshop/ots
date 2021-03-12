@@ -44,19 +44,19 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="面值" prop="face">
+      <el-form-item label="面值:" prop="face">
 				<el-input size="medium" maxlength="10"
 				 clearable v-model="addData.face" placeholder="请输入面值">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="商户商品编号" prop="mer_product_no">
+      <el-form-item label="商户商品编号:" prop="mer_product_no">
 				<el-input size="medium" maxlength="32"
 				 clearable v-model="addData.mer_product_no" placeholder="请输入商户商品编号">
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="销售折扣" prop="discount">
+      <el-form-item label="销售折扣:" prop="discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.discount" placeholder="请输入销售折扣">
 				</el-input>

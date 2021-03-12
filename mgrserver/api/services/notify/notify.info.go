@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
-	"github.com/micro-plat/lib4go/types"
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
+	"github.com/micro-plat/lib4go/types"
 	
 )
 
@@ -33,6 +33,29 @@ func (u *NotifyInfoHandler) GetHandle(ctx hydra.IContext) (r interface{}) {
 
 	ctx.Log().Info("2.执行操作")
 	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetNotifyInfoByOrderID,ctx.Request().GetMap())
+	if err != nil {
+		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
+	}
+	if items.Len() == 0 {
+		return errs.NewError(http.StatusNoContent, "未查询到数据")
+	}
+
+	ctx.Log().Info("3.返回结果")
+	return items.Get(0)
+}
+
+//DetailHandle 获取订单通知表详情单条数据
+func (u *NotifyInfoHandler) DetailHandle(ctx hydra.IContext) (r interface{}) {
+
+	ctx.Log().Info("--------获取订单通知表详情单条数据--------")
+
+	ctx.Log().Info("1.参数校验")
+	if err := ctx.Request().CheckMap(getNotifyInfoDetailCheckFields); err != nil {
+		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
+	}
+
+	ctx.Log().Info("2.执行操作")
+	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetNotifyInfoDetailByOrderID,ctx.Request().GetMap())
 	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
 	}
@@ -80,7 +103,12 @@ func (u *NotifyInfoHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
 
 
+
 var getNotifyInfoCheckFields = map[string]interface{}{
+	field.FieldOrderID:"required",
+}
+
+var getNotifyInfoDetailCheckFields = map[string]interface{}{
 	field.FieldOrderID:"required",
 }
 
@@ -88,6 +116,7 @@ var queryNotifyInfoCheckFields = map[string]interface{}{
 	field.FieldMerNo:"required",
 	field.FieldNotifyStatus:"required",
 	}
+
 
 
 

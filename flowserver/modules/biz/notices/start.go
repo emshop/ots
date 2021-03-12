@@ -22,17 +22,16 @@ func Start(orderID string) (*NotifyInfo, error) {
 
 	//修改无须通知记录
 	data, err := dbs.Executes(db, types.XMap{fields.FieldOrderID: orderID}, updateNoNeedNotices...)
-	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
-		db.Rollback()
-		return nil, err
-	}
 	if err == nil {
 		db.Commit()
 		return nil, errs.NewStopf(http.StatusNoContent, "订单(%s)无须通知", orderID)
 	}
-
-	//使用新事务进行操作
 	db.Rollback()
+	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
+		return nil, err
+	}
+
+	//处理正常待通知
 	db, err = hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {
 		return nil, err
@@ -68,15 +67,12 @@ type NotifyInfo struct {
 	//AccountName 用户账户信息
 	AccountName string `json:"account_name"`
 
-	//InvoiceType 开票方式（1.不开发票）
-	InvoiceType int `json:"invoice_type"`
-
 	//SellDiscount 销售折扣
 	SellDiscount types.Decimal `json:"sell_discount"`
 
-	//SellAmount 总销售金额
-	SellAmount types.Decimal `json:"sell_amount"`
-
 	//NotifyURL 通知地址
 	NotifyURL string `json:"notify_url"`
+
+	//订单状态
+	Status int `json:"status"`
 }

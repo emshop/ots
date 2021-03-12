@@ -33,7 +33,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			this.editData = this.$http.xget("/audit/info", { delivery_id: this.editData.delivery_id })
+			var delivery_id = this.editData.delivery_id
+			this.editData = this.$http.xget("/audit/info", { delivery_id: delivery_id })
+			this.editData.delivery_id = delivery_id
 			this.dialogFormVisible = true;
 		},
 		edit() {
