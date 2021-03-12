@@ -1,0 +1,6 @@
+truncate table ots_trade_delivery;
+truncate table ots_notify_info;
+truncate table ots_trade_lifetime;
+truncate table tsk_system_task;
+truncate table ots_trade_order;
+truncate table lcs_life_time;
