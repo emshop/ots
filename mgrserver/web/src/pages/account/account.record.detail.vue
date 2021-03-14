@@ -44,13 +44,13 @@
                       <div class="pull-right" style="margin-right: 10px">交易类型:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.trade_type | fltrEnum("trade_type") }}</div>
+                      <div :class="info.trade_type|fltrTextColor">{{ info.trade_type | fltrEnum("trade_type") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">变动类型:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.change_type | fltrEnum("change_type") }}</div>
+                      <div :class="info.change_type|fltrTextColor">{{ info.change_type | fltrEnum("change_type") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -76,7 +76,7 @@
                       <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
+                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">交易说明:</div>

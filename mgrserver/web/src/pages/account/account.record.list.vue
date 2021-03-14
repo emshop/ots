@@ -61,12 +61,12 @@
 				</el-table-column>
 				<el-table-column   prop="trade_type" label="交易类型" align="center">
 					<template slot-scope="scope">
-						<span >{{scope.row.trade_type | fltrEnum("trade_type")}}</span>
+						<span :class="scope.row.trade_type|fltrTextColor">{{scope.row.trade_type | fltrEnum("trade_type")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="change_type" label="变动类型" align="center">
 					<template slot-scope="scope">
-						<span >{{scope.row.change_type | fltrEnum("change_type")}}</span>
+						<span :class="scope.row.change_type|fltrTextColor">{{scope.row.change_type | fltrEnum("change_type")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="amount" label="变动金额" align="center">
@@ -81,7 +81,7 @@
 				</el-table-column>
 				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
+					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
 				</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">

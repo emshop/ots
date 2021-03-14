@@ -237,7 +237,7 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">结束时间:</div>
+                      <div class="pull-right" style="margin-right: 10px">完成时间:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.end_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>

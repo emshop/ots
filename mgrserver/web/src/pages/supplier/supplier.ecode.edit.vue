@@ -41,18 +41,18 @@
 				</el-input>
       </el-form-item>
       
+      <el-form-item label="错误码描述:" prop="error_desc">
+				<el-input size="medium" maxlength="64"
+				clearable v-model="editData.error_desc" placeholder="请输入错误码描述">
+				</el-input>
+      </el-form-item>
+      
       
 			<el-form-item label="状态:" prop="status">
 				<el-select size="medium" style="width: 100%;"	v-model="editData.status" clearable filterable class="input-cos" placeholder="---请选择---"	>
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
-      
-      <el-form-item label="错误码描述:" prop="error_desc">
-				<el-input size="medium" maxlength="64"
-				clearable v-model="editData.error_desc" placeholder="请输入错误码描述">
-				</el-input>
-      </el-form-item>
       
     </el-form>
 		<div slot="footer" class="dialog-footer">
@@ -92,11 +92,11 @@ export default {
 				error_code: [
 					{ required: true, message: "请输入错误码", trigger: "blur" }
 				],
-				status: [
-					{ required: true, message: "请输入状态", trigger: "blur" }
-				],
 				error_desc: [
 					{ required: true, message: "请输入错误码描述", trigger: "blur" }
+				],
+				status: [
+					{ required: true, message: "请输入状态", trigger: "blur" }
 				],
 			},
 		}

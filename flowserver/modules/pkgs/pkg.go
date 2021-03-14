@@ -14,7 +14,7 @@ func GetOrderID() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("RO%s%s", time.Now().Format("20060102"), id), nil
+	return fmt.Sprintf("R%s%s", time.Now().Format("060102"), id), nil
 }
 
 //GetDeliveryID 获取发货编号

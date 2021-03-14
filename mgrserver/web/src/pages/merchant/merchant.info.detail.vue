@@ -29,7 +29,7 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">公司名称:</div>
+                      <div class="pull-right" style="margin-right: 10px">所属公司:</div>
                     </el-col>
                     <el-col :span="6">
                       <el-tooltip class="item" v-if="info.mer_crop && info.mer_crop.length > 50" effect="dark" placement="top">
@@ -39,7 +39,7 @@
                       <div v-else>{{ info.mer_crop | fltrEmpty }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">类型:</div>
+                      <div class="pull-right" style="margin-right: 10px">商户分类:</div>
                     </el-col>
                     <el-col :span="6">
                       <div >{{ info.mer_type | fltrEnum("merchant_type") }}</div>
@@ -55,20 +55,20 @@
                       <div >{{ info.bd_uid | fltrEnum("user_info") }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">状态:</div>
+                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
+                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
+                      <div class="pull-right" style="margin-right: 10px">状态:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
+                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
                     </el-col>
                   </td>
                 </tr>            

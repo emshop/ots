@@ -13,11 +13,12 @@
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="状态:" prop="status">
-				<el-input size="medium" maxlength="1"
-				clearable v-model="editData.status" placeholder="请输入状态">
-				</el-input>
-      </el-form-item>
+      
+			<el-form-item label="状态:" prop="status">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.status" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
       
     </el-form>
 		<div slot="footer" class="dialog-footer">
@@ -33,6 +34,7 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				account_name: [
 					{ required: true, message: "请输入帐户名称", trigger: "blur" }

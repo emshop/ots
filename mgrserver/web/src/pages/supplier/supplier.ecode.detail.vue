@@ -57,12 +57,6 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">状态:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">错误码描述:</div>
                     </el-col>
                     <el-col :span="6">
@@ -71,16 +65,22 @@
                         <div >{{ info.error_desc | fltrSubstr(50) }}</div>
                       </el-tooltip>
                       <div v-else>{{ info.error_desc | fltrEmpty }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
+                      <div class="pull-right" style="margin-right: 10px">状态:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
                     </el-col>
                   </td>
                 </tr>            

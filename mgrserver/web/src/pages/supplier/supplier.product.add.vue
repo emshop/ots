@@ -43,11 +43,12 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="城市:" prop="city_no">
-				<el-input size="medium" maxlength="8"
-				 clearable v-model="addData.city_no" placeholder="请输入城市">
-				</el-input>
-      </el-form-item>
+      
+			<el-form-item label="城市:" prop="city_no">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.city_no"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in cityNo" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
       
       <el-form-item label="面值:" prop="face">
 				<el-input size="medium" maxlength="10"
@@ -88,6 +89,7 @@ export default {
 			plID:this.$enum.get("product_line"),
 			brandNo:this.$enum.get("brand"),
 			provinceNo:this.$enum.get("province"),
+			cityNo:this.$enum.get("city"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				spp_shelf_id: [{ required: true, message: "请输入货架名称", trigger: "blur" }],

@@ -55,7 +55,7 @@ func (u *TradeDeliveryHandler) DetailHandle(ctx hydra.IContext) (r interface{}) 
 	}
 
 	ctx.Log().Info("2.执行操作")
-	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetTradeDeliveryDetailByOrderID,ctx.Request().GetMap())
+	items, err :=  hydra.C.DB().GetRegularDB().Query(sql.GetTradeDeliveryDetailByDeliveryID,ctx.Request().GetMap())
 	if err != nil {
 		return errs.NewErrorf(http.StatusNotExtended,"查询数据出错:%+v", err)
 	}
@@ -109,7 +109,7 @@ var getTradeDeliveryCheckFields = map[string]interface{}{
 }
 
 var getTradeDeliveryDetailCheckFields = map[string]interface{}{
-	field.FieldOrderID:"required",
+	field.FieldDeliveryID:"required",
 }
 
 var queryTradeDeliveryCheckFields = map[string]interface{}{

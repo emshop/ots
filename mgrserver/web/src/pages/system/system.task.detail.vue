@@ -28,13 +28,13 @@
                       <div class="pull-right" style="margin-right: 10px">流程名称:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.name | fltrEmpty }}</div>
+                      <div >{{ info.name | fltrEnum("flow_tag") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.create_time | fltrDate("MM/dd HH:mm:ss") }}</div>
+                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -44,13 +44,13 @@
                       <div class="pull-right" style="margin-right: 10px">上次执行时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.last_execute_time | fltrDate("yyyy-MM-dd") }}</div>
+                      <div>{{ info.last_execute_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">下次执行时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.next_execute_time | fltrDate("MM/dd HH:mm:ss") }}</div>
+                      <div>{{ info.next_execute_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -60,7 +60,7 @@
                       <div class="pull-right" style="margin-right: 10px">执行期限:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.max_execute_time | fltrDate("yyyy-MM-dd") }}</div>
+                      <div>{{ info.max_execute_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">时间间隔:</div>
@@ -82,7 +82,7 @@
                       <div class="pull-right" style="margin-right: 10px">删除期限:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.delete_time | fltrDate("yyyy-MM-dd") }}</div>
+                      <div>{{ info.delete_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -105,21 +105,11 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">状态:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("process_status") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">执行批次号:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.batch_id |  fltrNumberFormat(0)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
+                    </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">消息队列:</div>
                     </el-col>
@@ -129,7 +119,11 @@
                         <div >{{ info.queue_name | fltrSubstr(50) }}</div>
                       </el-tooltip>
                       <div v-else>{{ info.queue_name | fltrEmpty }}</div>
-                    </el-col>                 
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">消息内容:</div>
                     </el-col>
@@ -139,6 +133,12 @@
                         <div >{{ info.msg_content | fltrSubstr(50) }}</div>
                       </el-tooltip>
                       <div v-else>{{ info.msg_content | fltrEmpty }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">状态:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("process_status") }}</div>
                     </el-col>
                   </td>
                 </tr>            

@@ -45,8 +45,14 @@
 				</el-input>
       </el-form-item>
       
+      <el-form-item label="单次最大数量:" prop="limit_count">
+				<el-input size="medium" maxlength="10"
+				 clearable v-model="addData.limit_count" placeholder="请输入单次最大数量">
+				</el-input>
+      </el-form-item>
       
-			<el-form-item label="开票方式:" prop="invoice_type">
+      
+			<el-form-item label="允许开票:" prop="invoice_type">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.invoice_type"	clearable filterable class="input-cos" placeholder="---请选择---">
 					<el-option v-for="(item, index) in invoiceType" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
@@ -58,12 +64,6 @@
 					<el-option v-for="(item, index) in canRefund" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
-      
-      <el-form-item label="单次购买数量:" prop="limit_count">
-				<el-input size="medium" maxlength="10"
-				 clearable v-model="addData.limit_count" placeholder="请输入单次购买数量">
-				</el-input>
-      </el-form-item>
       
       
 			<el-form-item label="允许拆单:" prop="can_split_order">
@@ -107,9 +107,9 @@ export default {
 				payment_fee_discount: [{ required: true, message: "请输入支付手续费", trigger: "blur" }],
 				order_timeout: [{ required: true, message: "请输入订单超时时长", trigger: "blur" }],
 				payment_timeout: [{ required: true, message: "请输入支付超时时长", trigger: "blur" }],
-				invoice_type: [{ required: true, message: "请输入开票方式", trigger: "blur" }],
+				limit_count: [{ required: true, message: "请输入单次最大数量", trigger: "blur" }],
+				invoice_type: [{ required: true, message: "请输入允许开票", trigger: "blur" }],
 				can_refund: [{ required: true, message: "请输入允许退款", trigger: "blur" }],
-				limit_count: [{ required: true, message: "请输入单次购买数量", trigger: "blur" }],
 				can_split_order: [{ required: true, message: "请输入允许拆单", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},

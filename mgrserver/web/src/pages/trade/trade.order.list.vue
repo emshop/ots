@@ -9,7 +9,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户编号">
+					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
@@ -23,16 +23,9 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.province_no"  clearable filterable class="input-cos" placeholder="请选择省份" @change="setCityNo(queryData.province_no)">
+					<el-select size="medium" v-model="queryData.province_no"  clearable filterable class="input-cos" placeholder="请选择省份">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in provinceNo" :key="index" :value="item.value" :label="item.name"></el-option>
-					</el-select>
-				</el-form-item>
-			
-				<el-form-item>
-					<el-select size="medium" v-model="queryData.city_no"  clearable filterable class="input-cos" placeholder="请选择城市" @change="handleChooseTool()">
-						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in cityNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
@@ -58,12 +51,12 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column   prop="mer_no" label="商户编号" align="center">
+				<el-table-column   prop="mer_no" label="商户" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="mer_order_no" label="商户订单编号" align="center">
+				<el-table-column   prop="mer_order_no" label="商户订单" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
@@ -113,7 +106,7 @@
 				</el-table-column>
 				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("MM/dd HH:mm:ss") }}</div>
+					<div>{{scope.row.create_time | fltrDate("HH:mm:ss") }}</div>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="bind_face" label="绑定面值" align="center">
@@ -170,7 +163,6 @@ export default {
 			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
 			provinceNo: this.$enum.get("province"),
-			cityNo: [],
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
@@ -188,13 +180,6 @@ export default {
     /**初始化操作**/
     init(){
       this.query()
-		},
-		handleChooseTool() {
-      this.$forceUpdate()
-    },
-		setCityNo(pid){
-			this.queryData.city_no = ""
-			this.cityNo=this.$enum.get("city",pid)
 		},
     /**查询数据并赋值*/
 		queryDatas() {

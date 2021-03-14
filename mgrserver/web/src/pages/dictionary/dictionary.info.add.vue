@@ -20,18 +20,18 @@
 				</el-input>
       </el-form-item>
       
+      <el-form-item label="排序值:" prop="sort_no">
+				<el-input size="medium" maxlength="2"
+				 clearable v-model="addData.sort_no" placeholder="请输入排序值">
+				</el-input>
+      </el-form-item>
+      
       
 			<el-form-item label="状态:" prop="status">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
-      
-      <el-form-item label="排序值:" prop="sort_no">
-				<el-input size="medium" maxlength="2"
-				 clearable v-model="addData.sort_no" placeholder="请输入排序值">
-				</el-input>
-      </el-form-item>
       
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -53,8 +53,8 @@ export default {
 				name: [{ required: true, message: "请输入名称", trigger: "blur" }],
 				value: [{ required: true, message: "请输入值", trigger: "blur" }],
 				type: [{ required: true, message: "请输入类型", trigger: "blur" }],
-				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 				sort_no: [{ required: true, message: "请输入排序值", trigger: "blur" }],
+				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}
 	},

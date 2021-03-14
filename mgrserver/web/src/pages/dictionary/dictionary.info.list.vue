@@ -63,15 +63,15 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column   prop="status" label="状态" align="center">
-					<template slot-scope="scope">
-						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
-					</template>
-				</el-table-column>
 				<el-table-column   prop="sort_no" label="排序值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.sort_no | fltrNumberFormat(0)}}</span>
 				</template>
+				</el-table-column>
+				<el-table-column   prop="status" label="状态" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">

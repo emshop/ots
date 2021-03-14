@@ -10,6 +10,10 @@
 					</el-select>
 				</el-form-item>
 			
+				<el-form-item label="创建时间:">
+						<el-date-picker size="medium" class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
+				</el-form-item>
+			
 				<el-form-item>
 					<el-select size="medium" v-model="queryData.notify_status"  clearable filterable class="input-cos" placeholder="请选择通知状态">
 						<el-option value="" label="全部"></el-option>
@@ -49,30 +53,30 @@
 						<span v-else>{{scope.row.mer_order_no | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="notify_status" label="通知状态" align="center">
-					<template slot-scope="scope">
-						<span :class="scope.row.notify_status|fltrTextColor">{{scope.row.notify_status | fltrEnum("process_status")}}</span>
-					</template>
+				<el-table-column   prop="create_time" label="创建时间" align="center">
+				<template slot-scope="scope">
+					<div>{{scope.row.create_time | fltrDate("HH:mm:ss") }}</div>
+				</template>
+				</el-table-column>
+				<el-table-column   prop="start_time" label="开始时间" align="center">
+				<template slot-scope="scope">
+					<div>{{scope.row.start_time | fltrDate("HH:mm:ss") }}</div>
+				</template>
+				</el-table-column>
+				<el-table-column   prop="end_time" label="结束时间" align="center">
+				<template slot-scope="scope">
+					<div>{{scope.row.end_time | fltrDate("HH:mm:ss") }}</div>
+				</template>
 				</el-table-column>
 				<el-table-column   prop="notify_count" label="通知次数" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.notify_count | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="create_time" label="创建时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
-				</el-table-column>
-				<el-table-column   prop="start_time" label="开始时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.start_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
-				</el-table-column>
-				<el-table-column   prop="end_time" label="结束时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.end_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
+				<el-table-column   prop="notify_status" label="通知状态" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.notify_status|fltrTextColor">{{scope.row.notify_status | fltrEnum("process_status")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column   prop="notify_msg" label="通知结果" align="center">
 					<template slot-scope="scope">
@@ -125,6 +129,7 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			merNo: this.$enum.get("merchant_info"),
+			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			notifyStatus: this.$enum.get("process_status"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
@@ -151,6 +156,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
+			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
       let res = this.$http.xpost("/notify/info/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items || []
 			this.dataList.count = res.count

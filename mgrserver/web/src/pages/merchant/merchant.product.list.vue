@@ -90,18 +90,13 @@
 				</el-table-column>
 				<el-table-column  sortable prop="discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
 				<el-table-column  sortable prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
-				</el-table-column>
-				<el-table-column  sortable prop="create_time" label="创建时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">

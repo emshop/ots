@@ -31,6 +31,7 @@ select
 	t.groups,
 	t.eid,
 	t.balance,
+	t.credit,
 	t.status,
 	t.create_time
 from beanpay_account_info t
@@ -51,8 +52,9 @@ select
 	t.account_name,
 	t.groups,
 	t.eid,
-	t.status,
-	t.create_time 
+	t.balance,
+	t.credit,
+	t.status 
 from beanpay_account_info t
 where
 	&t.eid

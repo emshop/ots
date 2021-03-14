@@ -45,16 +45,16 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">状态:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">排序值:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.sort_no |  fltrNumberFormat(0)}}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">状态:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
                     </el-col>
                   </td>
                 </tr>            

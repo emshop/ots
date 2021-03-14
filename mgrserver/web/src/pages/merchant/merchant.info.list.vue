@@ -46,7 +46,7 @@
 						<span v-else>{{scope.row.mer_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="mer_crop" label="公司名称" align="center">
+				<el-table-column   prop="mer_crop" label="所属公司" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.mer_crop && scope.row.mer_crop.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_crop}}</div>
@@ -55,7 +55,7 @@
 						<span v-else>{{scope.row.mer_crop | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="mer_type" label="类型" align="center">
+				<el-table-column   prop="mer_type" label="商户分类" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_type | fltrEnum("merchant_type")}}</span>
 					</template>
@@ -64,11 +64,6 @@
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
-				</el-table-column>
-				<el-table-column   prop="create_time" label="创建时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">

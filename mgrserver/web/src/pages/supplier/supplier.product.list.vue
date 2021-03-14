@@ -86,10 +86,9 @@
 					</template>
 				</el-table-column>
 				<el-table-column   prop="city_no" label="城市" align="center">
-				<template slot-scope="scope">
-					<span>{{scope.row.city_no | fltrEmpty }}</span>
-				</template>
-				
+					<template slot-scope="scope">
+						<span >{{scope.row.city_no | fltrEnum("city")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column   prop="face" label="面值" align="center">
 				<template slot-scope="scope">
@@ -98,18 +97,13 @@
 				</el-table-column>
 				<el-table-column   prop="cost_discount" label="成本折扣" align="center">
 				<template slot-scope="scope">
-					<span>{{scope.row.cost_discount | fltrNumberFormat(2)}}</span>
+					<span>{{scope.row.cost_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
-				</el-table-column>
-				<el-table-column   prop="create_time" label="创建时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">

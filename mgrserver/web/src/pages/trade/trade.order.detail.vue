@@ -15,7 +15,7 @@
                       <div>{{ info.order_id | fltrEmpty }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">商户编号:</div>
+                      <div class="pull-right" style="margin-right: 10px">商户:</div>
                     </el-col>
                     <el-col :span="6">
                       <div >{{ info.mer_no | fltrEnum("merchant_info") }}</div>
@@ -25,7 +25,7 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">商户订单编号:</div>
+                      <div class="pull-right" style="margin-right: 10px">商户订单:</div>
                     </el-col>
                     <el-col :span="6">
                       <el-tooltip class="item" v-if="info.mer_order_no && info.mer_order_no.length > 50" effect="dark" placement="top">
@@ -782,7 +782,7 @@
             </table>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="生命周期记录表" name="LifeTimeDetail">
+        <el-tab-pane label="生命周期" name="LifeTimeDetail">
           <el-scrollbar style="height:100%" id="panel-body">
             <el-table :data="LifeTimeList.items" stripe style="width: 100%" :height="maxHeight">
               
@@ -827,8 +827,9 @@
               
               <el-table-column   prop="task_id" label="编号" align="center">
               <template slot-scope="scope">
-                <span>{{scope.row.task_id | fltrNumberFormat(0)}}</span>
+                <span>{{scope.row.task_id | fltrEmpty }}</span>
               </template>
+              
               </el-table-column>
               <el-table-column   prop="order_no" label="订单号" align="center">
               <template slot-scope="scope">
@@ -953,7 +954,7 @@ export default {
     queryLifeTimeData(){
       this.queryLifeTimeParams.pi = this.pagingLifeTime.pi
 			this.queryLifeTimeParams.ps = this.pagingLifeTime.ps
-      this.queryLifeTimeParams.order_no=this.info.order_no 
+      this.queryLifeTimeParams.order_id=this.info.order_no 
       let res = this.$http.xpost("/life/time/querydetail",this.$utility.delEmptyProperty(this.queryLifeTimeParams))
 			this.LifeTimeList.items = res.items || []
 			this.LifeTimeList.count = res.count
@@ -976,7 +977,7 @@ export default {
     querySystemTaskData(){
       this.querySystemTaskParams.pi = this.pagingSystemTask.pi
 			this.querySystemTaskParams.ps = this.pagingSystemTask.ps
-      this.querySystemTaskParams.order_no=this.info.order_no 
+      this.querySystemTaskParams.order_id=this.info.order_no 
       let res = this.$http.xpost("/system/task/querydetail",this.$utility.delEmptyProperty(this.querySystemTaskParams))
 			this.SystemTaskList.items = res.items || []
 			this.SystemTaskList.count = res.count

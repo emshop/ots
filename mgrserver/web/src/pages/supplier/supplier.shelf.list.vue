@@ -16,7 +16,7 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.status"  clearable filterable class="input-cos" placeholder="请选择货架状态">
+					<el-select size="medium" v-model="queryData.status"  clearable filterable class="input-cos" placeholder="请选择状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
@@ -58,11 +58,6 @@
 						<span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="invoice_type" label="开票" align="center">
-					<template slot-scope="scope">
-						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("invoice_type")}}</span>
-					</template>
-				</el-table-column>
 				<el-table-column   prop="spp_fee_discount" label="商户佣金" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.spp_fee_discount | fltrNumberFormat(5)}}</span>
@@ -78,20 +73,20 @@
 					<span>{{scope.row.payment_fee_discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
+				<el-table-column   prop="invoice_type" label="支持开票" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("invoice_type")}}</span>
+					</template>
+				</el-table-column>
 				<el-table-column   prop="can_refund" label="支持退货" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.can_refund|fltrTextColor">{{scope.row.can_refund | fltrEnum("bool")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="status" label="货架状态" align="center">
+				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
-				</el-table-column>
-				<el-table-column   prop="create_time" label="创建时间" align="center">
-				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
-				</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
 					<template slot-scope="scope">

@@ -49,10 +49,26 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">通知状态:</div>
+                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div :class="info.notify_status|fltrTextColor">{{ info.notify_status | fltrEnum("process_status") }}</div>
+                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">开始时间:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.start_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">结束时间:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.end_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">最大通知次数:</div>
@@ -71,26 +87,10 @@
                       <div>{{ info.notify_count |  fltrNumberFormat(0)}}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
+                      <div class="pull-right" style="margin-right: 10px">通知状态:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">开始时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ info.start_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">结束时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ info.end_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                      <div :class="info.notify_status|fltrTextColor">{{ info.notify_status | fltrEnum("process_status") }}</div>
                     </el-col>
                   </td>
                 </tr>

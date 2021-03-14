@@ -95,7 +95,7 @@
 				</el-table-column>
 				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
-					<div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
+					<div>{{scope.row.create_time | fltrDate("HH:mm:ss") }}</div>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="face" label="商品面值" align="center">
@@ -103,9 +103,9 @@
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="start_time" label="开始时间" align="center">
+				<el-table-column   prop="end_time" label="完成时间" align="center">
 				<template slot-scope="scope">
-					<div>{{scope.row.start_time | fltrDate("yyyy-MM-dd") }}</div>
+					<div>{{scope.row.end_time | fltrDate("MM/dd HH:mm") }}</div>
 				</template>
 				</el-table-column>
 				<el-table-column   prop="return_msg" label="发货结果" align="center">

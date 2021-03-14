@@ -77,26 +77,26 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">开票方式:</div>
+                      <div class="pull-right" style="margin-right: 10px">单次最大数量:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.limit_count |  fltrNumberFormat(0)}}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">允许开票:</div>
                     </el-col>
                     <el-col :span="6">
                       <div :class="info.invoice_type|fltrTextColor">{{ info.invoice_type | fltrEnum("invoice_type") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">允许退款:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="info.can_refund|fltrTextColor">{{ info.can_refund | fltrEnum("bool") }}</div>
                     </el-col>
                   </td>
                 </tr>
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">单次购买数量:</div>
+                      <div class="pull-right" style="margin-right: 10px">允许退款:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.limit_count |  fltrNumberFormat(0)}}</div>
+                      <div :class="info.can_refund|fltrTextColor">{{ info.can_refund | fltrEnum("bool") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">允许拆单:</div>
@@ -118,7 +118,7 @@
                       <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd") }}</div>
+                      <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>            

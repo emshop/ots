@@ -39,13 +39,6 @@
 				</el-input>
       </el-form-item>
       
-      
-			<el-form-item label="开票:" prop="invoice_type">
-				<el-select size="medium" style="width: 100%;"	v-model="addData.invoice_type"	clearable filterable class="input-cos" placeholder="---请选择---">
-					<el-option v-for="(item, index) in invoiceType" :key="index" :value="item.value" :label="item.name"></el-option>
-				</el-select>
-			</el-form-item>
-      
       <el-form-item label="商户佣金:" prop="spp_fee_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				 clearable v-model="addData.spp_fee_discount" placeholder="请输入商户佣金">
@@ -64,6 +57,19 @@
 				</el-input>
       </el-form-item>
       
+      <el-form-item label="单次最大发货数量:" prop="limit_count">
+				<el-input size="medium" maxlength="10"
+				 clearable v-model="addData.limit_count" placeholder="请输入单次最大发货数量">
+				</el-input>
+      </el-form-item>
+      
+      
+			<el-form-item label="支持开票:" prop="invoice_type">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.invoice_type"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in invoiceType" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
       
 			<el-form-item label="支持退货:" prop="can_refund">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.can_refund"	clearable filterable class="input-cos" placeholder="---请选择---">
@@ -72,17 +78,11 @@
 			</el-form-item>
       
       
-			<el-form-item label="货架状态:" prop="status">
+			<el-form-item label="状态:" prop="status">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
-      
-      <el-form-item label="单次最大发货数量:" prop="limit_count">
-				<el-input size="medium" maxlength="10"
-				 clearable v-model="addData.limit_count" placeholder="请输入单次最大发货数量">
-				</el-input>
-      </el-form-item>
       
     </el-form>
     <div slot="footer" class="dialog-footer">

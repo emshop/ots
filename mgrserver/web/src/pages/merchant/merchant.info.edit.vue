@@ -7,14 +7,14 @@
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="公司名称:" prop="mer_crop">
+      <el-form-item label="所属公司:" prop="mer_crop">
 				<el-input size="medium" maxlength="64"
-				clearable v-model="editData.mer_crop" placeholder="请输入公司名称">
+				clearable v-model="editData.mer_crop" placeholder="请输入所属公司">
 				</el-input>
       </el-form-item>
       
       
-			<el-form-item label="类型:" prop="mer_type">
+			<el-form-item label="商户分类:" prop="mer_type">
 				<el-select size="medium" style="width: 100%;"	v-model="editData.mer_type" clearable filterable class="input-cos" placeholder="---请选择---"	>
 					<el-option v-for="(item, index) in merType" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
@@ -56,7 +56,7 @@ export default {
 					{ required: true, message: "请输入商户名称", trigger: "blur" }
 				],
 				mer_type: [
-					{ required: true, message: "请输入类型", trigger: "blur" }
+					{ required: true, message: "请输入商户分类", trigger: "blur" }
 				],
 				status: [
 					{ required: true, message: "请输入状态", trigger: "blur" }

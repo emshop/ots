@@ -41,8 +41,8 @@ select
 from ots_trade_delivery t
 where
 	&delivery_id`
-//GetTradeDeliveryDetailByOrderID 查询订单发货表单条详情数据
-const GetTradeDeliveryDetailByOrderID= `
+//GetTradeDeliveryDetailByDeliveryID 查询订单发货表单条详情数据
+const GetTradeDeliveryDetailByDeliveryID= `
 select
 	t.delivery_id,
 	t.order_id,
@@ -82,7 +82,7 @@ select
 	t.last_update_time
 from ots_trade_delivery t
 where
-	&order_id
+	&delivery_id
 `
 
 //GetTradeDeliveryListCount 获取订单发货表列表条数
@@ -111,6 +111,7 @@ select
 	t.create_time,
 	t.face,
 	t.start_time,
+	t.end_time,
 	t.return_msg 
 from ots_trade_delivery t
 where

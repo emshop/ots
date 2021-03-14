@@ -8,6 +8,13 @@
 					</el-input>
 				</el-form-item>
 			
+				<el-form-item>
+					<el-select size="medium" v-model="queryData.name"  clearable filterable class="input-cos" placeholder="请选择流程名称">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in name" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
+				</el-form-item>
+			
 				<el-form-item label="创建时间:">
 						<el-date-picker size="medium" class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
 				</el-form-item>
@@ -37,10 +44,9 @@
 				
 				</el-table-column>
 				<el-table-column   prop="name" label="流程名称" align="center">
-				<template slot-scope="scope">
-					<span>{{scope.row.name | fltrEmpty }}</span>
-				</template>
-				
+					<template slot-scope="scope">
+						<span >{{scope.row.name | fltrEnum("flow_tag")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column   prop="create_time" label="创建时间" align="center">
 				<template slot-scope="scope">
@@ -62,11 +68,6 @@
 					<span>{{scope.row.count | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="status" label="状态" align="center">
-					<template slot-scope="scope">
-						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("process_status")}}</span>
-					</template>
-				</el-table-column>
 				<el-table-column   prop="queue_name" label="消息队列" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.queue_name && scope.row.queue_name.length > 20" effect="dark" placement="top">
@@ -74,6 +75,11 @@
 							<span>{{scope.row.queue_name | fltrSubstr(20) }}</span>
 						</el-tooltip>
 						<span v-else>{{scope.row.queue_name | fltrEmpty }}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="status" label="状态" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("process_status")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  label="操作" align="center">
@@ -117,6 +123,7 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
+			name: this.$enum.get("flow_tag"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
