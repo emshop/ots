@@ -1,5 +1,5 @@
 <template>
-	<el-dialog title="编辑生命周期记录表" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
+	<el-dialog title="编辑生命周期" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
     </el-form>
 		<div slot="footer" class="dialog-footer">
@@ -33,9 +33,9 @@ export default {
 			this.refresh()
 		},
 		show() {
-			
-			this.editData = this.$http.xget("/life/time", {  })
-			
+			var id = this.editData.id
+			this.editData = this.$http.xget("/life/time", { id: id })
+			this.editData.id = id
 			this.dialogFormVisible = true;
 		},
 		edit() {

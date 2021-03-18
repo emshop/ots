@@ -44,7 +44,8 @@ select
 	t.success_spp_fee,
 	t.success_spp_trade_fee,
 	t.success_spp_payment_fee,
-	t.profit
+	t.profit,
+	t.last_update_time
 from ots_trade_order t
 where
 	&order_id`
@@ -57,10 +58,9 @@ where
 	&t.order_id
 	&t.mer_no
 	&t.pl_id
-	&t.province_no
-	&t.city_no
 	and t.create_time >= @create_time 
-	and t.create_time < date_add(@create_time, interval 1 day)`
+	and t.create_time < date_add(@create_time, interval 1 day)
+	&t.order_status`
 
 //GetTradeOrderList 查询订单记录列表数据
 const GetTradeOrderList = `
@@ -83,11 +83,10 @@ where
 	&t.order_id
 	&t.mer_no
 	&t.pl_id
-	&t.province_no
-	&t.city_no
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
-order by t.order_id desc
+	&t.order_status
+order by #order_by
 limit @ps offset @offset
 `
 

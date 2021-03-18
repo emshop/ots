@@ -8,7 +8,6 @@ import (
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/dbs"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
-	"github.com/emshop/ots/otsserver/modules/const/sql"
 	"github.com/micro-plat/beanpay/beanpay"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
@@ -24,14 +23,57 @@ func Finish(orderID string) error {
 	if err != nil {
 		return err
 	}
-	_, err = dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Success...)
-	if err == nil {
-		db.Commit()
-		return nil
+	order, err := dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Success...)
+
+	if err != nil {
+		db.Rollback()
 	}
-	db.Rollback()
 	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
 		return err
+	}
+	if err == nil {
+		//查询订单并完成佣金、交易手续费、支付手续费等记账。
+		if order.GetFloat64(fields.FieldSuccessMerFee) > 0 {
+			account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantFee))
+			rs, err := account.DeductAmount(db,
+				order.GetString(fields.FieldMerNo),
+				order.GetString(fields.FieldOrderID),
+				beanpay.CommissionTradeType,
+				order.GetFloat64(fields.FieldSuccessMerFee),
+				"佣金记账")
+			if err != nil || rs.GetCode() != beanpay.Success {
+				db.Rollback()
+				return errs.NewErrorf(int(enums.CodeBalanceLow), "商户(%s)佣金记账失败,%v", order.GetString(fields.FieldMerNo), err)
+			}
+		}
+		if order.GetFloat64(fields.FieldSuccessMerTradeFee) > 0 {
+			account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantTradeFee))
+			rs, err := account.DeductAmount(db,
+				order.GetString(fields.FieldMerNo),
+				order.GetString(fields.FieldOrderID),
+				beanpay.FreeTradeType,
+				order.GetFloat64(fields.FieldSuccessMerTradeFee),
+				"交易手续费记账")
+			if err != nil || rs.GetCode() != beanpay.Success {
+				db.Rollback()
+				return errs.NewErrorf(int(enums.CodeBalanceLow), "商户(%s)交易手续费记账失败,%v", order.GetString(fields.FieldMerNo), err)
+			}
+		}
+		if order.GetFloat64(fields.FieldSuccessMerPaymentFee) > 0 {
+			account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantPaymentFee))
+			rs, err := account.DeductAmount(db,
+				order.GetString(fields.FieldMerNo),
+				order.GetString(fields.FieldOrderID),
+				beanpay.FreeTradeType,
+				order.GetFloat64(fields.FieldSuccessMerPaymentFee),
+				"支付手续费记账")
+			if err != nil || rs.GetCode() != beanpay.Success {
+				db.Rollback()
+				return errs.NewErrorf(int(enums.CodeBalanceLow), "商户(%s)支付手续费记账失败,%v", order.GetString(fields.FieldMerNo), err)
+			}
+		}
+		db.Commit()
+		return nil
 	}
 
 	//2. 处理未支付的订单-----------------------------------
@@ -54,24 +96,24 @@ func Finish(orderID string) error {
 	if err != nil {
 		return err
 	}
-	order, err := dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Refund...)
+	order, err = dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Refund...)
 	if err != nil {
 		db.Rollback()
 		return err
 	}
 
-	//4. 账户扣款
-	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchant))
+	//4. 订单退款
+	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantMain))
 	rs, err := account.RefundAmount(db,
 		order.GetString(fields.FieldMerNo),
 		order.GetString(fields.FieldOrderID),
 		order.GetString(fields.FieldOrderID),
 		beanpay.AccountTradeType,
 		order.GetFloat64(fields.FieldSellAmount),
-		"订单扣款")
+		"订单退款")
 	if err != nil || rs.GetCode() != beanpay.Success {
 		db.Rollback()
-		return errs.NewErrorf(int(enums.CodeBalanceLow), "商户(%s)退款失败%v", order.GetString(sql.FieldMerNo), err)
+		return errs.NewErrorf(int(enums.CodeBalanceLow), "商户(%s)退款失败%v", order.GetString(fields.FieldMerNo), err)
 	}
 	db.Commit()
 	return nil

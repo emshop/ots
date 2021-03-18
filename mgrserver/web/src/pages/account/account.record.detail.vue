@@ -1,8 +1,9 @@
+
 <template>
   <div>
     <div>
       <el-tabs v-model="tabName" type="border-card" @tab-click="handleClick">
-        <el-tab-pane label="账户余额变动信息" name="AccountRecordDetail">
+        <el-tab-pane label="资金变动" name="AccountRecordDetail">
           <div class="table-responsive">
             <table :date="info" class="table table-striped m-b-none">
               <tbody class="table-border">
@@ -28,7 +29,7 @@
                       <div class="pull-right" style="margin-right: 10px">交易编号:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.trade_no | fltrEnum("trade_no") }}</div>
+                      <div>{{ info.trade_no | fltrEmpty }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">拓展编号:</div>

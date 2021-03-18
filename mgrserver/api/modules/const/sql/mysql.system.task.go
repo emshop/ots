@@ -14,10 +14,10 @@ select
 	t.delete_time,
 	t.count,
 	t.max_count,
-	t.status,
 	t.batch_id,
 	t.queue_name,
-	t.msg_content
+	t.msg_content,
+	t.status
 from tsk_system_task t
 where
 	&task_id`
@@ -28,8 +28,10 @@ select count(1)
 from tsk_system_task t
 where
 	&t.order_no
+	&t.name
 	and t.create_time >= @create_time 
-	and t.create_time < date_add(@create_time, interval 1 day)`
+	and t.create_time < date_add(@create_time, interval 1 day)
+	&t.status`
 
 //GetSystemTaskList 查询任务表列表数据
 const GetSystemTaskList = `
@@ -41,13 +43,15 @@ select
 	t.last_execute_time,
 	t.next_execute_time,
 	t.count,
-	t.status,
-	t.queue_name 
+	t.queue_name,
+	t.status 
 from tsk_system_task t
 where
 	&t.order_no
+	&t.name
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
+	&t.status
 order by t.task_id desc
 limit @ps offset @offset
 `
@@ -68,8 +72,8 @@ select
 	t.last_execute_time,
 	t.next_execute_time,
 	t.count,
-	t.status,
-	t.queue_name 
+	t.queue_name,
+	t.status 
 from tsk_system_task t
 where
 &order_no

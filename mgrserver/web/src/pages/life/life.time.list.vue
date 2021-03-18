@@ -3,13 +3,22 @@
     <!-- query start -->
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
+				<el-form-item>
+					<el-input clearable size="medium" v-model="queryData.order_no" placeholder="请输入交易订单号">
+					</el-input>
+				</el-form-item>
+			
+				<el-form-item>
+					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
+				</el-form-item>
+				
 			</el-form>
 		</div>
     <!-- query end -->
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="id" label="id" align="center">
 				<template slot-scope="scope">
@@ -31,9 +40,9 @@
 				</el-table-column>
 				<el-table-column   prop="content" label="内容" align="center">
 					<template slot-scope="scope">
-						<el-tooltip class="item" v-if="scope.row.content && scope.row.content.length > 20" effect="dark" placement="top">
+						<el-tooltip class="item" v-if="scope.row.content && scope.row.content.length > 48" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.content}}</div>
-							<span>{{scope.row.content | fltrSubstr(20) }}</span>
+							<span>{{scope.row.content | fltrSubstr(48) }}</span>
 						</el-tooltip>
 						<span v-else>{{scope.row.content | fltrEmpty }}</span>
 					</template>

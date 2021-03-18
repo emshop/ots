@@ -16,9 +16,9 @@
 				</el-select>
 			</el-form-item>
       
-      <el-form-item label="供货商商品编号:" prop="spp_product_no">
+      <el-form-item label="供货商商品:" prop="spp_product_no">
 				<el-input size="medium" maxlength="32"
-				 clearable v-model="addData.spp_product_no" placeholder="请输入供货商商品编号">
+				 clearable v-model="addData.spp_product_no" placeholder="请输入供货商商品">
 				</el-input>
       </el-form-item>
       
@@ -96,6 +96,8 @@ export default {
 				spp_no: [{ required: true, message: "请输入供货商", trigger: "blur" }],
 				pl_id: [{ required: true, message: "请输入产品线", trigger: "blur" }],
 				brand_no: [{ required: true, message: "请输入品牌", trigger: "blur" }],
+				province_no: [{ required: true, message: "请输入省份", trigger: "blur" }],
+				city_no: [{ required: true, message: "请输入城市", trigger: "blur" }],
 				face: [{ required: true, message: "请输入面值", trigger: "blur" }],
 				cost_discount: [{ required: true, message: "请输入成本折扣", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],

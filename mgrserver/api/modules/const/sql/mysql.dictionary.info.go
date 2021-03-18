@@ -7,8 +7,8 @@ insert into dds_dictionary_info
 	name,
 	value,
 	type,
-	status,
-	sort_no
+	sort_no,
+	status
 )
 values
 (
@@ -16,8 +16,8 @@ values
 	@name,
 	@value,
 	@type,
-	if(isnull(@status)||@status='',0,@status),
-	if(isnull(@sort_no)||@sort_no='',0,@sort_no)
+	if(isnull(@sort_no)||@sort_no='',0,@sort_no),
+	if(isnull(@status)||@status='',0,@status)
 )`
 
 //GetDictionaryInfoByID 查询字典配置单条数据
@@ -27,8 +27,8 @@ select
 	t.name,
 	t.value,
 	t.type,
-	t.status,
-	t.sort_no
+	t.sort_no,
+	t.status
 from dds_dictionary_info t
 where
 	&id`
@@ -49,8 +49,8 @@ select
 	t.name,
 	t.value,
 	t.type,
-	t.status,
-	t.sort_no 
+	t.sort_no,
+	t.status 
 from dds_dictionary_info t
 where
 	?t.name
@@ -67,8 +67,8 @@ set
 	name =	@name,
 	value =	@value,
 	type =	@type,
-	status =	if(isnull(@status)||@status='',0,@status),
-	sort_no =	if(isnull(@sort_no)||@sort_no='',0,@sort_no)
+	sort_no =	if(isnull(@sort_no)||@sort_no='',0,@sort_no),
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&id`
 

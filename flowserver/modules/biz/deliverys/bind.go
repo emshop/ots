@@ -2,6 +2,7 @@ package deliverys
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
@@ -16,15 +17,30 @@ import (
 //Bind 绑定订单
 func Bind(orderID string) (string, error) {
 
-	//1. 检查订单是否需要绑定
-	db := hydra.C.DB().GetRegularDB()
+	//----------------处理订单超时-------------------------
+	xdb, err := hydra.C.DB().GetRegularDB().Begin()
+	if err != nil {
+		return "", err
+	}
 	input := types.XMap{fields.FieldOrderID: orderID}
+	_, err = dbs.Executes(xdb, input, dealOrderTimeout...)
+	if err == nil {
+		xdb.Commit()
+		return "", errs.NewErrorf(204, "订单(%s)已超时%w", orderID, xerr.ErrOrderTimeout)
+	}
+	xdb.Rollback()
+	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
+		return "", err
+	}
+
+	//----------------处理订单正常绑定------------------------
+	db := hydra.C.DB().GetRegularDB()
 	orders, err := db.Query(checkOrderForBind, input)
 	if err != nil {
 		return "", err
 	}
 	if orders.Len() == 0 {
-		return "", errs.NewStop(204, "订单无须进行绑定")
+		return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, xerr.ErrNOTEXISTS))
 	}
 
 	//2. 查询订单支持的上游产品

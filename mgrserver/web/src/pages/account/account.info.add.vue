@@ -16,18 +16,17 @@
 			</el-form-item>
       
       
-			<el-form-item label="用户分组:" prop="groups">
+			<el-form-item label="账户类型:" prop="groups">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.groups"	clearable filterable class="input-cos" placeholder="---请选择---">
 					<el-option v-for="(item, index) in groups" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
       
-      
-			<el-form-item label="商户信息:" prop="eid">
-				<el-select size="medium" style="width: 100%;"	v-model="addData.eid"	clearable filterable class="input-cos" placeholder="---请选择---">
-					<el-option v-for="(item, index) in eid" :key="index" :value="item.value" :label="item.name"></el-option>
-				</el-select>
-			</el-form-item>
+      <el-form-item label="商户信息:" prop="eid">
+				<el-input size="medium" maxlength="32"
+				 clearable v-model="addData.eid" placeholder="请输入商户信息">
+				</el-input>
+      </el-form-item>
       
       <el-form-item label="信用余额:" prop="credit">
 				<el-input size="medium" maxlength="20" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
@@ -58,13 +57,12 @@ export default {
 			addData: {},
 			dialogAddVisible: false,
 			ident:this.$enum.get("ident"),
-			groups:this.$enum.get("account_group"),
-			eid:this.$enum.get("merchant_info"),
+			groups:this.$enum.get("account_type"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				account_name: [{ required: true, message: "请输入帐户名称", trigger: "blur" }],
 				ident: [{ required: true, message: "请输入系统标识", trigger: "blur" }],
-				groups: [{ required: true, message: "请输入用户分组", trigger: "blur" }],
+				groups: [{ required: true, message: "请输入账户类型", trigger: "blur" }],
 				eid: [{ required: true, message: "请输入商户信息", trigger: "blur" }],
 				credit: [{ required: true, message: "请输入信用余额", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],

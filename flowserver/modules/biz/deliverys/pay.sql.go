@@ -17,7 +17,10 @@ and t.payment_status = 20
 select
 t.delivery_id,
 t.spp_no,
-t.cost_amount
+t.cost_amount,
+t.spp_fee_amount,
+t.trade_fee_amount,
+t.payment_fee_amount
 from ots_trade_delivery t
 where
 t.delivery_id = @delivery_id 

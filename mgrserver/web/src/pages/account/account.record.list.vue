@@ -11,10 +11,8 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.trade_no"  clearable filterable class="input-cos" placeholder="请选择交易编号">
-						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in tradeNo" :key="index" :value="item.value" :label="item.name"></el-option>
-					</el-select>
+					<el-input clearable size="medium" v-model="queryData.trade_no" placeholder="请输入交易编号">
+					</el-input>
 				</el-form-item>
 			
 				<el-form-item>
@@ -41,7 +39,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="record_id" label="变动编号" align="center">
 				<template slot-scope="scope">
@@ -55,9 +53,10 @@
 					</template>
 				</el-table-column>
 				<el-table-column   prop="trade_no" label="交易编号" align="center">
-					<template slot-scope="scope">
-						<span >{{scope.row.trade_no | fltrEnum("trade_no")}}</span>
-					</template>
+				<template slot-scope="scope">
+					<span>{{scope.row.trade_no | fltrEmpty }}</span>
+				</template>
+				
 				</el-table-column>
 				<el-table-column   prop="trade_type" label="交易类型" align="center">
 					<template slot-scope="scope">
@@ -126,7 +125,6 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			accountID: this.$enum.get("account_info"),
-			tradeNo: this.$enum.get("trade_no"),
 			tradeType: this.$enum.get("trade_type"),
 			changeType: this.$enum.get("change_type"),
 			dataList: {count: 0,items: []}, //表单数据对象,

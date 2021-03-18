@@ -24,7 +24,7 @@ func Start(orderID string) (*NotifyInfo, error) {
 	data, err := dbs.Executes(db, types.XMap{fields.FieldOrderID: orderID}, updateNoNeedNotices...)
 	if err == nil {
 		db.Commit()
-		return nil, errs.NewStopf(http.StatusNoContent, "订单(%s)无须通知", orderID)
+		return nil, errs.NewErrorf(http.StatusNoContent, "订单(%s)无须通知%w", orderID, xerr.ErrNOTEXISTS)
 	}
 	db.Rollback()
 	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
@@ -40,7 +40,7 @@ func Start(orderID string) (*NotifyInfo, error) {
 	data, err = dbs.Executes(db, types.XMap{fields.FieldOrderID: orderID}, startNotices...)
 	if errors.Is(err, xerr.ErrNOTEXISTS) {
 		db.Rollback()
-		return nil, errs.NewStopf(http.StatusNoContent, "订单(%s)已通知", orderID)
+		return nil, errs.NewErrorf(http.StatusNoContent, "订单(%s)已通知%w", orderID, xerr.ErrNOTEXISTS)
 	}
 	if err != nil {
 		db.Rollback()

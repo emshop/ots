@@ -4,3 +4,5 @@ truncate table ots_trade_lifetime;
 truncate table tsk_system_task;
 truncate table ots_trade_order;
 truncate table lcs_life_time;
+truncate table beanpay_account_record;
+truncate table lcs_life_time;

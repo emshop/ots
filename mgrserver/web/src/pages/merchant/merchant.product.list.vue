@@ -45,7 +45,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" @sort-change="sort">
 				
 				<el-table-column   prop="mer_product_id" label="商品编号" align="center">
 				<template slot-scope="scope">
@@ -53,47 +53,47 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column  sortable prop="mer_shelf_id" label="货架名称" align="center">
+				<el-table-column  sortable="custom" prop="mer_shelf_id" label="货架名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_shelf_id | fltrEnum("merchant_shelf")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  sortable prop="mer_no" label="商户名称" align="center">
+				<el-table-column  sortable="custom" prop="mer_no" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  sortable prop="pl_id" label="产品线" align="center">
+				<el-table-column  sortable="custom" prop="pl_id" label="产品线" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  sortable prop="brand_no" label="品牌" align="center">
+				<el-table-column  sortable="custom" prop="brand_no" label="品牌" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  sortable prop="province_no" label="省份" align="center">
+				<el-table-column  sortable="custom" prop="province_no" label="省份" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.province_no | fltrEnum("province")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  sortable prop="city_no" label="城市" align="center">
+				<el-table-column  sortable="custom" prop="city_no" label="城市" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.city_no | fltrEnum("city")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column  sortable prop="face" label="面值" align="center">
+				<el-table-column  sortable="custom" prop="face" label="面值" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.face | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column  sortable prop="discount" label="销售折扣" align="center">
+				<el-table-column  sortable="custom" prop="discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.discount | fltrNumberFormat(5)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column  sortable prop="status" label="状态" align="center">
+				<el-table-column  sortable="custom" prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
 					</template>
@@ -152,6 +152,7 @@ export default {
 			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
+			order: "",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}
@@ -169,6 +170,16 @@ export default {
     init(){
       this.query()
 		},
+		sort(column) {
+      if (column.order == "ascending") {
+        this.order ="t." +  column.prop + " " + "asc"
+      } else if (column.order == "descending") {
+        this.order ="t." +  column.prop + " " + "desc"
+      } else {
+        this.order = ""
+      }
+      this.query()
+    },
     /**查询数据并赋值*/
 		queryDatas() {
       this.paging.pi = 1
@@ -177,6 +188,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
+			this.queryData.order_by = this.order
       let res = this.$http.xpost("/merchant/product/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items || []
 			this.dataList.count = res.count

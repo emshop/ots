@@ -1,6 +1,6 @@
 <template>
   <!-- Add Form -->
-  <el-dialog title="添加账户余额变动信息" width="25%" :visible.sync="dialogAddVisible">
+  <el-dialog title="添加资金变动" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
     </el-form>
     <div slot="footer" class="dialog-footer">

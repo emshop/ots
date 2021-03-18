@@ -11,9 +11,9 @@ insert into ots_merchant_shelf
 	payment_fee_discount,
 	order_timeout,
 	payment_timeout,
+	limit_count,
 	invoice_type,
 	can_refund,
-	limit_count,
 	can_split_order,
 	status
 )
@@ -27,9 +27,9 @@ values
 	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
 	if(isnull(@order_timeout)||@order_timeout='',0,@order_timeout),
 	if(isnull(@payment_timeout)||@payment_timeout='',0,@payment_timeout),
+	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
-	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
 	if(isnull(@status)||@status='',0,@status)
 )`
@@ -45,9 +45,9 @@ select
 	t.payment_fee_discount,
 	t.order_timeout,
 	t.payment_timeout,
+	t.limit_count,
 	t.invoice_type,
 	t.can_refund,
-	t.limit_count,
 	t.can_split_order,
 	t.status,
 	t.create_time
@@ -75,8 +75,7 @@ select
 	t.order_timeout,
 	t.invoice_type,
 	t.can_split_order,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_merchant_shelf t
 where
 	?t.mer_shelf_name
@@ -95,9 +94,9 @@ set
 	payment_fee_discount =	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
 	order_timeout =	if(isnull(@order_timeout)||@order_timeout='',0,@order_timeout),
 	payment_timeout =	if(isnull(@payment_timeout)||@payment_timeout='',0,@payment_timeout),
+	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	invoice_type =	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
-	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	can_split_order =	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
 	status =	if(isnull(@status)||@status='',0,@status)
 where

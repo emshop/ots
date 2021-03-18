@@ -10,8 +10,8 @@ insert into ots_supplier_ecode
 	category,
 	deal_code,
 	error_code,
-	status,
-	error_desc
+	error_desc,
+	status
 )
 values
 (
@@ -22,8 +22,8 @@ values
 	@category,
 	if(isnull(@deal_code)||@deal_code='',0,@deal_code),
 	@error_code,
-	if(isnull(@status)||@status='',0,@status),
-	@error_desc
+	@error_desc,
+	if(isnull(@status)||@status='',0,@status)
 )`
 
 //GetSupplierEcodeByID 查询供货商错误码单条数据
@@ -35,9 +35,9 @@ select
 	t.category,
 	t.deal_code,
 	t.error_code,
-	t.status,
 	t.error_desc,
-	t.create_time
+	t.create_time,
+	t.status
 from ots_supplier_ecode t
 where
 	&id`
@@ -61,9 +61,8 @@ select
 	t.category,
 	t.deal_code,
 	t.error_code,
-	t.status,
 	t.error_desc,
-	t.create_time 
+	t.status 
 from ots_supplier_ecode t
 where
 	&t.spp_no
@@ -84,8 +83,8 @@ set
 	category =	@category,
 	deal_code =	if(isnull(@deal_code)||@deal_code='',0,@deal_code),
 	error_code =	@error_code,
-	status =	if(isnull(@status)||@status='',0,@status),
-	error_desc =	@error_desc
+	error_desc =	@error_desc,
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&id`
 

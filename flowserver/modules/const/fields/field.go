@@ -144,11 +144,11 @@ const FieldSuccessUserAmount = "success_user_amount"
 //FieldSuccessMerFee 字段实际成功总佣金金额 （2）的数据库名称
 const FieldSuccessMerFee = "success_mer_fee"
 
-//FieldSuccessTradeFee 字段实际成功总服务费金额 （3）的数据库名称
-const FieldSuccessTradeFee = "success_trade_fee"
+//FieldSuccessMerTradeFee 字段实际成功总服务费金额 （3）的数据库名称
+const FieldSuccessMerTradeFee = "success_mer_trade_fee"
 
-//FieldSuccessPaymentFee 字段实际成功总手续费金额 （4）的数据库名称
-const FieldSuccessPaymentFee = "success_payment_fee"
+//FieldSuccessMerPaymentFee 字段实际成功总手续费金额 （4）的数据库名称
+const FieldSuccessMerPaymentFee = "success_mer_payment_fee"
 
 //FieldSuccessCostAmount 字段实际发货成功总成本 （5）的数据库名称
 const FieldSuccessCostAmount = "success_cost_amount"

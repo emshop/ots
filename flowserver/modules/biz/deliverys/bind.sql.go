@@ -1,5 +1,34 @@
 package deliverys
 
+//dealOrderTimeout 处理超时订单
+var dealOrderTimeout = []string{
+	`select t.order_id from ots_trade_order t
+where
+t.order_id = @order_id
+and t.order_status = 20
+and t.payment_status = 0
+and t.delivery_status in(20,30)
+and t.notify_status = 10
+and t.order_timeout < now()
+and t.bind_face = 0
+`,
+	//检查订单是否超时，超时则修改为订单通知
+	`
+update ots_trade_order t set
+t.delivery_status = 90,
+t.order_status = 50,
+t.notify_status = 20
+where
+t.order_id = @order_id
+and t.order_status = 20
+and t.payment_status = 0
+and t.delivery_status in(20,30)
+and t.notify_status = 10
+and t.order_timeout < now()
+and t.bind_face = 0
+`,
+}
+
 //查询订单是否需要绑定
 var checkOrderForBind = `select
 t.order_id,
@@ -28,7 +57,7 @@ t.bind_face
 	where
 	t.order_id = @order_id
 	and t.order_status = 20
-	and t.delivery_status = 20
+	and t.delivery_status in(20,30)
 	and t.total_face - t.bind_face > 0
 	`
 
@@ -55,16 +84,19 @@ from ots_supplier_product t
 inner join ots_supplier_info s on t.spp_no = s.spp_no
 inner join ots_supplier_shelf f on f.spp_shelf_id= t.spp_shelf_id
 where
-t.pl_id = @pl_id and t.pl_id !=0
+t.pl_id = @pl_id
 and t.brand_no = @brand_no
-and t.province_no = @province_no
-and t.city_no = @city_no
+and (t.province_no = @province_no or t.province_no = '*') 
+and (t.city_no = @city_no or t.city_no = '*')
 and case when @can_split_order = 0 then t.face <= @face else t.face = @face end
 and t.cost_discount <= @sell_discount
 and f.invoice_type = @invoice_type
 and t.status = 0
 and s.status = 0
-order by t.cost_discount asc
+and f.status = 0
+and t.spp_no not in(select d.spp_no from ots_trade_delivery d where d.order_id = @order_id and d.delivery_status = 90
+and d.end_time > date_add(now(),interval -1 minute))
+order by t.cost_discount asc,t.province_no asc,t.city_no asc
 `,
 }
 

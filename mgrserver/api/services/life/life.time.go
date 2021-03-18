@@ -10,7 +10,7 @@ import (
 	"github.com/micro-plat/lib4go/types"
 )
 
-//LifeTimeHandler 生命周期记录表处理服务
+//LifeTimeHandler 生命周期处理服务
 type LifeTimeHandler struct {
 }
 
@@ -18,17 +18,17 @@ func NewLifeTimeHandler() *LifeTimeHandler {
 	return &LifeTimeHandler{}
 }
 
-//QueryHandle  获取生命周期记录表数据列表
+//QueryHandle  获取生命周期数据列表
 func (u *LifeTimeHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 
-	ctx.Log().Info("--------获取生命周期记录表数据列表--------")
+	ctx.Log().Debug("--------获取生命周期数据列表--------")
 
-	ctx.Log().Info("1.参数校验")
+	ctx.Log().Debug("1.参数校验")
 	if err := ctx.Request().CheckMap(queryLifeTimeCheckFields); err != nil {
 		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
 	}
 
-	ctx.Log().Info("2.执行操作")
+	ctx.Log().Debug("2.执行操作")
 	m := ctx.Request().GetMap()
 	m["offset"] = (ctx.Request().GetInt("pi") - 1) * ctx.Request().GetInt("ps")
 
@@ -45,24 +45,24 @@ func (u *LifeTimeHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		}
 	}
 
-	ctx.Log().Info("3.返回结果")
+	ctx.Log().Debug("3.返回结果")
 	return map[string]interface{}{
 		"items": items,
 		"count": types.GetInt(count),
 	}
 }
 
-//QueryDetailHandle  获取生命周期记录表数据列表
+//QueryDetailHandle  获取生命周期数据列表
 func (u *LifeTimeHandler) QueryDetailHandle(ctx hydra.IContext) (r interface{}) {
 
-	ctx.Log().Info("--------获取生命周期记录表数据列表--------")
+	ctx.Log().Debug("--------获取生命周期数据列表--------")
 
-	ctx.Log().Info("1.参数校验")
+	ctx.Log().Debug("1.参数校验")
 	if err := ctx.Request().CheckMap(queryLifeTimeDetailCheckFields); err != nil {
 		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
 	}
 
-	ctx.Log().Info("2.执行操作")
+	ctx.Log().Debug("2.执行操作")
 	m := ctx.Request().GetMap()
 	m["offset"] = (ctx.Request().GetInt("pi") - 1) * ctx.Request().GetInt("ps")
 
@@ -79,14 +79,16 @@ func (u *LifeTimeHandler) QueryDetailHandle(ctx hydra.IContext) (r interface{}) 
 		}
 	}
 
-	ctx.Log().Info("3.返回结果")
+	ctx.Log().Debug("3.返回结果")
 	return map[string]interface{}{
 		"items": items,
 		"count": types.GetInt(count),
 	}
 }
 
-var queryLifeTimeCheckFields = map[string]interface{}{}
+var queryLifeTimeCheckFields = map[string]interface{}{
+	field.FieldOrderNo: "required",
+}
 
 var queryLifeTimeDetailCheckFields = map[string]interface{}{
 	field.FieldOrderNo: "required",

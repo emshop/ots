@@ -1,12 +1,12 @@
 package scheme
  
-//ots_trade_order 订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]
+//ots_trade_order 订单记录
 const ots_trade_order=`
 	DROP TABLE IF EXISTS ots_trade_order;
 	CREATE TABLE IF NOT EXISTS ots_trade_order (
 		order_id varchar(32) default 1100000000 not null  comment '订单编号' ,
-		mer_no varchar(32)  not null  comment '商户编号' ,
-		mer_order_no varchar(64)  not null  comment '商户订单编号' ,
+		mer_no varchar(32)  not null  comment '商户' ,
+		mer_order_no varchar(64)  not null  comment '商户订单' ,
 		mer_product_id int default 300 not null  comment '商户商品' ,
 		mer_shelf_id int  not null  comment '商户货架' ,
 		mer_product_no varchar(32)    comment '外部商品编号' ,
@@ -25,7 +25,7 @@ const ots_trade_order=`
 		trade_fee_discount decimal(20,5)  not null  comment '交易服务折扣' ,
 		payment_fee_discount decimal(20,5)  not null  comment '支付手续费折扣' ,
 		can_split_order tinyint default 1 not null  comment '是否拆单（0.是，1否）' ,
-		create_time datetime default current_timestamp not null  comment '创建时间' ,
+		create_time datetime default current_timestamp not null  comment '订单时间' ,
 		finish_time datetime default current_timestamp not null  comment '完成时间' ,
 		order_timeout datetime  not null  comment '订单超时时间' ,
 		payment_timeout datetime  not null  comment '支付超时时间' ,
@@ -47,5 +47,7 @@ const ots_trade_order=`
 		success_spp_trade_fee decimal(20,5) default 0 not null  comment '供货商服务费 （7）' ,
 		success_spp_payment_fee decimal(20,5) default 0 not null  comment '供货商手续费 （8）' ,
 		profit decimal(20,5) default 0 not null  comment '利润(1-2-3-4-5+6-7-8)' 
+		,index order_index(create_time,mer_no,pl_id,brand_no,province_no)
+		,unique index mer_order(mer_no,mer_order_no)
 		,primary key (order_id)
-	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单记录[ots_trade_order][(row(btn:处理/deal)),tab(发货/ots_trade_delivery)]'`
+	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单记录'`

@@ -25,7 +25,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="delivery_id" label="发货编号" align="center">
 				<template slot-scope="scope">

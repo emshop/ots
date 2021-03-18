@@ -7,6 +7,7 @@ import (
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
 	"github.com/micro-plat/lib4go/types"
+	"regexp"
 	
 )
 
@@ -54,6 +55,11 @@ func (u *TradeOrderHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 	if err := ctx.Request().CheckMap(queryTradeOrderCheckFields); err != nil {
 		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
 	}
+	
+	orderBy := ctx.Request().GetString("order_by")
+	if len(orderBy) > 1 && !regexp.MustCompile("^t.[A-Za-z0-9_,.\\s]+ (asc|desc)$").MatchString(orderBy) {
+		return errs.NewErrorf(http.StatusNotAcceptable, "排序参数校验错误!")
+	}
 
 	ctx.Log().Info("2.执行操作")
 	m := ctx.Request().GetMap()
@@ -91,9 +97,8 @@ var queryTradeOrderCheckFields = map[string]interface{}{
 	field.FieldOrderID:"required",
 	field.FieldMerNo:"required",
 	field.FieldPlID:"required",
-	field.FieldProvinceNo:"required",
-	field.FieldCityNo:"required",
 	field.FieldCreateTime:"required",
+	field.FieldOrderStatus:"required",
 	}
 
 

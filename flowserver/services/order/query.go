@@ -3,26 +3,26 @@ package order
 import (
 	"github.com/emshop/ots/flowserver/modules/biz/orders"
 	"github.com/emshop/ots/flowserver/modules/const/enums"
-	"github.com/emshop/ots/otsserver/modules/const/sql"
+	"github.com/emshop/ots/flowserver/modules/const/fields"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 )
 
 //Query 订单查询
 func Query(ctx hydra.IContext) interface{} {
-	ctx.Log().Info("-------------处理订单查询----------------------")
-	if err := ctx.Request().Check(sql.FieldMerNo, sql.FieldMerOrderNo); err != nil {
+	ctx.Log().Debug("-------------处理订单查询----------------------")
+	if err := ctx.Request().Check(fields.FieldMerNo, fields.FieldMerOrderNo); err != nil {
 		return err
 	}
 
-	ctx.Log().Info("1. 查询订单信息")
-	order, err := orders.Query(ctx.Request().GetString(sql.FieldMerNo),
-		ctx.Request().GetString(sql.FieldMerOrderNo))
+	ctx.Log().Debug("1. 查询订单信息")
+	order, err := orders.Query(ctx.Request().GetString(fields.FieldMerNo),
+		ctx.Request().GetString(fields.FieldMerOrderNo))
 	if err == nil && order.Len() > 0 {
 		return order
 	}
 
-	ctx.Log().Info("2. 订单不存在")
+	ctx.Log().Debug("2. 订单不存在")
 	return errs.NewError(int(enums.CodeOrderNotExists), "订单不存在")
 
 }

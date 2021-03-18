@@ -31,7 +31,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">

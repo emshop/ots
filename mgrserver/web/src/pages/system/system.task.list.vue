@@ -20,6 +20,13 @@
 				</el-form-item>
 			
 				<el-form-item>
+					<el-select size="medium" v-model="queryData.status"  clearable filterable class="input-cos" placeholder="请选择状态">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
+				</el-form-item>
+			
+				<el-form-item>
 					<el-button  type="primary" @click="queryDatas" size="medium">查询</el-button>
 				</el-form-item>
 				
@@ -29,7 +36,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="task_id" label="编号" align="center">
 				<template slot-scope="scope">
@@ -125,6 +132,7 @@ export default {
       queryData:{},               //查询数据对象
 			name: this.$enum.get("flow_tag"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
+			status: this.$enum.get("process_status"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}

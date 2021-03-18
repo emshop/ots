@@ -17,12 +17,12 @@ var deliverySaveResultFields = []string{
 //SaveDeliveryResult 开始请求
 func SaveDeliveryResult(ctx hydra.IContext) interface{} {
 
-	ctx.Log().Info("-------------保存发货结果----------------------")
+	ctx.Log().Debug("-------------保存发货结果----------------------")
 	if err := ctx.Request().Check(deliverySaveResultFields...); err != nil {
 		return err
 	}
 
-	ctx.Log().Info("1. 保存发货结果")
+	ctx.Log().Debug("1. 保存发货结果")
 	s, r, err := deliverys.SaveDeliveryResult(
 		ctx.Request().GetString(fields.FieldDeliveryID),
 		ctx.Request().GetString(fields.FieldResultCode),
@@ -34,28 +34,28 @@ func SaveDeliveryResult(ctx hydra.IContext) interface{} {
 		return err
 	}
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
-		ctx.Log().Info("2. 执行后续流程")
-		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx, fields.FieldOrderID, r.GetString(fields.FieldOrderID))
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return "success"
 	}
 	if s == enums.Failed {
-		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
+		return "success"
 	}
-	return nil
+	return "success"
 }
 
 //SaveQueryResult 保存查询结果
 func SaveQueryResult(ctx hydra.IContext) interface{} {
 
-	ctx.Log().Info("-------------保存查询结果----------------------")
+	ctx.Log().Debug("-------------保存查询结果----------------------")
 	if err := ctx.Request().Check(deliverySaveResultFields...); err != nil {
 		return err
 	}
 
-	ctx.Log().Info("1. 保存发货结果")
+	ctx.Log().Debug("1. 保存发货结果")
 	s, r, err := deliverys.SaveQueryResult(
 		ctx.Request().GetString(fields.FieldDeliveryID),
 		ctx.Request().GetString(fields.FieldResultCode),
@@ -68,28 +68,28 @@ func SaveQueryResult(ctx hydra.IContext) interface{} {
 	}
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
-		ctx.Log().Info("2. 执行后续流程")
-		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx, fields.FieldOrderID, r.GetString(fields.FieldOrderID))
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return "success"
 	}
 	if s == enums.Failed {
-		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
+		return "success"
 	}
-	return nil
+	return "success"
 }
 
 //SaveNotifyResult 保存通知结果
 func SaveNotifyResult(ctx hydra.IContext) interface{} {
 
-	ctx.Log().Info("-------------保存通知结果----------------------")
+	ctx.Log().Debug("-------------保存通知结果----------------------")
 	if err := ctx.Request().Check(deliverySaveResultFields...); err != nil {
 		return err
 	}
 
-	ctx.Log().Info("1. 保存发货结果")
+	ctx.Log().Debug("1. 保存发货结果")
 	s, r, err := deliverys.SaveNotifyResult(
 		ctx.Request().GetString(fields.FieldDeliveryID),
 		ctx.Request().GetString(fields.FieldResultCode),
@@ -102,28 +102,28 @@ func SaveNotifyResult(ctx hydra.IContext) interface{} {
 	}
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
-		ctx.Log().Info("2. 执行后续流程")
-		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx, fields.FieldOrderID, r.GetString(fields.FieldOrderID))
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return "success"
 	}
 	if s == enums.Failed {
-		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
+		return "success"
 	}
-	return nil
+	return "success"
 }
 
 //SaveAuditResult 保存人工审核结果
 func SaveAuditResult(ctx hydra.IContext) interface{} {
 
-	ctx.Log().Info("-------------保存人工审核结果----------------------")
+	ctx.Log().Debug("-------------保存人工审核结果----------------------")
 	if err := ctx.Request().Check(deliverySaveResultFields...); err != nil {
 		return err
 	}
 
-	ctx.Log().Info("1. 保存发货结果")
+	ctx.Log().Debug("1. 保存发货结果")
 	s, r, err := deliverys.SaveAuditResult(
 		ctx.Request().GetString(fields.FieldDeliveryID),
 		ctx.Request().GetString(fields.FieldResultCode),
@@ -136,15 +136,15 @@ func SaveAuditResult(ctx hydra.IContext) interface{} {
 	}
 
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
-		ctx.Log().Info("2. 执行后续流程")
-		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx)
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx, fields.FieldOrderID, r.GetString(fields.FieldOrderID))
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowNotifyStart, ctx)
+		return "success"
 	}
 	if s == enums.Failed {
-		ctx.Log().Info("2. 执行后续流程")
-		flw := flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
-		return flw
+		ctx.Log().Debug("2. 执行后续流程")
+		flows.NextByOrderNO(r.GetString(fields.FieldOrderID), enums.FlowDeliveryBind, ctx)
+		return "success"
 	}
-	return nil
+	return "success"
 }

@@ -53,8 +53,8 @@ const (
 	//OrderNotify 下游通知中
 	OrderNotify OrderStatus = 50
 
-	//OrderRefunding 退款中
-	OrderRefunding OrderStatus = 70
+	//OrderFinish 确认中
+	OrderFinish OrderStatus = 60
 
 	//OrderSuccess 成功
 	OrderSuccess OrderStatus = 0
@@ -91,11 +91,29 @@ const (
 type AccountType string
 
 const (
-	//AccountMerchant 商户账户
-	AccountMerchant AccountType = "merchant"
+	//AccountMerchantMain 商户主账户
+	AccountMerchantMain AccountType = "merchant_main"
 
-	//AccountSupplier 供货商
-	AccountSupplier AccountType = "supplier"
+	//AccountMerchantFee 商户佣金账户
+	AccountMerchantFee AccountType = "merchant_fee"
+
+	//AccountMerchantTradeFee 商户交易手续费账户
+	AccountMerchantTradeFee AccountType = "merchant_trade_fee"
+
+	//AccountMerchantPaymentFee 商户支付手续费账户
+	AccountMerchantPaymentFee AccountType = "merchant_payment_fee"
+
+	//AccountSupplierMain 供货商
+	AccountSupplierMain AccountType = "supplier_main"
+
+	//AccountSupplierFee 商户佣金账户
+	AccountSupplierFee AccountType = "supplier_fee"
+
+	//AccountSupplierTradeFee 商户交易手续费账户
+	AccountSupplierTradeFee AccountType = "supplier_trade_fee"
+
+	//AccountSupplierPaymentFee 商户支付手续费账户
+	AccountSupplierPaymentFee AccountType = "supplier_payment_fee"
 )
 
 //ResultSource 结果来源

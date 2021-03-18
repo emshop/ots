@@ -33,7 +33,7 @@ const ots_trade_delivery=`
 		payment_fee_amount decimal(20,5) default 0 not null  comment '供货商手续费' ,
 		succ_face int default 0   comment '成功面值' ,
 		start_time datetime    comment '开始时间' ,
-		end_time datetime    comment '结束时间' ,
+		end_time datetime    comment '完成时间' ,
 		spp_delivery_no varchar(32)    comment '供货商发货编号' ,
 		spp_product_no varchar(32)    comment '供货商商品编号' ,
 		return_msg varchar(256)    comment '发货结果' ,
@@ -42,4 +42,6 @@ const ots_trade_delivery=`
 		result_code varchar(32)    comment '发货结果码' ,
 		last_update_time datetime default current_timestamp not null  comment '最后更新时间' 
 		,primary key (delivery_id)
+		,index delivery_order(order_id)
+		,index delivery_time(create_time,pl_id,brand_no,province_no,city_no)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单发货表'`

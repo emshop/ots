@@ -72,8 +72,7 @@ select
 	t.city_no,
 	t.face,
 	t.cost_discount,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_supplier_product t
 where
 	&t.spp_shelf_id

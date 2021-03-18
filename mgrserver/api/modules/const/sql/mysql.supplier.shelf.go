@@ -10,13 +10,13 @@ insert into ots_supplier_shelf
 	req_url,
 	query_url,
 	notify_url,
-	invoice_type,
 	spp_fee_discount,
 	trade_fee_discount,
 	payment_fee_discount,
+	limit_count,
+	invoice_type,
 	can_refund,
-	status,
-	limit_count
+	status
 )
 values
 (
@@ -27,13 +27,13 @@ values
 	@req_url,
 	@query_url,
 	@notify_url,
-	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	if(isnull(@spp_fee_discount)||@spp_fee_discount='',0,@spp_fee_discount),
 	if(isnull(@trade_fee_discount)||@trade_fee_discount='',0,@trade_fee_discount),
 	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
+	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
+	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
-	if(isnull(@status)||@status='',0,@status),
-	if(isnull(@limit_count)||@limit_count='',0,@limit_count)
+	if(isnull(@status)||@status='',0,@status)
 )`
 
 //GetSupplierShelfBySppShelfID 查询供货商货架单条数据
@@ -45,14 +45,14 @@ select
 	t.req_url,
 	t.query_url,
 	t.notify_url,
-	t.invoice_type,
 	t.spp_fee_discount,
 	t.trade_fee_discount,
 	t.payment_fee_discount,
-	t.can_refund,
-	t.status,
 	t.limit_count,
-	t.create_time
+	t.invoice_type,
+	t.can_refund,
+	t.create_time,
+	t.status
 from ots_supplier_shelf t
 where
 	&spp_shelf_id`
@@ -72,13 +72,12 @@ select
 	t.spp_shelf_id,
 	t.spp_shelf_name,
 	t.spp_no,
-	t.invoice_type,
 	t.spp_fee_discount,
 	t.trade_fee_discount,
 	t.payment_fee_discount,
+	t.invoice_type,
 	t.can_refund,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_supplier_shelf t
 where
 	?t.spp_shelf_name
@@ -96,13 +95,13 @@ set
 	req_url =	@req_url,
 	query_url =	@query_url,
 	notify_url =	@notify_url,
-	invoice_type =	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	spp_fee_discount =	if(isnull(@spp_fee_discount)||@spp_fee_discount='',0,@spp_fee_discount),
 	trade_fee_discount =	if(isnull(@trade_fee_discount)||@trade_fee_discount='',0,@trade_fee_discount),
 	payment_fee_discount =	if(isnull(@payment_fee_discount)||@payment_fee_discount='',0,@payment_fee_discount),
+	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
+	invoice_type =	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
-	status =	if(isnull(@status)||@status='',0,@status),
-	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count)
+	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&spp_shelf_id`
 

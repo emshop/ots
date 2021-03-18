@@ -1,5 +1,5 @@
 <template>
-	<el-dialog title="编辑账户余额变动信息" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
+	<el-dialog title="编辑资金变动" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
     </el-form>
 		<div slot="footer" class="dialog-footer">

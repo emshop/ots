@@ -31,7 +31,7 @@
                       <div >{{ info.spp_no | fltrEnum("supplier_info") }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商商品编号:</div>
+                      <div class="pull-right" style="margin-right: 10px">供货商商品:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.spp_product_no | fltrEmpty }}</div>

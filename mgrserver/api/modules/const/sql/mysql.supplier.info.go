@@ -47,8 +47,7 @@ select
 	t.spp_no,
 	t.spp_name,
 	t.mer_crop,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_supplier_info t
 where
 	?t.spp_name

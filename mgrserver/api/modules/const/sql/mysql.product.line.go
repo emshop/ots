@@ -38,8 +38,7 @@ const GetProductLineList = `
 select
 	t.pl_id,
 	t.pl_name,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_product_line t
 where
 	?t.pl_name

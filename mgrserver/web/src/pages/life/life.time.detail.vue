@@ -2,7 +2,7 @@
   <div>
     <div>
       <el-tabs v-model="tabName" type="border-card" @tab-click="handleClick">
-        <el-tab-pane label="生命周期记录表" name="LifeTimeDetail">
+        <el-tab-pane label="生命周期" name="LifeTimeDetail">
           <div class="table-responsive">
             <table :date="info" class="table table-striped m-b-none">
               <tbody class="table-border">            

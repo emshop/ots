@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div>
@@ -31,10 +32,10 @@
                       <div >{{ info.ident | fltrEnum("ident") }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">用户分组:</div>
+                      <div class="pull-right" style="margin-right: 10px">账户类型:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.groups | fltrEnum("account_group") }}</div>
+                      <div >{{ info.groups | fltrEnum("account_type") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -44,7 +45,7 @@
                       <div class="pull-right" style="margin-right: 10px">商户信息:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.eid | fltrEnum("merchant_info") }}</div>
+                      <div>{{ info.eid | fltrEmpty }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">帐户余额:</div>

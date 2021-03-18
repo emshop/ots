@@ -32,6 +32,14 @@ func Query(db db.IDBExecuter, input types.IXMap, sqls ...string) (types.XMaps, e
 			if i == len(sqls)-1 {
 				return outputs, nil
 			}
+		case "UPDATE", "INSERT":
+			rows, err := db.Execute(sql, input.ToMap())
+			if err != nil {
+				return nil, err
+			}
+			if rows == 0 {
+				return nil, fmt.Errorf("%s数据修改失败%w input:%+v", sql, xerr.ErrNOTEXISTS, input)
+			}
 		default:
 			return nil, fmt.Errorf("不支持的SQL语句，或SQL语句前包含有特殊字符:%s", sql)
 		}

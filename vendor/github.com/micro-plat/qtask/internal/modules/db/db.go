@@ -64,6 +64,16 @@ func SaveTask(db db.IDBExecuter, name string, input map[string]interface{}, time
 	imap["max_count"] = types.DecodeInt(imap["max_count"], nil, 100, imap["max_count"])
 	imap["queue_name"] = mq
 	imap["plat_name"] = conf.GetPlatName()
+
+	//增加重复检查，当相同信息的数据存在，且状态为20,30时，则不再添加新数据
+	v, err := db.Scalar(sql.SQLQueryTaskForInsert, imap)
+	if err != nil {
+		return 0, fmt.Errorf("创建任务(%s)失败 %v", name, err)
+	}
+	if taskid := types.GetInt64(v); taskid > 0 {
+		return taskid, nil
+	}
+
 	//保存任务信息
 	row, err := db.Execute(sql.SQLCreateTask, imap)
 	if err != nil || row != 1 {
@@ -74,6 +84,11 @@ func SaveTask(db db.IDBExecuter, name string, input map[string]interface{}, time
 
 // ClearTask 清除任务
 func ClearTask(db db.IDBExecuter) error {
+
+	// 失败任务处理
+	if err := failedTasks(db, sql.SQLFailedTask); err != nil {
+		return err
+	}
 
 	rows, err := db.Execute(sql.SQLClearTask, nil)
 	if err != nil {
@@ -126,10 +141,6 @@ func failedTasks(db db.IDBExecuter, SQLFailedTask string) error {
 // QueryTasks 查询任务
 func QueryTasks(db db.IDBExecuter) (rows db.QueryRows, err error) {
 
-	// 失败任务处理
-	if err := failedTasks(db, sql.SQLFailedTask); err != nil {
-		return nil, err
-	}
 	// 查询正在执行任务
 	_, rows, err = query(db, sql.SQLGetSEQ, sql.SQLUpdateTask, sql.SQLQueryWaitProcess)
 	if err != nil {

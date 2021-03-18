@@ -22,15 +22,15 @@
 					</el-select>
 				</el-form-item>
 			
-				<el-form-item>
-					<el-select size="medium" v-model="queryData.province_no"  clearable filterable class="input-cos" placeholder="请选择省份">
-						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in provinceNo" :key="index" :value="item.value" :label="item.name"></el-option>
-					</el-select>
+				<el-form-item label="订单时间:">
+						<el-date-picker size="medium" class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
 				</el-form-item>
 			
-				<el-form-item label="创建时间:">
-						<el-date-picker size="medium" class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
+				<el-form-item>
+					<el-select size="medium" v-model="queryData.order_status"  clearable filterable class="input-cos" placeholder="请选择订单状态">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in orderStatus" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -43,9 +43,9 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" @sort-change="sort">
 				
-				<el-table-column fixed sortable prop="order_id" label="订单编号" align="center">
+				<el-table-column   prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.order_id | fltrEmpty }}</span>
 				</template>
@@ -58,9 +58,9 @@
 				</el-table-column>
 				<el-table-column   prop="mer_order_no" label="商户订单" align="center">
 					<template slot-scope="scope">
-						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 20" effect="dark" placement="top">
+						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 12" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
-							<span>{{scope.row.mer_order_no | fltrSubstr(20) }}</span>
+							<span>{{scope.row.mer_order_no | fltrSubstr(12) }}</span>
 						</el-tooltip>
 						<span v-else>{{scope.row.mer_order_no | fltrEmpty }}</span>
 					</template>
@@ -104,7 +104,7 @@
 					<span>{{scope.row.sell_discount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column   prop="create_time" label="创建时间" align="center">
+				<el-table-column  sortable="custom" prop="create_time" label="订单时间" align="center">
 				<template slot-scope="scope">
 					<div>{{scope.row.create_time | fltrDate("HH:mm:ss") }}</div>
 				</template>
@@ -162,8 +162,9 @@ export default {
       queryData:{},               //查询数据对象
 			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
-			provinceNo: this.$enum.get("province"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
+			orderStatus: this.$enum.get("order_status"),
+			order: "t.create_time desc",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}
@@ -181,6 +182,16 @@ export default {
     init(){
       this.query()
 		},
+		sort(column) {
+      if (column.order == "ascending") {
+        this.order ="t." +  column.prop + " " + "asc"
+      } else if (column.order == "descending") {
+        this.order ="t." +  column.prop + " " + "desc"
+      } else {
+        this.order = ""
+      }
+      this.query()
+    },
     /**查询数据并赋值*/
 		queryDatas() {
       this.paging.pi = 1
@@ -190,6 +201,7 @@ export default {
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
+			this.queryData.order_by = this.order
       let res = this.$http.xpost("/trade/order/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items || []
 			this.dataList.count = res.count

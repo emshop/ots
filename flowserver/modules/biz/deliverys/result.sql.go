@@ -17,7 +17,7 @@ t.delivery_id = @delivery_id
 and t.delivery_status = 31
 `,
 	//查询订单号
-	`select t.order_id from ots_trade_delivery t where 
+	`select t.order_id,t.total_face face from ots_trade_delivery t where 
 t.delivery_id = @delivery_id`,
 
 	//更新订单状态

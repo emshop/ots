@@ -23,8 +23,6 @@ github.com/d5/tengo/v2/parser
 github.com/d5/tengo/v2/stdlib
 github.com/d5/tengo/v2/stdlib/json
 github.com/d5/tengo/v2/token
-# github.com/davecgh/go-spew v1.1.1
-github.com/davecgh/go-spew/spew
 # github.com/dsnet/compress v0.0.1
 github.com/dsnet/compress
 github.com/dsnet/compress/bzip2
@@ -114,7 +112,7 @@ github.com/micro-plat/beanpay/beanpay/pkg
 # github.com/micro-plat/gmq v1.0.1
 github.com/micro-plat/gmq/mqtt
 github.com/micro-plat/gmq/mqtt/client
-# github.com/micro-plat/hydra v1.1.1
+# github.com/micro-plat/hydra v1.1.2
 ## explicit
 github.com/micro-plat/hydra
 github.com/micro-plat/hydra/components
@@ -211,7 +209,6 @@ github.com/micro-plat/hydra/hydra/servers/pkg/adapter
 github.com/micro-plat/hydra/hydra/servers/pkg/dispatcher
 github.com/micro-plat/hydra/hydra/servers/pkg/dispatcher/render
 github.com/micro-plat/hydra/hydra/servers/pkg/middleware
-github.com/micro-plat/hydra/mock
 github.com/micro-plat/hydra/pkgs
 github.com/micro-plat/hydra/registry
 github.com/micro-plat/hydra/registry/pub
@@ -224,9 +221,8 @@ github.com/micro-plat/hydra/registry/watcher
 github.com/micro-plat/hydra/registry/watcher/wchild
 github.com/micro-plat/hydra/registry/watcher/wvalue
 github.com/micro-plat/hydra/services
-# github.com/micro-plat/lib4go v1.1.0
+# github.com/micro-plat/lib4go v1.1.2
 ## explicit
-github.com/micro-plat/lib4go/assert
 github.com/micro-plat/lib4go/concurrent/cmap
 github.com/micro-plat/lib4go/db
 github.com/micro-plat/lib4go/db/tpl
@@ -274,8 +270,6 @@ github.com/pierrec/lz4/internal/xxh32
 github.com/pkg/errors
 # github.com/pkg/profile v1.2.1
 github.com/pkg/profile
-# github.com/pmezard/go-difflib v1.0.0
-github.com/pmezard/go-difflib/difflib
 # github.com/robfig/cron/v3 v3.0.1
 github.com/robfig/cron/v3
 # github.com/russross/blackfriday/v2 v2.0.1
@@ -286,8 +280,6 @@ github.com/samuel/go-zookeeper/zk
 github.com/shopspring/decimal
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
-# github.com/stretchr/testify v1.6.1
-github.com/stretchr/testify/assert
 # github.com/ugorji/go/codec v1.2.2
 github.com/ugorji/go/codec
 # github.com/ulikunitz/xz v0.5.9
@@ -319,7 +311,7 @@ gitlab.100bm.cn/micro-plat/dds/dds/internal/modules/const/sql/mysql
 gitlab.100bm.cn/micro-plat/dds/dds/internal/modules/const/sql/oracle
 gitlab.100bm.cn/micro-plat/dds/dds/internal/modules/db
 gitlab.100bm.cn/micro-plat/dds/dds/internal/services
-# gitlab.100bm.cn/micro-plat/lcs/lcs v1.1.0
+# gitlab.100bm.cn/micro-plat/lcs/lcs v1.1.0 => ../../../gitlab.100bm.cn/micro-plat/lcs/lcs
 ## explicit
 gitlab.100bm.cn/micro-plat/lcs/lcs
 gitlab.100bm.cn/micro-plat/lcs/lcs/const/conf
@@ -439,3 +431,4 @@ gopkg.in/yaml.v2
 gopkg.in/yaml.v3
 # github.com/micro-plat/beanpay => ../../../github.com/micro-plat/beanpay
 # github.com/micro-plat/qtask => ../../../github.com/micro-plat/qtask
+# gitlab.100bm.cn/micro-plat/lcs/lcs => ../../../gitlab.100bm.cn/micro-plat/lcs/lcs

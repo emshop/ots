@@ -1,9 +1,9 @@
 <template>
 	<el-dialog title="编辑商户商品" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
-      <el-form-item label="商户商品编号:" prop="mer_product_no">
+      <el-form-item label="商户商品:" prop="mer_product_no">
 				<el-input size="medium" maxlength="32"
-				clearable v-model="editData.mer_product_no" placeholder="请输入商户商品编号">
+				clearable v-model="editData.mer_product_no" placeholder="请输入商户商品">
 				</el-input>
       </el-form-item>
       

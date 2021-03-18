@@ -4,9 +4,11 @@ import (
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/services/delivery"
 	"github.com/emshop/ots/flowserver/services/finish"
+	"github.com/emshop/ots/flowserver/services/merchant"
 	"github.com/emshop/ots/flowserver/services/notify"
 	"github.com/emshop/ots/flowserver/services/order"
 	"github.com/emshop/ots/flowserver/services/payment"
+	"github.com/emshop/ots/flowserver/services/spp"
 	"github.com/micro-plat/hydra"
 )
 
@@ -26,6 +28,11 @@ func init() {
 	hydra.S.Micro("/notify/success", notify.SaveSuccess)
 	hydra.S.Micro("/notify/unknown", notify.Unknown)
 
+	//测试使用
+	hydra.S.Micro("/merchant/create", merchant.Create)
+	hydra.S.Micro("/spp/create", spp.Create)
+	hydra.S.Micro("/order/mock", order.Mock)
+
 	//内部流程
 	hydra.S.MQC("/payment/paying", payment.Paying, string(enums.FlowPaymentStart))
 	hydra.S.MQC("/delivery/binding", delivery.Binding, string(enums.FlowDeliveryBind))
@@ -33,4 +40,7 @@ func init() {
 	hydra.S.MQC("/delivery/paying", delivery.Paying, string(enums.FlowDeliveryPay))
 	hydra.S.MQC("/notify/start", notify.Notify, string(enums.FlowNotifyStart))
 	hydra.S.MQC("/finish/start", finish.Finish, string(enums.FlowFinishStart))
+
+	hydra.S.CRON("/order/replenish", order.Replenish, "@every 10s")
+
 }

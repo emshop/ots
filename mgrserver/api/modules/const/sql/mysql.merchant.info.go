@@ -30,8 +30,8 @@ select
 	t.mer_crop,
 	t.mer_type,
 	t.bd_uid,
-	t.status,
-	t.create_time
+	t.create_time,
+	t.status
 from ots_merchant_info t
 where
 	&mer_no`
@@ -51,13 +51,12 @@ select
 	t.mer_name,
 	t.mer_crop,
 	t.mer_type,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_merchant_info t
 where
 	?t.mer_name
 	&t.status
-order by t.mer_no desc
+order by #order_by
 limit @ps offset @offset
 `
 

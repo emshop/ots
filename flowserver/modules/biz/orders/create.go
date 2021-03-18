@@ -3,18 +3,18 @@ package orders
 import (
 	"errors"
 
+	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/dbs"
 	"github.com/emshop/ots/flowserver/modules/pkgs"
-	"github.com/emshop/ots/otsserver/modules/const/enums"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
 )
 
 //Create 创建交易订单
-func Create(merNo string, merOrderNo string, merProductID int, accountName string, num int, notifyURL string) (types.XMap, bool, error) {
+func Create(merNo string, merOrderNo string, merProductID int, accountName string, num int, notifyURL string) (types.IXMap, bool, error) {
 
 	//1. 查询订单记录
 	order, err := Query(merNo, merOrderNo)

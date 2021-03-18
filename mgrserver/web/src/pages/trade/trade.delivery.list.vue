@@ -31,6 +31,13 @@
 					</el-select>
 				</el-form-item>
 			
+				<el-form-item>
+					<el-select size="medium" v-model="queryData.delivery_status"  clearable filterable class="input-cos" placeholder="请选择发货状态">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in deliveryStatus" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
+				</el-form-item>
+			
 				<el-form-item label="创建时间:">
 						<el-date-picker size="medium" class="input-cos" v-model="createTime" type="date" value-format="yyyy-MM-dd"  placeholder="选择日期"></el-date-picker>
 				</el-form-item>
@@ -45,7 +52,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="delivery_id" label="发货编号" align="center">
 				<template slot-scope="scope">
@@ -162,6 +169,7 @@ export default {
 			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
+			deliveryStatus: this.$enum.get("delivery_status"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0

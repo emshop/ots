@@ -6,6 +6,16 @@ import _ "github.com/micro-plat/qtask/internal/modules/const/sql/mysql"
 
 const SQLGetSEQ = `insert into tsk_system_seq (name,create_time) values (@name, now())`
 
+const SQLQueryTaskForInsert = `
+select t.task_id from tsk_system_task t 
+where t.name = @name
+and t.plat_name = @plat_name
+and t.order_no = @order_no
+and t.queue_name = @queue_name
+and t.status in(20,30)
+limit 1
+`
+
 const SQLCreateTask = `insert into tsk_system_task
 (task_id,
  name,
@@ -40,8 +50,7 @@ t.status=30,
 t.count=t.count + 1,
 t.last_execute_time=now()
 where t.task_id=@task_id 
-and t.status in(20,30)
-and t.count < t.max_count`
+and t.status in(20,30)`
 
 const SQLFinishTask = `
 update tsk_system_task t
@@ -60,7 +69,7 @@ and t.next_execute_time <= now()
 and t.count < t.max_count
 and t.plat_name = @plat_name
 and t.status in(20,30)
-limit 1000`
+limit 200`
 
 const SQLQueryWaitProcess = `
 select t.queue_name,t.msg_content content 
@@ -74,10 +83,9 @@ const SQLFailedTask = `
 UPDATE tsk_system_task t SET 
 t.delete_time = DATE_ADD(NOW(),INTERVAL CASE WHEN t.delete_interval=0 THEN 604800 ELSE t.delete_interval END SECOND),
 t.status = 90
-WHERE t.max_execute_time > DATE_SUB(NOW(),INTERVAL 7 DAY)
-AND (t.max_execute_time < NOW() OR t.count >= t.max_count) 
+WHERE ((t.max_execute_time > DATE_SUB(NOW(),INTERVAL 7 DAY)
+AND t.max_execute_time < DATE_SUB(NOW(),INTERVAL 1 HOUR)) OR t.count >= t.max_count)
 AND t.status IN (20, 30)
-LIMIT 1000
 `
 
 const SQLClearSEQ = `delete from tsk_system_seq where seq_id < @seq_id`

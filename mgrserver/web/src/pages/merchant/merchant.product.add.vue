@@ -50,9 +50,9 @@
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="商户商品编号:" prop="mer_product_no">
+      <el-form-item label="商户商品:" prop="mer_product_no">
 				<el-input size="medium" maxlength="32"
-				 clearable v-model="addData.mer_product_no" placeholder="请输入商户商品编号">
+				 clearable v-model="addData.mer_product_no" placeholder="请输入商户商品">
 				</el-input>
       </el-form-item>
       

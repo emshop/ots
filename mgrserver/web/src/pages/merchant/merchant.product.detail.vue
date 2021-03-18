@@ -73,7 +73,7 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">商户商品编号:</div>
+                      <div class="pull-right" style="margin-right: 10px">商户商品:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.mer_product_no | fltrEmpty }}</div>

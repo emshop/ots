@@ -29,7 +29,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" @sort-change="sort">
 				
 				<el-table-column   prop="mer_no" label="编号" align="center">
 				<template slot-scope="scope">
@@ -37,7 +37,7 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column   prop="mer_name" label="商户名称" align="center">
+				<el-table-column  sortable="custom" prop="mer_name" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<el-tooltip class="item" v-if="scope.row.mer_name && scope.row.mer_name.length > 20" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_name}}</div>
@@ -116,6 +116,7 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			status: this.$enum.get("status"),
+			order: "",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}
@@ -133,6 +134,16 @@ export default {
     init(){
       this.query()
 		},
+		sort(column) {
+      if (column.order == "ascending") {
+        this.order ="t." +  column.prop + " " + "asc"
+      } else if (column.order == "descending") {
+        this.order ="t." +  column.prop + " " + "desc"
+      } else {
+        this.order = ""
+      }
+      this.query()
+    },
     /**查询数据并赋值*/
 		queryDatas() {
       this.paging.pi = 1
@@ -141,6 +152,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
+			this.queryData.order_by = this.order
       let res = this.$http.xpost("/merchant/info/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items || []
 			this.dataList.count = res.count

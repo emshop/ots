@@ -2,6 +2,7 @@ package lcs
 
 import (
 	"fmt"
+	"reflect"
 
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
@@ -54,6 +55,18 @@ func (l *Client) Start(content string) *Client {
 
 //End 创建生命周期成对数据-结束, info可以为字符串或者为error
 func (l *Client) End(info interface{}) *Client {
+	if info != nil {
+		rv := reflect.ValueOf(info)
+		_, ok := info.(error)
+		if rv.Kind() == reflect.Ptr && !ok {
+			rv = rv.Elem()
+		}
+		info = nil
+		if !rv.IsZero() {
+			info = rv.Interface()
+		}
+	}
+
 	lifetime.Create(l.constructData(tags.End, info), l.log)
 	return l
 }

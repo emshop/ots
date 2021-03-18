@@ -4,10 +4,8 @@
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.eid"  clearable filterable class="input-cos" placeholder="请选择商户信息">
-						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in eid" :key="index" :value="item.value" :label="item.name"></el-option>
-					</el-select>
+					<el-input clearable size="medium" v-model="queryData.eid" placeholder="请输入商户信息">
+					</el-input>
 				</el-form-item>
 			
 				<el-form-item>
@@ -24,7 +22,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="account_id" label="帐户编号" align="center">
 				<template slot-scope="scope">
@@ -38,14 +36,9 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column   prop="groups" label="用户分组" align="center">
+				<el-table-column   prop="groups" label="账户类型" align="center">
 					<template slot-scope="scope">
-						<span >{{scope.row.groups | fltrEnum("account_group")}}</span>
-					</template>
-				</el-table-column>
-				<el-table-column   prop="eid" label="商户信息" align="center">
-					<template slot-scope="scope">
-						<span >{{scope.row.eid | fltrEnum("merchant_info")}}</span>
+						<span >{{scope.row.groups | fltrEnum("account_type")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="balance" label="帐户余额" align="center">
@@ -113,7 +106,6 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			eid: this.$enum.get("merchant_info"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}

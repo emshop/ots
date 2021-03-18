@@ -1,6 +1,6 @@
 <template>
   <!-- Add Form -->
-  <el-dialog title="添加生命周期记录表" width="25%" :visible.sync="dialogAddVisible">
+  <el-dialog title="添加生命周期" width="25%" :visible.sync="dialogAddVisible">
     <el-form :model="addData"  :rules="rules" ref="addForm" label-width="110px">
     </el-form>
     <div slot="footer" class="dialog-footer">

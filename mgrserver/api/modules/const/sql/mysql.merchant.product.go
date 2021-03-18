@@ -71,15 +71,14 @@ select
 	t.city_no,
 	t.face,
 	t.discount,
-	t.status,
-	t.create_time 
+	t.status 
 from ots_merchant_product t
 where
 	&t.mer_shelf_id
 	&t.mer_no
 	&t.pl_id
 	&t.brand_no
-order by t.mer_product_id desc
+order by #order_by
 limit @ps offset @offset
 `
 

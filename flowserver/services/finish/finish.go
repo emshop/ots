@@ -10,16 +10,16 @@ import (
 
 //Finish 完结订单处理
 func Finish(ctx hydra.IContext) (r interface{}) {
-	ctx.Log().Info("-------------处理订单完结---------------------")
+	ctx.Log().Debug("-------------处理订单完结---------------------")
 	if err := ctx.Request().Check(fields.FieldOrderID); err != nil {
 		return err
 	}
 	qtask.ProcessingByInput(ctx, ctx.Request())
-	defer lcs.New(ctx.Log(), "订单完结", ctx.Request().GetString(fields.FieldOrderID)).Start("完结").End(r)
+	defer lcs.New(ctx.Log(), "订单完结", ctx.Request().GetString(fields.FieldOrderID)).Start("结束订单").End(&r)
 	err := finishes.Finish(ctx.Request().GetString(fields.FieldOrderID))
 	if err != nil {
 		return err
 	}
 	qtask.FinishByInput(ctx, ctx.Request())
-	return nil
+	return "success"
 }

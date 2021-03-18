@@ -14,6 +14,20 @@ var update2Success = []string{
 	and t.delivery_status = 0
 	and t.payment_status = 0
 	and t.refund_status = 10`,
+
+	//查询费用信息
+	`
+	select
+	t.order_id,
+	t.mer_no,
+	t.success_mer_fee,
+	t.success_mer_trade_fee,
+	t.success_mer_payment_fee,
+	t.bind_face
+	from ots_trade_order t
+	where
+	t.order_id = @order_id 
+	`,
 }
 
 //订单支付失败，未发货 => 订单状态为失败,退款关闭

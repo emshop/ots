@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div>
@@ -183,7 +184,7 @@
                       <div :class="info.can_split_order|fltrTextColor">{{ info.can_split_order | fltrEnum("bool") }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
+                      <div class="pull-right" style="margin-right: 10px">订单时间:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
@@ -357,314 +358,12 @@
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.profit |  fltrNumberFormat(5)}}</div>
-                    </el-col>
-                  </td>
-                </tr>            
-              </tbody>
-            </table>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="订单发货表" name="TradeDeliveryDetail">
-          <div class="table-responsive">
-            <table :date="tradeDeliveryInfo" class="table table-striped m-b-none">
-              <tbody class="table-border">
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货编号:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.delivery_id | fltrEmpty }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">订单编号:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.order_id | fltrEmpty }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div >{{ tradeDeliveryInfo.spp_no | fltrEnum("supplier_info") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商商品编号:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.spp_product_id |  fltrNumberFormat(0)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">商户商品编号:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.mer_product_id |  fltrNumberFormat(0)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">产品线:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div >{{ tradeDeliveryInfo.pl_id | fltrEnum("product_line") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">品牌:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div >{{ tradeDeliveryInfo.brand_no | fltrEnum("brand") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">省份:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div >{{ tradeDeliveryInfo.province_no | fltrEnum("province") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">城市:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div >{{ tradeDeliveryInfo.city_no | fltrEnum("city") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">支持开票:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="tradeDeliveryInfo.invoice_type|fltrTextColor">{{ tradeDeliveryInfo.invoice_type | fltrEnum("invoice_type") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">用户账户:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <el-tooltip class="item" v-if="tradeDeliveryInfo.account_name && tradeDeliveryInfo.account_name.length > 50" effect="dark" placement="top">
-                        <div slot="content" style="width: 110px">{{ tradeDeliveryInfo.account_name}}</div>
-                        <div >{{ tradeDeliveryInfo.account_name | fltrSubstr(50) }}</div>
-                      </el-tooltip>
-                      <div v-else>{{ tradeDeliveryInfo.account_name | fltrEmpty }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货状态:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="tradeDeliveryInfo.delivery_status|fltrTextColor">{{ tradeDeliveryInfo.delivery_status | fltrEnum("delivery_status") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">支付状态:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="tradeDeliveryInfo.payment_status|fltrTextColor">{{ tradeDeliveryInfo.payment_status | fltrEnum("process_status") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">商品面值:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.face |  fltrNumberFormat(0)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货数量:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.num |  fltrNumberFormat(0)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货总面值:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.total_face |  fltrNumberFormat(0)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">扣款折扣:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.cost_discount |  fltrNumberFormat(5)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">实际折扣:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.real_discount |  fltrNumberFormat(5)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">商户佣金:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.spp_fee_discount |  fltrNumberFormat(5)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">交易服务费:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.trade_fee_discount |  fltrNumberFormat(5)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">支付手续费:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.payment_fee_discount |  fltrNumberFormat(5)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货成本:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.cost_amount |  fltrNumberFormat(5)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商佣金:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.spp_fee_amount |  fltrNumberFormat(5)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商服务费:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.trade_fee_amount |  fltrNumberFormat(5)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商手续费:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.payment_fee_amount |  fltrNumberFormat(5)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">成功面值:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.succ_face |  fltrNumberFormat(0)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">开始时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.start_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">结束时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.end_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商发货编号:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.spp_delivery_no | fltrEmpty }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">供货商商品编号:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.spp_product_no | fltrEmpty }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货结果:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <el-tooltip class="item" v-if="tradeDeliveryInfo.return_msg && tradeDeliveryInfo.return_msg.length > 50" effect="dark" placement="top">
-                        <div slot="content" style="width: 110px">{{ tradeDeliveryInfo.return_msg}}</div>
-                        <div >{{ tradeDeliveryInfo.return_msg | fltrSubstr(50) }}</div>
-                      </el-tooltip>
-                      <div v-else>{{ tradeDeliveryInfo.return_msg | fltrEmpty }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">扩展参数json:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <el-tooltip class="item" v-if="tradeDeliveryInfo.request_params && tradeDeliveryInfo.request_params.length > 50" effect="dark" placement="top">
-                        <div slot="content" style="width: 110px">{{ tradeDeliveryInfo.request_params}}</div>
-                        <div >{{ tradeDeliveryInfo.request_params | fltrSubstr(50) }}</div>
-                      </el-tooltip>
-                      <div v-else>{{ tradeDeliveryInfo.request_params | fltrEmpty }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">结果来源:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div :class="tradeDeliveryInfo.result_source|fltrTextColor">{{ tradeDeliveryInfo.result_source | fltrEnum("result_source") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">发货结果码:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.result_code | fltrEmpty }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">最后更新时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ tradeDeliveryInfo.last_update_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                      <div>{{ info.last_update_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
                 </tr>            
@@ -719,10 +418,26 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">通知状态:</div>
+                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div :class="notifyInfoInfo.notify_status|fltrTextColor">{{ notifyInfoInfo.notify_status | fltrEnum("process_status") }}</div>
+                      <div>{{ notifyInfoInfo.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">开始时间:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ notifyInfoInfo.start_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">结束时间:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ notifyInfoInfo.end_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">最大通知次数:</div>
@@ -741,26 +456,10 @@
                       <div>{{ notifyInfoInfo.notify_count |  fltrNumberFormat(0)}}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">创建时间:</div>
+                      <div class="pull-right" style="margin-right: 10px">通知状态:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ notifyInfoInfo.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">开始时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ notifyInfoInfo.start_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">结束时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ notifyInfoInfo.end_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+                      <div :class="notifyInfoInfo.notify_status|fltrTextColor">{{ notifyInfoInfo.notify_status | fltrEnum("process_status") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -782,11 +481,137 @@
             </table>
           </div>
         </el-tab-pane>
+        <el-tab-pane label="订单发货表" name="TradeDeliveryDetail">
+          <el-scrollbar style="height:100%" id="panel-body">
+            <el-table :data="TradeDeliveryList.items" stripe style="width: 100%" :height="maxHeight">
+              
+              <el-table-column   prop="delivery_id" label="发货编号" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.delivery_id | fltrEmpty }}</span>
+              </template>
+              
+              </el-table-column>
+              <el-table-column   prop="order_id" label="订单编号" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.order_id | fltrEmpty }}</span>
+              </template>
+              
+              </el-table-column>
+              <el-table-column   prop="spp_no" label="供货商" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="pl_id" label="产品线" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="brand_no" label="品牌" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.brand_no | fltrEnum("brand")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="province_no" label="省份" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.province_no | fltrEnum("province")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="account_name" label="用户账户" align="center">
+                <template slot-scope="scope">
+                  <el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 20" effect="dark" placement="top">
+                    <div slot="content" style="width: 110px">{{scope.row.account_name}}</div>
+                    <span>{{scope.row.account_name | fltrSubstr(20) }}</span>
+                  </el-tooltip>
+                  <span v-else>{{scope.row.account_name | fltrEmpty }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="delivery_status" label="发货状态" align="center">
+                <template slot-scope="scope">
+                  <span :class="scope.row.delivery_status|fltrTextColor">{{scope.row.delivery_status | fltrEnum("delivery_status")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="create_time" label="创建时间" align="center">
+              <template slot-scope="scope">
+                <div>{{scope.row.create_time | fltrDate("HH:mm:ss") }}</div>
+              </template>
+              </el-table-column>
+              <el-table-column   prop="face" label="商品面值" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.face | fltrNumberFormat(0)}}</span>
+              </template>
+              </el-table-column>
+              <el-table-column   prop="end_time" label="完成时间" align="center">
+              <template slot-scope="scope">
+                <div>{{scope.row.end_time | fltrDate("MM/dd HH:mm") }}</div>
+              </template>
+              </el-table-column>
+              <el-table-column   prop="return_msg" label="发货结果" align="center">
+                <template slot-scope="scope">
+                  <el-tooltip class="item" v-if="scope.row.return_msg && scope.row.return_msg.length > 20" effect="dark" placement="top">
+                    <div slot="content" style="width: 110px">{{scope.row.return_msg}}</div>
+                    <span>{{scope.row.return_msg | fltrSubstr(20) }}</span>
+                  </el-tooltip>
+                  <span v-else>{{scope.row.return_msg | fltrEmpty }}</span>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-scrollbar>
+        </el-tab-pane>
+        <el-tab-pane label="资金变动" name="AccountRecordDetail">
+          <el-scrollbar style="height:100%" id="panel-body">
+            <el-table :data="AccountRecordList.items" stripe style="width: 100%" :height="maxHeight">
+              
+              <el-table-column   prop="record_id" label="变动编号" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.record_id | fltrEmpty }}</span>
+              </template>
+              
+              </el-table-column>
+              <el-table-column   prop="account_id" label="帐户编号" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.account_id | fltrEnum("account_info")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="trade_no" label="交易编号" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.trade_no | fltrEmpty }}</span>
+              </template>
+              
+              </el-table-column>
+              <el-table-column   prop="trade_type" label="交易类型" align="center">
+                <template slot-scope="scope">
+                  <span :class="scope.row.trade_type|fltrTextColor">{{scope.row.trade_type | fltrEnum("trade_type")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="change_type" label="变动类型" align="center">
+                <template slot-scope="scope">
+                  <span :class="scope.row.change_type|fltrTextColor">{{scope.row.change_type | fltrEnum("change_type")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="amount" label="变动金额" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.amount | fltrNumberFormat(2)}}</span>
+              </template>
+              </el-table-column>
+              <el-table-column   prop="balance" label="帐户余额" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.balance | fltrNumberFormat(2)}}</span>
+              </template>
+              </el-table-column>
+              <el-table-column   prop="create_time" label="创建时间" align="center">
+              <template slot-scope="scope">
+                <div>{{scope.row.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
+              </template>
+              </el-table-column>
+            </el-table>
+          </el-scrollbar>
+        </el-tab-pane>
         <el-tab-pane label="生命周期" name="LifeTimeDetail">
           <el-scrollbar style="height:100%" id="panel-body">
             <el-table :data="LifeTimeList.items" stripe style="width: 100%" :height="maxHeight">
               
-              <el-table-column   prop="id" label="id" align="center">
+              <el-table-column   prop="id" label="序号" align="center">
               <template slot-scope="scope">
                 <span>{{scope.row.id | fltrEmpty }}</span>
               </template>
@@ -806,9 +631,9 @@
               </el-table-column>
               <el-table-column   prop="content" label="内容" align="center">
                 <template slot-scope="scope">
-                  <el-tooltip class="item" v-if="scope.row.content && scope.row.content.length > 20" effect="dark" placement="top">
+                  <el-tooltip class="item" v-if="scope.row.content && scope.row.content.length > 48" effect="dark" placement="top">
                     <div slot="content" style="width: 110px">{{scope.row.content}}</div>
-                    <span>{{scope.row.content | fltrSubstr(20) }}</span>
+                    <span>{{scope.row.content | fltrSubstr(48) }}</span>
                   </el-tooltip>
                   <span v-else>{{scope.row.content | fltrEmpty }}</span>
                 </template>
@@ -838,10 +663,9 @@
               
               </el-table-column>
               <el-table-column   prop="name" label="流程名称" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.row.name | fltrEmpty }}</span>
-              </template>
-              
+                <template slot-scope="scope">
+                  <span >{{scope.row.name | fltrEnum("flow_tag")}}</span>
+                </template>
               </el-table-column>
               <el-table-column   prop="create_time" label="创建时间" align="center">
               <template slot-scope="scope">
@@ -863,11 +687,6 @@
                 <span>{{scope.row.count | fltrNumberFormat(0)}}</span>
               </template>
               </el-table-column>
-              <el-table-column   prop="status" label="状态" align="center">
-                <template slot-scope="scope">
-                  <span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("process_status")}}</span>
-                </template>
-              </el-table-column>
               <el-table-column   prop="queue_name" label="消息队列" align="center">
                 <template slot-scope="scope">
                   <el-tooltip class="item" v-if="scope.row.queue_name && scope.row.queue_name.length > 20" effect="dark" placement="top">
@@ -877,12 +696,39 @@
                   <span v-else>{{scope.row.queue_name | fltrEmpty }}</span>
                 </template>
               </el-table-column>
+              <el-table-column   prop="status" label="状态" align="center">
+                <template slot-scope="scope">
+                  <span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("process_status")}}</span>
+                </template>
+              </el-table-column>
             </el-table>
           </el-scrollbar>
         </el-tab-pane>
         
       </el-tabs>
-    </div>
+    </div>   
+    <div class="page-pagination" v-show="tabName =='TradeDeliveryDetail'">
+    <el-pagination
+      @size-change="pageTradeDeliverySizeChange"
+      @current-change="pageTradeDeliveryIndexChange"
+      :current-page="pagingTradeDelivery.pi"
+      :page-size="pagingTradeDelivery.ps"
+      :page-sizes="pagingTradeDelivery.sizes"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="TradeDeliveryList.count">
+    </el-pagination>
+    </div>   
+    <div class="page-pagination" v-show="tabName =='AccountRecordDetail'">
+    <el-pagination
+      @size-change="pageAccountRecordSizeChange"
+      @current-change="pageAccountRecordIndexChange"
+      :current-page="pagingAccountRecord.pi"
+      :page-size="pagingAccountRecord.ps"
+      :page-sizes="pagingAccountRecord.sizes"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="AccountRecordList.count">
+    </el-pagination>
+    </div>   
     <div class="page-pagination" v-show="tabName =='LifeTimeDetail'">
     <el-pagination
       @size-change="pageLifeTimeSizeChange"
@@ -893,7 +739,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="LifeTimeList.count">
     </el-pagination>
-    </div>
+    </div>   
     <div class="page-pagination" v-show="tabName =='SystemTaskDetail'">
     <el-pagination
       @size-change="pageSystemTaskSizeChange"
@@ -914,8 +760,13 @@ export default {
     return {
       tabName: "TradeOrderDetail",
       info: {},
-      tradeDeliveryInfo:{},
       notifyInfoInfo:{},
+      pagingTradeDelivery: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
+      TradeDeliveryList: {count: 0,items: []}, //表单数据对象,
+      queryTradeDeliveryParams:{},  //查询数据对象
+      pagingAccountRecord: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
+      AccountRecordList: {count: 0,items: []}, //表单数据对象,
+      queryAccountRecordParams:{},  //查询数据对象
       pagingLifeTime: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
       LifeTimeList: {count: 0,items: []}, //表单数据对象,
       queryLifeTimeParams:{},  //查询数据对象
@@ -940,11 +791,56 @@ export default {
     queryDetailData() {
       this.info = this.$http.xget("/trade/order",this.$route.query)
     },
-    queryTradeDeliveryData() {
-      this.tradeDeliveryInfo = this.$http.xget("/trade/delivery/detail",{ order_id: this.info.order_id })
-    },
     queryNotifyInfoData() {
       this.notifyInfoInfo = this.$http.xget("/notify/info/detail",{ order_id: this.info.order_id })
+    },
+    /**查询数据并赋值*/
+		queryTradeDeliveryDatas() {
+      this.pagingTradeDelivery.pi = 1
+      this.queryTradeDeliveryData()
+    },
+    queryTradeDeliveryData(){
+      this.queryTradeDeliveryParams.pi = this.pagingTradeDelivery.pi
+			this.queryTradeDeliveryParams.ps = this.pagingTradeDelivery.ps
+      var data = this.$utility.delEmptyProperty(this.queryTradeDeliveryParams)
+      data.order_id = this.info.order_id || ""
+      let res = this.$http.xpost("/trade/delivery/querydetail", data)
+			this.TradeDeliveryList.items = res.items || []
+			this.TradeDeliveryList.count = res.count
+    },
+    /**改变页容量*/
+		pageTradeDeliverySizeChange(val) {
+      this.pagingTradeDelivery.ps = val
+      this.queryTradeDeliveryData()
+    },
+    /**改变当前页码*/
+    pageTradeDeliveryIndexChange(val) {
+      this.pagingTradeDelivery.pi = val
+      this.queryTradeDeliveryData()
+    },
+    /**查询数据并赋值*/
+		queryAccountRecordDatas() {
+      this.pagingAccountRecord.pi = 1
+      this.queryAccountRecordData()
+    },
+    queryAccountRecordData(){
+      this.queryAccountRecordParams.pi = this.pagingAccountRecord.pi
+			this.queryAccountRecordParams.ps = this.pagingAccountRecord.ps
+      var data = this.$utility.delEmptyProperty(this.queryAccountRecordParams)
+      data.trade_no = this.info.order_id || ""
+      let res = this.$http.xpost("/account/record/querydetail", data)
+			this.AccountRecordList.items = res.items || []
+			this.AccountRecordList.count = res.count
+    },
+    /**改变页容量*/
+		pageAccountRecordSizeChange(val) {
+      this.pagingAccountRecord.ps = val
+      this.queryAccountRecordData()
+    },
+    /**改变当前页码*/
+    pageAccountRecordIndexChange(val) {
+      this.pagingAccountRecord.pi = val
+      this.queryAccountRecordData()
     },
     /**查询数据并赋值*/
 		queryLifeTimeDatas() {
@@ -954,8 +850,9 @@ export default {
     queryLifeTimeData(){
       this.queryLifeTimeParams.pi = this.pagingLifeTime.pi
 			this.queryLifeTimeParams.ps = this.pagingLifeTime.ps
-      this.queryLifeTimeParams.order_id=this.info.order_no 
-      let res = this.$http.xpost("/life/time/querydetail",this.$utility.delEmptyProperty(this.queryLifeTimeParams))
+      var data = this.$utility.delEmptyProperty(this.queryLifeTimeParams)
+      data.order_no = this.info.order_id || ""
+      let res = this.$http.xpost("/life/time/querydetail", data)
 			this.LifeTimeList.items = res.items || []
 			this.LifeTimeList.count = res.count
     },
@@ -977,8 +874,9 @@ export default {
     querySystemTaskData(){
       this.querySystemTaskParams.pi = this.pagingSystemTask.pi
 			this.querySystemTaskParams.ps = this.pagingSystemTask.ps
-      this.querySystemTaskParams.order_id=this.info.order_no 
-      let res = this.$http.xpost("/system/task/querydetail",this.$utility.delEmptyProperty(this.querySystemTaskParams))
+      var data = this.$utility.delEmptyProperty(this.querySystemTaskParams)
+      data.order_no = this.info.order_id || ""
+      let res = this.$http.xpost("/system/task/querydetail", data)
 			this.SystemTaskList.items = res.items || []
 			this.SystemTaskList.count = res.count
     },
@@ -997,11 +895,14 @@ export default {
         case "TradeOrderDetail":
           this.queryDetailData();
           break;
+        case "NotifyInfoDetail":
+          this.queryNotifyInfoData();
+          break;
         case "TradeDeliveryDetail":
           this.queryTradeDeliveryData();
           break;
-        case "NotifyInfoDetail":
-          this.queryNotifyInfoData();
+        case "AccountRecordDetail":
+          this.queryAccountRecordData();
           break;
         case "LifeTimeDetail":
           this.queryLifeTimeData();

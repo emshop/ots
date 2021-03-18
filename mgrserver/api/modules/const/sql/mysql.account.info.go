@@ -51,7 +51,6 @@ select
 	t.account_id,
 	t.account_name,
 	t.groups,
-	t.eid,
 	t.balance,
 	t.credit,
 	t.status 
