@@ -71,6 +71,7 @@ func (p *ProductFlow) Next(ctx hydra.IContext, input types.IXMap, kv ...string) 
 			return fmt.Errorf("未查询到发货信息(%s)", input.GetString(fields.FieldDeliveryID))
 		}
 		tmpl.Merge(data.Get(0))
+		input.SetValue(fields.FieldOrderID, tmpl.GetString(fields.FieldOrderID))
 	}
 
 	p.QueueName = tmpl.Translate(p.QueueName)

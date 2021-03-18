@@ -80,6 +80,9 @@ const (
 	//ProcessHandling 处理中
 	ProcessHandling ProcessStatus = 30
 
+	//ProcessRequested 处理中
+	ProcessRequested ProcessStatus = 31
+
 	//ProcessSuccess 成功
 	ProcessSuccess ProcessStatus = 0
 

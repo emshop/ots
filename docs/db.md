@@ -230,6 +230,7 @@ After: After(字段名) //在某个字段后面
 | result_source        | varchar2(32)   |         |  是   |                           r,sl(result_source),cc                            | 结果来源（1：通知，2：查询，3：同步返回） |
 | result_code          | varchar2(32)   |         |  是   |                                     r,                                      | 发货结果码                                |
 | last_update_time     | date           | sysdate |  否   |                          r(f:yyyy-MM-dd HH:mm:ss)                           | 最后更新时间                              |
+| batch_id          | number(20)    |         |  是   |                              r                               | 执行批次号                                  |
 
 
 

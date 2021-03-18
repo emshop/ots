@@ -42,5 +42,6 @@ func init() {
 	hydra.S.MQC("/finish/start", finish.Finish, string(enums.FlowFinishStart))
 
 	hydra.S.CRON("/order/replenish", order.Replenish, "@every 10s")
+	hydra.S.CRON("/delivery/replenish", delivery.Replenish, "@every 10s")
 
 }
