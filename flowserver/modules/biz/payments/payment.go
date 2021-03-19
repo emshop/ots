@@ -19,7 +19,7 @@ import (
 func Pay(orderID string) error {
 
 	//---------处理订单超时-------------------------------
-	ok, err := Timeout(orderID)
+	ok, err := timeout(orderID)
 	if err != nil {
 		return err
 	}

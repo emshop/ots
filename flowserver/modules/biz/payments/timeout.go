@@ -10,8 +10,8 @@ import (
 	"github.com/micro-plat/lib4go/types"
 )
 
-//Timeout 处理订单支付超时
-func Timeout(orderID string) (bool, error) {
+//timeout 处理订单支付超时
+func timeout(orderID string) (bool, error) {
 
 	//构建事务
 	db, err := hydra.C.DB().GetRegularDB().Begin()

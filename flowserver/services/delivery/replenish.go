@@ -11,19 +11,21 @@ import (
 //Query 订单查询
 func Replenish(ctx hydra.IContext) interface{} {
 
+	ctx.Log().Debug("-------------查询发货后补数据----------------------")
 	deliverys, err := deliverys.QueryReplenish()
 	if err != nil {
 		return err
 	}
+	ctx.Log().Debugf("1.查询到数据%d条", len(deliverys))
 	for _, delivery := range deliverys {
 		deliveryID := delivery.GetString(fields.FieldDeliveryID)
 		switch delivery.GetInt(fields.FieldDeliveryStatus) {
 		case int(enums.ProcessWaiting):
 			flows.NextByDeliveryID(deliveryID, enums.FlowDelivery, ctx)
 		case int(enums.ProcessHandling):
-			return nil
+			flows.NextByDeliveryID(deliveryID, enums.FlowQueryStart, ctx)
 		case int(enums.ProcessRequested):
-			return nil
+			flows.NextByDeliveryID(deliveryID, enums.FlowQueryStart, ctx)
 		}
 	}
 

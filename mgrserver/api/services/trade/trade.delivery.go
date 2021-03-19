@@ -123,8 +123,8 @@ var getTradeDeliveryCheckFields = map[string]interface{}{
 
 
 var queryTradeDeliveryCheckFields = map[string]interface{}{
+	field.FieldOrderID:"required",
 	field.FieldSppNo:"required",
-	field.FieldMerNo:"required",
 	field.FieldPlID:"required",
 	field.FieldBrandNo:"required",
 	field.FieldDeliveryStatus:"required",

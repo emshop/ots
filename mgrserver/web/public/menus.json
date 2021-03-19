@@ -1,11 +1,39 @@
 [
   {
+    "name": "商户信息",
+    "path": "/merchant/info"
+  },
+  {
+    "name": "订单通知表",
+    "path": "/notify/info"
+  },
+  {
+    "name": "业务流程",
+    "path": "/product/flow"
+  },
+  {
+    "name": "供货商商品",
+    "path": "/supplier/product"
+  },
+  {
+    "name": "供货商货架",
+    "path": "/supplier/shelf"
+  },
+  {
+    "name": "任务表",
+    "path": "/system/task"
+  },
+  {
+    "name": "生命周期",
+    "path": "/life/time"
+  },
+  {
     "name": "发货人工审核表",
     "path": "/audit/info"
   },
   {
-    "name": "商户货架",
-    "path": "/merchant/shelf"
+    "name": "商户商品",
+    "path": "/merchant/product"
   },
   {
     "name": "产品线",
@@ -16,63 +44,35 @@
     "path": "/refund/apply"
   },
   {
-    "name": "供货商错误码",
-    "path": "/supplier/ecode"
-  },
-  {
-    "name": "供货商货架",
-    "path": "/supplier/shelf"
-  },
-  {
-    "name": "订单发货表",
-    "path": "/trade/delivery"
-  },
-  {
-    "name": "任务表",
-    "path": "/system/task"
-  },
-  {
-    "name": "商户商品",
-    "path": "/merchant/product"
-  },
-  {
-    "name": "订单通知表",
-    "path": "/notify/info"
+    "name": "供货商信息",
+    "path": "/supplier/info"
   },
   {
     "name": "账户信息",
     "path": "/account/info"
   },
   {
-    "name": "商户信息",
-    "path": "/merchant/info"
+    "name": "字典配置",
+    "path": "/dictionary/info"
+  },
+  {
+    "name": "供货商错误码",
+    "path": "/supplier/ecode"
+  },
+  {
+    "name": "订单发货表",
+    "path": "/trade/delivery"
+  },
+  {
+    "name": "订单记录",
+    "path": "/trade/order"
   },
   {
     "name": "资金变动",
     "path": "/account/record"
   },
   {
-    "name": "字典配置",
-    "path": "/dictionary/info"
-  },
-  {
-    "name": "生命周期",
-    "path": "/life/time"
-  },
-  {
-    "name": "业务流程",
-    "path": "/product/flow"
-  },
-  {
-    "name": "供货商信息",
-    "path": "/supplier/info"
-  },
-  {
-    "name": "供货商商品",
-    "path": "/supplier/product"
-  },
-  {
-    "name": "订单记录",
-    "path": "/trade/order"
+    "name": "商户货架",
+    "path": "/merchant/shelf"
   }
 ]

@@ -4,16 +4,14 @@
 		<div class="panel-body" id="panel-body">
 			<el-form ref="form" :inline="true" class="form-inline pull-left">
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.spp_no"  clearable filterable class="input-cos" placeholder="请选择供货商">
-						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in sppNo" :key="index" :value="item.value" :label="item.name"></el-option>
-					</el-select>
+					<el-input clearable size="medium" v-model="queryData.order_id" placeholder="请输入订单编号">
+					</el-input>
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.mer_no"  clearable filterable class="input-cos" placeholder="请选择商户编号">
+					<el-select size="medium" v-model="queryData.spp_no"  clearable filterable class="input-cos" placeholder="请选择供货商">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in merNo" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in sppNo" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
 				</el-form-item>
 			
@@ -166,7 +164,6 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			sppNo: this.$enum.get("supplier_info"),
-			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
 			deliveryStatus: this.$enum.get("delivery_status"),

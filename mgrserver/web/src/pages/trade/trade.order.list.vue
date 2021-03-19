@@ -43,7 +43,7 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" @sort-change="sort">
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
 				<el-table-column   prop="order_id" label="订单编号" align="center">
 				<template slot-scope="scope">
@@ -104,7 +104,7 @@
 					<span>{{scope.row.sell_discount | fltrNumberFormat(2)}}</span>
 				</template>
 				</el-table-column>
-				<el-table-column  sortable="custom" prop="create_time" label="订单时间" align="center">
+				<el-table-column   prop="create_time" label="订单时间" align="center">
 				<template slot-scope="scope">
 					<div>{{scope.row.create_time | fltrDate("HH:mm:ss") }}</div>
 				</template>
@@ -164,7 +164,6 @@ export default {
 			plID: this.$enum.get("product_line"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			orderStatus: this.$enum.get("order_status"),
-			order: "t.create_time desc",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}
@@ -182,16 +181,6 @@ export default {
     init(){
       this.query()
 		},
-		sort(column) {
-      if (column.order == "ascending") {
-        this.order ="t." +  column.prop + " " + "asc"
-      } else if (column.order == "descending") {
-        this.order ="t." +  column.prop + " " + "desc"
-      } else {
-        this.order = ""
-      }
-      this.query()
-    },
     /**查询数据并赋值*/
 		queryDatas() {
       this.paging.pi = 1
@@ -201,7 +190,6 @@ export default {
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
 			this.queryData.create_time = this.$utility.dateFormat(this.createTime,"yyyy-MM-dd")
-			this.queryData.order_by = this.order
       let res = this.$http.xpost("/trade/order/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items || []
 			this.dataList.count = res.count

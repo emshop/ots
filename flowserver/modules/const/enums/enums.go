@@ -164,6 +164,9 @@ const (
 	//FlowDelivery 发货开始流程
 	FlowDelivery FlowName = "delivery:start"
 
+	//FlowQueryStart 发货查询流程
+	FlowQueryStart FlowName = "delivery:query"
+
 	//FlowNotifyStart 订单通知
 	FlowNotifyStart FlowName = "notify:start"
 

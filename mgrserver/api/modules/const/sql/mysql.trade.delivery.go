@@ -37,7 +37,8 @@ select
 	t.request_params,
 	t.result_source,
 	t.result_code,
-	t.last_update_time
+	t.last_update_time,
+	t.batch_id
 from ots_trade_delivery t
 where
 	&delivery_id`
@@ -47,8 +48,8 @@ const GetTradeDeliveryListCount = `
 select count(1)
 from ots_trade_delivery t
 where
+	&t.order_id
 	&t.spp_no
-	&t.mer_no
 	&t.pl_id
 	&t.brand_no
 	&t.delivery_status
@@ -72,8 +73,8 @@ select
 	t.return_msg 
 from ots_trade_delivery t
 where
+	&t.order_id
 	&t.spp_no
-	&t.mer_no
 	&t.pl_id
 	&t.brand_no
 	&t.delivery_status

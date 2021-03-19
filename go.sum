@@ -229,6 +229,8 @@ github.com/zkfy/stompngo v0.0.0-20170803022748-9378e70ca481 h1:dqbWcJVZJv06ZR7zK
 github.com/zkfy/stompngo v0.0.0-20170803022748-9378e70ca481/go.mod h1:YhbMHdfKqDOLUVc2MQoMXRayntbZzMuDnbTZhXWPwZI=
 gitlab.100bm.cn/micro-plat/dds/dds v1.0.3 h1:ott/MVFjyfp9bA2bQanpAsg/IdIG4exB/NsjD9CRZQo=
 gitlab.100bm.cn/micro-plat/dds/dds v1.0.3/go.mod h1:h5AUX6R0g/Ng1ng1Tby07K2ZRpJTyRkyko1Ay1RW2vM=
+gitlab.100bm.cn/micro-plat/dds/dds v1.1.2 h1:AFRMbt9bERE63tz0kCCufE1dBG/sWlyqdPYJAOoKEn4=
+gitlab.100bm.cn/micro-plat/dds/dds v1.1.2/go.mod h1:dnUM9vACmGOTQIpIQw4NPzOI06vSbC5oAkQxRRIUNQs=
 gitlab.100bm.cn/micro-plat/lcs/lcs v1.1.0 h1:lIyDl2dxEuAgS3TEBwyUpbrjHaza35geDos8UHGQe3A=
 gitlab.100bm.cn/micro-plat/lcs/lcs v1.1.0/go.mod h1:NmC2i9s4dOiX0GwBOEkkyl4flnqjB3AlZSGIe0Q189A=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

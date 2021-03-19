@@ -36,9 +36,9 @@
 				</template>
 				
 				</el-table-column>
-				<el-table-column   prop="groups" label="账户类型" align="center">
+				<el-table-column   prop="groupx" label="账户类型" align="center">
 					<template slot-scope="scope">
-						<span >{{scope.row.groups | fltrEnum("account_type")}}</span>
+						<span >{{scope.row.groupx | fltrEnum("account_type")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="balance" label="帐户余额" align="center">

@@ -35,7 +35,7 @@
                       <div class="pull-right" style="margin-right: 10px">账户类型:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.groups | fltrEnum("account_type") }}</div>
+                      <div >{{ info.groupx | fltrEnum("account_type") }}</div>
                     </el-col>
                   </td>
                 </tr>

@@ -53,5 +53,5 @@ var enumsMap = map[string]string{
 	"supplier_shelf": `select 'supplier_shelf' type , t.spp_shelf_id value , t.spp_shelf_name name  from ots_supplier_shelf t `,
 	"product_line":   `select 'product_line' type , t.pl_id value , t.pl_name name  from ots_product_line t `,
 	"product_flow":   `select 'product_flow' type , t.flow_id value , t.flow_name name  from ots_product_flow t `,
-	"account_info":   `select 'account_info' type , t.account_id value ,CONCAT(t.account_name," (",t.groups,")") name  from beanpay_account_info t order by t.account_name asc,t.groups asc`,
+	"account_info":   `select 'account_info' type , t.account_id value ,CONCAT(t.account_name," (",t.groupx,")") name  from beanpay_account_info t order by t.account_name asc,t.groupx asc`,
 }

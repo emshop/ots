@@ -45,7 +45,8 @@ select
 	t.success_spp_trade_fee,
 	t.success_spp_payment_fee,
 	t.profit,
-	t.last_update_time
+	t.last_update_time,
+	t.batch_id
 from ots_trade_order t
 where
 	&order_id`
@@ -86,7 +87,7 @@ where
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
 	&t.order_status
-order by #order_by
+order by t.mer_no,t.mer_order_no,t.pl_id,t.brand_no,t.province_no,t.create_time,t.last_update_time desc
 limit @ps offset @offset
 `
 

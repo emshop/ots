@@ -2,6 +2,8 @@ package db
 
 import (
 	"fmt"
+	"net/http"
+	"os"
 
 	"github.com/micro-plat/lib4go/db"
 	"github.com/micro-plat/lib4go/errs"
@@ -71,7 +73,7 @@ func SaveTask(db db.IDBExecuter, name string, input map[string]interface{}, time
 		return 0, fmt.Errorf("创建任务(%s)失败 %v", name, err)
 	}
 	if taskid := types.GetInt64(v); taskid > 0 {
-		return taskid, nil
+		return taskid, errs.NewError(http.StatusNoContent, os.ErrExist)
 	}
 
 	//保存任务信息

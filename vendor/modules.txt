@@ -302,7 +302,7 @@ github.com/zkfy/jwt-go
 github.com/zkfy/log
 # github.com/zkfy/stompngo v0.0.0-20170803022748-9378e70ca481
 github.com/zkfy/stompngo
-# gitlab.100bm.cn/micro-plat/dds/dds v1.0.3
+# gitlab.100bm.cn/micro-plat/dds/dds v1.1.2
 ## explicit
 gitlab.100bm.cn/micro-plat/dds/dds
 gitlab.100bm.cn/micro-plat/dds/dds/internal/modules/const/conf

@@ -24,6 +24,7 @@ func init() {
 		ots_audit_info,
 		ots_product_line,
 		ots_product_flow,
+		beanpay_account_info,
 		SEQ_IDS,
 		)
 		return nil

@@ -40,7 +40,8 @@ const ots_trade_delivery=`
 		request_params varchar(2000)    comment '扩展参数json' ,
 		result_source varchar(32)    comment '结果来源（1：通知，2：查询，3：同步返回）' ,
 		result_code varchar(32)    comment '发货结果码' ,
-		last_update_time datetime default current_timestamp not null  comment '最后更新时间' 
+		last_update_time datetime default current_timestamp not null  comment '最后更新时间' ,
+		batch_id bigint    comment '执行批次号' 
 		,primary key (delivery_id)
 		,index delivery_order(order_id)
 		,index delivery_time(create_time,pl_id,brand_no,province_no,city_no)

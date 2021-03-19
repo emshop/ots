@@ -160,8 +160,14 @@ github.com/micro-plat/ddns v1.1.0 h1:TSJl3Ufg23RcZMRjORZ+kEnAPVL4QhNpaJCqxk3AGZ4
 github.com/micro-plat/gmq v1.0.1 h1:ai1PiCEfgBmiqzmZ4iWE3l2Vuz7rOTWOakqRWqi/Hgo=
 github.com/micro-plat/gmq v1.0.1/go.mod h1:93NeUjbgul5ywP+cm4eXERv6Zk0J8zZyrzYrY3q8GVQ=
 github.com/micro-plat/hydra v0.13.3/go.mod h1:1rTZbPf2uvESGJY+uNGNOuMnB6oEkQYjLxhRpJF15a4=
+github.com/micro-plat/hydra v1.0.5/go.mod h1:hXRcVn7eHFtXQZrblrg7d3r3OCAr9VHk0hz9yWGa7GA=
+github.com/micro-plat/hydra v1.1.1 h1:0M8N/MrpPhshvNoLX3xrnI/pvEsGrkbTxk0AYrCjb9M=
+github.com/micro-plat/hydra v1.1.1/go.mod h1:ltV1ZC8uMj06sRnf1jQLj6CjR2CT7lResvYdSQg9G5Q=
 github.com/micro-plat/lib4go v0.3.0/go.mod h1:yJt+7OPs98Qawn1JKQvn2qwtJi2yEg/t1gRi+k7oUZo=
 github.com/micro-plat/lib4go v0.4.0/go.mod h1:yJt+7OPs98Qawn1JKQvn2qwtJi2yEg/t1gRi+k7oUZo=
+github.com/micro-plat/lib4go v1.0.10/go.mod h1:svEFcpefzbKSjaRBzv0OWZHWOj6abM0/95c112Yu8/8=
+github.com/micro-plat/lib4go v1.1.0 h1:AoO0LrQXvffW1xfY3oI+fVt4CpJ+WddOhCFMu10Pt50=
+github.com/micro-plat/lib4go v1.1.0/go.mod h1:svEFcpefzbKSjaRBzv0OWZHWOj6abM0/95c112Yu8/8=
 github.com/micro-plat/qtask v1.10.1 h1:/6QOgvePjBqb0WBGOPNPVuP34/Wh3/j0Fm62SKrI+mw=
 github.com/micro-plat/qtask v1.10.1/go.mod h1:Qe4cVxA4bkjQGjSNq+lS0xtwaZl1KXRdv8GrdgomVYY=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
@@ -256,7 +262,6 @@ github.com/zkfy/cron v0.0.0-20170309132418-df38d32658d8/go.mod h1:JOZbTZbRDcU9U/
 github.com/zkfy/go-cache v2.1.0+incompatible/go.mod h1:3BfHxgJ+4h6vTvsIuKZnIf44JzXgECayURPxvafVv5Y=
 github.com/zkfy/go-metrics v0.0.0-20161128210544-1f30fe9094a5 h1:Rb2qQMbEon+BI3IXGh4eW3u/iTLPA3+Y6kNK+gHO32w=
 github.com/zkfy/go-metrics v0.0.0-20161128210544-1f30fe9094a5/go.mod h1:VOfLef4/FOZxeKOJ2BtlXFcirZ3i6/E7dR1wBl37LS8=
-github.com/zkfy/go-oci8 v1.0.0 h1:vgJk0AnBNuVDKh/q9LSdbW3smLj7R53x29dhRQ/QaqA=
 github.com/zkfy/go-oci8 v1.0.0/go.mod h1:eC3OkCVU+lyyoySDy2npkH2xLZ3N55SyWrxUc97BgPU=
 github.com/zkfy/jwt-go v3.0.0+incompatible h1:5hZNIkrRRa0mrkRiXoPFdLJWpMDByIZ6VIbX9aWhwmk=
 github.com/zkfy/jwt-go v3.0.0+incompatible/go.mod h1:/VPZ6I97VPxFImaauVUAH0vFDQBwnVZVm9XTexdfD9E=

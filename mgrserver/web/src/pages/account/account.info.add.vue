@@ -16,9 +16,9 @@
 			</el-form-item>
       
       
-			<el-form-item label="账户类型:" prop="groups">
-				<el-select size="medium" style="width: 100%;"	v-model="addData.groups"	clearable filterable class="input-cos" placeholder="---请选择---">
-					<el-option v-for="(item, index) in groups" :key="index" :value="item.value" :label="item.name"></el-option>
+			<el-form-item label="账户类型:" prop="groupx">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.groupx"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in groupx" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
       
@@ -57,12 +57,12 @@ export default {
 			addData: {},
 			dialogAddVisible: false,
 			ident:this.$enum.get("ident"),
-			groups:this.$enum.get("account_type"),
+			groupx:this.$enum.get("account_type"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				account_name: [{ required: true, message: "请输入帐户名称", trigger: "blur" }],
 				ident: [{ required: true, message: "请输入系统标识", trigger: "blur" }],
-				groups: [{ required: true, message: "请输入账户类型", trigger: "blur" }],
+				groupx: [{ required: true, message: "请输入账户类型", trigger: "blur" }],
 				eid: [{ required: true, message: "请输入商户信息", trigger: "blur" }],
 				credit: [{ required: true, message: "请输入信用余额", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],

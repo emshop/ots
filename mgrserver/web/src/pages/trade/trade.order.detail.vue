@@ -366,6 +366,16 @@
                       <div>{{ info.last_update_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
                     </el-col>
                   </td>
+                </tr>
+                <tr>
+                  <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">执行批次号:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.batch_id |  fltrNumberFormat(0)}}</div>
+                    </el-col>
+                  </td>
                 </tr>            
               </tbody>
             </table>

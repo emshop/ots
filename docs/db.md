@@ -142,62 +142,62 @@ After: After(字段名) //在某个字段后面
 ###  1. 订单记录[ots_trade_order]{el_tab(ots_notify_info,order_id|ots_trade_delivery,order_id/order_id,list|beanpay_account_record,order_id/trade_no,list|lcs_life_time,order_id/order_no,list|tsk_system_task,order_id/order_no,list)}
 
 
-| 字段名                  | 类型         |   默认值   | 为空  |                                          约束                                          | 描述                  |
-| ----------------------- | ------------ | :--------: | :---: | :------------------------------------------------------------------------------------: | :-------------------- |
-| order_id                | varchar2(32) | 1100000000 |  否   |                                     PK,l(f:12),q,r                                     | 订单编号              |
-| mer_no                  | varchar2(32) |            |  否   |            l,Q,sl(ots_merchant_info),r,idx(order_index,2),unq(mer_order,1)             | 商户                  |
-| mer_order_no            | varchar2(64) |            |  否   |                               r,l(f:12),unq(mer_order,2)                               | 商户订单              |
-| mer_product_id          | number(10)   |    300     |  否   |                               r,sl(ots_merchant_product)                               | 商户商品              |
-| mer_shelf_id            | number(10)   |            |  否   |                                r,sl(ots_merchant_shelf)                                | 商户货架              |
-| mer_product_no          | varchar2(32) |            |  是   |                                           r                                            | 外部商品编号          |
-| pl_id                   | number(10)   |            |  否   |                     l,Q,sl(ots_product_line),r,idx(order_index,3)                      | 产品线                |
-| brand_no                | varchar2(8)  |            |  否   |                            l,r,sl(brand),idx(order_index,4)                            | 品牌                  |
-| province_no             | varchar2(8)  |            |  否   |                          l,r,sl(province),idx(order_index,5)                           | 省份                  |
-| city_no                 | varchar2(8)  |            |  否   |                                       r,sl(city)                                       | 城市                  |
-| face                    | number(10)   |            |  否   |                                          l,r                                           | 面值                  |
-| num                     | number(10)   |            |  否   |                                          l,r                                           | 数量                  |
-| total_face              | number(10)   |            |  否   |                                           r                                            | 商品总面值            |
-| account_name            | varchar2(64) |            |  否   |                                          l,r                                           | 用户账户              |
-| invoice_type            | number(2)    |            |  否   |                                 r,cc,sl(invoice_type)                                  | 发票（1.不支持）      |
-| sell_discount           | number(20,5) |            |  否   |                                        l,r(f:5)                                        | 销售折扣              |
-| sell_amount             | number(20,5) |            |  否   |                                         r(f:5)                                         | 总销售金额            |
-| mer_fee_discount        | number(20,5) |            |  否   |                                         r(f:5)                                         | 商户佣金折扣          |
-| trade_fee_discount      | number(20,5) |            |  否   |                                         r(f:5)                                         | 交易服务折扣          |
-| payment_fee_discount    | number(20,5) |            |  否   |                                         r(f:5)                                         | 支付手续费折扣        |
-| can_split_order         | number(1)    |     1      |  否   |                                     r,sl(bool),cc                                      | 是否拆单（0.是，1否） |
-| create_time             | date         |  sysdate   |  否   | q(f:yyyy-MM-dd),l(f:HH:mm:ss),r(f:yyyy-MM-dd HH:mm:ss),idx(order_index,1),sort(desc,1) | 订单时间              |
-| finish_time             | date         |  sysdate   |  否   |                                r(f:yyyy-MM-dd HH:mm:ss)                                | 完成时间              |
-| order_timeout           | date         |            |  否   |                               r,r(f:yyyy-MM-dd HH:mm:ss)                               | 订单超时时间          |
-| payment_timeout         | date         |            |  否   |                               r,r(f:yyyy-MM-dd HH:mm:ss)                               | 支付超时时间          |
-| bind_face               | number(10)   |     0      |  否   |                                          r,l                                           | 绑定面值              |
-| delivery_pause          | number(1)    |     1      |  否   |                                     r,sl(bool),cc                                      | 发货暂停（0.是，1否） |
-| order_status            | number(3)    |     10     |  否   |                                      q,l,r,sl,cc                                       | 订单状态              |
-| payment_status          | number(3)    |     20     |  否   |                                r,sl(process_status),cc                                 | 支付状态              |
-| delivery_status         | number(3)    |     10     |  否   |                                r,sl(process_status),cc                                 | 发货状态              |
-| refund_status           | number(3)    |     10     |  否   |                                r,sl(process_status),cc                                 | 退款状态              |
-| notify_status           | number(3)    |     10     |  否   |                                r,sl(process_status),cc                                 | 通知状态              |
-| is_refund               | number(1)    |     1      |  否   |                                     r,sl(bool),cc                                      | 用户退款（0.是，1否） |
-| success_face            | number(10)   |     0      |  否   |                                           r                                            | 成功总面值            |
-| success_sell_amount     | number(20,5) |     0      |  否   |                                           r                                            | 成功销售金额 （1）    |
-| success_mer_fee         | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 商户佣金金额 （2）    |
-| success_mer_trade_fee   | number(20,5) |     0      |  否   |                                        r(f:5))                                         | 商户服务费金额 （3）  |
-| success_mer_payment_fee | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 商户手续费金额 （4）  |
-| success_cost_amount     | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 成本金额 （5）        |
-| success_spp_fee         | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 供货商佣金 （6）      |
-| success_spp_trade_fee   | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 供货商服务费 （7）    |
-| success_spp_payment_fee | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 供货商手续费 （8）    |
-| profit                  | number(20,5) |     0      |  否   |                                         r(f:5)                                         | 利润(1-2-3-4-5+6-7-8) |
-| last_update_time        | date         |  sysdate   |  否   |                                r(f:yyyy-MM-dd HH:mm:ss)                                | 最后更新时间          | idx(order_last_update) |
-| batch_id          | number(20)    |         |  是   |                              r                               | 执行批次号                                  |
+| 字段名                  | 类型         |   默认值   | 为空  |                                   约束                                    | 描述                  |
+| ----------------------- | ------------ | :--------: | :---: | :-----------------------------------------------------------------------: | :-------------------- |
+| order_id                | varchar2(32) | 1100000000 |  否   |                              PK,l(f:12),q,r                               | 订单编号              |
+| mer_no                  | varchar2(32) |            |  否   |      l,Q,sl(ots_merchant_info),r,idx(order_index,2),unq(mer_order,1)      | 商户                  |
+| mer_order_no            | varchar2(64) |            |  否   |                        r,l(f:12),unq(mer_order,2)                         | 商户订单              |
+| mer_product_id          | number(10)   |    300     |  否   |                        r,sl(ots_merchant_product)                         | 商户商品              |
+| mer_shelf_id            | number(10)   |            |  否   |                         r,sl(ots_merchant_shelf)                          | 商户货架              |
+| mer_product_no          | varchar2(32) |            |  是   |                                     r                                     | 外部商品编号          |
+| pl_id                   | number(10)   |            |  否   |               l,Q,sl(ots_product_line),r,idx(order_index,3)               | 产品线                |
+| brand_no                | varchar2(8)  |            |  否   |                     l,r,sl(brand),idx(order_index,4)                      | 品牌                  |
+| province_no             | varchar2(8)  |            |  否   |                    l,r,sl(province),idx(order_index,5)                    | 省份                  |
+| city_no                 | varchar2(8)  |            |  否   |                                r,sl(city)                                 | 城市                  |
+| face                    | number(10)   |            |  否   |                                    l,r                                    | 面值                  |
+| num                     | number(10)   |            |  否   |                                    l,r                                    | 数量                  |
+| total_face              | number(10)   |            |  否   |                                     r                                     | 商品总面值            |
+| account_name            | varchar2(64) |            |  否   |                                    l,r                                    | 用户账户              |
+| invoice_type            | number(2)    |            |  否   |                           r,cc,sl(invoice_type)                           | 发票（1.不支持）      |
+| sell_discount           | number(20,5) |            |  否   |                                 l,r(f:5)                                  | 销售折扣              |
+| sell_amount             | number(20,5) |            |  否   |                                  r(f:5)                                   | 总销售金额            |
+| mer_fee_discount        | number(20,5) |            |  否   |                                  r(f:5)                                   | 商户佣金折扣          |
+| trade_fee_discount      | number(20,5) |            |  否   |                                  r(f:5)                                   | 交易服务折扣          |
+| payment_fee_discount    | number(20,5) |            |  否   |                                  r(f:5)                                   | 支付手续费折扣        |
+| can_split_order         | number(1)    |     1      |  否   |                               r,sl(bool),cc                               | 是否拆单（0.是，1否） |
+| create_time             | date         |  sysdate   |  否   | q(f:yyyy-MM-dd),l(f:HH:mm:ss),r(f:yyyy-MM-dd HH:mm:ss),idx(order_index,1) | 订单时间              |
+| finish_time             | date         |  sysdate   |  否   |                         r(f:yyyy-MM-dd HH:mm:ss)                          | 完成时间              |
+| order_timeout           | date         |            |  否   |                        r,r(f:yyyy-MM-dd HH:mm:ss)                         | 订单超时时间          |
+| payment_timeout         | date         |            |  否   |                        r,r(f:yyyy-MM-dd HH:mm:ss)                         | 支付超时时间          |
+| bind_face               | number(10)   |     0      |  否   |                                    r,l                                    | 绑定面值              |
+| delivery_pause          | number(1)    |     1      |  否   |                               r,sl(bool),cc                               | 发货暂停（0.是，1否） |
+| order_status            | number(3)    |     10     |  否   |                                q,l,r,sl,cc                                | 订单状态              |
+| payment_status          | number(3)    |     20     |  否   |                          r,sl(process_status),cc                          | 支付状态              |
+| delivery_status         | number(3)    |     10     |  否   |                          r,sl(process_status),cc                          | 发货状态              |
+| refund_status           | number(3)    |     10     |  否   |                          r,sl(process_status),cc                          | 退款状态              |
+| notify_status           | number(3)    |     10     |  否   |                          r,sl(process_status),cc                          | 通知状态              |
+| is_refund               | number(1)    |     1      |  否   |                               r,sl(bool),cc                               | 用户退款（0.是，1否） |
+| success_face            | number(10)   |     0      |  否   |                                     r                                     | 成功总面值            |
+| success_sell_amount     | number(20,5) |     0      |  否   |                                     r                                     | 成功销售金额 （1）    |
+| success_mer_fee         | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 商户佣金金额 （2）    |
+| success_mer_trade_fee   | number(20,5) |     0      |  否   |                                  r(f:5))                                  | 商户服务费金额 （3）  |
+| success_mer_payment_fee | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 商户手续费金额 （4）  |
+| success_cost_amount     | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 成本金额 （5）        |
+| success_spp_fee         | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 供货商佣金 （6）      |
+| success_spp_trade_fee   | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 供货商服务费 （7）    |
+| success_spp_payment_fee | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 供货商手续费 （8）    |
+| profit                  | number(20,5) |     0      |  否   |                                  r(f:5)                                   | 利润(1-2-3-4-5+6-7-8) |
+| last_update_time        | date         |  sysdate   |  否   |              idx(order_last_update),r(f:yyyy-MM-dd HH:mm:ss)              | 最后更新时间          |
+| batch_id                | number(20)   |            |  是   |                                     r                                     | 执行批次号            |
 
 ###  2. 订单发货表[ots_trade_delivery]
 | 字段名               | 类型           | 默认值  | 为空  |                                    约束                                     | 描述                                      |
 | -------------------- | -------------- | :-----: | :---: | :-------------------------------------------------------------------------: | :---------------------------------------- |
 | delivery_id          | varchar2(32)   |  20000  |  否   |                                   PK,r,l                                    | 发货编号                                  |
-| order_id             | varchar2(32)   |         |  否   |                         r,l,em,idx(delivery_order)                          | 订单编号                                  |
+| order_id             | varchar2(32)   |         |  否   |                        q,r,l,em,idx(delivery_order)                         | 订单编号                                  |
 | spp_no               | varchar2(32)   |         |  否   |                         r,q,l,sl(ots_supplier_info)                         | 供货商                                    |
 | spp_product_id       | number(10)     |         |  否   |                                      r                                      | 供货商商品编号                            |
-| mer_no               | varchar2(32)   |         |  否   |                           q,sl(ots_merchant_info)                           | 商户编号                                  |
+| mer_no               | varchar2(32)   |         |  否   |                            sl(ots_merchant_info)                            | 商户编号                                  |
 | mer_product_id       | number(10)     |         |  否   |                                      r                                      | 商户商品编号                              |
 | pl_id                | number(10)     |         |  否   |              q,r,l,sl(ots_product_line),r,idx(delivery_time,2)              | 产品线                                    |
 | brand_no             | varchar2(8)    |         |  否   |                    q,r,l,sl(brand),idx(delivery_time,3)                     | 品牌                                      |
@@ -230,7 +230,7 @@ After: After(字段名) //在某个字段后面
 | result_source        | varchar2(32)   |         |  是   |                           r,sl(result_source),cc                            | 结果来源（1：通知，2：查询，3：同步返回） |
 | result_code          | varchar2(32)   |         |  是   |                                     r,                                      | 发货结果码                                |
 | last_update_time     | date           | sysdate |  否   |                          r(f:yyyy-MM-dd HH:mm:ss)                           | 最后更新时间                              |
-| batch_id          | number(20)    |         |  是   |                              r                               | 执行批次号                                  |
+| batch_id             | number(20)     |         |  是   |                                      r                                      | 执行批次号                                |
 
 
 
@@ -327,14 +327,14 @@ After: After(字段名) //在某个字段后面
 | msg_content       | varchar2(256) |         |  是   |                              r                               | 消息内容                                    |
 | status            | number(2)     |         |  否   |                 q,l,r,sl(process_status),cc                  | 状态(20 等待，30 正在,0 已处理,90 处理失败) |
 
-### 1. 账户信息[^beanpay_account_info]
+### 1. 账户信息[beanpay_account_info]
 
 | 字段名       | 类型         | 默认值  | 为空  |           约束           | 描述                |
 | ------------ | ------------ | :-----: | :---: | :----------------------: | :------------------ |
 | account_id   | number(20)   |  86000  |  否   |      PK,SEQ,l,r,DI       | 帐户编号            |
 | account_name | varchar2(32) |         |  否   |        l,r,u,c,DN        | 帐户名称            |
 | ident        | varchar2(32) |         |  否   |      r,sl(ident),c       | 系统标识            |
-| groups       | varchar2(32) |         |  否   |  l,r,sl(account_type),c  | 账户类型            |
+| groupx       | varchar2(32) |         |  否   |  l,r,sl(account_type),c  | 账户类型            |
 | eid          | varchar2(32) |         |  否   |          r,q,c           | 商户信息            |
 | balance      | number(20,5) |    0    |  否   |           r,l            | 帐户余额，单位：元  |
 | credit       | number(20,5) |    0    |  否   |         r,l,u,c          | 信用余额，单位：元  |

@@ -33,7 +33,7 @@ func QueryReplenish() (t types.XMaps, err error) {
 	}
 	xdb.Rollback()
 	if errors.Is(err, xerr.ErrNOTEXISTS) {
-		return nil, errs.NewError(http.StatusNoContent, "没有需要后补的订单数据")
+		return nil, errs.NewError(http.StatusNoContent, "没有需要后补的发货数据")
 	}
 	return nil, err
 }

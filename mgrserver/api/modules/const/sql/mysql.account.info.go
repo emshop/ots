@@ -6,7 +6,7 @@ insert into beanpay_account_info
 	account_id,
 	account_name,
 	ident,
-	groups,
+	groupx,
 	eid,
 	credit,
 	status
@@ -16,7 +16,7 @@ values
 	@account_id,
 	@account_name,
 	@ident,
-	@groups,
+	@groupx,
 	@eid,
 	if(isnull(@credit)||@credit='',0,@credit),
 	if(isnull(@status)||@status='',0,@status)
@@ -28,7 +28,7 @@ select
 	t.account_id,
 	t.account_name,
 	t.ident,
-	t.groups,
+	t.groupx,
 	t.eid,
 	t.balance,
 	t.credit,
@@ -50,7 +50,7 @@ const GetAccountInfoList = `
 select
 	t.account_id,
 	t.account_name,
-	t.groups,
+	t.groupx,
 	t.balance,
 	t.credit,
 	t.status 
