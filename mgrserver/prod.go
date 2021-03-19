@@ -25,7 +25,7 @@ func init() {
 		Static(static.WithAutoRewrite(), static.WithEmbed("web/dist", fs)).
 		Processor(processor.WithServicePrefix("api")).Basic(basic.WithUP("yanglei", "1qaz2wsx"))
 
-	hydra.Conf.Vars().DB().MySQLByConnStr("db", "ots:1qaz2wsxA@tcp(rm-bp1jncd360df9dqvy.mysql.rds.aliyuncs.com:3306)/ots?charset=utf8")
+	hydra.Conf.Vars().DB().MySQLByConnStr("db", "ots:a1qaz2wsxA@tcp(rm-abp1jncd360df9dqvy.mysql.rds.aliyuncs.com:3306)/ots?charset=utf8")
 
 	//启动时参数配置检查
 	App.OnStarting(func(appConf app.IAPPConf) error {

@@ -22,7 +22,7 @@ func init() {
 		hydra.Conf.MQC(lmq.MQ)
 		hydra.Conf.Vars().Queue().LMQ("queue")
 
-		hydra.Conf.Vars().DB().MySQLByConnStr("db", "ots:1qaz2wsxA@tcp(rm-bp1jncd360df9dqvy.mysql.rds.aliyuncs.com:3306)/ots?charset=utf8")
+		hydra.Conf.Vars().DB().MySQLByConnStr("db", "ots:a1qaz2wsxA@tcp(rm-abp1jncd360df9dqvy.mysql.rds.aliyuncs.com:3306)/ots?charset=utf8")
 
 		qtask.BindFlow()
 
