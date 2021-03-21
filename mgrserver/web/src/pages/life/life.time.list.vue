@@ -20,7 +20,7 @@
 		<el-scrollbar style="height:100%">
 			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
 				
-				<el-table-column   prop="id" label="id" align="center">
+				<el-table-column   prop="id" label="序号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.id | fltrEmpty }}</span>
 				</template>

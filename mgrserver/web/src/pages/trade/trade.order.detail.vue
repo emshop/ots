@@ -529,9 +529,9 @@
               </el-table-column>
               <el-table-column   prop="account_name" label="用户账户" align="center">
                 <template slot-scope="scope">
-                  <el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 20" effect="dark" placement="top">
+                  <el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 8" effect="dark" placement="top">
                     <div slot="content" style="width: 110px">{{scope.row.account_name}}</div>
-                    <span>{{scope.row.account_name | fltrSubstr(20) }}</span>
+                    <span>{{scope.row.account_name | fltrSubstr(8) }}</span>
                   </el-tooltip>
                   <span v-else>{{scope.row.account_name | fltrEmpty }}</span>
                 </template>

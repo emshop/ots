@@ -1,9 +1,15 @@
 <template>
-	<el-dialog title="编辑产品线" width="25%" @closed="closed" :visible.sync="dialogFormVisible">
+	<el-dialog title="编辑产品线" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
       <el-form-item label="产品线名称:" prop="pl_name">
 				<el-input size="medium" maxlength="64"
 				clearable v-model="editData.pl_name" placeholder="请输入产品线名称">
+				</el-input>
+      </el-form-item>
+      
+      <el-form-item label="数量:" prop="num">
+				<el-input size="medium" maxlength="2"
+				clearable v-model="editData.num" placeholder="请输入数量">
 				</el-input>
       </el-form-item>
       
@@ -32,6 +38,9 @@ export default {
 			rules: {                    //数据验证规则
 				pl_name: [
 					{ required: true, message: "请输入产品线名称", trigger: "blur" }
+				],
+				num: [
+					{ required: true, message: "请输入数量", trigger: "blur" }
 				],
 				status: [
 					{ required: true, message: "请输入状态", trigger: "blur" }

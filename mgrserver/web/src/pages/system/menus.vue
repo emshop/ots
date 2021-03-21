@@ -29,7 +29,7 @@ export default {
         systemName: "",  //系统名称
         themes: "", //顶部左侧背景颜色,顶部右侧背景颜色,右边菜单背景颜色
       },
-      copyright: (this.$env.conf.copyright.company || "") + "Copyright©" + new Date().getFullYear() + "版权所有",
+      copyright: (this.$env.conf.copyright.company || "") + "Copyright©" + new Date().getFullYear() + "版权所有   "+ this.$env.conf.copyright.code,
       copyrightcode: this.$env.conf.copyright.code,
       menus: [{}],  //菜单数据
       userinfo: {},

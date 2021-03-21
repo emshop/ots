@@ -116,7 +116,7 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			status: this.$enum.get("status"),
-			order: "",
+			order: "t.mer_name desc",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}

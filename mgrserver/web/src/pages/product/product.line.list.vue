@@ -9,6 +9,18 @@
 				</el-form-item>
 			
 				<el-form-item>
+					<el-select size="medium" v-model="queryData.pid"  clearable filterable class="input-cos" placeholder="请选择父级分类">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in pid" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
+				</el-form-item>
+			
+				<el-form-item>
+					<el-input clearable size="medium" v-model="queryData.num" placeholder="请输入数量">
+					</el-input>
+				</el-form-item>
+			
+				<el-form-item>
 					<el-select size="medium" v-model="queryData.status"  clearable filterable class="input-cos" placeholder="请选择状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
@@ -45,6 +57,16 @@
 						</el-tooltip>
 						<span v-else>{{scope.row.pl_name | fltrEmpty }}</span>
 					</template>
+				</el-table-column>
+				<el-table-column   prop="pid" label="父级分类" align="center">
+					<template slot-scope="scope">
+						<span >{{scope.row.pid | fltrEnum("product_line")}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="num" label="数量" align="center">
+				<template slot-scope="scope">
+					<span>{{scope.row.num | fltrNumberFormat(0)}}</span>
+				</template>
 				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
@@ -101,6 +123,7 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
+			pid: this.$enum.get("product_line"),
 			status: this.$enum.get("status"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0

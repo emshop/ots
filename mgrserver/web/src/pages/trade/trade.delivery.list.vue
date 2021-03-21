@@ -23,13 +23,6 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.brand_no"  clearable filterable class="input-cos" placeholder="请选择品牌">
-						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in brandNo" :key="index" :value="item.value" :label="item.name"></el-option>
-					</el-select>
-				</el-form-item>
-			
-				<el-form-item>
 					<el-select size="medium" v-model="queryData.delivery_status"  clearable filterable class="input-cos" placeholder="请选择发货状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in deliveryStatus" :key="index" :value="item.value" :label="item.name"></el-option>
@@ -86,9 +79,9 @@
 				</el-table-column>
 				<el-table-column   prop="account_name" label="用户账户" align="center">
 					<template slot-scope="scope">
-						<el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 20" effect="dark" placement="top">
+						<el-tooltip class="item" v-if="scope.row.account_name && scope.row.account_name.length > 8" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.account_name}}</div>
-							<span>{{scope.row.account_name | fltrSubstr(20) }}</span>
+							<span>{{scope.row.account_name | fltrSubstr(8) }}</span>
 						</el-tooltip>
 						<span v-else>{{scope.row.account_name | fltrEmpty }}</span>
 					</template>
@@ -115,9 +108,9 @@
 				</el-table-column>
 				<el-table-column   prop="return_msg" label="发货结果" align="center">
 					<template slot-scope="scope">
-						<el-tooltip class="item" v-if="scope.row.return_msg && scope.row.return_msg.length > 20" effect="dark" placement="top">
+						<el-tooltip class="item" v-if="scope.row.return_msg && scope.row.return_msg.length > 6" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.return_msg}}</div>
-							<span>{{scope.row.return_msg | fltrSubstr(20) }}</span>
+							<span>{{scope.row.return_msg | fltrSubstr(6) }}</span>
 						</el-tooltip>
 						<span v-else>{{scope.row.return_msg | fltrEmpty }}</span>
 					</template>
@@ -165,7 +158,6 @@ export default {
       queryData:{},               //查询数据对象
 			sppNo: this.$enum.get("supplier_info"),
 			plID: this.$enum.get("product_line"),
-			brandNo: this.$enum.get("brand"),
 			deliveryStatus: this.$enum.get("delivery_status"),
 			createTime: this.$utility.dateFormat(new Date(),"yyyy-MM-dd"),
 			dataList: {count: 0,items: []}, //表单数据对象,

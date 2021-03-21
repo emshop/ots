@@ -152,7 +152,7 @@ export default {
 			merNo: this.$enum.get("merchant_info"),
 			plID: this.$enum.get("product_line"),
 			brandNo: this.$enum.get("brand"),
-			order: "",
+			order: "t.mer_shelf_id desc, t.mer_no desc, t.pl_id desc, t.brand_no desc, t.province_no desc, t.city_no desc, t.face desc, t.discount desc, t.status desc, t.create_time desc",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}

@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div>
@@ -23,6 +24,22 @@
                         <div >{{ info.pl_name | fltrSubstr(50) }}</div>
                       </el-tooltip>
                       <div v-else>{{ info.pl_name | fltrEmpty }}</div>
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">父级分类:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div >{{ info.pid | fltrEnum("product_line") }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">数量:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.num |  fltrNumberFormat(0)}}</div>
                     </el-col>
                   </td>
                 </tr>

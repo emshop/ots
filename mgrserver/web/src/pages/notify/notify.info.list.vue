@@ -46,9 +46,9 @@
 				</el-table-column>
 				<el-table-column   prop="mer_order_no" label="订单编号" align="center">
 					<template slot-scope="scope">
-						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 20" effect="dark" placement="top">
+						<el-tooltip class="item" v-if="scope.row.mer_order_no && scope.row.mer_order_no.length > 8" effect="dark" placement="top">
 							<div slot="content" style="width: 110px">{{scope.row.mer_order_no}}</div>
-							<span>{{scope.row.mer_order_no | fltrSubstr(20) }}</span>
+							<span>{{scope.row.mer_order_no | fltrSubstr(8) }}</span>
 						</el-tooltip>
 						<span v-else>{{scope.row.mer_order_no | fltrEmpty }}</span>
 					</template>

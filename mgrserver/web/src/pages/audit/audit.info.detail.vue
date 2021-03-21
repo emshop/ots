@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div>
@@ -47,31 +48,37 @@
                       <div :class="info.end_order|fltrTextColor">{{ info.end_order | fltrEnum("bool") }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">审核状态:</div>
+                      <div class="pull-right" style="margin-right: 10px">是否加入黑名单:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div :class="info.audit_status|fltrTextColor">{{ info.audit_status | fltrEnum("status") }}</div>
+                      <div :class="info.add_to_blacklist|fltrTextColor">{{ info.add_to_blacklist | fltrEnum("bool") }}</div>
                     </el-col>
                   </td>
                 </tr>
                 <tr>
                   <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">审核状态:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.audit_status|fltrTextColor">{{ info.audit_status | fltrEnum("status") }}</div>
+                    </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">审核人:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.audit_by |  fltrNumberFormat(0)}}</div>
-                    </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">审核时间:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ info.audit_time | fltrDate("yyyy-MM-dd") }}</div>
                     </el-col>
                   </td>
                 </tr>
                 <tr>
                   <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">审核时间:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div>{{ info.audit_time | fltrDate("yyyy-MM-dd") }}</div>
+                    </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">审核信息:</div>
                     </el-col>

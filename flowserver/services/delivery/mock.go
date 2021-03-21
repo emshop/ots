@@ -14,8 +14,8 @@ import (
 	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
 
-//MockHandle 上游发货
-func MockHandle(ctx hydra.IContext) (r interface{}) {
+//MockRequestHandle 上游发货
+func MockRequestHandle(ctx hydra.IContext) (r interface{}) {
 
 	ctx.Log().Debug("-------------打桩发货处理----------------------")
 	defer lcs.New(ctx.Log(), "交易发货", ctx.Request().GetString(fields.FieldOrderID)).Start("发货").End(&r)
@@ -74,7 +74,7 @@ func MockQueryHandle(ctx hydra.IContext) (r interface{}) {
 	ctx.Log().Debug("2. 根据状态处理业务")
 	switch delivery.GetInt(fields.FieldDeliveryStatus) {
 	case int(enums.ProcessWaiting):
-		return MockHandle(ctx)
+		return MockRequestHandle(ctx)
 
 	case int(enums.ProcessHandling):
 		qtask.ProcessingByInput(ctx, ctx.Request())
