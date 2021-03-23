@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //InsertSupplierProduct 添加供货商商品
 const InsertSupplierProduct = `

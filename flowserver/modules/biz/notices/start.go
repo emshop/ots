@@ -5,8 +5,7 @@ import (
 	"net/http"
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
@@ -21,13 +20,13 @@ func Start(orderID string) (*NotifyInfo, error) {
 	}
 
 	//修改无须通知记录
-	data, err := dbs.Executes(db, types.XMap{fields.FieldOrderID: orderID}, updateNoNeedNotices...)
+	data, err := db.ExecuteBatch(updateNoNeedNotices, types.XMap{fields.FieldOrderID: orderID})
 	if err == nil {
 		db.Commit()
-		return nil, errs.NewErrorf(http.StatusNoContent, "订单(%s)无须通知%w", orderID, xerr.ErrNOTEXISTS)
+		return nil, errs.NewErrorf(http.StatusNoContent, "订单(%s)无须通知%w", orderID, errs.ErrNotExist)
 	}
 	db.Rollback()
-	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
+	if err != nil && !errors.Is(err, errs.ErrNotExist) {
 		return nil, err
 	}
 
@@ -37,10 +36,10 @@ func Start(orderID string) (*NotifyInfo, error) {
 		return nil, err
 	}
 	//需要通知则按正常流程修改状态
-	data, err = dbs.Executes(db, types.XMap{fields.FieldOrderID: orderID}, startNotices...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	data, err = db.ExecuteBatch(startNotices, types.XMap{fields.FieldOrderID: orderID})
+	if errors.Is(err, errs.ErrNotExist) {
 		db.Rollback()
-		return nil, errs.NewErrorf(http.StatusNoContent, "订单(%s)已通知%w", orderID, xerr.ErrNOTEXISTS)
+		return nil, errs.NewErrorf(http.StatusNoContent, "订单(%s)已通知%w", orderID, errs.ErrNotExist)
 	}
 	if err != nil {
 		db.Rollback()
@@ -48,7 +47,7 @@ func Start(orderID string) (*NotifyInfo, error) {
 	}
 	db.Commit()
 	n := &NotifyInfo{}
-	err = data.ToAnyStruct(n)
+	err = data.Get(0).ToAnyStruct(n)
 	return n, err
 }
 

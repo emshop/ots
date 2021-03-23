@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //GetAccountRecordByRecordID 查询资金变动单条数据
 const GetAccountRecordByRecordID = `

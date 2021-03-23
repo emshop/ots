@@ -5,8 +5,7 @@ import (
 	"net/http"
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/emshop/ots/flowserver/modules/pkgs"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
@@ -26,13 +25,13 @@ func QueryReplenish() (t types.XMaps, err error) {
 	if err != nil {
 		return nil, err
 	}
-	t, err = dbs.Query(xdb, types.XMap{fields.FieldBatchID: batchID}, reps...)
+	t, err = xdb.ExecuteBatch(reps, types.XMap{fields.FieldBatchID: batchID})
 	if err == nil {
 		xdb.Commit()
 		return t, nil
 	}
 	xdb.Rollback()
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	if errors.Is(err, errs.ErrNotExist) {
 		return nil, errs.NewError(http.StatusNoContent, "没有需要后补的发货数据")
 	}
 	return nil, err

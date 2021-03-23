@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //GetNotifyInfoByOrderID 查询订单通知表单条数据
 const GetNotifyInfoByOrderID = `
@@ -16,8 +19,8 @@ select
 from ots_notify_info t
 where
 	&order_id`
-//GetNotifyInfoDetailByOrderID 查询订单通知表单条详情数据
-const GetNotifyInfoDetailByOrderID= `
+//GetNotifyInfoDetail 查询订单通知表单条详情数据
+const GetNotifyInfoDetail= `
 select
 	t.order_id,
 	t.mer_no,

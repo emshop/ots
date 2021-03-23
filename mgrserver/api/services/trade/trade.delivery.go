@@ -126,7 +126,6 @@ var queryTradeDeliveryCheckFields = map[string]interface{}{
 	field.FieldOrderID:"required",
 	field.FieldSppNo:"required",
 	field.FieldPlID:"required",
-	field.FieldBrandNo:"required",
 	field.FieldDeliveryStatus:"required",
 	field.FieldCreateTime:"required",
 	}

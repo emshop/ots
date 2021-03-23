@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //GetAuditInfoByDeliveryID 查询发货人工审核表单条数据
 const GetAuditInfoByDeliveryID = `
@@ -7,6 +10,7 @@ select
 	t.create_time,
 	t.delivery_status,
 	t.end_order,
+	t.add_to_blacklist,
 	t.audit_status,
 	t.audit_by,
 	t.audit_time,

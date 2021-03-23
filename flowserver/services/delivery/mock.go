@@ -7,7 +7,6 @@ import (
 	"github.com/emshop/ots/flowserver/modules/biz/deliverys"
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
@@ -63,7 +62,7 @@ func MockQueryHandle(ctx hydra.IContext) (r interface{}) {
 	ctx.Log().Debug("1. 获取查询信息")
 	defer lcs.New(ctx.Log(), "交易查询", ctx.Request().GetString(fields.FieldOrderID)).Start("查询").End(&r)
 	delivery, err := deliverys.GetQuery(ctx.Request().GetString(fields.FieldDeliveryID))
-	if err != nil && errors.Is(err, xerr.ErrNOTEXISTS) {
+	if err != nil && errors.Is(err, errs.ErrNotExist) {
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	}

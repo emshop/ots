@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //GetSystemTaskByTaskID 查询任务表单条数据
 const GetSystemTaskByTaskID = `

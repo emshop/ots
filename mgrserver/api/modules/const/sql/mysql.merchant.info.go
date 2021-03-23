@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //InsertMerchantInfo 添加商户信息
 const InsertMerchantInfo = `

@@ -7,7 +7,7 @@ import (
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/micro-plat/beanpay/beanpay"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
@@ -38,10 +38,10 @@ func Pay(orderID string) error {
 	}
 
 	//执行数据库逻辑处理
-	order, err := dbs.Executes(db, input, dealOrderPayStart...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	orders, err := db.ExecuteBatch(dealOrderPayStart, input)
+	if errors.Is(err, errs.ErrNotExist) {
 		db.Rollback()
-		return errs.NewErrorf(200, "订单(%s)无须处理%w", orderID, xerr.ErrNOTEXISTS)
+		return errs.NewErrorf(200, "订单(%s)无须处理%w", orderID, errs.ErrNotExist)
 	}
 	if err != nil {
 		db.Rollback()
@@ -49,6 +49,7 @@ func Pay(orderID string) error {
 	}
 
 	//账户扣款
+	order := orders.Get(0)
 	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantMain))
 	rs, err := account.DeductAmount(db,
 		order.GetString(fields.FieldMerNo),

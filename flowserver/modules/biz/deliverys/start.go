@@ -7,8 +7,7 @@ import (
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
@@ -34,7 +33,7 @@ func SaveStart(deliveryID string, discount types.Decimal, resultCode string, ret
 		if err != nil {
 			return err
 		}
-		_, err = dbs.Executes(db, input, updateDeliveryForDeliveryingFailed...)
+		_, err = db.ExecuteBatch(updateDeliveryForDeliveryingFailed, input)
 		if err != nil {
 			db.Rollback()
 			return fmt.Errorf("无法将发货记录处理为失败:%w", err)
@@ -61,8 +60,8 @@ func Start(deliveryID string) (*TradeDelivery, error) {
 	}
 
 	//修改发货记录为正在发货
-	data, err := dbs.Executes(db, types.XMap{fields.FieldDeliveryID: deliveryID}, deliveryStartNow...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	data, err := db.ExecuteBatch(deliveryStartNow, types.XMap{fields.FieldDeliveryID: deliveryID})
+	if errors.Is(err, errs.ErrNotExist) {
 		return nil, errs.NewErrorf(http.StatusNoContent, "发货编号(%s)无须发货", deliveryID)
 	}
 	if err != nil {
@@ -72,7 +71,7 @@ func Start(deliveryID string) (*TradeDelivery, error) {
 
 	db.Commit()
 	delviery := &TradeDelivery{}
-	err = data.ToAnyStruct(delviery)
+	err = data.Get(0).ToAnyStruct(delviery)
 	return delviery, err
 }
 

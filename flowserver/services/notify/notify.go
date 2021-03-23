@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
@@ -21,7 +20,7 @@ func Notify(ctx hydra.IContext) (r interface{}) {
 	defer lcs.New(ctx.Log(), "订单通知", ctx.Request().GetString(fields.FieldOrderID)).Start("通知").End(&r)
 	rpns := GetNotify(ctx)
 	if err := errs.GetError(rpns); err != nil {
-		if errors.Is(err, xerr.ErrNOTEXISTS) {
+		if errors.Is(err, errs.ErrNotExist) {
 			qtask.FinishByInput(ctx, ctx.Request())
 			return err
 		}

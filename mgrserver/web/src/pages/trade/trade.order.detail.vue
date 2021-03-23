@@ -558,9 +558,9 @@
               </el-table-column>
               <el-table-column   prop="return_msg" label="发货结果" align="center">
                 <template slot-scope="scope">
-                  <el-tooltip class="item" v-if="scope.row.return_msg && scope.row.return_msg.length > 20" effect="dark" placement="top">
+                  <el-tooltip class="item" v-if="scope.row.return_msg && scope.row.return_msg.length > 6" effect="dark" placement="top">
                     <div slot="content" style="width: 110px">{{scope.row.return_msg}}</div>
-                    <span>{{scope.row.return_msg | fltrSubstr(20) }}</span>
+                    <span>{{scope.row.return_msg | fltrSubstr(6) }}</span>
                   </el-tooltip>
                   <span v-else>{{scope.row.return_msg | fltrEmpty }}</span>
                 </template>
@@ -569,53 +569,6 @@
           </el-scrollbar>
         </el-tab-pane>
         <el-tab-pane label="资金变动" name="AccountRecordDetail">
-          <el-scrollbar style="height:100%" id="panel-body">
-            <el-table :data="AccountRecordList.items" stripe style="width: 100%" :height="maxHeight">
-              
-              <el-table-column   prop="record_id" label="变动编号" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.row.record_id | fltrEmpty }}</span>
-              </template>
-              
-              </el-table-column>
-              <el-table-column   prop="account_id" label="帐户编号" align="center">
-                <template slot-scope="scope">
-                  <span >{{scope.row.account_id | fltrEnum("account_info")}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column   prop="trade_no" label="交易编号" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.row.trade_no | fltrEmpty }}</span>
-              </template>
-              
-              </el-table-column>
-              <el-table-column   prop="trade_type" label="交易类型" align="center">
-                <template slot-scope="scope">
-                  <span :class="scope.row.trade_type|fltrTextColor">{{scope.row.trade_type | fltrEnum("trade_type")}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column   prop="change_type" label="变动类型" align="center">
-                <template slot-scope="scope">
-                  <span :class="scope.row.change_type|fltrTextColor">{{scope.row.change_type | fltrEnum("change_type")}}</span>
-                </template>
-              </el-table-column>
-              <el-table-column   prop="amount" label="变动金额" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.row.amount | fltrNumberFormat(2)}}</span>
-              </template>
-              </el-table-column>
-              <el-table-column   prop="balance" label="帐户余额" align="center">
-              <template slot-scope="scope">
-                <span>{{scope.row.balance | fltrNumberFormat(2)}}</span>
-              </template>
-              </el-table-column>
-              <el-table-column   prop="create_time" label="创建时间" align="center">
-              <template slot-scope="scope">
-                <div>{{scope.row.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-              </template>
-              </el-table-column>
-            </el-table>
-          </el-scrollbar>
         </el-tab-pane>
         <el-tab-pane label="生命周期" name="LifeTimeDetail">
           <el-scrollbar style="height:100%" id="panel-body">
@@ -728,17 +681,6 @@
       :total="TradeDeliveryList.count">
     </el-pagination>
     </div>   
-    <div class="page-pagination" v-show="tabName =='AccountRecordDetail'">
-    <el-pagination
-      @size-change="pageAccountRecordSizeChange"
-      @current-change="pageAccountRecordIndexChange"
-      :current-page="pagingAccountRecord.pi"
-      :page-size="pagingAccountRecord.ps"
-      :page-sizes="pagingAccountRecord.sizes"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="AccountRecordList.count">
-    </el-pagination>
-    </div>   
     <div class="page-pagination" v-show="tabName =='LifeTimeDetail'">
     <el-pagination
       @size-change="pageLifeTimeSizeChange"
@@ -774,9 +716,6 @@ export default {
       pagingTradeDelivery: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
       TradeDeliveryList: {count: 0,items: []}, //表单数据对象,
       queryTradeDeliveryParams:{},  //查询数据对象
-      pagingAccountRecord: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
-      AccountRecordList: {count: 0,items: []}, //表单数据对象,
-      queryAccountRecordParams:{},  //查询数据对象
       pagingLifeTime: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
       LifeTimeList: {count: 0,items: []}, //表单数据对象,
       queryLifeTimeParams:{},  //查询数据对象
@@ -827,30 +766,6 @@ export default {
     pageTradeDeliveryIndexChange(val) {
       this.pagingTradeDelivery.pi = val
       this.queryTradeDeliveryData()
-    },
-    /**查询数据并赋值*/
-		queryAccountRecordDatas() {
-      this.pagingAccountRecord.pi = 1
-      this.queryAccountRecordData()
-    },
-    queryAccountRecordData(){
-      this.queryAccountRecordParams.pi = this.pagingAccountRecord.pi
-			this.queryAccountRecordParams.ps = this.pagingAccountRecord.ps
-      var data = this.$utility.delEmptyProperty(this.queryAccountRecordParams)
-      data.trade_no = this.info.order_id || ""
-      let res = this.$http.xpost("/account/record/querydetail", data)
-			this.AccountRecordList.items = res.items || []
-			this.AccountRecordList.count = res.count
-    },
-    /**改变页容量*/
-		pageAccountRecordSizeChange(val) {
-      this.pagingAccountRecord.ps = val
-      this.queryAccountRecordData()
-    },
-    /**改变当前页码*/
-    pageAccountRecordIndexChange(val) {
-      this.pagingAccountRecord.pi = val
-      this.queryAccountRecordData()
     },
     /**查询数据并赋值*/
 		queryLifeTimeDatas() {

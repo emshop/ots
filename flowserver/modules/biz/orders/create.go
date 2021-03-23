@@ -5,8 +5,7 @@ import (
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/emshop/ots/flowserver/modules/pkgs"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
@@ -40,8 +39,8 @@ func Create(merNo string, merOrderNo string, merProductID int, accountName strin
 	if err != nil {
 		return nil, false, err
 	}
-	_, err = dbs.Executes(db, input, createOrder...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	_, err = db.ExecuteBatch(createOrder, input)
+	if errors.Is(err, errs.ErrNotExist) {
 		db.Rollback()
 		return nil, false, errs.NewError(int(enums.CodeParamNoSetting), "商品不存在或未启用")
 	}

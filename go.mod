@@ -18,3 +18,5 @@ require (
 
 
 replace gitlab.100bm.cn/micro-plat/lcs/lcs => ../../../gitlab.100bm.cn/micro-plat/lcs/lcs
+
+replace github.com/micro-plat/lib4go => ../../../github.com/micro-plat/lib4go

@@ -15,7 +15,7 @@ func Replenish(ctx hydra.IContext) interface{} {
 	if err != nil {
 		return err
 	}
-	for _, order := range orders {
+	for _, order := range orders.Maps() {
 		orderID := order.GetString(fields.FieldOrderID)
 		switch order.GetInt(fields.FieldOrderStatus) {
 		case int(enums.OrderPaying):

@@ -16,8 +16,8 @@ func Replenish(ctx hydra.IContext) interface{} {
 	if err != nil {
 		return err
 	}
-	ctx.Log().Debugf("1.查询到数据%d条", len(deliverys))
-	for _, delivery := range deliverys {
+	ctx.Log().Debugf("1.查询到数据%d条", deliverys.Len())
+	for _, delivery := range deliverys.Maps() {
 		deliveryID := delivery.GetString(fields.FieldDeliveryID)
 		switch delivery.GetInt(fields.FieldDeliveryStatus) {
 		case int(enums.ProcessWaiting):

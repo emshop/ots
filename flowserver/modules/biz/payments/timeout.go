@@ -4,9 +4,9 @@ import (
 	"errors"
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/micro-plat/hydra"
+	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
 )
 
@@ -19,11 +19,11 @@ func timeout(orderID string) (bool, error) {
 		return false, err
 	}
 	//执行SQL语句
-	_, err = dbs.Executes(db, types.XMap{
+	_, err = db.ExecuteBatch(dealTimeoutOrder, types.XMap{
 		fields.FieldOrderID: orderID,
 	},
-		dealTimeoutOrder...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	)
+	if errors.Is(err, errs.ErrNotExist) {
 		db.Rollback()
 		return false, nil
 	}

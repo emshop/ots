@@ -6,9 +6,9 @@ import (
 	"github.com/emshop/ots/flowserver/modules/biz/notices"
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/flows"
 	"github.com/micro-plat/hydra"
+	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
 )
 
@@ -27,7 +27,7 @@ func GetNotify(ctx hydra.IContext) interface{} {
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	notify, err := notices.Start(ctx.Request().GetString(fields.FieldOrderID))
 	switch {
-	case errors.Is(err, xerr.ErrNOTEXISTS):
+	case errors.Is(err, errs.ErrNotExist):
 		qtask.FinishByInput(ctx, ctx.Request()) //当订单绑定完成后自动关闭流程
 		flows.NextByOrderNO(ctx.Request().GetString(fields.FieldOrderID), enums.FlowFinishStart, ctx)
 		return err
@@ -50,7 +50,7 @@ func SaveSuccess(ctx hydra.IContext) interface{} {
 		enums.Success, ctx.Request().GetString(fields.FieldNotifyMsg))
 
 	switch {
-	case errors.Is(err, xerr.ErrNOTEXISTS):
+	case errors.Is(err, errs.ErrNotExist):
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	case err != nil:
@@ -72,7 +72,7 @@ func Unknown(ctx hydra.IContext) interface{} {
 		enums.Unknown, ctx.Request().GetString(fields.FieldNotifyMsg))
 
 	switch {
-	case errors.Is(err, xerr.ErrNOTEXISTS):
+	case errors.Is(err, errs.ErrNotExist):
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	case err != nil:

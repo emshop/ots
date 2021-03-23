@@ -9,6 +9,7 @@ import (
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/flows"
 	"github.com/micro-plat/hydra"
+	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
 	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
@@ -29,7 +30,7 @@ func Binding(ctx hydra.IContext) (r interface{}) {
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	deliveryID, err := deliverys.Bind(ctx.Request().GetString(fields.FieldOrderID))
 	switch {
-	case errors.Is(err, xerr.ErrNOTEXISTS): //订单无须绑定
+	case errors.Is(err, errs.ErrNotExist): //订单无须绑定
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	case errors.Is(err, xerr.ErrOrderTimeout):

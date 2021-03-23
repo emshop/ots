@@ -5,8 +5,7 @@ import (
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
 	"github.com/micro-plat/beanpay/beanpay"
 	"github.com/micro-plat/hydra"
@@ -23,14 +22,15 @@ func Finish(orderID string) error {
 	if err != nil {
 		return err
 	}
-	order, err := dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Success...)
+	orders, err := db.ExecuteBatch(update2Success, types.XMap{field.FieldOrderID: orderID})
 
 	if err != nil {
 		db.Rollback()
 	}
-	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
+	if err != nil && !errors.Is(err, errs.ErrNotExist) {
 		return err
 	}
+	order := orders.Get(0)
 	if err == nil {
 		//查询订单并完成佣金、交易手续费、支付手续费等记账。
 		if order.GetFloat64(fields.FieldSuccessMerFee) > 0 {
@@ -81,13 +81,13 @@ func Finish(orderID string) error {
 	if err != nil {
 		return err
 	}
-	_, err = dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Faild...)
+	_, err = db.ExecuteBatch(update2Faild, types.XMap{field.FieldOrderID: orderID})
 	if err == nil {
 		db.Commit()
 		return nil
 	}
 	db.Rollback()
-	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
+	if err != nil && !errors.Is(err, errs.ErrNotExist) {
 		return err
 	}
 
@@ -96,13 +96,14 @@ func Finish(orderID string) error {
 	if err != nil {
 		return err
 	}
-	order, err = dbs.Executes(db, types.XMap{field.FieldOrderID: orderID}, update2Refund...)
+	orders, err = db.ExecuteBatch(update2Refund, types.XMap{field.FieldOrderID: orderID})
 	if err != nil {
 		db.Rollback()
 		return err
 	}
 
 	//4. 订单退款
+	order = orders.Get(0)
 	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantMain))
 	rs, err := account.RefundAmount(db,
 		order.GetString(fields.FieldMerNo),

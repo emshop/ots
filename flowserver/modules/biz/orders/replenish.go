@@ -5,8 +5,7 @@ import (
 	"net/http"
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
+
 	"github.com/emshop/ots/flowserver/modules/pkgs"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
@@ -22,17 +21,17 @@ func QueryReplenish() (t types.XMaps, err error) {
 	}
 
 	//启动事务获取数据
-	xdb, err := hydra.C.DB().GetRegularDB().Begin()
+	db, err := hydra.C.DB().GetRegularDB().Begin()
 	if err != nil {
 		return nil, err
 	}
-	t, err = dbs.Query(xdb, types.XMap{fields.FieldBatchID: batchID}, reps...)
+	tx, err := db.ExecuteBatch(reps, types.XMap{fields.FieldBatchID: batchID})
 	if err == nil {
-		xdb.Commit()
-		return t, nil
+		db.Commit()
+		return tx, nil
 	}
-	xdb.Rollback()
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	db.Rollback()
+	if errors.Is(err, errs.ErrNotExist) {
 		return nil, errs.NewError(http.StatusNoContent, "没有需要后补的订单数据")
 	}
 	return nil, err

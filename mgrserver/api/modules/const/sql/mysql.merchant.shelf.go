@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //InsertMerchantShelf 添加商户货架
 const InsertMerchantShelf = `

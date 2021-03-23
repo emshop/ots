@@ -7,8 +7,6 @@ import (
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
-	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
 	"github.com/micro-plat/beanpay/beanpay"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/hydra/global"
@@ -29,8 +27,8 @@ func Pay(deliveryID string) error {
 	}
 
 	//修改支付状态
-	order, err := dbs.Executes(db, input, updateDeliveryForPaying...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) {
+	orders, err := db.ExecuteBatch(updateDeliveryForPaying, input)
+	if errors.Is(err, errs.ErrNotExist) {
 		db.Rollback()
 		return errs.NewErrorf(http.StatusNoContent, "发货编号(%s)无须进行发货支付", deliveryID)
 	}
@@ -41,6 +39,8 @@ func Pay(deliveryID string) error {
 
 	//------------------------处理记账信息----------------------------------------
 	//交易扣款
+
+	order := orders.Get(0)
 	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountSupplierMain))
 
 	rs, err := account.DeductAmount(db,

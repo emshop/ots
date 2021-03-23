@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //InsertProductLine 添加产品线
 const InsertProductLine = `
@@ -5,12 +8,16 @@ insert into ots_product_line
 (
 	pl_id,
 	pl_name,
+	pid,
+	num,
 	status
 )
 values
 (
 	@pl_id,
 	@pl_name,
+	if(isnull(@pid)||@pid='',0,@pid),
+	if(isnull(@num)||@num='',0,@num),
 	if(isnull(@status)||@status='',0,@status)
 )`
 
@@ -19,6 +26,8 @@ const GetProductLineByPlID = `
 select
 	t.pl_id,
 	t.pl_name,
+	t.pid,
+	t.num,
 	t.status,
 	t.create_time
 from ots_product_line t
@@ -31,6 +40,8 @@ select count(1)
 from ots_product_line t
 where
 	?t.pl_name
+	&t.pid
+	&t.num
 	&t.status`
 
 //GetProductLineList 查询产品线列表数据
@@ -38,10 +49,14 @@ const GetProductLineList = `
 select
 	t.pl_id,
 	t.pl_name,
+	t.pid,
+	t.num,
 	t.status 
 from ots_product_line t
 where
 	?t.pl_name
+	&t.pid
+	&t.num
 	&t.status
 order by t.pl_id desc
 limit @ps offset @offset
@@ -52,6 +67,7 @@ const UpdateProductLineByPlID = `
 update ots_product_line 
 set
 	pl_name =	@pl_name,
+	num =	if(isnull(@num)||@num='',0,@num),
 	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&pl_id`

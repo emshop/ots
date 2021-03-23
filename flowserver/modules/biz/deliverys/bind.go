@@ -7,7 +7,6 @@ import (
 
 	"github.com/emshop/ots/flowserver/modules/const/fields"
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
-	"github.com/emshop/ots/flowserver/modules/dbs"
 	"github.com/emshop/ots/flowserver/modules/pkgs"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
@@ -23,13 +22,13 @@ func Bind(orderID string) (string, error) {
 		return "", err
 	}
 	input := types.XMap{fields.FieldOrderID: orderID}
-	_, err = dbs.Executes(xdb, input, dealOrderTimeout...)
+	_, err = xdb.ExecuteBatch(dealOrderTimeout, input.ToMap())
 	if err == nil {
 		xdb.Commit()
 		return "", errs.NewErrorf(204, "订单(%s)已超时%w", orderID, xerr.ErrOrderTimeout)
 	}
 	xdb.Rollback()
-	if err != nil && !errors.Is(err, xerr.ErrNOTEXISTS) {
+	if err != nil && !errors.Is(err, errs.ErrNotExist) {
 		return "", err
 	}
 
@@ -40,12 +39,12 @@ func Bind(orderID string) (string, error) {
 		return "", err
 	}
 	if orders.Len() == 0 {
-		return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, xerr.ErrNOTEXISTS))
+		return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, errs.ErrNotExist))
 	}
 
 	//2. 查询订单支持的上游产品
-	products, err := dbs.Query(db, orders.Get(0), querySppProducts...)
-	if errors.Is(err, xerr.ErrNOTEXISTS) || products.Len() == 0 {
+	products, err := db.ExecuteBatch(querySppProducts, orders.Get(0).ToMap())
+	if errors.Is(err, errs.ErrNotExist) || products.Len() == 0 {
 		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", orderID)
 	}
 	if err != nil {
@@ -57,7 +56,7 @@ func Bind(orderID string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	for i, product := range products {
+	for i, product := range products.Maps() {
 
 		//处理输入参数
 		product.SetValue(fields.FieldDeliveryID, deliveryID)
@@ -68,10 +67,10 @@ func Bind(orderID string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-		_, err = dbs.Executes(xdb, product, binds...)
+		_, err = xdb.ExecuteBatch(binds, product.ToMap())
 		if err != nil {
 			xdb.Rollback()
-			if i == len(products)-1 {
+			if i == products.Len()-1 {
 				return "", err
 			}
 			continue

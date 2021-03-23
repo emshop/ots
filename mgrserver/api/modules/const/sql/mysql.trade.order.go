@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //GetTradeOrderByOrderID 查询订单记录单条数据
 const GetTradeOrderByOrderID = `
@@ -87,7 +90,7 @@ where
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
 	&t.order_status
-order by t.mer_no,t.mer_order_no,t.pl_id,t.brand_no,t.province_no,t.create_time,t.last_update_time desc
+order by t.order_id desc
 limit @ps offset @offset
 `
 

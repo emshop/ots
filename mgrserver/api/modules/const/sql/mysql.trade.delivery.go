@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
 const GetTradeDeliveryByDeliveryID = `
@@ -51,7 +54,6 @@ where
 	&t.order_id
 	&t.spp_no
 	&t.pl_id
-	&t.brand_no
 	&t.delivery_status
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)`
@@ -76,11 +78,10 @@ where
 	&t.order_id
 	&t.spp_no
 	&t.pl_id
-	&t.brand_no
 	&t.delivery_status
 	and t.create_time >= @create_time 
 	and t.create_time < date_add(@create_time, interval 1 day)
-order by t.order_id desc
+order by t.delivery_id desc
 limit @ps offset @offset
 `
 //GetTradeDeliveryDetailListCount 获取订单发货表列表条数

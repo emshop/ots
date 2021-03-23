@@ -26,10 +26,11 @@ and t.notify_status = 10
 }
 
 //updateNotifyInfoForUnknown 查询单条数据订单通知表
-const updateNotifyInfoForUnknown = `
+var updateNotifyInfoForUnknown = []string{`
 update ots_notify_info t set
 t.notify_msg = @notify_msg 
 where
 t.order_id = @order_id
 and t.notify_status = 30
-`
+`,
+}

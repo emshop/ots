@@ -1,3 +1,6 @@
+
+// +build mysql
+
 package sql
 //InsertMerchantProduct 添加商户商品
 const InsertMerchantProduct = `

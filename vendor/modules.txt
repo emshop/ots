@@ -221,7 +221,7 @@ github.com/micro-plat/hydra/registry/watcher
 github.com/micro-plat/hydra/registry/watcher/wchild
 github.com/micro-plat/hydra/registry/watcher/wvalue
 github.com/micro-plat/hydra/services
-# github.com/micro-plat/lib4go v1.1.2
+# github.com/micro-plat/lib4go v1.1.2 => ../../../github.com/micro-plat/lib4go
 ## explicit
 github.com/micro-plat/lib4go/concurrent/cmap
 github.com/micro-plat/lib4go/db
@@ -432,3 +432,4 @@ gopkg.in/yaml.v3
 # github.com/micro-plat/beanpay => ../../../github.com/micro-plat/beanpay
 # github.com/micro-plat/qtask => ../../../github.com/micro-plat/qtask
 # gitlab.100bm.cn/micro-plat/lcs/lcs => ../../../gitlab.100bm.cn/micro-plat/lcs/lcs
+# github.com/micro-plat/lib4go => ../../../github.com/micro-plat/lib4go

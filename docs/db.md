@@ -22,11 +22,11 @@ After: After(字段名) //在某个字段后面
 
 ## 一、商户信息
 
-###  1. 商户信息[ots_merchant_info]
+###  1. 商户信息[ots_merchant_info]{el_btn(name:changestatus,url:/status/change,desc:"账户",confirm:确定要进行此操作吗,key:btn)}
 
 | 字段名      | 类型         | 默认值  | 为空  |           约束            | 描述     |
 | ----------- | ------------ | :-----: | :---: | :-----------------------: | :------- |
-| mer_no      | varchar2(32) |         |  否   |        PK,l,r,c,DI        | 编号     |
+| mer_no      | varchar2(32) |         |  否   |        PK,l,r,c,DI,btn        | 编号     |
 | mer_name    | varchar2(64) |         |  否   |     q,l,r,u,c,DN,sort     | 商户名称 |
 | mer_crop    | varchar2(64) |         |  是   |          l,u,c,r          | 所属公司 |
 | mer_type    | number(1)    |         |  否   | l,u,c,r,sl(merchant_type) | 商户分类 |
@@ -190,7 +190,7 @@ After: After(字段名) //在某个字段后面
 | last_update_time        | date         |  sysdate   |  否   |              idx(order_last_update),r(f:yyyy-MM-dd HH:mm:ss)              | 最后更新时间          |
 | batch_id                | number(20)   |            |  是   |                                     r                                     | 执行批次号            |
 
-###  2. 订单发货表[ots_trade_delivery]
+###  2. 订单发货表[ots_trade_delivery]{el_tab(beanpay_account_record,delivery_id/trade_no,list)}
 | 字段名               | 类型           | 默认值  | 为空  |                                    约束                                     | 描述                                      |
 | -------------------- | -------------- | :-----: | :---: | :-------------------------------------------------------------------------: | :---------------------------------------- |
 | delivery_id          | varchar2(32)   |  20000  |  否   |                                   PK,r,l                                    | 发货编号                                  |
@@ -329,7 +329,7 @@ After: After(字段名) //在某个字段后面
 | msg_content       | varchar2(256) |         |  是   |                              r                               | 消息内容                                    |
 | status            | number(2)     |         |  否   |                 q,l,r,sl(process_status),cc                  | 状态(20 等待，30 正在,0 已处理,90 处理失败) |
 
-### 1. 账户信息[beanpay_account_info]
+### 1. 账户信息[^beanpay_account_info]
 
 | 字段名       | 类型         | 默认值  | 为空  |           约束           | 描述                |
 | ------------ | ------------ | :-----: | :---: | :----------------------: | :------------------ |

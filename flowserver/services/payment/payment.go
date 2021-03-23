@@ -9,6 +9,7 @@ import (
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/flows"
 	"github.com/micro-plat/hydra"
+	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/qtask"
 	"gitlab.100bm.cn/micro-plat/lcs/lcs"
 )
@@ -29,7 +30,7 @@ func Paying(ctx hydra.IContext) (r interface{}) {
 	qtask.ProcessingByInput(ctx, ctx.Request())
 	err := payments.Pay(ctx.Request().GetString(fields.FieldOrderID))
 	switch {
-	case errors.Is(err, xerr.ErrNOTEXISTS): //不存在，订单状态错误可能已完成处理
+	case errors.Is(err, errs.ErrNotExist): //不存在，订单状态错误可能已完成处理
 		qtask.FinishByInput(ctx, ctx.Request())
 		return err
 	case errors.Is(err, xerr.ErrOrderTimeout): //订单超时，关闭流程进行后续处理
