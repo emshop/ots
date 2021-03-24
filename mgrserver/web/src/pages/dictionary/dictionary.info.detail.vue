@@ -39,7 +39,7 @@
                       <div class="pull-right" style="margin-right: 10px">类型:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div>{{ info.type | fltrEmpty }}</div>
+                      <div >{{ info.type | fltrEnum("dd_type") }}</div>
                     </el-col>
                   </td>
                 </tr>

@@ -7,7 +7,7 @@ import (
 	"github.com/emshop/ots/mgrserver/api/modules/const/sql"
 	"github.com/emshop/ots/mgrserver/api/modules/const/field"
 	"github.com/micro-plat/lib4go/types"
-	
+	"regexp"
 	"github.com/emshop/ots/mgrserver/api/modules/db"
 )
 
@@ -81,6 +81,10 @@ func (u *ProductLineHandler) QueryHandle(ctx hydra.IContext) (r interface{}) {
 		return errs.NewErrorf(http.StatusNotAcceptable, "参数校验错误:%+v", err)
 	}
 	
+	orderBy := ctx.Request().GetString("order_by")
+	if len(orderBy) > 1 && !regexp.MustCompile("^t.[A-Za-z0-9_,.\\s]+ (asc|desc)$").MatchString(orderBy) {
+		return errs.NewErrorf(http.StatusNotAcceptable, "排序参数校验错误!")
+	}
 
 	ctx.Log().Info("2.执行操作")
 	m := ctx.Request().GetMap()
@@ -128,8 +132,7 @@ func (u *ProductLineHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 
 var postProductLineCheckFields = map[string]interface{}{
 	field.FieldPlName:"required",
-	field.FieldPid:"required",
-	field.FieldNum:"required",
+	field.FieldPlType:"required",
 	field.FieldStatus:"required",
 	}
 
@@ -140,15 +143,13 @@ var getProductLineCheckFields = map[string]interface{}{
 
 var queryProductLineCheckFields = map[string]interface{}{
 	field.FieldPlName:"required",
-	field.FieldPid:"required",
-	field.FieldNum:"required",
+	field.FieldPlType:"required",
 	field.FieldStatus:"required",
 	}
 
 
 var updateProductLineCheckFields = map[string]interface{}{
 	field.FieldPlName:"required",
-	field.FieldNum:"required",
 	field.FieldStatus:"required",
 	}
 

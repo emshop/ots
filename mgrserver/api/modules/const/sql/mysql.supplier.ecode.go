@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertSupplierEcode 添加供货商错误码
 const InsertSupplierEcode = `

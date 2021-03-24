@@ -14,11 +14,12 @@
 				</el-input>
       </el-form-item>
       
-      <el-form-item label="类型:" prop="type">
-				<el-input size="medium" maxlength="32"
-				 clearable v-model="addData.type" placeholder="请输入类型">
-				</el-input>
-      </el-form-item>
+      
+			<el-form-item label="类型:" prop="type">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.type"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in type" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
       
       <el-form-item label="排序值:" prop="sort_no">
 				<el-input size="medium" maxlength="2"
@@ -48,6 +49,7 @@ export default {
 		return {
 			addData: {},
 			dialogAddVisible: false,
+			type:this.$enum.get("dd_type"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				name: [{ required: true, message: "请输入名称", trigger: "blur" }],

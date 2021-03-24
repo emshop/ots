@@ -8,6 +8,7 @@ import (
 	"github.com/emshop/ots/flowserver/modules/const/fields"
 	"github.com/emshop/ots/flowserver/modules/const/xerr"
 	"github.com/emshop/ots/flowserver/modules/pkgs"
+	"github.com/emshop/ots/mgrserver/api/modules/const/field"
 	"github.com/micro-plat/hydra"
 	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
@@ -40,6 +41,17 @@ func Bind(orderID string) (string, error) {
 	}
 	if orders.Len() == 0 {
 		return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, errs.ErrNotExist))
+	}
+
+	//检查是否是复合商品
+	if orders.Get(0).GetInt(field.FieldPlType) != 0 {
+		orders, err = db.Query(checkOrderForBindPackage, input)
+		if err != nil {
+			return "", err
+		}
+		if orders.Len() == 0 {
+			return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, errs.ErrNotExist))
+		}
 	}
 
 	//2. 查询订单支持的上游产品

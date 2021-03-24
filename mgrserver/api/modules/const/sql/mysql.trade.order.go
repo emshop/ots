@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //GetTradeOrderByOrderID 查询订单记录单条数据
 const GetTradeOrderByOrderID = `

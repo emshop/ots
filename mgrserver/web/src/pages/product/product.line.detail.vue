@@ -30,27 +30,21 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">父级分类:</div>
+                      <div class="pull-right" style="margin-right: 10px">类型:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div >{{ info.pid | fltrEnum("product_line") }}</div>
+                      <div :class="info.pl_type|fltrTextColor">{{ info.pl_type | fltrEnum("pl_type") }}</div>
                     </el-col>                 
-                    <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">数量:</div>
-                    </el-col>
-                    <el-col :span="6">
-                      <div>{{ info.num |  fltrNumberFormat(0)}}</div>
-                    </el-col>
-                  </td>
-                </tr>
-                <tr>
-                  <td>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">状态:</div>
                     </el-col>
                     <el-col :span="6">
                       <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
-                    </el-col>                 
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>

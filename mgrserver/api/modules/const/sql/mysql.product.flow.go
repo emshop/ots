@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertProductFlow 添加业务流程
 const InsertProductFlow = `

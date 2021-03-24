@@ -22,11 +22,11 @@ After: After(字段名) //在某个字段后面
 
 ## 一、商户信息
 
-###  1. 商户信息[ots_merchant_info]{el_btn(name:changestatus,url:/status/change,desc:"账户",confirm:确定要进行此操作吗,key:btn)}
+###  1. 商户信息[ots_merchant_info]
 
 | 字段名      | 类型         | 默认值  | 为空  |           约束            | 描述     |
 | ----------- | ------------ | :-----: | :---: | :-----------------------: | :------- |
-| mer_no      | varchar2(32) |         |  否   |        PK,l,r,c,DI,btn        | 编号     |
+| mer_no      | varchar2(32) |         |  否   |      PK,l,r,c,DI,btn      | 编号     |
 | mer_name    | varchar2(64) |         |  否   |     q,l,r,u,c,DN,sort     | 商户名称 |
 | mer_crop    | varchar2(64) |         |  是   |          l,u,c,r          | 所属公司 |
 | mer_type    | number(1)    |         |  否   | l,u,c,r,sl(merchant_type) | 商户分类 |
@@ -53,15 +53,16 @@ After: After(字段名) //在某个字段后面
 | status               | number(1)    |    0    |  否   |         l,r,u,cc,sl,c         | 状态                   |
 | create_time          | date         | sysdate |  否   |   r(f:yyyy-MM-dd HH:mm:ss)    | 创建时间               |
 
-###  3.商户商品[ots_merchant_product]
+###  3.商户商品[ots_merchant_product]{el_tab(ots_merchant_package,mer_product_id/mer_product_id,list)}
 
 | 字段名         | 类型         | 默认值  | 为空  |                          约束                           | 描述                 |
 | -------------- | ------------ | :-----: | :---: | :-----------------------------------------------------: | :------------------- |
-| mer_product_id | number(10)   |  10000  |  否   |                       PK,SEQ,l,r                        | 商品编号             |
+| mer_product_id | number(10)   |  10000  |  否   |                      PK,SEQ,l,r,DI                      | 商品编号             |
 | mer_shelf_id   | number(10)   |         |  否   | q,l,r,UNQ(unq_mer_prod,7),sl(ots_merchant_shelf),c,sort | 货架名称             |
 | mer_no         | varchar2(32) |         |  否   | q,l,r,UNQ(unq_mer_prod,1),sl(ots_merchant_info),c,sort  | 商户名称             |
+| prod_name      | varchar2(64) |         |  否   |                      DN,q,l,u,r,c                       | 商品名称             |
 | pl_id          | number(10)   |         |  否   |  q,l,r,UNQ(unq_mer_prod,2),sl(ots_product_line),c,sort  | 产品线               |
-| brand_no       | varchar2(8)  |         |  否   |       q,l,r,UNQ(unq_mer_prod,3),sl(brand),c,sort        | 品牌                 |
+| brand_no       | varchar2(8)  |         |  否   |      q,l,u,r,UNQ(unq_mer_prod,3),sl(brand),c,sort       | 品牌                 |
 | province_no    | varchar2(8)  |    *    |  否   |       l,r,UNQ(unq_mer_prod,4),sl(province),c,sort       | 省份                 |
 | city_no        | varchar2(8)  |    *    |  否   |         l,r,UNQ(unq_mer_prod,5),sl(city),c,sort         | 城市                 |
 | face           | number(10)   |         |  否   |             l,r,UNQ(unq_mer_prod,6),c,sort              | 面值                 |
@@ -69,6 +70,24 @@ After: After(字段名) //在某个字段后面
 | discount       | number(10,5) |         |  否   |                 l(f:5),u,r(f:5),c,sort                  | 销售折扣（以面值算） |
 | status         | number(1)    |    0    |  否   |                   l,r,u,sl,cc,c,sort                    | 状态(0.是,1.否)      |
 | create_time    | date         | sysdate |  否   |              r(f:yyyy-MM-dd HH:mm:ss),sort              | 创建时间             |
+
+###  4. 组合商品[ots_merchant_package]
+
+| 字段名         | 类型         | 默认值  | 为空  |                     约束                     | 描述     |
+| -------------- | ------------ | :-----: | :---: | :------------------------------------------: | :------- |
+| pg_id          | number(10)   |   100   |  否   |                PK,SEQ,l,r,DI                 | 包编号   |
+| pg_name        | varchar2(64) |         |  否   |                 q,l,r,DN,u,c                 | 包名称   |
+| pl_id          | number(10)   |   100   |  否   | l,r,c,u,sl(product_line),UNQ(unq_pkg_prod,1) | 产品线   |
+| mer_product_id | number(10)   |         |  否   |          c,l,r,sl(merchant_product)          | 商品编号 |
+| brand_no       | varchar2(8)  |         |  否   | q,l,r,u,UNQ(unq_pkg_prod,3),sl(brand),c,sort | 品牌     |
+| province_no    | varchar2(8)  |    *    |  否   | l,r,UNQ(unq_pkg_prod,4),sl(province),c,sort  | 省份     |
+| city_no        | varchar2(8)  |    *    |  否   |   l,r,UNQ(unq_pkg_prod,5),sl(city),c,sort    | 城市     |
+| face           | number(10)   |         |  否   |         r,l,u,c,UNQ(unq_pkg_prod,6),         | 商品面值 |
+| num            | number(2)    |    1    |  否   |                  q,l,r,c,u                   | 数量     |
+| status         | number(1)    |    0    |  否   |              l,q,r,sl,cc,u,c,r               | 状态     |
+| create_time    | date         | sysdate |  否   |           r(f:yyyy-MM-dd HH:mm:ss)           | 创建时间 |
+
+
 
 
 ## 二、供货商信息
@@ -112,7 +131,7 @@ After: After(字段名) //在某个字段后面
 | spp_no         | varchar2(32) |         |  否   | l,r,q,sl(ots_supplier_info),c,unq(spp_product,1) | 供货商     |
 | spp_product_no | varchar2(32) |         |  是   |                      r,c,u                       | 供货商商品 |
 | pl_id          | number(10)   |         |  否   | l,r,q,sl(ots_product_line),c,unq(spp_product,2)  | 产品线     |
-| brand_no       | varchar2(8)  |         |  否   |       l,q,r,sl(brand),c,unq(spp_product,3)       | 品牌       |
+| brand_no       | varchar2(8)  |         |  否   |       l,q,u,r,sl(brand),c,unq(spp_product,3)       | 品牌       |
 | province_no    | varchar2(8)  |    *    |  否   |     l,r,q,sl(province),c,unq(spp_product,4)      | 省份       |
 | city_no        | varchar2(8)  |    *    |  否   |        l,r,sl(city),c,unq(spp_product,5)         | 城市       |
 | face           | number(10)   |         |  否   |             l,r,c,unq(spp_product,6)             | 面值       |
@@ -199,6 +218,7 @@ After: After(字段名) //在某个字段后面
 | spp_product_id       | number(10)     |         |  否   |                                      r                                      | 供货商商品编号                            |
 | mer_no               | varchar2(32)   |         |  否   |                            sl(ots_merchant_info)                            | 商户编号                                  |
 | mer_product_id       | number(10)     |         |  否   |                                      r                                      | 商户商品编号                              |
+| pg_id                | number(10)     |   100   |  否   |                                     l,r                                     | 包编号                                    |
 | pl_id                | number(10)     |         |  否   |              q,r,l,sl(ots_product_line),r,idx(delivery_time,2)              | 产品线                                    |
 | brand_no             | varchar2(8)    |         |  否   |                     r,l,sl(brand),idx(delivery_time,3)                      | 品牌                                      |
 | province_no          | varchar2(8)    |         |  否   |                    r,l,sl(province),idx(delivery_time,4)                    | 省份                                      |
@@ -286,14 +306,14 @@ After: After(字段名) //在某个字段后面
 # 四、基础信息类
 ###  1. 产品线[ots_product_line]
 
-| 字段名      | 类型         | 默认值  | 为空  |             约束             | 描述       |
-| ----------- | ------------ | :-----: | :---: | :--------------------------: | :--------- |
-| pl_id       | number(10)   |   100   |  否   |        PK,SEQ,l,r,DI         | 产品线编号 |
-| pl_name     | varchar2(64) |         |  否   |         q,l,r,DN,u,c         | 产品线名称 |
-| pid         | number(10)   |    0    |  否   | q,l,r,c,sl(ots_product_line) | 父级分类   |
-| num         | number(2)    |    1    |  否   |          q,l,r,c,u           | 数量       |
-| status      | number(1)    |    0    |  否   |      l,q,r,sl,cc,u,c,r       | 状态       |
-| create_time | date         | sysdate |  否   |   r(f:yyyy-MM-dd HH:mm:ss)   | 创建时间   |
+| 字段名      | 类型         | 默认值  | 为空  |           约束            | 描述       |
+| ----------- | ------------ | :-----: | :---: | :-----------------------: | :--------- |
+| pl_id       | number(10)   |   100   |  否   |    PK,SEQ,l,r,DI,sort     | 产品线编号 |
+| pl_name     | varchar2(64) |         |  否   |       q,l,r,DN,u,c        | 产品线名称 |
+| pl_type     | number(1)    |    0    |  否   |  q,l,r,c,sl(pl_type),cc   | 类型       |
+| status      | number(1)    |    0    |  否   | l,q,r,sl(status),cc,u,c,r | 状态       |
+| create_time | date         | sysdate |  否   | r(f:yyyy-MM-dd HH:mm:ss)  | 创建时间   |
+
 
 ###  2. 业务流程[ots_product_flow]
 | 字段名        | 类型         | 默认值 | 为空  |                       约束                       | 描述     |
@@ -362,14 +382,14 @@ After: After(字段名) //在某个字段后面
 
 ### 字典配置[^dds_dictionary_info]
 
-| 字段名  | 类型         | 默认值 | 为空  |       约束       | 描述   |
-| ------- | ------------ | :----: | :---: | :--------------: | :----- |
-| id      | number(10)   |        |  否   | PK,IS,SEQ,l,r,DI | 编号   |
-| name    | varchar2(64) |        |  否   |   q,c,u,l,r,DN   | 名称   |
-| value   | varchar2(32) |        |  否   |     c,u,l,r      | 值     |
-| type    | varchar2(32) |        |  否   |   q,c,u,l,r,DT   | 类型   |
-| sort_no | number(2)    |   0    |  否   |     c,u,l,r      | 排序值 |
-| status  | number(1)    |   0    |  否   | q,c,u,l,r,sl,cc  | 状态   |
+| 字段名  | 类型         | 默认值 | 为空  |         约束          | 描述   |
+| ------- | ------------ | :----: | :---: | :-------------------: | :----- |
+| id      | number(10)   |        |  否   |     PK,IS,SEQ,l,r     | 编号   |
+| name    | varchar2(64) |        |  否   |     q,c,u,l,r,DN      | 名称   |
+| value   | varchar2(32) |        |  否   |      c,u,l,r,DI       | 值     |
+| type    | varchar2(32) |        |  否   | q,c,u,l,r,sl(dd_type) | 类型   |
+| sort_no | number(2)    |   0    |  否   |        c,u,l,r        | 排序值 |
+| status  | number(1)    |   0    |  否   |    q,c,u,l,r,sl,cc    | 状态   |
 
 ### 生命周期[^lcs_life_time]
 

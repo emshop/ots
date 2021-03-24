@@ -133,6 +133,7 @@ func (u *MerchantProductHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 var postMerchantProductCheckFields = map[string]interface{}{
 	field.FieldMerShelfID:"required",
 	field.FieldMerNo:"required",
+	field.FieldProdName:"required",
 	field.FieldPlID:"required",
 	field.FieldBrandNo:"required",
 	field.FieldProvinceNo:"required",
@@ -151,12 +152,15 @@ var getMerchantProductCheckFields = map[string]interface{}{
 var queryMerchantProductCheckFields = map[string]interface{}{
 	field.FieldMerShelfID:"required",
 	field.FieldMerNo:"required",
+	field.FieldProdName:"required",
 	field.FieldPlID:"required",
 	field.FieldBrandNo:"required",
 	}
 
 
 var updateMerchantProductCheckFields = map[string]interface{}{
+	field.FieldProdName:"required",
+	field.FieldBrandNo:"required",
 	
 	field.FieldDiscount:"required",
 	field.FieldStatus:"required",

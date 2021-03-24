@@ -40,7 +40,6 @@ t.pl_id,
 t.brand_no,
 t.province_no,
 t.city_no,
-case when t.can_split_order = 0 then t.total_face-t.bind_face else t.face end 'face',
 t.account_name,
 t.invoice_type,
 t.can_split_order,
@@ -51,14 +50,53 @@ t.delivery_pause,
 t.order_status,
 t.payment_status,
 t.delivery_status,
-t.total_face,
-t.bind_face
+p.face,
+'0' pg_id,
+l.pl_type
 	from ots_trade_order t
+	inner join ots_merchant_product p on p.mer_product_id = t.mer_product_id
+	inner join ots_product_line l on l.pl_id = t.pl_id
 	where
 	t.order_id = @order_id
 	and t.order_status = 20
 	and t.delivery_status in(20,30)
-	and t.total_face - t.bind_face > 0
+	and t.total_face - t.bind_face >= p.face
+	`
+
+//查询订单是否需要绑定
+var checkOrderForBindPackage = `select
+t.order_id,
+t.mer_no,
+t.mer_order_no,
+t.mer_product_id,
+t.mer_shelf_id,
+p.pl_id,
+p.brand_no,
+p.province_no,
+p.city_no,
+p.pg_id,
+t.account_name,
+t.invoice_type,
+t.can_split_order,
+t.sell_discount,
+t.order_timeout,
+t.payment_timeout,
+t.delivery_pause,
+t.order_status,
+t.payment_status,
+t.delivery_status,
+p.face,
+l.pl_type
+	from ots_trade_order t
+	inner join ots_merchant_package p on t.mer_product_id = p.mer_product_id
+	inner join ots_product_line l on l.pl_id = p.pl_id
+	where
+	t.order_id = @order_id
+	and t.order_status = 20
+	and (select count(0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = p.pg_id and d.delivery_status!=90) < t.num
+	and t.delivery_status in(20,30)
+	and t.total_face - t.bind_face >= p.face
+	and rownum <= 1
 	`
 
 //查询符合条件的产品信息
@@ -88,7 +126,7 @@ t.pl_id = @pl_id
 and t.brand_no = @brand_no
 and (t.province_no = @province_no or t.province_no = '*') 
 and (t.city_no = @city_no or t.city_no = '*')
-and case when @can_split_order = 0 then t.face <= @face else t.face = @face end
+and t.face = @face
 and t.cost_discount <= @sell_discount
 and f.invoice_type = @invoice_type
 and t.status = 0
@@ -125,6 +163,7 @@ spp_product_id,
 spp_product_no,
 mer_no,
 mer_product_id,
+pg_id,
 pl_id,
 brand_no,
 province_no,
@@ -140,14 +179,15 @@ cost_discount,
 spp_fee_discount,
 trade_fee_discount,
 payment_fee_discount
-)values(
+)select
 @delivery_id,
-@order_id,
+t.order_id,
 @spp_no,
 @spp_product_id,
 @spp_product_no,
 @mer_no,
 @mer_product_id,
+@pg_id,
 @pl_id,
 @brand_no,
 @province_no,
@@ -163,5 +203,15 @@ payment_fee_discount
 @spp_fee_discount,
 @trade_fee_discount,
 @payment_fee_discount
-)`,
+from ots_trade_order t 
+join ots_product_line l on ((l.pl_type = 0 and l.pl_id = t.pl_id) or l.pl_id=@pl_id)
+where t.order_id = @order_id
+
+`,
 }
+
+// and t.order_status = 20
+// and t.delivery_pause = 1
+// and t.delivery_status in(20, 30)
+// and t.bind_face + @face <= t.total_face
+// and (l.pl_type = 0 or (select count(0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = @pg_id and d.delivery_status != 90) < t.num)

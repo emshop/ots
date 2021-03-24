@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertSupplierProduct 添加供货商商品
 const InsertSupplierProduct = `
@@ -92,6 +89,7 @@ const UpdateSupplierProductBySppProductID = `
 update ots_supplier_product 
 set
 	spp_product_no =	@spp_product_no,
+	brand_no =	@brand_no,
 	cost_discount =	if(isnull(@cost_discount)||@cost_discount='',0,@cost_discount),
 	status =	if(isnull(@status)||@status='',0,@status)
 where

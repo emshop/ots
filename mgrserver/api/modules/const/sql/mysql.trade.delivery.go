@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
 const GetTradeDeliveryByDeliveryID = `

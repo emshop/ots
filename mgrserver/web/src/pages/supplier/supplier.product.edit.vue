@@ -7,6 +7,13 @@
 				</el-input>
       </el-form-item>
       
+      
+			<el-form-item label="品牌:" prop="brand_no">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.brand_no" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in brandNo" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
       <el-form-item label="成本折扣:" prop="cost_discount">
 				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
 				clearable v-model="editData.cost_discount" placeholder="请输入成本折扣">
@@ -34,8 +41,12 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      brandNo: this.$enum.get("brand"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
+				brand_no: [
+					{ required: true, message: "请输入品牌", trigger: "blur" }
+				],
 				cost_discount: [
 					{ required: true, message: "请输入成本折扣", trigger: "blur" }
 				],

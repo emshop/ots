@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 
 

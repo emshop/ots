@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //GetNotifyInfoByOrderID 查询订单通知表单条数据
 const GetNotifyInfoByOrderID = `

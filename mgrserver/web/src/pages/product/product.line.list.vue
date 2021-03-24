@@ -9,15 +9,10 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-select size="medium" v-model="queryData.pid"  clearable filterable class="input-cos" placeholder="请选择父级分类">
+					<el-select size="medium" v-model="queryData.pl_type"  clearable filterable class="input-cos" placeholder="请选择类型">
 						<el-option value="" label="全部"></el-option>
-						<el-option v-for="(item, index) in pid" :key="index" :value="item.value" :label="item.name"></el-option>
+						<el-option v-for="(item, index) in plType" :key="index" :value="item.value" :label="item.name"></el-option>
 					</el-select>
-				</el-form-item>
-			
-				<el-form-item>
-					<el-input clearable size="medium" v-model="queryData.num" placeholder="请输入数量">
-					</el-input>
 				</el-form-item>
 			
 				<el-form-item>
@@ -41,9 +36,9 @@
 
     <!-- list start-->
 		<el-scrollbar style="height:100%">
-			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" >
+			<el-table :data="dataList.items" stripe style="width: 100%" :height="maxHeight" @sort-change="sort">
 				
-				<el-table-column   prop="pl_id" label="产品线编号" align="center">
+				<el-table-column  sortable="custom" prop="pl_id" label="产品线编号" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.pl_id | fltrEmpty }}</span>
 				</template>
@@ -58,15 +53,10 @@
 						<span v-else>{{scope.row.pl_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="pid" label="父级分类" align="center">
+				<el-table-column   prop="pl_type" label="类型" align="center">
 					<template slot-scope="scope">
-						<span >{{scope.row.pid | fltrEnum("product_line")}}</span>
+						<span :class="scope.row.pl_type|fltrTextColor">{{scope.row.pl_type | fltrEnum("pl_type")}}</span>
 					</template>
-				</el-table-column>
-				<el-table-column   prop="num" label="数量" align="center">
-				<template slot-scope="scope">
-					<span>{{scope.row.num | fltrNumberFormat(0)}}</span>
-				</template>
 				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
@@ -123,8 +113,9 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
-			pid: this.$enum.get("product_line"),
+			plType: this.$enum.get("pl_type"),
 			status: this.$enum.get("status"),
+			order: "t.pl_id desc",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}
@@ -142,6 +133,16 @@ export default {
     init(){
       this.query()
 		},
+		sort(column) {
+      if (column.order == "ascending") {
+        this.order ="t." +  column.prop + " " + "asc"
+      } else if (column.order == "descending") {
+        this.order ="t." +  column.prop + " " + "desc"
+      } else {
+        this.order = ""
+      }
+      this.query()
+    },
     /**查询数据并赋值*/
 		queryDatas() {
       this.paging.pi = 1
@@ -150,6 +151,7 @@ export default {
     query(){
       this.queryData.pi = this.paging.pi
 			this.queryData.ps = this.paging.ps
+			this.queryData.order_by = this.order
       let res = this.$http.xpost("/product/line/query",this.$utility.delEmptyProperty(this.queryData))
 			this.dataList.items = res.items || []
 			this.dataList.count = res.count

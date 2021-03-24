@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertDictionaryInfo 添加字典配置
 const InsertDictionaryInfo = `

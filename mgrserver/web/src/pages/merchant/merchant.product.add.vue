@@ -16,6 +16,12 @@
 				</el-select>
 			</el-form-item>
       
+      <el-form-item label="商品名称:" prop="prod_name">
+				<el-input size="medium" maxlength="64"
+				 clearable v-model="addData.prod_name" placeholder="请输入商品名称">
+				</el-input>
+      </el-form-item>
+      
       
 			<el-form-item label="产品线:" prop="pl_id">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.pl_id"	clearable filterable class="input-cos" placeholder="---请选择---">
@@ -94,6 +100,7 @@ export default {
 			rules: {                    //数据验证规则
 				mer_shelf_id: [{ required: true, message: "请输入货架名称", trigger: "blur" }],
 				mer_no: [{ required: true, message: "请输入商户名称", trigger: "blur" }],
+				prod_name: [{ required: true, message: "请输入商品名称", trigger: "blur" }],
 				pl_id: [{ required: true, message: "请输入产品线", trigger: "blur" }],
 				brand_no: [{ required: true, message: "请输入品牌", trigger: "blur" }],
 				province_no: [{ required: true, message: "请输入省份", trigger: "blur" }],

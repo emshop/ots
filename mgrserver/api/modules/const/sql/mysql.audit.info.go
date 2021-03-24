@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //GetAuditInfoByDeliveryID 查询发货人工审核表单条数据
 const GetAuditInfoByDeliveryID = `

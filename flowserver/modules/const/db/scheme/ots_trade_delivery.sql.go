@@ -10,6 +10,7 @@ const ots_trade_delivery=`
 		spp_product_id int  not null  comment '供货商商品编号' ,
 		mer_no varchar(32)  not null  comment '商户编号' ,
 		mer_product_id int  not null  comment '商户商品编号' ,
+		pg_id int default 100 not null  comment '包编号' ,
 		pl_id int  not null  comment '产品线' ,
 		brand_no varchar(8)  not null  comment '品牌' ,
 		province_no varchar(8)  not null  comment '省份' ,

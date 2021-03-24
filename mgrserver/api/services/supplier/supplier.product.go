@@ -155,6 +155,7 @@ var querySupplierProductCheckFields = map[string]interface{}{
 
 var updateSupplierProductCheckFields = map[string]interface{}{
 	
+	field.FieldBrandNo:"required",
 	field.FieldCostDiscount:"required",
 	field.FieldStatus:"required",
 	}

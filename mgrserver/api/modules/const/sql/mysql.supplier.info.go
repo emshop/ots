@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertSupplierInfo 添加供货商信息
 const InsertSupplierInfo = `

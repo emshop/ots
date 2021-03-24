@@ -7,6 +7,7 @@ const ots_merchant_product=`
 		mer_product_id int  not null auto_increment comment '商品编号' ,
 		mer_shelf_id int  not null  comment '货架名称' ,
 		mer_no varchar(32)  not null  comment '商户名称' ,
+		prod_name varchar(64)  not null  comment '商品名称' ,
 		pl_id int  not null  comment '产品线' ,
 		brand_no varchar(8)  not null  comment '品牌' ,
 		province_no varchar(8) default '*' not null  comment '省份' ,

@@ -18,6 +18,11 @@
 				</el-form-item>
 			
 				<el-form-item>
+					<el-input clearable size="medium" v-model="queryData.prod_name" placeholder="请输入商品名称">
+					</el-input>
+				</el-form-item>
+			
+				<el-form-item>
 					<el-select size="medium" v-model="queryData.pl_id"  clearable filterable class="input-cos" placeholder="请选择产品线">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in plID" :key="index" :value="item.value" :label="item.name"></el-option>
@@ -61,6 +66,15 @@
 				<el-table-column  sortable="custom" prop="mer_no" label="商户名称" align="center">
 					<template slot-scope="scope">
 						<span >{{scope.row.mer_no | fltrEnum("merchant_info")}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="prod_name" label="商品名称" align="center">
+					<template slot-scope="scope">
+						<el-tooltip class="item" v-if="scope.row.prod_name && scope.row.prod_name.length > 20" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.prod_name}}</div>
+							<span>{{scope.row.prod_name | fltrSubstr(20) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.prod_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column  sortable="custom" prop="pl_id" label="产品线" align="center">

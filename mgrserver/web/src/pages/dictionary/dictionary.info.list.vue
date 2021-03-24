@@ -9,8 +9,10 @@
 				</el-form-item>
 			
 				<el-form-item>
-					<el-input clearable size="medium" v-model="queryData.type" placeholder="请输入类型">
-					</el-input>
+					<el-select size="medium" v-model="queryData.type"  clearable filterable class="input-cos" placeholder="请选择类型">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in type" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
 				</el-form-item>
 			
 				<el-form-item>
@@ -58,10 +60,9 @@
 				
 				</el-table-column>
 				<el-table-column   prop="type" label="类型" align="center">
-				<template slot-scope="scope">
-					<span>{{scope.row.type | fltrEmpty }}</span>
-				</template>
-				
+					<template slot-scope="scope">
+						<span >{{scope.row.type | fltrEnum("dd_type")}}</span>
+					</template>
 				</el-table-column>
 				<el-table-column   prop="sort_no" label="排序值" align="center">
 				<template slot-scope="scope">
@@ -123,6 +124,7 @@ export default {
 			editData:{},                //编辑数据对象
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
+			type: this.$enum.get("dd_type"),
 			status: this.$enum.get("status"),
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0

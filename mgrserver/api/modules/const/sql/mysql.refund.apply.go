@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //GetRefundApplyByApplyID 查询退款申请单条数据
 const GetRefundApplyByApplyID = `

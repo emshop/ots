@@ -9,17 +9,11 @@
       </el-form-item>
       
       
-			<el-form-item label="父级分类:" prop="pid">
-				<el-select size="medium" style="width: 100%;"	v-model="addData.pid"	clearable filterable class="input-cos" placeholder="---请选择---">
-					<el-option v-for="(item, index) in pid" :key="index" :value="item.value" :label="item.name"></el-option>
+			<el-form-item label="类型:" prop="pl_type">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.pl_type"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in plType" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
-      
-      <el-form-item label="数量:" prop="num">
-				<el-input size="medium" maxlength="2"
-				 clearable v-model="addData.num" placeholder="请输入数量">
-				</el-input>
-      </el-form-item>
       
       
 			<el-form-item label="状态:" prop="status">
@@ -43,12 +37,11 @@ export default {
 		return {
 			addData: {},
 			dialogAddVisible: false,
-			pid:this.$enum.get("product_line"),
+			plType:this.$enum.get("pl_type"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				pl_name: [{ required: true, message: "请输入产品线名称", trigger: "blur" }],
-				pid: [{ required: true, message: "请输入父级分类", trigger: "blur" }],
-				num: [{ required: true, message: "请输入数量", trigger: "blur" }],
+				pl_type: [{ required: true, message: "请输入类型", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}

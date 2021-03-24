@@ -12,6 +12,7 @@ t.pl_id,
 t.brand_no,
 t.province_no,
 t.city_no,
+l.pl_type,
 t.face,
 t.mer_product_no,
 t.discount,
@@ -28,13 +29,16 @@ s.can_split_order
 from ots_merchant_product t
 inner join ots_merchant_info m on t.mer_no = m.mer_no
 inner join ots_merchant_shelf s on s.mer_shelf_id = t.mer_shelf_id and s.mer_no = m.mer_no
+inner join ots_product_line l on l.pl_id = t.pl_id
 where
 t.mer_product_id = @mer_product_id 
 and t.mer_no = @mer_no
+and (l.pl_type = 0 or (select sum(p.face) from ots_merchant_package p where p.mer_product_id=t.mer_product_id) = t.face)
 and s.limit_count >= @num
 and t.status = 0 
 and m.status = 0
-and s.status = 0`,
+and s.status = 0
+and l.status = 0`,
 
 	//添加通知记录
 	`insert into ots_notify_info(

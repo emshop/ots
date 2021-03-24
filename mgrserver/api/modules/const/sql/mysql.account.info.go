@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertAccountInfo 添加账户信息
 const InsertAccountInfo = `

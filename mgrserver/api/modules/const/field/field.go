@@ -43,6 +43,12 @@ const FieldBatchNo = "batch_no"
 //FieldBdUid 字段商务人员的数据库名称
 const FieldBdUid = "bd_uid"
 
+//FieldBeanpayAccountInfo 字段账户信息的数据库名称
+const FieldBeanpayAccountInfo = "beanpay_account_info"
+
+//FieldBeanpayAccountRecord 字段资金变动的数据库名称
+const FieldBeanpayAccountRecord = "beanpay_account_record"
+
 //FieldBindFace 字段绑定面值的数据库名称
 const FieldBindFace = "bind_face"
 
@@ -52,7 +58,7 @@ const FieldBrandNo = "brand_no"
 //FieldCanRefund 字段支持退货 (0.是,1.否)的数据库名称
 const FieldCanRefund = "can_refund"
 
-//FieldCanSplitOrder 字段是否拆单（0.是，1否）的数据库名称
+//FieldCanSplitOrder 字段允许拆单的数据库名称
 const FieldCanSplitOrder = "can_split_order"
 
 //FieldCategory 字段分类的数据库名称
@@ -70,7 +76,7 @@ const FieldContent = "content"
 //FieldCostAmount 字段发货成本的数据库名称
 const FieldCostAmount = "cost_amount"
 
-//FieldCostDiscount 字段扣款折扣的数据库名称
+//FieldCostDiscount 字段成本折扣的数据库名称
 const FieldCostDiscount = "cost_discount"
 
 //FieldCount 字段执行次数的数据库名称
@@ -81,6 +87,9 @@ const FieldCreateTime = "create_time"
 
 //FieldCredit 字段信用余额，单位：元的数据库名称
 const FieldCredit = "credit"
+
+//FieldDdsDictionaryInfo 字段字典配置的数据库名称
+const FieldDdsDictionaryInfo = "dds_dictionary_info"
 
 //FieldDealCode 字段处理码的数据库名称
 const FieldDealCode = "deal_code"
@@ -130,7 +139,7 @@ const FieldExtNo = "ext_no"
 //FieldExtralParam 字段子系统唯一标识的数据库名称
 const FieldExtralParam = "extral_param"
 
-//FieldFace 字段商品面值的数据库名称
+//FieldFace 字段面值的数据库名称
 const FieldFace = "face"
 
 //FieldFinishTime 字段完成时间的数据库名称
@@ -145,13 +154,13 @@ const FieldFlowTag = "flow_tag"
 //FieldGroupx 字段账户类型的数据库名称
 const FieldGroupx = "groupx"
 
-//FieldID 字段序号的数据库名称
+//FieldID 字段编号的数据库名称
 const FieldID = "id"
 
 //FieldIdent 字段系统标识的数据库名称
 const FieldIdent = "ident"
 
-//FieldInvoiceType 字段支持开票（1.不支持）的数据库名称
+//FieldInvoiceType 字段支持开票的数据库名称
 const FieldInvoiceType = "invoice_type"
 
 //FieldIp 字段用户ip的数据库名称
@@ -165,6 +174,9 @@ const FieldLastExecuteTime = "last_execute_time"
 
 //FieldLastUpdateTime 字段最后更新时间的数据库名称
 const FieldLastUpdateTime = "last_update_time"
+
+//FieldLcsLifeTime 字段生命周期的数据库名称
+const FieldLcsLifeTime = "lcs_life_time"
 
 //FieldLimitCount 字段单次最大发货数量的数据库名称
 const FieldLimitCount = "limit_count"
@@ -181,7 +193,7 @@ const FieldMemo = "memo"
 //FieldMerCrop 字段所属公司的数据库名称
 const FieldMerCrop = "mer_crop"
 
-//FieldMerFeeDiscount 字段商户佣金折扣的数据库名称
+//FieldMerFeeDiscount 字段商户佣金的数据库名称
 const FieldMerFeeDiscount = "mer_fee_discount"
 
 //FieldMerName 字段商户名称的数据库名称
@@ -193,13 +205,13 @@ const FieldMerNo = "mer_no"
 //FieldMerOrderNo 字段订单编号的数据库名称
 const FieldMerOrderNo = "mer_order_no"
 
-//FieldMerProductID 字段商户商品编号的数据库名称
+//FieldMerProductID 字段商品编号的数据库名称
 const FieldMerProductID = "mer_product_id"
 
-//FieldMerProductNo 字段外部商品编号的数据库名称
+//FieldMerProductNo 字段商户商品的数据库名称
 const FieldMerProductNo = "mer_product_no"
 
-//FieldMerShelfID 字段商户货架的数据库名称
+//FieldMerShelfID 字段货架名称的数据库名称
 const FieldMerShelfID = "mer_shelf_id"
 
 //FieldMerShelfName 字段货架名称的数据库名称
@@ -229,7 +241,7 @@ const FieldNotifyMsg = "notify_msg"
 //FieldNotifyStatus 字段通知状态（0成功,10未开始,20等待通知,30正在通知）的数据库名称
 const FieldNotifyStatus = "notify_status"
 
-//FieldNotifyURL 字段通知地址的数据库名称
+//FieldNotifyURL 字段回调地址的数据库名称
 const FieldNotifyURL = "notify_url"
 
 //FieldNum 字段数量的数据库名称
@@ -244,8 +256,50 @@ const FieldOrderNo = "order_no"
 //FieldOrderStatus 字段订单状态的数据库名称
 const FieldOrderStatus = "order_status"
 
-//FieldOrderTimeout 字段订单超时时间的数据库名称
+//FieldOrderTimeout 字段订单超时时长的数据库名称
 const FieldOrderTimeout = "order_timeout"
+
+//FieldOtsAuditInfo 字段发货人工审核表的数据库名称
+const FieldOtsAuditInfo = "ots_audit_info"
+
+//FieldOtsMerchantInfo 字段商户信息的数据库名称
+const FieldOtsMerchantInfo = "ots_merchant_info"
+
+//FieldOtsMerchantProduct 字段商户商品的数据库名称
+const FieldOtsMerchantProduct = "ots_merchant_product"
+
+//FieldOtsMerchantShelf 字段商户货架的数据库名称
+const FieldOtsMerchantShelf = "ots_merchant_shelf"
+
+//FieldOtsNotifyInfo 字段订单通知表的数据库名称
+const FieldOtsNotifyInfo = "ots_notify_info"
+
+//FieldOtsProductFlow 字段业务流程的数据库名称
+const FieldOtsProductFlow = "ots_product_flow"
+
+//FieldOtsProductLine 字段产品线的数据库名称
+const FieldOtsProductLine = "ots_product_line"
+
+//FieldOtsRefundApply 字段退款申请的数据库名称
+const FieldOtsRefundApply = "ots_refund_apply"
+
+//FieldOtsSupplierEcode 字段供货商错误码的数据库名称
+const FieldOtsSupplierEcode = "ots_supplier_ecode"
+
+//FieldOtsSupplierInfo 字段供货商信息的数据库名称
+const FieldOtsSupplierInfo = "ots_supplier_info"
+
+//FieldOtsSupplierProduct 字段供货商商品的数据库名称
+const FieldOtsSupplierProduct = "ots_supplier_product"
+
+//FieldOtsSupplierShelf 字段供货商货架的数据库名称
+const FieldOtsSupplierShelf = "ots_supplier_shelf"
+
+//FieldOtsTradeDelivery 字段订单发货表的数据库名称
+const FieldOtsTradeDelivery = "ots_trade_delivery"
+
+//FieldOtsTradeOrder 字段订单记录的数据库名称
+const FieldOtsTradeOrder = "ots_trade_order"
 
 //FieldPaymentFeeAmount 字段供货商手续费的数据库名称
 const FieldPaymentFeeAmount = "payment_fee_amount"
@@ -256,17 +310,26 @@ const FieldPaymentFeeDiscount = "payment_fee_discount"
 //FieldPaymentStatus 字段支付状态的数据库名称
 const FieldPaymentStatus = "payment_status"
 
-//FieldPaymentTimeout 字段支付超时时间的数据库名称
+//FieldPaymentTimeout 字段支付超时时长的数据库名称
 const FieldPaymentTimeout = "payment_timeout"
 
-//FieldPid 字段父级分类的数据库名称
-const FieldPid = "pid"
+//FieldPgID 字段包编号的数据库名称
+const FieldPgID = "pg_id"
+
+//FieldPgName 字段包名称的数据库名称
+const FieldPgName = "pg_name"
 
 //FieldPlID 字段产品线的数据库名称
 const FieldPlID = "pl_id"
 
 //FieldPlName 字段产品线名称的数据库名称
 const FieldPlName = "pl_name"
+
+//FieldPlType 字段类型的数据库名称
+const FieldPlType = "pl_type"
+
+//FieldProdName 字段商品名称的数据库名称
+const FieldProdName = "prod_name"
 
 //FieldProfit 字段利润(1-2-3-4-5+6-7-8)的数据库名称
 const FieldProfit = "profit"
@@ -337,10 +400,10 @@ const FieldSppName = "spp_name"
 //FieldSppNo 字段供货商的数据库名称
 const FieldSppNo = "spp_no"
 
-//FieldSppProductID 字段供货商商品编号的数据库名称
+//FieldSppProductID 字段商品编号的数据库名称
 const FieldSppProductID = "spp_product_id"
 
-//FieldSppProductNo 字段供货商商品编号的数据库名称
+//FieldSppProductNo 字段供货商商品的数据库名称
 const FieldSppProductNo = "spp_product_no"
 
 //FieldSppShelfID 字段货架名称的数据库名称
@@ -405,6 +468,9 @@ const FieldTradeNo = "trade_no"
 
 //FieldTradeType 字段交易类型 1:交易 2：手续费 3:佣金 4:红冲 5:平账的数据库名称
 const FieldTradeType = "trade_type"
+
+//FieldTskSystemTask 字段任务表的数据库名称
+const FieldTskSystemTask = "tsk_system_task"
 
 //FieldType 字段类型的数据库名称
 const FieldType = "type"

@@ -1,6 +1,19 @@
 <template>
 	<el-dialog title="编辑商户商品" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
+      <el-form-item label="商品名称:" prop="prod_name">
+				<el-input size="medium" maxlength="64"
+				clearable v-model="editData.prod_name" placeholder="请输入商品名称">
+				</el-input>
+      </el-form-item>
+      
+      
+			<el-form-item label="品牌:" prop="brand_no">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.brand_no" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in brandNo" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
       <el-form-item label="商户商品:" prop="mer_product_no">
 				<el-input size="medium" maxlength="32"
 				clearable v-model="editData.mer_product_no" placeholder="请输入商户商品">
@@ -34,8 +47,15 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      brandNo: this.$enum.get("brand"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
+				prod_name: [
+					{ required: true, message: "请输入商品名称", trigger: "blur" }
+				],
+				brand_no: [
+					{ required: true, message: "请输入品牌", trigger: "blur" }
+				],
 				discount: [
 					{ required: true, message: "请输入销售折扣", trigger: "blur" }
 				],

@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertMerchantProduct 添加商户商品
 const InsertMerchantProduct = `
@@ -9,6 +6,7 @@ insert into ots_merchant_product
 	mer_product_id,
 	mer_shelf_id,
 	mer_no,
+	prod_name,
 	pl_id,
 	brand_no,
 	province_no,
@@ -23,6 +21,7 @@ values
 	@mer_product_id,
 	if(isnull(@mer_shelf_id)||@mer_shelf_id='',0,@mer_shelf_id),
 	@mer_no,
+	@prod_name,
 	if(isnull(@pl_id)||@pl_id='',0,@pl_id),
 	@brand_no,
 	@province_no,
@@ -39,6 +38,7 @@ select
 	t.mer_product_id,
 	t.mer_shelf_id,
 	t.mer_no,
+	t.prod_name,
 	t.pl_id,
 	t.brand_no,
 	t.province_no,
@@ -59,6 +59,7 @@ from ots_merchant_product t
 where
 	&t.mer_shelf_id
 	&t.mer_no
+	?t.prod_name
 	&t.pl_id
 	&t.brand_no`
 
@@ -68,6 +69,7 @@ select
 	t.mer_product_id,
 	t.mer_shelf_id,
 	t.mer_no,
+	t.prod_name,
 	t.pl_id,
 	t.brand_no,
 	t.province_no,
@@ -79,6 +81,7 @@ from ots_merchant_product t
 where
 	&t.mer_shelf_id
 	&t.mer_no
+	?t.prod_name
 	&t.pl_id
 	&t.brand_no
 order by #order_by
@@ -89,6 +92,8 @@ limit @ps offset @offset
 const UpdateMerchantProductByMerProductID = `
 update ots_merchant_product 
 set
+	prod_name =	@prod_name,
+	brand_no =	@brand_no,
 	mer_product_no =	@mer_product_no,
 	discount =	if(isnull(@discount)||@discount='',0,@discount),
 	status =	if(isnull(@status)||@status='',0,@status)

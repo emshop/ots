@@ -1,6 +1,3 @@
-
-// +build mysql
-
 package sql
 //InsertSupplierShelf 添加供货商货架
 const InsertSupplierShelf = `

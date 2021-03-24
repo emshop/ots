@@ -13,6 +13,7 @@ func init() {
 		ots_merchant_info,
 		ots_merchant_shelf,
 		ots_merchant_product,
+		ots_merchant_package,
 		ots_supplier_info,
 		ots_supplier_shelf,
 		ots_supplier_product,
@@ -24,7 +25,6 @@ func init() {
 		ots_audit_info,
 		ots_product_line,
 		ots_product_flow,
-		beanpay_account_info,
 		SEQ_IDS,
 		)
 		return nil
