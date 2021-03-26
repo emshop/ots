@@ -23,15 +23,14 @@ func Finish(orderID string) error {
 		return err
 	}
 	orders, err := db.ExecuteBatch(update2Success, types.XMap{field.FieldOrderID: orderID})
-
 	if err != nil {
 		db.Rollback()
 	}
 	if err != nil && !errors.Is(err, errs.ErrNotExist) {
 		return err
 	}
-	order := orders.Get(0)
 	if err == nil {
+		order := orders.Get(0)
 		//查询订单并完成佣金、交易手续费、支付手续费等记账。
 		if order.GetFloat64(fields.FieldSuccessMerFee) > 0 {
 			account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantFee))
@@ -103,7 +102,7 @@ func Finish(orderID string) error {
 	}
 
 	//4. 订单退款
-	order = orders.Get(0)
+	order := orders.Get(0)
 	account := beanpay.GetAccount(global.Def.PlatName, string(enums.AccountMerchantMain))
 	rs, err := account.RefundAmount(db,
 		order.GetString(fields.FieldMerNo),

@@ -33,31 +33,49 @@ func Bind(orderID string) (string, error) {
 		return "", err
 	}
 
-	//----------------处理订单正常绑定------------------------
-	db := hydra.C.DB().GetRegularDB()
-	orders, err := db.Query(checkOrderForBind, input)
+	//获取绑定订单
+	order, err := getBindOrder(input)
 	if err != nil {
 		return "", err
 	}
+
+	//绑定商品
+	return bindByProducts(order)
+
+}
+
+func getBindOrder(input types.IXMap) (types.IXMap, error) {
+	//----------------处理订单正常绑定------------------------
+	db := hydra.C.DB().GetRegularDB()
+	orders, err := db.Query(checkOrderForBind, input.ToMap())
+	if err != nil {
+		return nil, err
+	}
 	if orders.Len() == 0 {
-		return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, errs.ErrNotExist))
+		return nil, errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定(单品),%w", input.GetString(fields.FieldOrderID), errs.ErrNotExist))
 	}
 
 	//检查是否是复合商品
 	if orders.Get(0).GetInt(field.FieldPlType) != 0 {
-		orders, err = db.Query(checkOrderForBindPackage, input)
+		orders, err = db.Query(checkOrderForBindPackage, input.ToMap())
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 		if orders.Len() == 0 {
-			return "", errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定%w", orderID, errs.ErrNotExist))
+			return nil, errs.NewError(204, fmt.Errorf("订单(%s)无须进行绑定(复品),%w", input.GetString(fields.FieldOrderID), errs.ErrNotExist))
 		}
 	}
+	return orders.Get(0), nil
+
+}
+
+func bindByProducts(order types.IXMap) (string, error) {
 
 	//2. 查询订单支持的上游产品
-	products, err := db.ExecuteBatch(querySppProducts, orders.Get(0).ToMap())
+	db := hydra.C.DB().GetRegularDB()
+	products, err := db.ExecuteBatch(querySppProducts, order.ToMap())
 	if errors.Is(err, errs.ErrNotExist) || products.Len() == 0 {
-		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", orderID)
+		return "", errs.NewErrorf(http.StatusAccepted, "暂无上游产品可绑定%s", order.GetString(fields.FieldOrderID))
 	}
 	if err != nil {
 		return "", err
@@ -72,7 +90,7 @@ func Bind(orderID string) (string, error) {
 
 		//处理输入参数
 		product.SetValue(fields.FieldDeliveryID, deliveryID)
-		product.Merge(orders.Get(0))
+		product.Merge(order)
 
 		//创建发货记录
 		xdb, err := hydra.C.DB().GetRegularDB().Begin()
@@ -90,5 +108,5 @@ func Bind(orderID string) (string, error) {
 		xdb.Commit()
 		return deliveryID, nil
 	}
-	return "", errs.NewErrorf(http.StatusAccepted, "无可用的上游可绑定%s", orderID)
+	return "", errs.NewErrorf(http.StatusAccepted, "无可用的上游可绑定%s", order.GetString(fields.FieldOrderID))
 }

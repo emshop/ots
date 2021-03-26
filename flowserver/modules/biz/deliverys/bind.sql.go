@@ -60,7 +60,7 @@ l.pl_type
 	t.order_id = @order_id
 	and t.order_status = 20
 	and t.delivery_status in(20,30)
-	and t.total_face - t.bind_face >= p.face
+	and t.total_face - t.bind_face > 0
 	`
 
 //查询订单是否需要绑定
@@ -93,10 +93,10 @@ l.pl_type
 	where
 	t.order_id = @order_id
 	and t.order_status = 20
-	and (select count(0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = p.pg_id and d.delivery_status!=90) < t.num
+	and (select IFNULL(sum(d.num),0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = p.pg_id and d.delivery_status!=90) < t.num * p.num
 	and t.delivery_status in(20,30)
 	and t.total_face - t.bind_face >= p.face
-	and rownum <= 1
+	limit 1
 	`
 
 //查询符合条件的产品信息
@@ -204,14 +204,12 @@ t.order_id,
 @trade_fee_discount,
 @payment_fee_discount
 from ots_trade_order t 
-join ots_product_line l on ((l.pl_type = 0 and l.pl_id = t.pl_id) or l.pl_id=@pl_id)
 where t.order_id = @order_id
+and t.order_status = 20
+and t.delivery_pause = 1
+and t.delivery_status in(20,30)
+and (t.total_face - t.bind_face) >= 0
+and (@pl_type = 0 or (select count(0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = @pg_id and d.delivery_status != 90) < t.num)
 
 `,
 }
-
-// and t.order_status = 20
-// and t.delivery_pause = 1
-// and t.delivery_status in(20, 30)
-// and t.bind_face + @face <= t.total_face
-// and (l.pl_type = 0 or (select count(0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = @pg_id and d.delivery_status != 90) < t.num)
