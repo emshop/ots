@@ -93,6 +93,11 @@
 					<span>{{scope.row.num | fltrNumberFormat(0)}}</span>
 				</template>
 				</el-table-column>
+				<el-table-column  sortable="custom" prop="discount" label="销售折扣" align="center">
+				<template slot-scope="scope">
+					<span>{{scope.row.discount | fltrNumberFormat(5)}}</span>
+				</template>
+				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
@@ -150,7 +155,7 @@ export default {
       queryData:{},               //查询数据对象
 			brandNo: this.$enum.get("brand"),
 			status: this.$enum.get("status"),
-			order: "t.brand_no desc, t.province_no desc, t.city_no desc",
+			order: "t.brand_no desc, t.province_no desc, t.city_no desc, t.discount desc",
 			dataList: {count: 0,items: []}, //表单数据对象,
 			maxHeight: 0
 		}

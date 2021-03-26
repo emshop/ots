@@ -49,8 +49,8 @@ const ots_trade_order=`
 		profit decimal(20,5) default 0 not null  comment '利润(1-2-3-4-5+6-7-8)' ,
 		last_update_time datetime default current_timestamp not null  comment '最后更新时间' ,
 		batch_id bigint    comment '执行批次号' 
-		,primary key (order_id)
 		,index order_index(create_time,mer_no,pl_id,brand_no,province_no)
 		,unique index mer_order(mer_no,mer_order_no)
 		,index order_last_update(last_update_time)
+		,primary key (order_id)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单记录'`

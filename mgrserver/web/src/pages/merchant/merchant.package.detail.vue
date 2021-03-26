@@ -84,15 +84,21 @@
                       <div>{{ info.num |  fltrNumberFormat(0)}}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">状态:</div>
+                      <div class="pull-right" style="margin-right: 10px">销售折扣:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
+                      <div>{{ info.discount |  fltrNumberFormat(5)}}</div>
                     </el-col>
                   </td>
                 </tr>
                 <tr>
                   <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">状态:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.status|fltrTextColor">{{ info.status | fltrEnum("status") }}</div>
+                    </el-col>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>

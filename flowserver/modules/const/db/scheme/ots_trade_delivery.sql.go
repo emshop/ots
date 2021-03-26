@@ -43,7 +43,7 @@ const ots_trade_delivery=`
 		result_code varchar(32)    comment '发货结果码' ,
 		last_update_time datetime default current_timestamp not null  comment '最后更新时间' ,
 		batch_id bigint    comment '执行批次号' 
+		,index delivery_time(create_time,pl_id,brand_no,province_no,city_no)
 		,primary key (delivery_id)
 		,index delivery_order(order_id)
-		,index delivery_time(create_time,pl_id,brand_no,province_no,city_no)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单发货表'`

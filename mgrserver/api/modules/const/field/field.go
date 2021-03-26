@@ -55,7 +55,7 @@ const FieldBindFace = "bind_face"
 //FieldBrandNo 字段品牌的数据库名称
 const FieldBrandNo = "brand_no"
 
-//FieldCanRefund 字段支持退货 (0.是,1.否)的数据库名称
+//FieldCanRefund 字段允许退款(0.是,1否)的数据库名称
 const FieldCanRefund = "can_refund"
 
 //FieldCanSplitOrder 字段允许拆单的数据库名称
@@ -139,7 +139,7 @@ const FieldExtNo = "ext_no"
 //FieldExtralParam 字段子系统唯一标识的数据库名称
 const FieldExtralParam = "extral_param"
 
-//FieldFace 字段面值的数据库名称
+//FieldFace 字段商品面值的数据库名称
 const FieldFace = "face"
 
 //FieldFinishTime 字段完成时间的数据库名称
@@ -160,7 +160,7 @@ const FieldID = "id"
 //FieldIdent 字段系统标识的数据库名称
 const FieldIdent = "ident"
 
-//FieldInvoiceType 字段支持开票的数据库名称
+//FieldInvoiceType 字段允许开票（1.不开发票）的数据库名称
 const FieldInvoiceType = "invoice_type"
 
 //FieldIp 字段用户ip的数据库名称
@@ -178,7 +178,7 @@ const FieldLastUpdateTime = "last_update_time"
 //FieldLcsLifeTime 字段生命周期的数据库名称
 const FieldLcsLifeTime = "lcs_life_time"
 
-//FieldLimitCount 字段单次最大发货数量的数据库名称
+//FieldLimitCount 字段单次最大数量的数据库名称
 const FieldLimitCount = "limit_count"
 
 //FieldMaxCount 字段最大执行次数的数据库名称

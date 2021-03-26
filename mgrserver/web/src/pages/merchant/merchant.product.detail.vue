@@ -175,6 +175,11 @@
                 <span>{{scope.row.num | fltrNumberFormat(0)}}</span>
               </template>
               </el-table-column>
+              <el-table-column  sortable prop="discount" label="销售折扣" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.discount | fltrNumberFormat(5)}}</span>
+              </template>
+              </el-table-column>
               <el-table-column   prop="status" label="状态" align="center">
                 <template slot-scope="scope">
                   <span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>

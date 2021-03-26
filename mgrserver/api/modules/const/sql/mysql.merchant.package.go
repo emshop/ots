@@ -12,6 +12,7 @@ insert into ots_merchant_package
 	city_no,
 	face,
 	num,
+	discount,
 	status
 )
 values
@@ -25,6 +26,7 @@ values
 	@city_no,
 	if(isnull(@face)||@face='',0,@face),
 	if(isnull(@num)||@num='',0,@num),
+	if(isnull(@discount)||@discount='',0,@discount),
 	if(isnull(@status)||@status='',0,@status)
 )`
 
@@ -40,6 +42,7 @@ select
 	t.city_no,
 	t.face,
 	t.num,
+	t.discount,
 	t.status,
 	t.create_time
 from ots_merchant_package t
@@ -68,6 +71,7 @@ select
 	t.city_no,
 	t.face,
 	t.num,
+	t.discount,
 	t.status 
 from ots_merchant_package t
 where
@@ -97,6 +101,7 @@ select
 	t.city_no,
 	t.face,
 	t.num,
+	t.discount,
 	t.status 
 from ots_merchant_package t
 where
@@ -112,6 +117,7 @@ set
 	brand_no =	@brand_no,
 	face =	if(isnull(@face)||@face='',0,@face),
 	num =	if(isnull(@num)||@num='',0,@num),
+	discount =	if(isnull(@discount)||@discount='',0,@discount),
 	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&pg_id`

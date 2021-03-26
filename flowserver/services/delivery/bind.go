@@ -42,6 +42,8 @@ func Binding(ctx hydra.IContext) (r interface{}) {
 	}
 
 	ctx.Log().Debug("2. 执行后续流程")
+	qtask.FinishByInput(ctx, ctx.Request())
+	flows.NextByDeliveryID(deliveryID, enums.FlowDeliveryBind, ctx, fields.FieldOrderID, ctx.Request().GetString(fields.FieldOrderID))
 	flows.NextByDeliveryID(deliveryID, enums.FlowDelivery, ctx, fields.FieldOrderID, ctx.Request().GetString(fields.FieldOrderID))
 	return "success"
 }

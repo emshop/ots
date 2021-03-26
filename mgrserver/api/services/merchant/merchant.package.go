@@ -172,6 +172,7 @@ var postMerchantPackageCheckFields = map[string]interface{}{
 	field.FieldCityNo:"required",
 	field.FieldFace:"required",
 	field.FieldNum:"required",
+	field.FieldDiscount:"required",
 	field.FieldStatus:"required",
 	}
 
@@ -198,6 +199,7 @@ var updateMerchantPackageCheckFields = map[string]interface{}{
 	field.FieldBrandNo:"required",
 	field.FieldFace:"required",
 	field.FieldNum:"required",
+	field.FieldDiscount:"required",
 	field.FieldStatus:"required",
 	}
 

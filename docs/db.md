@@ -73,22 +73,20 @@ After: After(字段名) //在某个字段后面
 
 ###  4. 组合商品[ots_merchant_package]
 
-| 字段名         | 类型         | 默认值  | 为空  |                     约束                     | 描述     |
-| -------------- | ------------ | :-----: | :---: | :------------------------------------------: | :------- |
-| pg_id          | number(10)   |   100   |  否   |                PK,SEQ,l,r,DI                 | 包编号   |
-| pg_name        | varchar2(64) |         |  否   |                 q,l,r,DN,u,c                 | 包名称   |
-| pl_id          | number(10)   |   100   |  否   | l,r,c,u,sl(product_line),UNQ(unq_pkg_prod,1) | 产品线   |
-| mer_product_id | number(10)   |         |  否   |          c,l,r,sl(merchant_product)          | 商品编号 |
-| brand_no       | varchar2(8)  |         |  否   | q,l,r,u,UNQ(unq_pkg_prod,3),sl(brand),c,sort | 品牌     |
-| province_no    | varchar2(8)  |    *    |  否   | l,r,UNQ(unq_pkg_prod,4),sl(province),c,sort  | 省份     |
-| city_no        | varchar2(8)  |    *    |  否   |   l,r,UNQ(unq_pkg_prod,5),sl(city),c,sort    | 城市     |
-| face           | number(10)   |         |  否   |         r,l,u,c,UNQ(unq_pkg_prod,6),         | 商品面值 |
-| num            | number(2)    |    1    |  否   |                  q,l,r,c,u                   | 数量     |
-| status         | number(1)    |    0    |  否   |              l,q,r,sl,cc,u,c,r               | 状态     |
-| create_time    | date         | sysdate |  否   |           r(f:yyyy-MM-dd HH:mm:ss)           | 创建时间 |
-
-
-
+| 字段名         | 类型         | 默认值  | 为空  |                     约束                     | 描述                 |
+| -------------- | ------------ | :-----: | :---: | :------------------------------------------: | :------------------- |
+| pg_id          | number(10)   |   100   |  否   |                PK,SEQ,l,r,DI                 | 包编号               |
+| pg_name        | varchar2(64) |         |  否   |                 q,l,r,DN,u,c                 | 包名称               |
+| pl_id          | number(10)   |   100   |  否   | l,r,c,u,sl(product_line),UNQ(unq_pkg_prod,1) | 产品线               |
+| mer_product_id | number(10)   |         |  否   |          c,l,r,sl(merchant_product)          | 商品编号             |
+| brand_no       | varchar2(8)  |         |  否   | q,l,r,u,UNQ(unq_pkg_prod,3),sl(brand),c,sort | 品牌                 |
+| province_no    | varchar2(8)  |    *    |  否   | l,r,UNQ(unq_pkg_prod,4),sl(province),c,sort  | 省份                 |
+| city_no        | varchar2(8)  |    *    |  否   |   l,r,UNQ(unq_pkg_prod,5),sl(city),c,sort    | 城市                 |
+| face           | number(10)   |         |  否   |         r,l,u,c,UNQ(unq_pkg_prod,6),         | 商品面值             |
+| num            | number(2)    |    1    |  否   |                  q,l,r,c,u                   | 数量                 |
+| discount       | number(10,5) |    1    |  否   |            l(f:5),u,r(f:5),c,sort            | 销售折扣（以面值算） |
+| status         | number(1)    |    0    |  否   |              l,q,r,sl,cc,u,c,r               | 状态                 |
+| create_time    | date         | sysdate |  否   |           r(f:yyyy-MM-dd HH:mm:ss)           | 创建时间             |
 
 ## 二、供货商信息
 
@@ -131,7 +129,7 @@ After: After(字段名) //在某个字段后面
 | spp_no         | varchar2(32) |         |  否   | l,r,q,sl(ots_supplier_info),c,unq(spp_product,1) | 供货商     |
 | spp_product_no | varchar2(32) |         |  是   |                      r,c,u                       | 供货商商品 |
 | pl_id          | number(10)   |         |  否   | l,r,q,sl(ots_product_line),c,unq(spp_product,2)  | 产品线     |
-| brand_no       | varchar2(8)  |         |  否   |       l,q,u,r,sl(brand),c,unq(spp_product,3)       | 品牌       |
+| brand_no       | varchar2(8)  |         |  否   |      l,q,u,r,sl(brand),c,unq(spp_product,3)      | 品牌       |
 | province_no    | varchar2(8)  |    *    |  否   |     l,r,q,sl(province),c,unq(spp_product,4)      | 省份       |
 | city_no        | varchar2(8)  |    *    |  否   |        l,r,sl(city),c,unq(spp_product,5)         | 城市       |
 | face           | number(10)   |         |  否   |             l,r,c,unq(spp_product,6)             | 面值       |

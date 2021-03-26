@@ -55,6 +55,12 @@
 				</el-input>
       </el-form-item>
       
+      <el-form-item label="销售折扣:" prop="discount">
+				<el-input size="medium" maxlength="10" oninput="if(isNaN(value)) { value = null } if(value.indexOf('.')>0){value=value.slice(0,value.indexOf('.')+6)}"
+				 clearable v-model="addData.discount" placeholder="请输入销售折扣">
+				</el-input>
+      </el-form-item>
+      
       
 			<el-form-item label="状态:" prop="status">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
@@ -92,6 +98,7 @@ export default {
 				city_no: [{ required: true, message: "请输入城市", trigger: "blur" }],
 				face: [{ required: true, message: "请输入商品面值", trigger: "blur" }],
 				num: [{ required: true, message: "请输入数量", trigger: "blur" }],
+				discount: [{ required: true, message: "请输入销售折扣", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}

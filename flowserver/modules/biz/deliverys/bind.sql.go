@@ -37,6 +37,7 @@ t.mer_order_no,
 t.mer_product_id,
 t.mer_shelf_id,
 t.pl_id,
+t.num,
 t.brand_no,
 t.province_no,
 t.city_no,
@@ -44,6 +45,7 @@ t.account_name,
 t.invoice_type,
 t.can_split_order,
 t.sell_discount,
+t.sell_discount discount,
 t.order_timeout,
 t.payment_timeout,
 t.delivery_pause,
@@ -52,6 +54,7 @@ t.payment_status,
 t.delivery_status,
 p.face,
 '0' pg_id,
+'1' pnum,
 l.pl_type
 	from ots_trade_order t
 	inner join ots_merchant_product p on p.mer_product_id = t.mer_product_id
@@ -79,12 +82,15 @@ t.account_name,
 t.invoice_type,
 t.can_split_order,
 t.sell_discount,
+p.discount,
 t.order_timeout,
 t.payment_timeout,
 t.delivery_pause,
 t.order_status,
 t.payment_status,
 t.delivery_status,
+t.num,
+p.num pnum,
 p.face,
 l.pl_type
 	from ots_trade_order t
@@ -128,11 +134,13 @@ and (t.province_no = @province_no or t.province_no = '*')
 and (t.city_no = @city_no or t.city_no = '*')
 and t.face = @face
 and t.cost_discount <= @sell_discount
+and t.cost_discount <= @discount
 and f.invoice_type = @invoice_type
 and t.status = 0
 and s.status = 0
 and f.status = 0
 and t.spp_no not in(select d.spp_no from ots_trade_delivery d where d.order_id = @order_id and d.delivery_status = 90
+and (select IFNULL(sum(d.num),0) from ots_trade_delivery d where d.order_id = @order_id and d.pg_id = @pg_id and d.delivery_status!=90) < @num * @pnum
 and d.end_time > date_add(now(),interval -1 minute))
 order by t.cost_discount asc,t.province_no asc,t.city_no asc
 `,
@@ -151,6 +159,8 @@ var binds = []string{
 	and t.delivery_pause = 1
 	and t.delivery_status in(20, 30)
 	and t.bind_face + @face <= t.total_face
+	and (select IFNULL(sum(d.num),0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = @pg_id and d.delivery_status!=90) < t.num * @pnum
+	
 	`,
 
 	//添加发货记录
@@ -209,7 +219,7 @@ and t.order_status = 20
 and t.delivery_pause = 1
 and t.delivery_status in(20,30)
 and (t.total_face - t.bind_face) >= 0
-and (@pl_type = 0 or (select count(0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = @pg_id and d.delivery_status != 90) < t.num)
+and (select IFNULL(sum(d.num),0) from ots_trade_delivery d where d.order_id = t.order_id and d.pg_id = @pg_id and d.delivery_status!=90) < t.num * @pnum
 
 `,
 }

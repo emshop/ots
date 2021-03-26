@@ -13,6 +13,7 @@ const ots_merchant_package=`
 		city_no varchar(8) default '*' not null  comment '城市' ,
 		face int  not null  comment '商品面值' ,
 		num tinyint default 1 not null  comment '数量' ,
+		discount decimal(10,5) default 1 not null  comment '销售折扣（以面值算）' ,
 		status tinyint default 0 not null  comment '状态' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' 
 		,primary key (pg_id)
