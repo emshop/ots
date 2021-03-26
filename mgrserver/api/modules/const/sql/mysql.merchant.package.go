@@ -29,7 +29,6 @@ values
 	if(isnull(@discount)||@discount='',0,@discount),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetMerchantPackageByPgID 查询组合商品单条数据
 const GetMerchantPackageByPgID = `
 select
@@ -107,7 +106,6 @@ from ots_merchant_package t
 where
 &mer_product_id
 limit @ps offset @offset`
-
 //UpdateMerchantPackageByPgID 更新组合商品
 const UpdateMerchantPackageByPgID = `
 update ots_merchant_package 

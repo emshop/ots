@@ -25,7 +25,6 @@ values
 	if(isnull(@max_count)||@max_count='',0,@max_count),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetProductFlowByFlowID 查询业务流程单条数据
 const GetProductFlowByFlowID = `
 select
@@ -71,7 +70,6 @@ where
 order by t.flow_id desc
 limit @ps offset @offset
 `
-
 //UpdateProductFlowByFlowID 更新业务流程
 const UpdateProductFlowByFlowID = `
 update ots_product_flow 

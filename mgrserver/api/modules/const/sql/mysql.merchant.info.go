@@ -21,7 +21,6 @@ values
 	if(isnull(@bd_uid)||@bd_uid='',0,@bd_uid),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetMerchantInfoByMerNo 查询商户信息单条数据
 const GetMerchantInfoByMerNo = `
 select
@@ -59,7 +58,6 @@ where
 order by #order_by
 limit @ps offset @offset
 `
-
 //UpdateMerchantInfoByMerNo 更新商户信息
 const UpdateMerchantInfoByMerNo = `
 update ots_merchant_info 

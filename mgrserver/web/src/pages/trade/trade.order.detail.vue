@@ -512,6 +512,11 @@
                   <span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
                 </template>
               </el-table-column>
+              <el-table-column   prop="pg_id" label="包编号" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.pg_id | fltrEnum("merchant_package")}}</span>
+                </template>
+              </el-table-column>
               <el-table-column   prop="pl_id" label="产品线" align="center">
                 <template slot-scope="scope">
                   <span >{{scope.row.pl_id | fltrEnum("product_line")}}</span>

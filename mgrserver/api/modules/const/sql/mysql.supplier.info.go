@@ -19,7 +19,6 @@ values
 	if(isnull(@bd_uid)||@bd_uid='',0,@bd_uid),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetSupplierInfoBySppNo 查询供货商信息单条数据
 const GetSupplierInfoBySppNo = `
 select
@@ -55,7 +54,6 @@ where
 order by t.spp_no desc
 limit @ps offset @offset
 `
-
 //UpdateSupplierInfoBySppNo 更新供货商信息
 const UpdateSupplierInfoBySppNo = `
 update ots_supplier_info 

@@ -29,7 +29,6 @@ values
 	if(isnull(@cost_discount)||@cost_discount='',0,@cost_discount),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetSupplierProductBySppProductID 查询供货商商品单条数据
 const GetSupplierProductBySppProductID = `
 select
@@ -83,7 +82,6 @@ where
 order by t.spp_product_id desc
 limit @ps offset @offset
 `
-
 //UpdateSupplierProductBySppProductID 更新供货商商品
 const UpdateSupplierProductBySppProductID = `
 update ots_supplier_product 

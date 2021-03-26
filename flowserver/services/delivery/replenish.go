@@ -26,6 +26,10 @@ func Replenish(ctx hydra.IContext) interface{} {
 			flows.NextByDeliveryID(deliveryID, enums.FlowQueryStart, ctx)
 		case int(enums.ProcessRequested):
 			flows.NextByDeliveryID(deliveryID, enums.FlowQueryStart, ctx)
+		case int(enums.ProcessSuccess):
+			if delivery.GetInt(fields.FieldPaymentStatus) == int(enums.ProcessWaiting) {
+				flows.NextByDeliveryID(deliveryID, enums.FlowDeliveryPay, ctx)
+			}
 		}
 	}
 

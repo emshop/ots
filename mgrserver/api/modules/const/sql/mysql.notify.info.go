@@ -1,5 +1,4 @@
-package sql
-//GetNotifyInfoByOrderID 查询订单通知表单条数据
+package sql//GetNotifyInfoByOrderID 查询订单通知表单条数据
 const GetNotifyInfoByOrderID = `
 select
 	t.order_id,
@@ -66,4 +65,3 @@ where
 order by t.order_id desc
 limit @ps offset @offset
 `
-

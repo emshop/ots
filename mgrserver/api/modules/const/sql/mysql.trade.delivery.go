@@ -1,5 +1,4 @@
-package sql
-//GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
+package sql//GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
 const GetTradeDeliveryByDeliveryID = `
 select
 	t.delivery_id,
@@ -7,6 +6,7 @@ select
 	t.spp_no,
 	t.spp_product_id,
 	t.mer_product_id,
+	t.pg_id,
 	t.pl_id,
 	t.brand_no,
 	t.province_no,
@@ -61,6 +61,7 @@ select
 	t.delivery_id,
 	t.order_id,
 	t.spp_no,
+	t.pg_id,
 	t.pl_id,
 	t.brand_no,
 	t.province_no,
@@ -94,6 +95,7 @@ select
 	t.delivery_id,
 	t.order_id,
 	t.spp_no,
+	t.pg_id,
 	t.pl_id,
 	t.brand_no,
 	t.province_no,
@@ -107,4 +109,3 @@ from ots_trade_delivery t
 where
 &order_id
 limit @ps offset @offset`
-

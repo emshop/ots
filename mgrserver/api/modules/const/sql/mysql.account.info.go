@@ -21,7 +21,6 @@ values
 	if(isnull(@credit)||@credit='',0,@credit),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetAccountInfoByAccountID 查询账户信息单条数据
 const GetAccountInfoByAccountID = `
 select
@@ -60,7 +59,6 @@ where
 order by t.account_id desc
 limit @ps offset @offset
 `
-
 //UpdateAccountInfoByAccountID 更新账户信息
 const UpdateAccountInfoByAccountID = `
 update beanpay_account_info 

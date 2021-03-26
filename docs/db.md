@@ -216,7 +216,7 @@ After: After(字段名) //在某个字段后面
 | spp_product_id       | number(10)     |         |  否   |                                      r                                      | 供货商商品编号                            |
 | mer_no               | varchar2(32)   |         |  否   |                            sl(ots_merchant_info)                            | 商户编号                                  |
 | mer_product_id       | number(10)     |         |  否   |                                      r                                      | 商户商品编号                              |
-| pg_id                | number(10)     |   100   |  否   |                                     l,r                                     | 包编号                                    |
+| pg_id                | number(10)     |   100   |  否   |                        l,r,sl(ots_merchant_package)                         | 包编号                                    |
 | pl_id                | number(10)     |         |  否   |              q,r,l,sl(ots_product_line),r,idx(delivery_time,2)              | 产品线                                    |
 | brand_no             | varchar2(8)    |         |  否   |                     r,l,sl(brand),idx(delivery_time,3)                      | 品牌                                      |
 | province_no          | varchar2(8)    |         |  否   |                    r,l,sl(province),idx(delivery_time,4)                    | 省份                                      |
@@ -361,7 +361,7 @@ After: After(字段名) //在某个字段后面
 | status       | number(1)    |    0    |  否   |  l,r,cc,sl(status),u,c   | 状态 0：正常 1:锁定 |
 | create_time  | date         | sysdate |  否   | r(f:yyyy-MM-dd HH:mm:ss) | 创建时间            |
 
-### 2. 资金变动[^beanpay_account_record]
+### 2. 资金变动[beanpay_account_record]
 
 | 字段名      | 类型           | 默认值  | 为空  |                       约束                        | 描述                                                           |
 | ----------- | -------------- | :-----: | :---: | :-----------------------------------------------: | :------------------------------------------------------------- |

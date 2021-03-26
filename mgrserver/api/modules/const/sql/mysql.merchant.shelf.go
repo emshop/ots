@@ -33,7 +33,6 @@ values
 	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetMerchantShelfByMerShelfID 查询商户货架单条数据
 const GetMerchantShelfByMerShelfID = `
 select
@@ -83,7 +82,6 @@ where
 order by t.mer_shelf_id desc
 limit @ps offset @offset
 `
-
 //UpdateMerchantShelfByMerShelfID 更新商户货架
 const UpdateMerchantShelfByMerShelfID = `
 update ots_merchant_shelf 

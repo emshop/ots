@@ -25,7 +25,6 @@ values
 	@error_desc,
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetSupplierEcodeByID 查询供货商错误码单条数据
 const GetSupplierEcodeByID = `
 select
@@ -72,7 +71,6 @@ where
 order by t.id desc
 limit @ps offset @offset
 `
-
 //UpdateSupplierEcodeByID 更新供货商错误码
 const UpdateSupplierEcodeByID = `
 update ots_supplier_ecode 

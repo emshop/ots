@@ -1,5 +1,4 @@
-package sql
-//GetAccountRecordByRecordID 查询资金变动单条数据
+package sql//GetAccountRecordByRecordID 查询资金变动单条数据
 const GetAccountRecordByRecordID = `
 select
 	t.record_id,
@@ -69,4 +68,3 @@ from beanpay_account_record t
 where
 &trade_no
 limit @ps offset @offset`
-

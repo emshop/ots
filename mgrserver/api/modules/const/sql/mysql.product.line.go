@@ -15,7 +15,6 @@ values
 	if(isnull(@pl_type)||@pl_type='',0,@pl_type),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetProductLineByPlID 查询产品线单条数据
 const GetProductLineByPlID = `
 select
@@ -52,7 +51,6 @@ where
 order by #order_by
 limit @ps offset @offset
 `
-
 //UpdateProductLineByPlID 更新产品线
 const UpdateProductLineByPlID = `
 update ots_product_line 

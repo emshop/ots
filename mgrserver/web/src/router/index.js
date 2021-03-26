@@ -18,121 +18,6 @@ export default new Router({
       component: () => import('../pages/system/menus.vue'),
       children:[
 				{
-					path: 'audit/info',
-					name: 'AuditInfo',
-					component: () => import('../pages/audit/audit.info.list.vue')
-				},
-				{
-					path: 'audit/info/detail',
-					name: 'AuditInfoDetail',
-					component: () => import('../pages/audit/audit.info.detail.vue')
-				},
-				{
-					path: 'merchant/info',
-					name: 'MerchantInfo',
-					component: () => import('../pages/merchant/merchant.info.list.vue')
-				},
-				{
-					path: 'merchant/info/detail',
-					name: 'MerchantInfoDetail',
-					component: () => import('../pages/merchant/merchant.info.detail.vue')
-				},
-				{
-					path: 'merchant/product',
-					name: 'MerchantProduct',
-					component: () => import('../pages/merchant/merchant.product.list.vue')
-				},
-				{
-					path: 'merchant/product/detail',
-					name: 'MerchantProductDetail',
-					component: () => import('../pages/merchant/merchant.product.detail.vue')
-				},
-				{
-					path: 'merchant/shelf',
-					name: 'MerchantShelf',
-					component: () => import('../pages/merchant/merchant.shelf.list.vue')
-				},
-				{
-					path: 'merchant/shelf/detail',
-					name: 'MerchantShelfDetail',
-					component: () => import('../pages/merchant/merchant.shelf.detail.vue')
-				},
-				{
-					path: 'product/line',
-					name: 'ProductLine',
-					component: () => import('../pages/product/product.line.list.vue')
-				},
-				{
-					path: 'product/line/detail',
-					name: 'ProductLineDetail',
-					component: () => import('../pages/product/product.line.detail.vue')
-				},
-				{
-					path: 'supplier/shelf',
-					name: 'SupplierShelf',
-					component: () => import('../pages/supplier/supplier.shelf.list.vue')
-				},
-				{
-					path: 'supplier/shelf/detail',
-					name: 'SupplierShelfDetail',
-					component: () => import('../pages/supplier/supplier.shelf.detail.vue')
-				},
-				{
-					path: 'dictionary/info',
-					name: 'DictionaryInfo',
-					component: () => import('../pages/dictionary/dictionary.info.list.vue')
-				},
-				{
-					path: 'dictionary/info/detail',
-					name: 'DictionaryInfoDetail',
-					component: () => import('../pages/dictionary/dictionary.info.detail.vue')
-				},
-				{
-					path: 'life/time',
-					name: 'LifeTime',
-					component: () => import('../pages/life/life.time.list.vue')
-				},
-				{
-					path: 'refund/apply',
-					name: 'RefundApply',
-					component: () => import('../pages/refund/refund.apply.list.vue')
-				},
-				{
-					path: 'refund/apply/detail',
-					name: 'RefundApplyDetail',
-					component: () => import('../pages/refund/refund.apply.detail.vue')
-				},
-				{
-					path: 'supplier/product',
-					name: 'SupplierProduct',
-					component: () => import('../pages/supplier/supplier.product.list.vue')
-				},
-				{
-					path: 'supplier/product/detail',
-					name: 'SupplierProductDetail',
-					component: () => import('../pages/supplier/supplier.product.detail.vue')
-				},
-				{
-					path: 'trade/delivery',
-					name: 'TradeDelivery',
-					component: () => import('../pages/trade/trade.delivery.list.vue')
-				},
-				{
-					path: 'trade/delivery/detail',
-					name: 'TradeDeliveryDetail',
-					component: () => import('../pages/trade/trade.delivery.detail.vue')
-				},
-				{
-					path: 'account/info',
-					name: 'AccountInfo',
-					component: () => import('../pages/account/account.info.list.vue')
-				},
-				{
-					path: 'account/info/detail',
-					name: 'AccountInfoDetail',
-					component: () => import('../pages/account/account.info.detail.vue')
-				},
-				{
 					path: 'notify/info',
 					name: 'NotifyInfo',
 					component: () => import('../pages/notify/notify.info.list.vue')
@@ -141,16 +26,6 @@ export default new Router({
 					path: 'notify/info/detail',
 					name: 'NotifyInfoDetail',
 					component: () => import('../pages/notify/notify.info.detail.vue')
-				},
-				{
-					path: 'product/package',
-					name: 'ProductPackage',
-					component: () => import('../pages/product/product.package.list.vue')
-				},
-				{
-					path: 'product/package/detail',
-					name: 'ProductPackageDetail',
-					component: () => import('../pages/product/product.package.detail.vue')
 				},
 				{
 					path: 'supplier/ecode',
@@ -173,24 +48,14 @@ export default new Router({
 					component: () => import('../pages/supplier/supplier.info.detail.vue')
 				},
 				{
-					path: 'trade/order',
-					name: 'TradeOrder',
-					component: () => import('../pages/trade/trade.order.list.vue')
+					path: 'supplier/shelf',
+					name: 'SupplierShelf',
+					component: () => import('../pages/supplier/supplier.shelf.list.vue')
 				},
 				{
-					path: 'trade/order/detail',
-					name: 'TradeOrderDetail',
-					component: () => import('../pages/trade/trade.order.detail.vue')
-				},
-				{
-					path: 'system/task',
-					name: 'SystemTask',
-					component: () => import('../pages/system/system.task.list.vue')
-				},
-				{
-					path: 'system/task/detail',
-					name: 'SystemTaskDetail',
-					component: () => import('../pages/system/system.task.detail.vue')
+					path: 'supplier/shelf/detail',
+					name: 'SupplierShelfDetail',
+					component: () => import('../pages/supplier/supplier.shelf.detail.vue')
 				},
 				{
 					path: 'account/record',
@@ -203,6 +68,21 @@ export default new Router({
 					component: () => import('../pages/account/account.record.detail.vue')
 				},
 				{
+					path: 'life/time',
+					name: 'LifeTime',
+					component: () => import('../pages/life/life.time.list.vue')
+				},
+				{
+					path: 'merchant/info',
+					name: 'MerchantInfo',
+					component: () => import('../pages/merchant/merchant.info.list.vue')
+				},
+				{
+					path: 'merchant/info/detail',
+					name: 'MerchantInfoDetail',
+					component: () => import('../pages/merchant/merchant.info.detail.vue')
+				},
+				{
 					path: 'merchant/package',
 					name: 'MerchantPackage',
 					component: () => import('../pages/merchant/merchant.package.list.vue')
@@ -213,6 +93,106 @@ export default new Router({
 					component: () => import('../pages/merchant/merchant.package.detail.vue')
 				},
 				{
+					path: 'system/task',
+					name: 'SystemTask',
+					component: () => import('../pages/system/system.task.list.vue')
+				},
+				{
+					path: 'system/task/detail',
+					name: 'SystemTaskDetail',
+					component: () => import('../pages/system/system.task.detail.vue')
+				},
+				{
+					path: 'dictionary/info',
+					name: 'DictionaryInfo',
+					component: () => import('../pages/dictionary/dictionary.info.list.vue')
+				},
+				{
+					path: 'dictionary/info/detail',
+					name: 'DictionaryInfoDetail',
+					component: () => import('../pages/dictionary/dictionary.info.detail.vue')
+				},
+				{
+					path: 'merchant/shelf',
+					name: 'MerchantShelf',
+					component: () => import('../pages/merchant/merchant.shelf.list.vue')
+				},
+				{
+					path: 'merchant/shelf/detail',
+					name: 'MerchantShelfDetail',
+					component: () => import('../pages/merchant/merchant.shelf.detail.vue')
+				},
+				{
+					path: 'product/line',
+					name: 'ProductLine',
+					component: () => import('../pages/product/product.line.list.vue')
+				},
+				{
+					path: 'product/line/detail',
+					name: 'ProductLineDetail',
+					component: () => import('../pages/product/product.line.detail.vue')
+				},
+				{
+					path: 'trade/delivery',
+					name: 'TradeDelivery',
+					component: () => import('../pages/trade/trade.delivery.list.vue')
+				},
+				{
+					path: 'trade/delivery/detail',
+					name: 'TradeDeliveryDetail',
+					component: () => import('../pages/trade/trade.delivery.detail.vue')
+				},
+				{
+					path: 'refund/apply',
+					name: 'RefundApply',
+					component: () => import('../pages/refund/refund.apply.list.vue')
+				},
+				{
+					path: 'refund/apply/detail',
+					name: 'RefundApplyDetail',
+					component: () => import('../pages/refund/refund.apply.detail.vue')
+				},
+				{
+					path: 'supplier/product',
+					name: 'SupplierProduct',
+					component: () => import('../pages/supplier/supplier.product.list.vue')
+				},
+				{
+					path: 'supplier/product/detail',
+					name: 'SupplierProductDetail',
+					component: () => import('../pages/supplier/supplier.product.detail.vue')
+				},
+				{
+					path: 'trade/order',
+					name: 'TradeOrder',
+					component: () => import('../pages/trade/trade.order.list.vue')
+				},
+				{
+					path: 'trade/order/detail',
+					name: 'TradeOrderDetail',
+					component: () => import('../pages/trade/trade.order.detail.vue')
+				},
+				{
+					path: 'audit/info',
+					name: 'AuditInfo',
+					component: () => import('../pages/audit/audit.info.list.vue')
+				},
+				{
+					path: 'audit/info/detail',
+					name: 'AuditInfoDetail',
+					component: () => import('../pages/audit/audit.info.detail.vue')
+				},
+				{
+					path: 'merchant/product',
+					name: 'MerchantProduct',
+					component: () => import('../pages/merchant/merchant.product.list.vue')
+				},
+				{
+					path: 'merchant/product/detail',
+					name: 'MerchantProductDetail',
+					component: () => import('../pages/merchant/merchant.product.detail.vue')
+				},
+				{
 					path: 'product/flow',
 					name: 'ProductFlow',
 					component: () => import('../pages/product/product.flow.list.vue')
@@ -221,6 +201,26 @@ export default new Router({
 					path: 'product/flow/detail',
 					name: 'ProductFlowDetail',
 					component: () => import('../pages/product/product.flow.detail.vue')
+				},
+				{
+					path: 'product/package',
+					name: 'ProductPackage',
+					component: () => import('../pages/product/product.package.list.vue')
+				},
+				{
+					path: 'product/package/detail',
+					name: 'ProductPackageDetail',
+					component: () => import('../pages/product/product.package.detail.vue')
+				},
+				{
+					path: 'account/info',
+					name: 'AccountInfo',
+					component: () => import('../pages/account/account.info.list.vue')
+				},
+				{
+					path: 'account/info/detail',
+					name: 'AccountInfoDetail',
+					component: () => import('../pages/account/account.info.detail.vue')
 				},
       ]
     }

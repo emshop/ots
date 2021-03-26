@@ -1,5 +1,4 @@
-package sql
-//GetTradeOrderByOrderID 查询订单记录单条数据
+package sql//GetTradeOrderByOrderID 查询订单记录单条数据
 const GetTradeOrderByOrderID = `
 select
 	t.order_id,
@@ -90,4 +89,3 @@ where
 order by t.order_id desc
 limit @ps offset @offset
 `
-

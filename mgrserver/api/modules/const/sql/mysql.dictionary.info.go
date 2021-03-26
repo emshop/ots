@@ -19,7 +19,6 @@ values
 	if(isnull(@sort_no)||@sort_no='',0,@sort_no),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetDictionaryInfoByID 查询字典配置单条数据
 const GetDictionaryInfoByID = `
 select
@@ -59,7 +58,6 @@ where
 order by t.id desc
 limit @ps offset @offset
 `
-
 //UpdateDictionaryInfoByID 更新字典配置
 const UpdateDictionaryInfoByID = `
 update dds_dictionary_info 

@@ -35,7 +35,6 @@ values
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetSupplierShelfBySppShelfID 查询供货商货架单条数据
 const GetSupplierShelfBySppShelfID = `
 select
@@ -86,7 +85,6 @@ where
 order by t.spp_shelf_id desc
 limit @ps offset @offset
 `
-
 //UpdateSupplierShelfBySppShelfID 更新供货商货架
 const UpdateSupplierShelfBySppShelfID = `
 update ots_supplier_shelf 

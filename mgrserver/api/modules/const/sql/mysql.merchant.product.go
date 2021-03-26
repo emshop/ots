@@ -31,7 +31,6 @@ values
 	if(isnull(@discount)||@discount='',0,@discount),
 	if(isnull(@status)||@status='',0,@status)
 )`
-
 //GetMerchantProductByMerProductID 查询商户商品单条数据
 const GetMerchantProductByMerProductID = `
 select
@@ -87,7 +86,6 @@ where
 order by #order_by
 limit @ps offset @offset
 `
-
 //UpdateMerchantProductByMerProductID 更新商户商品
 const UpdateMerchantProductByMerProductID = `
 update ots_merchant_product 

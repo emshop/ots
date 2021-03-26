@@ -1,6 +1,5 @@
 package sql
 
-
 //GetLifeTimeListCount 获取生命周期列表条数
 const GetLifeTimeListCount = `
 select count(1)
@@ -41,4 +40,3 @@ from lcs_life_time t
 where
 &order_no
 limit @ps offset @offset`
-

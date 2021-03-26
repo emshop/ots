@@ -1,5 +1,4 @@
-package sql
-//GetSystemTaskByTaskID 查询任务表单条数据
+package sql//GetSystemTaskByTaskID 查询任务表单条数据
 const GetSystemTaskByTaskID = `
 select
 	t.task_id,
@@ -78,4 +77,3 @@ from tsk_system_task t
 where
 &order_no
 limit @ps offset @offset`
-

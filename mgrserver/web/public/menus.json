@@ -1,15 +1,23 @@
 [
   {
-    "name": "订单通知表",
-    "path": "/notify/info"
+    "name": "产品线",
+    "path": "/product/line"
   },
   {
     "name": "产品包",
     "path": "/product/package"
   },
   {
-    "name": "资金变动",
-    "path": "/account/record"
+    "name": "字典配置",
+    "path": "/dictionary/info"
+  },
+  {
+    "name": "发货人工审核表",
+    "path": "/audit/info"
+  },
+  {
+    "name": "商户信息",
+    "path": "/merchant/info"
   },
   {
     "name": "组合商品",
@@ -20,32 +28,8 @@
     "path": "/merchant/shelf"
   },
   {
-    "name": "产品线",
-    "path": "/product/line"
-  },
-  {
-    "name": "供货商商品",
-    "path": "/supplier/product"
-  },
-  {
-    "name": "订单记录",
-    "path": "/trade/order"
-  },
-  {
-    "name": "字典配置",
-    "path": "/dictionary/info"
-  },
-  {
-    "name": "生命周期",
-    "path": "/life/time"
-  },
-  {
-    "name": "发货人工审核表",
-    "path": "/audit/info"
-  },
-  {
-    "name": "退款申请",
-    "path": "/refund/apply"
+    "name": "订单通知表",
+    "path": "/notify/info"
   },
   {
     "name": "供货商错误码",
@@ -60,24 +44,40 @@
     "path": "/supplier/shelf"
   },
   {
-    "name": "任务表",
-    "path": "/system/task"
+    "name": "订单记录",
+    "path": "/trade/order"
   },
   {
     "name": "账户信息",
     "path": "/account/info"
   },
   {
-    "name": "商户信息",
-    "path": "/merchant/info"
+    "name": "业务流程",
+    "path": "/product/flow"
+  },
+  {
+    "name": "任务表",
+    "path": "/system/task"
+  },
+  {
+    "name": "资金变动",
+    "path": "/account/record"
+  },
+  {
+    "name": "生命周期",
+    "path": "/life/time"
   },
   {
     "name": "商户商品",
     "path": "/merchant/product"
   },
   {
-    "name": "业务流程",
-    "path": "/product/flow"
+    "name": "退款申请",
+    "path": "/refund/apply"
+  },
+  {
+    "name": "供货商商品",
+    "path": "/supplier/product"
   },
   {
     "name": "订单发货表",
