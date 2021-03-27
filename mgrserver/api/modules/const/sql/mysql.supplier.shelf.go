@@ -16,6 +16,7 @@ insert into ots_supplier_shelf
 	limit_count,
 	invoice_type,
 	can_refund,
+	is_mf,
 	status
 )
 values
@@ -33,6 +34,7 @@ values
 	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
+	if(isnull(@is_mf)||@is_mf='',0,@is_mf),
 	if(isnull(@status)||@status='',0,@status)
 )`
 //GetSupplierShelfBySppShelfID 查询供货商货架单条数据
@@ -50,6 +52,7 @@ select
 	t.limit_count,
 	t.invoice_type,
 	t.can_refund,
+	t.is_mf,
 	t.create_time,
 	t.status
 from ots_supplier_shelf t
@@ -76,6 +79,7 @@ select
 	t.payment_fee_discount,
 	t.invoice_type,
 	t.can_refund,
+	t.is_mf,
 	t.status 
 from ots_supplier_shelf t
 where
@@ -99,6 +103,7 @@ set
 	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	invoice_type =	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
+	is_mf =	if(isnull(@is_mf)||@is_mf='',0,@is_mf),
 	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&spp_shelf_id`

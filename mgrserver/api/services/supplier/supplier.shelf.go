@@ -140,6 +140,7 @@ var postSupplierShelfCheckFields = map[string]interface{}{
 	
 	
 	
+	
 	}
 
 var getSupplierShelfCheckFields = map[string]interface{}{
@@ -157,6 +158,7 @@ var querySupplierShelfCheckFields = map[string]interface{}{
 var updateSupplierShelfCheckFields = map[string]interface{}{
 	field.FieldSppShelfName:"required",
 	field.FieldReqURL:"required",
+	
 	
 	
 	

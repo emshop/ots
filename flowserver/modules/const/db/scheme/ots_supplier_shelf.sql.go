@@ -16,6 +16,7 @@ const ots_supplier_shelf=`
 		limit_count int default 1   comment '单次最大发货数量' ,
 		invoice_type tinyint default 1   comment '支持开票' ,
 		can_refund tinyint default 1   comment '支持退货 (0.是,1.否)' ,
+		is_mf tinyint default 1   comment '人工发货 (0.是,1.否)' ,
 		create_time datetime default current_timestamp   comment '创建时间' ,
 		status tinyint default 0   comment '状态' 
 		,primary key (spp_shelf_id)

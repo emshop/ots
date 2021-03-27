@@ -1,11 +1,25 @@
 <template>
-	<el-dialog title="编辑产品线" width="25%" @closed="closed" :visible.sync="dialogFormVisible">
+	<el-dialog title="编辑产品线" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
       <el-form-item label="产品线名称:" prop="pl_name">
 				<el-input size="medium" maxlength="64"
 				clearable v-model="editData.pl_name" placeholder="请输入产品线名称">
 				</el-input>
       </el-form-item>
+      
+      
+			<el-form-item label="包含反馈:" prop="has_feedback">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.has_feedback" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in hasFeedback" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
+      
+			<el-form-item label="包含物流:" prop="has_logistics">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.has_logistics" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in hasLogistics" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
       
       
 			<el-form-item label="状态:" prop="status">
@@ -28,10 +42,18 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      hasFeedback: this.$enum.get("bool"),
+      hasLogistics: this.$enum.get("bool"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				pl_name: [
 					{ required: true, message: "请输入产品线名称", trigger: "blur" }
+				],
+				has_feedback: [
+					{ required: true, message: "请输入包含反馈", trigger: "blur" }
+				],
+				has_logistics: [
+					{ required: true, message: "请输入包含物流", trigger: "blur" }
 				],
 				status: [
 					{ required: true, message: "请输入状态", trigger: "blur" }

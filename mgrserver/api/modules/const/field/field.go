@@ -10,6 +10,9 @@ const FieldAccountName = "account_name"
 //FieldAddToBlacklist 字段是否加入黑名单的数据库名称
 const FieldAddToBlacklist = "add_to_blacklist"
 
+//FieldAddr 字段收货地址的数据库名称
+const FieldAddr = "addr"
+
 //FieldAmount 字段变动金额 单位：元的数据库名称
 const FieldAmount = "amount"
 
@@ -18,6 +21,9 @@ const FieldApplyID = "apply_id"
 
 //FieldApplyStatus 字段申请状态的数据库名称
 const FieldApplyStatus = "apply_status"
+
+//FieldAssignUpstream 字段指定上游(0.是,1否)的数据库名称
+const FieldAssignUpstream = "assign_upstream"
 
 //FieldAuditBy 字段审核人的数据库名称
 const FieldAuditBy = "audit_by"
@@ -154,6 +160,12 @@ const FieldFlowTag = "flow_tag"
 //FieldGroupx 字段账户类型的数据库名称
 const FieldGroupx = "groupx"
 
+//FieldHasFeedback 字段包含反馈的数据库名称
+const FieldHasFeedback = "has_feedback"
+
+//FieldHasLogistics 字段包含物流的数据库名称
+const FieldHasLogistics = "has_logistics"
+
 //FieldID 字段序号的数据库名称
 const FieldID = "id"
 
@@ -165,6 +177,9 @@ const FieldInvoiceType = "invoice_type"
 
 //FieldIp 字段用户ip的数据库名称
 const FieldIp = "ip"
+
+//FieldIsMf 字段人工发货 (0.是,1.否)的数据库名称
+const FieldIsMf = "is_mf"
 
 //FieldIsRefund 字段用户退款（0.是，1否）的数据库名称
 const FieldIsRefund = "is_refund"
@@ -222,6 +237,9 @@ const FieldMerType = "mer_type"
 
 //FieldMsgContent 字段消息内容的数据库名称
 const FieldMsgContent = "msg_content"
+
+//FieldMuID 字段编号的数据库名称
+const FieldMuID = "mu_id"
 
 //FieldName 字段名称的数据库名称
 const FieldName = "name"
@@ -450,6 +468,9 @@ const FieldSuccessSppTradeFee = "success_spp_trade_fee"
 
 //FieldTaskID 字段编号的数据库名称
 const FieldTaskID = "task_id"
+
+//FieldTel 字段联系电话的数据库名称
+const FieldTel = "tel"
 
 //FieldTimeout 字段超时时长的数据库名称
 const FieldTimeout = "timeout"

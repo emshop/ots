@@ -122,11 +122,21 @@
                 <tr>
                   <td>                 
                     <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">人工发货:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.is_mf|fltrTextColor">{{ info.is_mf | fltrEnum("bool") }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">创建时间:</div>
                     </el-col>
                     <el-col :span="6">
                       <div>{{ info.create_time | fltrDate("yyyy-MM-dd HH:mm:ss") }}</div>
-                    </el-col>                 
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
                     <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">状态:</div>
                     </el-col>

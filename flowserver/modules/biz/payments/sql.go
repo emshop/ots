@@ -7,14 +7,12 @@ var dealTimeoutOrder = []string{
 update ots_trade_order t set
 t.payment_status = 90,
 t.delivery_status = 90,
-t.order_status = 50,
-t.notify_status = 20
+t.order_status = 50
 where
 t.order_id = @order_id
 and t.order_status = 10
 and t.payment_status = 20
 and t.delivery_status = 10
-and t.notify_status = 10
 and (t.payment_timeout < now() or t.order_timeout < now())
 `,
 }

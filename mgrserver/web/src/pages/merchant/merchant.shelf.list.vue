@@ -76,11 +76,6 @@
 						<span :class="scope.row.invoice_type|fltrTextColor">{{scope.row.invoice_type | fltrEnum("invoice_type")}}</span>
 					</template>
 				</el-table-column>
-				<el-table-column   prop="can_split_order" label="允许拆单" align="center">
-					<template slot-scope="scope">
-						<span :class="scope.row.can_split_order|fltrTextColor">{{scope.row.can_split_order | fltrEnum("bool")}}</span>
-					</template>
-				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>

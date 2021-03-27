@@ -39,6 +39,8 @@ func Create(merNo string, merOrderNo string, merProductID int, accountName strin
 	if err != nil {
 		return nil, false, err
 	}
+
+	//创建订单
 	_, err = db.ExecuteBatch(createOrder, input)
 	if errors.Is(err, errs.ErrNotExist) {
 		db.Rollback()
@@ -47,6 +49,14 @@ func Create(merNo string, merOrderNo string, merProductID int, accountName strin
 	if err != nil {
 		db.Rollback()
 		return nil, false, err
+	}
+	//添加通知记录
+	if notifyURL != "" {
+		_, err = db.ExecuteBatch(creteNotify, input)
+		if err != nil {
+			db.Rollback()
+			return nil, false, err
+		}
 	}
 	db.Commit()
 

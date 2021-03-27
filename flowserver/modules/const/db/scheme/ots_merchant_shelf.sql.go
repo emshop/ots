@@ -15,7 +15,7 @@ const ots_merchant_shelf=`
 		limit_count int default 1 not null  comment '单次最大数量' ,
 		invoice_type tinyint default 1 not null  comment '允许开票（1.不开发票）' ,
 		can_refund tinyint default 1 not null  comment '允许退款(0.是,1否)' ,
-		can_split_order tinyint default 0 not null  comment '允许拆单' ,
+		assign_upstream tinyint default 1 not null  comment '指定上游(0.是,1否)' ,
 		status tinyint default 0 not null  comment '状态' ,
 		create_time datetime default current_timestamp not null  comment '创建时间' 
 		,primary key (mer_shelf_id)

@@ -8,7 +8,6 @@ t.order_id = @order_id
 and t.order_status = 20
 and t.payment_status = 0
 and t.delivery_status in(20,30)
-and t.notify_status = 10
 and t.order_timeout < now()
 and t.bind_face = 0
 `,
@@ -16,14 +15,12 @@ and t.bind_face = 0
 	`
 update ots_trade_order t set
 t.delivery_status = 90,
-t.order_status = 50,
-t.notify_status = 20
+t.order_status = 50
 where
 t.order_id = @order_id
 and t.order_status = 20
 and t.payment_status = 0
 and t.delivery_status in(20,30)
-and t.notify_status = 10
 and t.order_timeout < now()
 and t.bind_face = 0
 `,
@@ -43,7 +40,6 @@ t.province_no,
 t.city_no,
 t.account_name,
 t.invoice_type,
-t.can_split_order,
 t.sell_discount,
 t.sell_discount discount,
 t.order_timeout,
@@ -52,12 +48,14 @@ t.delivery_pause,
 t.order_status,
 t.payment_status,
 t.delivery_status,
+s.assign_upstream,
 p.face,
 '0' pg_id,
 '1' pnum,
 l.pl_type
 	from ots_trade_order t
 	inner join ots_merchant_product p on p.mer_product_id = t.mer_product_id
+	inner join ots_merchant_shelf s on s.mer_shelf_id = p.mer_shelf_id
 	inner join ots_product_line l on l.pl_id = t.pl_id
 	where
 	t.order_id = @order_id
@@ -80,7 +78,6 @@ p.city_no,
 p.pg_id,
 t.account_name,
 t.invoice_type,
-t.can_split_order,
 t.sell_discount,
 p.discount,
 t.order_timeout,
@@ -89,12 +86,15 @@ t.delivery_pause,
 t.order_status,
 t.payment_status,
 t.delivery_status,
+s.assign_upstream,
 t.num,
 p.num pnum,
 p.face,
 l.pl_type
 	from ots_trade_order t
 	inner join ots_merchant_package p on t.mer_product_id = p.mer_product_id
+	inner join ots_merchant_product d on d.mer_product_id = t.mer_product_id
+	inner join ots_merchant_shelf s on s.mer_shelf_id = d.mer_shelf_id
 	inner join ots_product_line l on l.pl_id = p.pl_id
 	where
 	t.order_id = @order_id
@@ -123,7 +123,8 @@ f.notify_url,
 f.invoice_type,
 f.spp_fee_discount,
 f.trade_fee_discount,
-f.payment_fee_discount
+f.payment_fee_discount,
+f.is_mf
 from ots_supplier_product t
 inner join ots_supplier_info s on t.spp_no = s.spp_no
 inner join ots_supplier_shelf f on f.spp_shelf_id= t.spp_shelf_id
@@ -140,6 +141,7 @@ and t.status = 0
 and s.status = 0
 and f.status = 0
 and t.spp_no not in(select d.spp_no from ots_trade_delivery d where d.order_id = @order_id and d.delivery_status = 90
+and (@assign_upstream = 1 or t.spp_no in(select m.spp_no from ots_merchant_upstream m where m.mer_shelf_id=@mer_shelf_id and m.status = 0))
 and (select IFNULL(sum(d.num),0) from ots_trade_delivery d where d.order_id = @order_id and d.pg_id = @pg_id and d.delivery_status!=90) < @num * @pnum
 and d.end_time > date_add(now(),interval -1 minute))
 order by t.cost_discount asc,t.province_no asc,t.city_no asc
@@ -188,7 +190,8 @@ total_face,
 cost_discount,
 spp_fee_discount,
 trade_fee_discount,
-payment_fee_discount
+payment_fee_discount,
+is_mf
 )select
 @delivery_id,
 t.order_id,
@@ -212,7 +215,8 @@ t.order_id,
 @cost_discount,
 @spp_fee_discount,
 @trade_fee_discount,
-@payment_fee_discount
+@payment_fee_discount,
+@is_mf
 from ots_trade_order t 
 where t.order_id = @order_id
 and t.order_status = 20

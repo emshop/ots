@@ -12,6 +12,7 @@ func init() {
 		hydra.Installer.DB.AddSQL(
 		ots_merchant_info,
 		ots_merchant_shelf,
+		ots_merchant_upstream,
 		ots_merchant_product,
 		ots_merchant_package,
 		ots_supplier_info,

@@ -1,4 +1,17 @@
-package sql//GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
+package sql
+//InsertTradeDelivery 添加订单发货表
+const InsertTradeDelivery = `
+insert into ots_trade_delivery
+(
+	
+	is_mf
+)
+values
+(
+	
+	if(isnull(@is_mf)||@is_mf='',0,@is_mf)
+)`
+//GetTradeDeliveryByDeliveryID 查询订单发货表单条数据
 const GetTradeDeliveryByDeliveryID = `
 select
 	t.delivery_id,
@@ -24,6 +37,7 @@ select
 	t.spp_fee_discount,
 	t.trade_fee_discount,
 	t.payment_fee_discount,
+	t.is_mf,
 	t.cost_amount,
 	t.spp_fee_amount,
 	t.trade_fee_amount,
@@ -109,3 +123,11 @@ from ots_trade_delivery t
 where
 &order_id
 limit @ps offset @offset`
+//UpdateTradeDeliveryByDeliveryID 更新订单发货表
+const UpdateTradeDeliveryByDeliveryID = `
+update ots_trade_delivery 
+set
+	is_mf =	if(isnull(@is_mf)||@is_mf='',0,@is_mf)
+where
+	&delivery_id`
+

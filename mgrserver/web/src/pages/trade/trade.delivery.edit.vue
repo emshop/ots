@@ -1,6 +1,13 @@
 <template>
 	<el-dialog title="编辑订单发货表" width="65%" @closed="closed" :visible.sync="dialogFormVisible">
 		<el-form :model="editData"  :rules="rules" ref="editForm" label-width="110px">
+      
+			<el-form-item label="人工发货:" prop="is_mf">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.is_mf" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in isMf" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
     </el-form>
 		<div slot="footer" class="dialog-footer">
 			<el-button size="medium" @click="dialogFormVisible = false">取 消</el-button>
@@ -15,6 +22,7 @@ export default {
 		return {
 			dialogFormVisible: false,    //编辑表单显示隐藏
 			editData: {},                //编辑数据对象
+      isMf: this.$enum.get("bool"),
 			rules: {                    //数据验证规则
 			},
 		}

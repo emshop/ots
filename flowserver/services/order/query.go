@@ -16,7 +16,7 @@ func Query(ctx hydra.IContext) interface{} {
 	}
 
 	ctx.Log().Debug("1. 查询订单信息")
-	order, err := orders.Query(ctx.Request().GetString(fields.FieldMerNo),
+	order, err := orders.QueryDetail(ctx.Request().GetString(fields.FieldMerNo),
 		ctx.Request().GetString(fields.FieldMerOrderNo))
 	if err == nil && order.Len() > 0 {
 		return order

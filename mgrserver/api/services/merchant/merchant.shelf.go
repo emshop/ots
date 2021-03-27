@@ -137,7 +137,7 @@ var postMerchantShelfCheckFields = map[string]interface{}{
 	field.FieldLimitCount:"required",
 	field.FieldInvoiceType:"required",
 	field.FieldCanRefund:"required",
-	field.FieldCanSplitOrder:"required",
+	field.FieldAssignUpstream:"required",
 	field.FieldStatus:"required",
 	}
 
@@ -162,7 +162,7 @@ var updateMerchantShelfCheckFields = map[string]interface{}{
 	field.FieldLimitCount:"required",
 	field.FieldInvoiceType:"required",
 	field.FieldCanRefund:"required",
-	field.FieldCanSplitOrder:"required",
+	field.FieldAssignUpstream:"required",
 	field.FieldStatus:"required",
 	}
 

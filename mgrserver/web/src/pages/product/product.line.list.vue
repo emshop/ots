@@ -16,6 +16,20 @@
 				</el-form-item>
 			
 				<el-form-item>
+					<el-select size="medium" v-model="queryData.has_feedback"  clearable filterable class="input-cos" placeholder="请选择包含反馈">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in hasFeedback" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
+				</el-form-item>
+			
+				<el-form-item>
+					<el-select size="medium" v-model="queryData.has_logistics"  clearable filterable class="input-cos" placeholder="请选择包含物流">
+						<el-option value="" label="全部"></el-option>
+						<el-option v-for="(item, index) in hasLogistics" :key="index" :value="item.value" :label="item.name"></el-option>
+					</el-select>
+				</el-form-item>
+			
+				<el-form-item>
 					<el-select size="medium" v-model="queryData.status"  clearable filterable class="input-cos" placeholder="请选择状态">
 						<el-option value="" label="全部"></el-option>
 						<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
@@ -56,6 +70,16 @@
 				<el-table-column   prop="pl_type" label="类型" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.pl_type|fltrTextColor">{{scope.row.pl_type | fltrEnum("pl_type")}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="has_feedback" label="包含反馈" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.has_feedback|fltrTextColor">{{scope.row.has_feedback | fltrEnum("bool")}}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="has_logistics" label="包含物流" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.has_logistics|fltrTextColor">{{scope.row.has_logistics | fltrEnum("bool")}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
@@ -114,6 +138,8 @@ export default {
 			addData:{},                 //添加数据对象 
       queryData:{},               //查询数据对象
 			plType: this.$enum.get("pl_type"),
+			hasFeedback: this.$enum.get("bool"),
+			hasLogistics: this.$enum.get("bool"),
 			status: this.$enum.get("status"),
 			order: "t.pl_id desc",
 			dataList: {count: 0,items: []}, //表单数据对象,

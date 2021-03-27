@@ -64,6 +64,13 @@
 			</el-form-item>
       
       
+			<el-form-item label="人工发货:" prop="is_mf">
+				<el-select size="medium" style="width: 100%;"	v-model="editData.is_mf" clearable filterable class="input-cos" placeholder="---请选择---"	>
+					<el-option v-for="(item, index) in isMf" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
+      
 			<el-form-item label="状态:" prop="status">
 				<el-select size="medium" style="width: 100%;"	v-model="editData.status" clearable filterable class="input-cos" placeholder="---请选择---"	>
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
@@ -86,6 +93,7 @@ export default {
 			editData: {},                //编辑数据对象
       invoiceType: this.$enum.get("invoice_type"),
       canRefund: this.$enum.get("bool"),
+      isMf: this.$enum.get("bool"),
       status: this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				spp_shelf_name: [

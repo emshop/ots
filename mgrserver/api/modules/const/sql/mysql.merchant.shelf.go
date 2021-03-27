@@ -14,7 +14,7 @@ insert into ots_merchant_shelf
 	limit_count,
 	invoice_type,
 	can_refund,
-	can_split_order,
+	assign_upstream,
 	status
 )
 values
@@ -30,7 +30,7 @@ values
 	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
-	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
+	if(isnull(@assign_upstream)||@assign_upstream='',0,@assign_upstream),
 	if(isnull(@status)||@status='',0,@status)
 )`
 //GetMerchantShelfByMerShelfID 查询商户货架单条数据
@@ -47,7 +47,7 @@ select
 	t.limit_count,
 	t.invoice_type,
 	t.can_refund,
-	t.can_split_order,
+	t.assign_upstream,
 	t.status,
 	t.create_time
 from ots_merchant_shelf t
@@ -73,7 +73,6 @@ select
 	t.payment_fee_discount,
 	t.order_timeout,
 	t.invoice_type,
-	t.can_split_order,
 	t.status 
 from ots_merchant_shelf t
 where
@@ -95,7 +94,7 @@ set
 	limit_count =	if(isnull(@limit_count)||@limit_count='',0,@limit_count),
 	invoice_type =	if(isnull(@invoice_type)||@invoice_type='',0,@invoice_type),
 	can_refund =	if(isnull(@can_refund)||@can_refund='',0,@can_refund),
-	can_split_order =	if(isnull(@can_split_order)||@can_split_order='',0,@can_split_order),
+	assign_upstream =	if(isnull(@assign_upstream)||@assign_upstream='',0,@assign_upstream),
 	status =	if(isnull(@status)||@status='',0,@status)
 where
 	&mer_shelf_id`

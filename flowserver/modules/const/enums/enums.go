@@ -2,6 +2,15 @@ package enums
 
 import "fmt"
 
+const LbSuccess = "success"
+
+type BoolStatus int
+
+const (
+	True  BoolStatus = 0
+	False BoolStatus = 1
+)
+
 //FlowStatus 流程状态
 type FlowStatus int
 

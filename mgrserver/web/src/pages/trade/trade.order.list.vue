@@ -99,6 +99,24 @@
 						<span v-else>{{scope.row.account_name | fltrEmpty }}</span>
 					</template>
 				</el-table-column>
+				<el-table-column   prop="tel" label="联系电话" align="center">
+					<template slot-scope="scope">
+						<el-tooltip class="item" v-if="scope.row.tel && scope.row.tel.length > 8" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.tel}}</div>
+							<span>{{scope.row.tel | fltrSubstr(8) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.tel | fltrEmpty }}</span>
+					</template>
+				</el-table-column>
+				<el-table-column   prop="addr" label="收货地址" align="center">
+					<template slot-scope="scope">
+						<el-tooltip class="item" v-if="scope.row.addr && scope.row.addr.length > 8" effect="dark" placement="top">
+							<div slot="content" style="width: 110px">{{scope.row.addr}}</div>
+							<span>{{scope.row.addr | fltrSubstr(8) }}</span>
+						</el-tooltip>
+						<span v-else>{{scope.row.addr | fltrEmpty }}</span>
+					</template>
+				</el-table-column>
 				<el-table-column   prop="sell_discount" label="销售折扣" align="center">
 				<template slot-scope="scope">
 					<span>{{scope.row.sell_discount | fltrNumberFormat(2)}}</span>

@@ -18,13 +18,14 @@ const ots_trade_order=`
 		num int  not null  comment '数量' ,
 		total_face int  not null  comment '商品总面值' ,
 		account_name varchar(64)  not null  comment '用户账户' ,
+		tel varchar(64)    comment '联系电话' ,
+		addr varchar(64)    comment '收货地址' ,
 		invoice_type tinyint  not null  comment '发票（1.不支持）' ,
 		sell_discount decimal(20,5)  not null  comment '销售折扣' ,
 		sell_amount decimal(20,5)  not null  comment '总销售金额' ,
 		mer_fee_discount decimal(20,5)  not null  comment '商户佣金折扣' ,
 		trade_fee_discount decimal(20,5)  not null  comment '交易服务折扣' ,
 		payment_fee_discount decimal(20,5)  not null  comment '支付手续费折扣' ,
-		can_split_order tinyint default 1 not null  comment '是否拆单（0.是，1否）' ,
 		create_time datetime default current_timestamp not null  comment '订单时间' ,
 		finish_time datetime default current_timestamp not null  comment '完成时间' ,
 		order_timeout datetime  not null  comment '订单超时时间' ,
@@ -49,8 +50,8 @@ const ots_trade_order=`
 		profit decimal(20,5) default 0 not null  comment '利润(1-2-3-4-5+6-7-8)' ,
 		last_update_time datetime default current_timestamp not null  comment '最后更新时间' ,
 		batch_id bigint    comment '执行批次号' 
-		,index order_index(create_time,mer_no,pl_id,brand_no,province_no)
 		,unique index mer_order(mer_no,mer_order_no)
 		,index order_last_update(last_update_time)
 		,primary key (order_id)
+		,index order_index(create_time,mer_no,pl_id,brand_no,province_no)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单记录'`

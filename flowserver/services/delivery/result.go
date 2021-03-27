@@ -33,7 +33,6 @@ func SaveDeliveryResult(ctx hydra.IContext) interface{} {
 	if err != nil {
 		return err
 	}
-	ctx.Log().Debug("delivery.save:", s, r)
 	if s == enums.Success && r.GetInt(fields.FieldOrderStatus) == int(enums.OrderNotify) {
 		ctx.Log().Debug("2. 执行后续流程")
 		flows.NextByDeliveryID(ctx.Request().GetString(fields.FieldDeliveryID), enums.FlowDeliveryPay, ctx, fields.FieldOrderID, r.GetString(fields.FieldOrderID))

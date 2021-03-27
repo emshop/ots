@@ -99,9 +99,6 @@ const FieldTradeFeeAmount = "trade_fee_amount"
 //FieldPaymentFeeAmount 字段支付手续费金额的数据库名称
 const FieldPaymentFeeAmount = "payment_fee_amount"
 
-//FieldCanSplitOrder 字段是否拆单（0.是，1否）的数据库名称
-const FieldCanSplitOrder = "can_split_order"
-
 //FieldCreateTime 字段创建时间的数据库名称
 const FieldCreateTime = "create_time"
 

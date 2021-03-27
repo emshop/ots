@@ -16,6 +16,20 @@
 			</el-form-item>
       
       
+			<el-form-item label="包含反馈:" prop="has_feedback">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.has_feedback"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in hasFeedback" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
+      
+			<el-form-item label="包含物流:" prop="has_logistics">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.has_logistics"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in hasLogistics" :key="index" :value="item.value" :label="item.name"></el-option>
+				</el-select>
+			</el-form-item>
+      
+      
 			<el-form-item label="状态:" prop="status">
 				<el-select size="medium" style="width: 100%;"	v-model="addData.status"	clearable filterable class="input-cos" placeholder="---请选择---">
 					<el-option v-for="(item, index) in status" :key="index" :value="item.value" :label="item.name"></el-option>
@@ -38,10 +52,14 @@ export default {
 			addData: {},
 			dialogAddVisible: false,
 			plType:this.$enum.get("pl_type"),
+			hasFeedback:this.$enum.get("bool"),
+			hasLogistics:this.$enum.get("bool"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				pl_name: [{ required: true, message: "请输入产品线名称", trigger: "blur" }],
 				pl_type: [{ required: true, message: "请输入类型", trigger: "blur" }],
+				has_feedback: [{ required: true, message: "请输入包含反馈", trigger: "blur" }],
+				has_logistics: [{ required: true, message: "请输入包含物流", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}

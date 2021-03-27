@@ -35,6 +35,17 @@ where
 t.order_id = @order_id`,
 }
 
+//查询发货信息是否需要反馈数据
+var checkDeliveryFeedback = []string{
+
+	`
+select l.has_feedback from ots_trade_delivery t
+inner join ots_product_line l on l.pl_id=t.pl_id
+where
+t.delivery_id = @delivery_id 
+`,
+}
+
 var updateForDeliverySuccess = []string{
 
 	//更新发货系统
@@ -78,7 +89,6 @@ t.delivery_id = @delivery_id
 	`
 update ots_trade_order t set
 t.order_status = case t.success_face + @succ_face when t.total_face then 50 else t.order_status end,
-t.notify_status = case t.success_face + @succ_face when  t.total_face then 20 else t.notify_status end,
 t.delivery_status = case t.success_face + @succ_face when t.total_face then 0 else t.delivery_status end,
 t.success_face = t.success_face + @succ_face,
 t.success_sell_amount = (t.success_sell_amount + @succ_face) * t.sell_discount,

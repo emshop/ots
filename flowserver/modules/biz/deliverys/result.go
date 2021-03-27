@@ -2,11 +2,13 @@ package deliverys
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/emshop/ots/flowserver/modules/const/enums"
 	"github.com/emshop/ots/flowserver/modules/const/fields"
 
 	"github.com/micro-plat/hydra"
+	"github.com/micro-plat/lib4go/errs"
 	"github.com/micro-plat/lib4go/types"
 )
 
@@ -32,7 +34,6 @@ func SaveAuditResult(deliveryID string, resultCode string, returnMsg string, dis
 
 //Save 保存发货结果
 func Save(deliveryID string, source enums.ResultSource, resultCode string, returnMsg string, discount types.Decimal, extParams string) (enums.FlowStatus, types.IXMap, error) {
-
 	//获取处理结果
 	result, msg := GetDealCode(deliveryID, source, resultCode)
 	returnMsg = fmt.Sprintf("%s(%s)", returnMsg, msg)
@@ -95,7 +96,19 @@ func SaveSuccess(deliveryID string, discount types.Decimal, source enums.ResultS
 		return nil, err
 	}
 
-	r, err := db.ExecuteBatch(updateForDeliverySuccess, input)
+	//检查反馈信息是否为空
+	r, err := db.ExecuteBatch(checkDeliveryFeedback, input)
+	if err != nil {
+		db.Rollback()
+		return nil, err
+	}
+	if r.Get(0).GetInt(fields.FieldHasFeedback) == int(enums.True) && params == "" {
+		db.Rollback()
+		return nil, errs.NewError(http.StatusNotAcceptable, "request_params不能为空")
+	}
+
+	//执行正常的逻辑处理
+	r, err = db.ExecuteBatch(updateForDeliverySuccess, input)
 	if err != nil {
 		db.Rollback()
 		return nil, err

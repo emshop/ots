@@ -100,10 +100,10 @@
                       <div :class="info.can_refund|fltrTextColor">{{ info.can_refund | fltrEnum("bool") }}</div>
                     </el-col>                 
                     <el-col :span="6">
-                      <div class="pull-right" style="margin-right: 10px">允许拆单:</div>
+                      <div class="pull-right" style="margin-right: 10px">指定上游:</div>
                     </el-col>
                     <el-col :span="6">
-                      <div :class="info.can_split_order|fltrTextColor">{{ info.can_split_order | fltrEnum("bool") }}</div>
+                      <div :class="info.assign_upstream|fltrTextColor">{{ info.assign_upstream | fltrEnum("bool") }}</div>
                     </el-col>
                   </td>
                 </tr>
@@ -127,8 +127,52 @@
             </table>
           </div>
         </el-tab-pane>
+        <el-tab-pane label="商户上游" name="MerchantUpstreamDetail">
+          <el-scrollbar style="height:100%" id="panel-body">
+            <el-table :data="MerchantUpstreamList.items" stripe style="width: 100%" :height="maxHeight">
+              
+              <el-table-column   prop="mu_id" label="编号" align="center">
+              <template slot-scope="scope">
+                <span>{{scope.row.mu_id | fltrEmpty }}</span>
+              </template>
+              
+              </el-table-column>
+              <el-table-column   prop="mer_shelf_id" label="货架" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.mer_shelf_id | fltrEnum("merchant_shelf")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="spp_no" label="供货商" align="center">
+                <template slot-scope="scope">
+                  <span >{{scope.row.spp_no | fltrEnum("supplier_info")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="status" label="状态" align="center">
+                <template slot-scope="scope">
+                  <span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>
+                </template>
+              </el-table-column>
+              <el-table-column   prop="create_time" label="创建时间" align="center">
+              <template slot-scope="scope">
+                <div>{{scope.row.create_time | fltrDate("yyyy-MM-dd") }}</div>
+              </template>
+              </el-table-column>
+            </el-table>
+          </el-scrollbar>
+        </el-tab-pane>
         
       </el-tabs>
+    </div>   
+    <div class="page-pagination" v-show="tabName =='MerchantUpstreamDetail'">
+    <el-pagination
+      @size-change="pageMerchantUpstreamSizeChange"
+      @current-change="pageMerchantUpstreamIndexChange"
+      :current-page="pagingMerchantUpstream.pi"
+      :page-size="pagingMerchantUpstream.ps"
+      :page-sizes="pagingMerchantUpstream.sizes"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="MerchantUpstreamList.count">
+    </el-pagination>
     </div>
   </div>
 </template>
@@ -139,6 +183,9 @@ export default {
     return {
       tabName: "MerchantShelfDetail",
       info: {},
+      pagingMerchantUpstream: {ps: 10, pi: 1,total:0,sizes:[5, 10, 20, 50]},
+      MerchantUpstreamList: {count: 0,items: []}, //表单数据对象,
+      queryMerchantUpstreamParams:{},  //查询数据对象
 			maxHeight: 0
     }
   },
@@ -157,10 +204,37 @@ export default {
     queryDetailData() {
       this.info = this.$http.xget("/merchant/shelf",this.$route.query)
     },
+    /**查询数据并赋值*/
+		queryMerchantUpstreamDatas() {
+      this.pagingMerchantUpstream.pi = 1
+      this.queryMerchantUpstreamData()
+    },
+    queryMerchantUpstreamData(){
+      this.queryMerchantUpstreamParams.pi = this.pagingMerchantUpstream.pi
+			this.queryMerchantUpstreamParams.ps = this.pagingMerchantUpstream.ps
+      var data = this.$utility.delEmptyProperty(this.queryMerchantUpstreamParams)
+      data.mer_shelf_id = this.info.mer_shelf_id || ""
+      let res = this.$http.xpost("/merchant/upstream/querydetail", data)
+			this.MerchantUpstreamList.items = res.items || []
+			this.MerchantUpstreamList.count = res.count
+    },
+    /**改变页容量*/
+		pageMerchantUpstreamSizeChange(val) {
+      this.pagingMerchantUpstream.ps = val
+      this.queryMerchantUpstreamData()
+    },
+    /**改变当前页码*/
+    pageMerchantUpstreamIndexChange(val) {
+      this.pagingMerchantUpstream.pi = val
+      this.queryMerchantUpstreamData()
+    },
     handleClick(tab) {
       switch (tab.name) {
         case "MerchantShelfDetail":
           this.queryDetailData();
+          break;
+        case "MerchantUpstreamDetail":
+          this.queryMerchantUpstreamData();
           break;
         default:
           this.$notify({

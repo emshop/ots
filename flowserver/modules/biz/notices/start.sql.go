@@ -2,26 +2,15 @@ package notices
 
 //处理无须处理订单
 var updateNoNeedNotices = []string{
-	//更新通知信息
-	`
-update ots_notify_info t set
-t.start_time = now(),
-t.end_time = now(),
-t.notify_msg = '无须通知' 
-where
-t.order_id = @order_id 
-and t.notify_status = 11
-`,
 
 	//修改订单状态
 	`
 update ots_trade_order t set
-t.notify_status = 11,
 t.order_status = 60
 where
 t.order_id = @order_id
 and t.order_status = 50
-and t.notify_status = 20
+and t.notify_status = 11
 `,
 }
 
@@ -30,8 +19,8 @@ var startNotices = []string{
 	//更新通知信息
 	`
 update ots_notify_info t set
-t.notify_status = case t.notify_status when 10 then 30 else t.notify_status = t.notify_status end,
 t.start_time = case t.notify_status when 10 then now() else t.start_time end,
+t.notify_status = case t.notify_status when 10 then 30 else t.notify_status = t.notify_status end,
 t.notify_count = t.notify_count + 1
 where
 t.order_id = @order_id 

@@ -83,6 +83,11 @@
 						<span :class="scope.row.can_refund|fltrTextColor">{{scope.row.can_refund | fltrEnum("bool")}}</span>
 					</template>
 				</el-table-column>
+				<el-table-column   prop="is_mf" label="人工发货" align="center">
+					<template slot-scope="scope">
+						<span :class="scope.row.is_mf|fltrTextColor">{{scope.row.is_mf | fltrEnum("bool")}}</span>
+					</template>
+				</el-table-column>
 				<el-table-column   prop="status" label="状态" align="center">
 					<template slot-scope="scope">
 						<span :class="scope.row.status|fltrTextColor">{{scope.row.status | fltrEnum("status")}}</span>

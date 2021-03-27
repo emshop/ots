@@ -133,6 +133,8 @@ func (u *ProductLineHandler) PutHandle(ctx hydra.IContext) (r interface{}) {
 var postProductLineCheckFields = map[string]interface{}{
 	field.FieldPlName:"required",
 	field.FieldPlType:"required",
+	field.FieldHasFeedback:"required",
+	field.FieldHasLogistics:"required",
 	field.FieldStatus:"required",
 	}
 
@@ -144,12 +146,16 @@ var getProductLineCheckFields = map[string]interface{}{
 var queryProductLineCheckFields = map[string]interface{}{
 	field.FieldPlName:"required",
 	field.FieldPlType:"required",
+	field.FieldHasFeedback:"required",
+	field.FieldHasLogistics:"required",
 	field.FieldStatus:"required",
 	}
 
 
 var updateProductLineCheckFields = map[string]interface{}{
 	field.FieldPlName:"required",
+	field.FieldHasFeedback:"required",
+	field.FieldHasLogistics:"required",
 	field.FieldStatus:"required",
 	}
 

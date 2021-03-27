@@ -43,6 +43,7 @@ func MockRequestHandle(ctx hydra.IContext) (r interface{}) {
 
 	ctx.Request().SetValue(fields.FieldResultCode, code)
 	ctx.Request().SetValue(fields.FieldReturnMsg, msg)
+	ctx.Request().SetValue(fields.FieldRequestParams, `{"id":100}`)
 
 	rpns = SaveDeliveryResult(ctx)
 	if err := errs.GetError(rpns); err != nil {
@@ -88,6 +89,7 @@ func MockQueryHandle(ctx hydra.IContext) (r interface{}) {
 
 		ctx.Request().SetValue(fields.FieldResultCode, code)
 		ctx.Request().SetValue(fields.FieldReturnMsg, msg)
+		ctx.Request().SetValue(fields.FieldRequestParams, `{"id":100}`)
 
 		rpns = SaveDeliveryResult(ctx)
 		if err := errs.GetError(rpns); err != nil {

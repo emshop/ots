@@ -66,9 +66,9 @@
 			</el-form-item>
       
       
-			<el-form-item label="允许拆单:" prop="can_split_order">
-				<el-select size="medium" style="width: 100%;"	v-model="addData.can_split_order"	clearable filterable class="input-cos" placeholder="---请选择---">
-					<el-option v-for="(item, index) in canSplitOrder" :key="index" :value="item.value" :label="item.name"></el-option>
+			<el-form-item label="指定上游:" prop="assign_upstream">
+				<el-select size="medium" style="width: 100%;"	v-model="addData.assign_upstream"	clearable filterable class="input-cos" placeholder="---请选择---">
+					<el-option v-for="(item, index) in assignUpstream" :key="index" :value="item.value" :label="item.name"></el-option>
 				</el-select>
 			</el-form-item>
       
@@ -97,7 +97,7 @@ export default {
 			merNo:this.$enum.get("merchant_info"),
 			invoiceType:this.$enum.get("invoice_type"),
 			canRefund:this.$enum.get("bool"),
-			canSplitOrder:this.$enum.get("bool"),
+			assignUpstream:this.$enum.get("bool"),
 			status:this.$enum.get("status"),
 			rules: {                    //数据验证规则
 				mer_shelf_name: [{ required: true, message: "请输入货架名称", trigger: "blur" }],
@@ -110,7 +110,7 @@ export default {
 				limit_count: [{ required: true, message: "请输入单次最大数量", trigger: "blur" }],
 				invoice_type: [{ required: true, message: "请输入允许开票", trigger: "blur" }],
 				can_refund: [{ required: true, message: "请输入允许退款", trigger: "blur" }],
-				can_split_order: [{ required: true, message: "请输入允许拆单", trigger: "blur" }],
+				assign_upstream: [{ required: true, message: "请输入指定上游", trigger: "blur" }],
 				status: [{ required: true, message: "请输入状态", trigger: "blur" }],
 			},
 		}

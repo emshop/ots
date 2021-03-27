@@ -28,6 +28,7 @@ const ots_trade_delivery=`
 		spp_fee_discount decimal(10,5) default 0 not null  comment '商户佣金' ,
 		trade_fee_discount decimal(10,5) default 0 not null  comment '交易服务费' ,
 		payment_fee_discount decimal(10,5) default 0 not null  comment '支付手续费' ,
+		is_mf tinyint default 1   comment '人工发货 (0.是,1.否)' ,
 		cost_amount decimal(20,5) default 0 not null  comment '发货成本' ,
 		spp_fee_amount decimal(20,5) default 0 not null  comment '供货商佣金' ,
 		trade_fee_amount decimal(20,5) default 0 not null  comment '供货商服务费' ,
@@ -43,7 +44,7 @@ const ots_trade_delivery=`
 		result_code varchar(32)    comment '发货结果码' ,
 		last_update_time datetime default current_timestamp not null  comment '最后更新时间' ,
 		batch_id bigint    comment '执行批次号' 
-		,index delivery_time(create_time,pl_id,brand_no,province_no,city_no)
 		,primary key (delivery_id)
 		,index delivery_order(order_id)
+		,index delivery_time(create_time,pl_id,brand_no,province_no,city_no)
 	) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='订单发货表'`

@@ -36,6 +36,22 @@
                       <div :class="info.pl_type|fltrTextColor">{{ info.pl_type | fltrEnum("pl_type") }}</div>
                     </el-col>                 
                     <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">包含反馈:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.has_feedback|fltrTextColor">{{ info.has_feedback | fltrEnum("bool") }}</div>
+                    </el-col>
+                  </td>
+                </tr>
+                <tr>
+                  <td>                 
+                    <el-col :span="6">
+                      <div class="pull-right" style="margin-right: 10px">包含物流:</div>
+                    </el-col>
+                    <el-col :span="6">
+                      <div :class="info.has_logistics|fltrTextColor">{{ info.has_logistics | fltrEnum("bool") }}</div>
+                    </el-col>                 
+                    <el-col :span="6">
                       <div class="pull-right" style="margin-right: 10px">状态:</div>
                     </el-col>
                     <el-col :span="6">
